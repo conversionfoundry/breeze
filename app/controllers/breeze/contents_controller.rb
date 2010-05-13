@@ -1,7 +1,7 @@
 module Breeze
   class ContentsController < ApplicationController
     def show
-      render :text => "Hello world!"
+      render :nothing => true, :status => :not_found
     end
   end
 end
