@@ -19,6 +19,7 @@
         <% end -%>
       </div>
     </div>
+    <%= flash_messages %>
     <% main, left, right = [ yield, yield(:left), yield(:right) ].map(&:strip) -%>
     <% if left.blank?; left = pane_layout {}; end -%>
     <% if right.blank? -%>

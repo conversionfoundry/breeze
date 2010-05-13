@@ -18,4 +18,9 @@ $(function() {
     selected_tab.closest('li').click();
     return false;
   });
+  
+  $('.flash .close').live('click', function() {
+    $(this).closest('.flash').slideUp('fast', function() { $(this).remove(); });
+    return false;
+  });
 });

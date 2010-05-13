@@ -107,6 +107,42 @@ body, td, input, select, textarea {
 
 /*}}}*/
 
+/* Flash {{{ */
+
+.flash {
+  position: fixed;
+  top: 38px;
+  left: 32px;
+  right: 32px;
+  z-index: 10;
+  padding: 12px 32px 12px 16px;
+  font-size: 125%;
+  background: rgba(255, 255, 192, 0.75);
+  text-shadow: #ffc 0px 1px;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+.flash .close {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-size: 150%;
+  line-height: 16px;
+  width: 16px;
+  text-align: center;
+  vertical-align: baseline;
+  text-decoration: none;
+  color: #666;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.15s ease-in;
+}
+
+.flash .close:hover { opacity: 1.0; }
+
+/*}}}*/
+
 /* Header {{{ */
 
 #header {
