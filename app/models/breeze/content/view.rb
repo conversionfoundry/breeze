@@ -2,6 +2,7 @@ module Breeze
   module Content
     class View
       include Mongoid::Document
+      extend ActiveSupport::Memoizable
       
       embedded_in :content_item, :inverse_of => :views
       field :name
@@ -47,8 +48,9 @@ module Breeze
       end
 
       def variables_for_render
-        { :content => content }
+        content.variables_for_render
       end
+      memoize :variables_for_render
     end
   end
 end

@@ -26,6 +26,10 @@ module Breeze
         controller.performed?
       end
       
+      def variables_for_render
+        { :content => :self }
+      end
+      
       def to_xml(options = {})
         super options.reverse_merge(:except => [ :_id, :_type ], :methods => [ :id, :type ], :root => self.base_class.name.demodulize.underscore)
       end
