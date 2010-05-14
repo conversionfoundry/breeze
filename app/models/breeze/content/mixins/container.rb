@@ -10,6 +10,18 @@ module Breeze
           end
         end
         
+        def to_erb(view)
+          returning("") do |str|
+            placements.for(:view => view).group_by(&:region).each do |region, placements|
+              str << "<% content_for_region :#{region.to_sym} do %>\n"
+              placements.each do |placement|
+                str << placement.to_erb(view)
+              end
+              str << "<% end %>\n"
+            end
+          end
+        end
+        
         module ClassMethods
         end
       end

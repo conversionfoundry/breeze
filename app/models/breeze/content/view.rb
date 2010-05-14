@@ -39,6 +39,16 @@ module Breeze
           end
         end
       end
+      
+      def template
+        content.template || content.class.self_and_superclasses.detect do |klass|
+          controller.template_exists? klass.default_template_name, "layouts"
+        end.try(:default_template_name)
+      end
+
+      def variables_for_render
+        { :content => content }
+      end
     end
   end
 end
