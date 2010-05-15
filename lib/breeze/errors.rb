@@ -15,6 +15,10 @@ module Breeze
         self.class.name.demodulize.underscore.to_sym
       end
       
+      def status_code
+        to_sym
+      end
+      
       def method_missing(sym, *args, &block)
         request.send sym, *args, &block
       end
