@@ -2,7 +2,7 @@ module Breeze
   module Content
     class NavigationItem < Item
       include Mongoid::Document
-      include Mixins::NestedSet
+      include Mixins::TreeStructure
       include Mixins::Permalinks
       
       field :title
