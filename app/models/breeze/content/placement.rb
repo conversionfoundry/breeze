@@ -5,6 +5,7 @@ module Breeze
       
       field :region
       field :view
+      field :position, :type => Integer
       belongs_to_related :content, :class_name => "Breeze::Content::Item"
       embedded_in :container, :inverse_of => :placements
       

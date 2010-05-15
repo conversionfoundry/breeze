@@ -8,6 +8,7 @@ module Breeze
               @target.select { |p| p.match?(options) }
             end
           end
+          base.accepts_nested_attributes_for :placements, :reject_if => lambda { |v| v[:delete].present? }
         end
         
         def to_erb(view)
