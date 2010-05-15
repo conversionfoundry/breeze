@@ -5,7 +5,7 @@ module Breeze
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
       
-      field :placements_count, :type => Integer, :default => 1
+      field :placements_count, :type => Integer, :default => 0
       field :template
       
       embeds_many :views, :class_name => "Breeze::Content::View" do
