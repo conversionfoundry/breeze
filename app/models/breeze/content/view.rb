@@ -48,9 +48,8 @@ module Breeze
       end
 
       def variables_for_render
-        content.variables_for_render
+        @variables_for_render ||= content.variables_for_render
       end
-      memoize :variables_for_render
     end
   end
 end

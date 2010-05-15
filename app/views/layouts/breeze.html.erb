@@ -11,7 +11,7 @@
     <div id="header">
       <div class="top">
         <a class="logo" href="/admin">Breeze</a>
-        <% if signed_in? -%>
+        <% if signed_in? %>
           <div id="signed-in-user">
             Signed in as <%= link_to current_user, edit_admin_user_path(current_user), :class => :user %> |
             <%= link_to "Sign out", destroy_admin_session_path %>
@@ -20,15 +20,8 @@
       </div>
     </div>
     <%= flash_messages %>
-    <% main, left, right = [ yield, yield(:left), yield(:right) ].map(&:strip) -%>
-    <% if left.blank?; left = pane_layout {}; end -%>
-    <% if right.blank? -%>
-      <%= content_tag :div, main, :id => :main, :class => "no-sidebar" %>
-      <%= content_tag :div, left, :id => :left %>
-    <% else -%>
-      <%= content_tag :div, main, :id => :main %>
-      <%= content_tag :div, left, :id => :left %>
-      <%= content_tag :div, right, :id => :right %>
-    <% end -%>
+    <%= content_tag :div, main, :id => :main, :class => "#{'no-sidebar' unless content_for?(:right)}" %>
+    <%= content_tag :div, left, :id => :left %>
+    <%= content_tag :div, right, :id => :right if content_for?(:right) %>
   </body>
 </html>
