@@ -3,6 +3,7 @@ module Breeze
     class Item
       include Mongoid::Document
       include ActiveModel::Serializers::Xml
+      include Mixins::Markdown
       
       field :placements_count, :type => Integer, :default => 1
       field :template
