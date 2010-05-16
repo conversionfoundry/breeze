@@ -1,0 +1,12 @@
+<%= link_to "« Back to themes", admin_themes_path, :class => "medium back button" %>
+
+<%= content_tag :p, :class => "theme-status" do %>
+  This theme is
+  <% if theme.enabled? %>
+    <strong>enabled</strong>.
+    <%= link_to "Disable now", disable_admin_theme_path(theme.name), :class => "medium disable button" %>
+  <% else %>
+    <strong>disabled</strong>.
+    <%= link_to "Enable now", enable_admin_theme_path(theme.name), :class => "medium enable button" %>
+  <% end %>
+<% end %>

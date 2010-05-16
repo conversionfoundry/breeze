@@ -33,18 +33,20 @@ body, td, input, select, textarea {
 
 #left,
 #right {
-  width: 224px;
+  width: 223px;
   background: #ddd;
   z-index: 1;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #ddd;
 }
 
 #left {
   left: 0px;
+  border-right: 1px solid #aaa;
 }
 
 #right {
   right: 0px;
+  border-left: 1px solid #aaa;
 }
 
 #main .header,
@@ -59,9 +61,47 @@ body, td, input, select, textarea {
   background: #bbb -webkit-gradient(linear, left top, left bottom, color-stop(0.9, rgba(0, 0, 0, 0)), color-stop(1, rgba(0, 0, 0, 0.15)));
 }
 
+#main .header { left: -1px; }
+#left .header { right: -1px; }
+#right .header { left: -1px; }
+
 #left .header,
 #right .header {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+#left .inner {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 40px;
+  overflow: auto;
+}
+
+.sliding {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  overflow: hidden;
+}
+
+#left .sliding {
+  right: -1px;
+}
+
+.sliding .pages {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+}
+
+.sliding .page {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
 }
 
 /*}}}*/
@@ -200,4 +240,124 @@ body, td, input, select, textarea {
 }
 
 /*}}}*/
+
+/* Left sidebar {{{ */
+
+#left h2 {
+  margin: 0px;
+  padding: 0px 0px 0px 8px;
+  line-height: 40px;
+  vertical-align: middle;
+  color: white;
+  text-transform: uppercase;
+  text-shadow: rgba(0, 0, 0, 0.25) 0px -1px;
+  font-size: 150%;
+}
+
+#left .inner {
+  padding: 8px;
+}
+
+/* }}} */
+
+/* Forms {{{ */
+
+.button, .button:visited {
+	background: #222 url(../images/button-overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+}
+
+.button:hover	{ background-color: #111; color: #fff; }
+.button:active { top: 1px; }
+.small.button, .small.button:visited { font-size: 11px; padding: ; }
+.button, .button:visited,
+.medium.button, .medium.button:visited { font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
+.large.button, .large.button:visited { font-size: 14px; padding: 8px 14px 9px; }
+
+.green.button, .green.button:visited      { background-color: #91bd09; }
+.green.button:hover                       { background-color: #749a02; }
+.blue.button, .blue.button:visited        { background-color: #2daebf; }
+.blue.button:hover                        { background-color: #007d9a; }
+.red.button, .red.button:visited          { background-color: #e33100; }
+.red.button:hover                         { background-color: #872300; }
+.magenta.button, .magenta.button:visited	{ background-color: #a9014b; }
+.magenta.button:hover	        						{ background-color: #630030; }
+.orange.button, .orange.button:visited		{ background-color: #ff5c00; }
+.orange.button:hover					        		{ background-color: #d45500; }
+.yellow.button, .yellow.button:visited		{ background-color: #ffb515; }
+.yellow.button:hover							        { background-color: #fc9200; }
+
+/* }}} */
+
+/* Theme editor {{{ */
+
+#left #themes {
+  margin: 0px;
+  padding: 0px;
+}
+
+#left #themes .theme li {
+  display: inline;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+#left #themes .theme a {
+  display: block;
+  margin: 0px 0px 8px;
+  padding: 8px;
+  background: #ccc;
+  color: #999;
+  text-decoration: none;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+}
+
+#left #themes .theme strong {
+  text-transform: uppercase;
+  text-shadow: rgba(255, 255, 255, 0.5) 0px 1px;
+}
+
+#left #themes .enabled a {
+  background: #8dc63f;
+  color: #222;
+}
+
+#left #themes .enabled strong {
+  text-shadow: rgba(255, 255, 255, 0.25) 0px 1px;
+}
+
+#left #themes .theme a.loading {
+  background-image: url(../images/loading-small-666-ccc.gif);
+  background-position: 184px 50%;
+  background-repeat: no-repeat;
+}
+
+#left #themes .enabled a.loading {
+  background-image: url(../images/loading-small-222-8dc63f.gif);
+}
+
+#left .theme-status {
+  margin: 8px 0px;
+  padding: 8px;
+  background: rgba(255, 255, 192, 0.75);
+  text-shadow: #ffc 0px 1px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+/* }}} */
 

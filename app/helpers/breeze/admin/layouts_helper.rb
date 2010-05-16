@@ -5,23 +5,30 @@ module Breeze::Admin::LayoutsHelper
     def initialize(context, options = {})
       @context = context
       @options = options || {}
-      @inner = ""
-      @footer = ""
+      @header, @header_options = "", options.delete(:header) || {}
+      @inner, @inner_options = "", options.delete(:inner) || {}
+      @footer, @footer_options = "", options.delete(:footer) || {}
     end
     
-    def header(options = {}, &block)
-      (options[:header] ||= {}).merge! options
-      @header = @context.capture(&block)
+    def header(*args, &block)
+      options = args.extract_options!
+      (self.options[:header] ||= {}).merge! options
+      @header = capture_content *args, &block
+      return
     end
     
-    def inner(options = {}, &block)
-      (options[:inner] ||= {}).merge! options
-      @inner = @context.capture(&block)
+    def inner(*args, &block)
+      options = args.extract_options!
+      (self.options[:inner] ||= {}).merge! options
+      @inner = capture_content *args, &block
+      return
     end
     
-    def footer(options = {}, &block)
-      (options[:footer] ||= {}).merge! options
-      @footer = @context.capture(&block)
+    def footer(*args, &block)
+      options = args.extract_options!
+      (self.options[:footer] ||= {}).merge! options
+      @footer = capture_content *args, &block
+      return
     end
     
     def to_html
@@ -29,8 +36,15 @@ module Breeze::Admin::LayoutsHelper
     end
     
   protected
+    def capture_content(*args, &block)
+      returning("") do |str|
+        str << args.flatten.join("\n") if args.any?
+        str << @context.capture(&block) if block_given?
+      end.html_safe
+    end
+  
     def has_footer?
-      options[:footer] != false
+      !@footer.blank?
     end
   
     def header_html
@@ -44,6 +58,12 @@ module Breeze::Admin::LayoutsHelper
     def footer_html
       (has_footer? ? @context.content_tag(:div, @footer, (options[:footer] || {}).reverse_merge(:class => "footer"), false) : "").html_safe
     end
+  end
+  
+  def pane_layout(options = {})
+    panes = PaneLayout.new(self, options)
+    yield panes
+    panes.to_html
   end
   
   class TabbedLayout < PaneLayout
@@ -87,10 +107,44 @@ module Breeze::Admin::LayoutsHelper
     tabs.to_html
   end
   
-  def pane_layout(options = {})
-    panes = PaneLayout.new(self, options)
-    yield panes
-    panes.to_html
+  class SlidingLayout
+    attr_reader :options
+    attr_reader :pages
+    
+    def initialize(context, options = {})
+      @context = context
+      @options = options || {}
+      @pages = []
+      @page = options.delete(:page) || 1
+    end
+    
+    def page(name, options = {}, &block)
+      pages << [ name, @context.capture(&block).html_safe, options ]
+      return
+    end
+    
+    def to_html
+      @context.content_tag :div, @context.content_tag(:div, content_html, :class => :pages, :style => "left: #{(@page - 1) * 100}%"), options.reverse_merge(:class => :sliding), false
+    end
+    
+    def method_missing(sym, *args, &block)
+      page sym, *args, &block
+    end
+    
+  protected
+    def content_html
+      returning "" do |str|
+        pages.each_with_index do |(name, page, options), i|
+          str << @context.content_tag(:div, page, options.merge(:style => "left: #{i * 100}%;", :class => :page))
+        end
+      end.html_safe
+    end
+  end
+  
+  def sliding_layout(options = {})
+    pages = SlidingLayout.new(self, options = {})
+    yield pages
+    pages.to_html    
   end
   
   def collapsible_section(options = {}, &block)

@@ -20,8 +20,8 @@
       </div>
     </div>
     <%= flash_messages %>
-    <%= content_tag :div, main, :id => :main, :class => "#{'no-sidebar' unless content_for?(:right)}" %>
-    <%= content_tag :div, left, :id => :left %>
-    <%= content_tag :div, right, :id => :right if content_for?(:right) %>
+    <%= content_tag :div, yield, :id => :main, :class => "#{'no-sidebar' unless content_for?(:right)}" %>
+    <%= content_tag :div, content_for?(:left) ? yield(:left) : pane_layout {}, :id => :left %>
+    <%= content_tag :div, yield(:right), :id => :right if content_for?(:right) %>
   </body>
 </html>

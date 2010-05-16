@@ -1,7 +1,15 @@
 <% content_for :title, "Dashboard" -%>
 
 <%= tabbed_layout do |tabs| %>
-  <% tabs.activity do %>
-    <h1>Recent activity</h1>
+  <% tabs.activity :title => "Recent activity" do %>
+
+  <% end %>
+<% end %>
+
+<% content_for :left do %>
+  <%= pane_layout do |sidebar| %>
+    <% sidebar.header do %>
+      <h2>Dashboard</h2>
+    <% end %>
   <% end %>
 <% end %>

@@ -3,5 +3,9 @@ module Breeze
     "0.0.1"
   end
   
-  require "breeze/engine"
+  def self.config
+    @config ||= Configuration.first || Configuration.create
+  end
 end
+
+require "breeze/theming"
