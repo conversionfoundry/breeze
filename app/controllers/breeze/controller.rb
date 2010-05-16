@@ -12,5 +12,12 @@ module Breeze
         format.any  { render :nothing => true, :status => error.status_code }
       end
     end
+    
+  protected
+    def lookup_context
+      @lookup_context ||= returning(ActionView::LookupContext.new(self.class._view_paths, details_for_lookup)) do |context|
+        context.view_paths.insert 1, *Breeze::Theming::Theme.view_paths
+      end
+    end
   end
 end
