@@ -26,13 +26,7 @@ module Breeze
       end
       
       def enable!(bool = true)
-        self.enabled = bool
-        if configuration
-          configuration.save
-          self
-        else
-          Breeze.themes.create attributes
-        end
+        update_attributes :enabled => bool
       end
       
       def disable!
@@ -69,7 +63,7 @@ module Breeze
       
       def self.unconfigured
         @unconfigured ||= (themes_available - configured.map(&:name)).map do |name|
-          new :name => name
+          Breeze.themes.build :name => name
         end
       end
       

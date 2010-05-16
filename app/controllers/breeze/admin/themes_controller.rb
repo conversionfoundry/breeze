@@ -6,7 +6,7 @@ module Breeze
       end
       
       def enable
-        @theme = theme.enable!
+        theme.enable!
         respond_to do |format|
           format.html { redirect_to admin_themes_path }
           format.js
@@ -14,7 +14,7 @@ module Breeze
       end
       
       def disable
-        @theme = theme.disable!
+        theme.disable!
         respond_to do |format|
           format.html { redirect_to admin_themes_path }
           format.js { render :action => :enable }
