@@ -37,6 +37,18 @@ $(function() {
     return false;
   });
   
+  $('#left #themes').sortable({
+    axis: 'y',
+    items: '>.theme',
+    update: function(e, ui) {
+      $.ajax({
+        url: '/admin/themes/reorder',
+        type: 'post',
+        data: '_method=put&' + $(this).sortable('serialize')
+      });
+    }
+  });
+  
   $('#left #themes .theme a').live('click', function() {
     var $this = $(this);
     $this.addClass('loading');

@@ -21,6 +21,11 @@ module Breeze
         end
       end
       
+      def reorder
+        Breeze::Theming::Theme.reorder params[:theme]
+        render :nothing => true
+      end
+      
     protected
       def theme
         @theme ||= Breeze::Theming::Theme[params[:id]]

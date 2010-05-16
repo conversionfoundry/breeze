@@ -10,6 +10,9 @@ Rails.application.routes.draw do |map|
         put :enable
         put :disable
       end
+      collection do
+        put :reorder
+      end
     end
     resources :users
     root :to => "dashboards#show"

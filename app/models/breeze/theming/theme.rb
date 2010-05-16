@@ -67,7 +67,15 @@ module Breeze
         end
       end
       
-      def view_paths
+      def self.reorder(ordering)
+        ordering.each_with_index do |theme_name, i|
+          self[theme_name].position = i + 1
+        end
+        Breeze.config.save
+        @installed.sort!
+      end
+      
+      def self.view_paths
         enabled.map &:view_path
       end
       
