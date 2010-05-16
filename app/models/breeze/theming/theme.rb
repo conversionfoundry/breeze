@@ -79,6 +79,14 @@ module Breeze
         enabled.map &:view_path
       end
       
+      def self.file(path)
+        enabled.each do |theme|
+          full_path = File.join theme.path, path
+          return full_path if File.exists?(full_path)
+        end
+        nil
+      end
+      
     protected
       def validate_folder_structure
         FileUtils.mkdir_p view_path
