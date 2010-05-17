@@ -3,6 +3,6 @@
   
   <%= content_tag :div, :class => "fake-right-sidebar" do %>
     <%= submit_tag "Save", :class => "large green save button" %>
-    <button class="large red delete button">Delete</button>
+    <%= link_to "Delete", "/admin/themes/#{theme.name}/files#{@path}", :method => :delete, :remote => true, :class => "large red delete button" %>
   <% end %>
 <% end -%>

@@ -1,0 +1,5 @@
+$('#left #themes .theme a[href=<%= admin_theme_files_path(theme) %>]').each(function() {
+  var folders_to_open = get_open_theme_folders();
+  open_theme_folder(this, { open:folders_to_open });
+  close_tab('admin-themes-<%= theme.name %>-files<%= @path.gsub(/[\/\.]/, '-') %>');
+});

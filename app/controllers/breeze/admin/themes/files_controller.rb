@@ -13,6 +13,9 @@ module Breeze
             File.open(theme.file(@path), "w") do |f|
               f.write @contents
             end
+          elsif request.delete?
+            `rm -r #{File.join theme.path, @path}`
+            render :action => :destroy
           else
             @contents = File.read(theme.file(@path))
           end
