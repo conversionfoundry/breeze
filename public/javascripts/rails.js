@@ -59,7 +59,7 @@ jQuery(function ($) {
   /**
    *  confirmation handler
    */
-  $('a[data-confirm],input[data-confirm]').live('click', function () {
+  $('a[data-confirm]:not([data-remote][data-method=delete]),input[data-confirm]:not([data-remote][data-method=delete])').live('click', function () {
     var el = $(this);
     if (el.triggerAndReturn('confirm')) {
       if (!confirm(el.attr('data-confirm'))) {
@@ -83,7 +83,8 @@ jQuery(function ($) {
   
   $('a[data-remote][data-method=delete]').live('click', function() {
     var button = this;
-    $('<p>Are you sure you want to delete this?</p>').dialog({
+    var message = $(this).attr('data-confirm') || 'Are you sure you want to delete this?';
+    $('<p>' + message + '</p>').dialog({
       modal: true,
       resizable:false,
       buttons: {
