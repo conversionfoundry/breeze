@@ -10,6 +10,9 @@ $(function() {
     }
     return false;
   });
+  $('#main-tabs-tabs ul.tabs').sortable({
+    axis:'x'
+  });
   $('#main-tabs-tabs a.close').live('click', function() {
     close_tab($(this).parent().find('a.tab'));
     return false;

@@ -167,12 +167,20 @@ p {
   opacity: 1.0;
 }
 
-#main-tabs-tabs .tabs li.active {
+#main-tabs-tabs .tabs li.active,
+#main-tabs-tabs .tabs li.ui-sortable-helper {
   background: #f2f2f2;
 }
 
-#main-tabs-tabs .tabs li.active a.tab {
+#main-tabs-tabs .tabs li.active a.tab,
+#main-tabs-tabs .tabs li.ui-sortable-helper a.tab {
   color: #666;
+}
+
+#main-tabs-tabs .tabs li.ui-sortable-helper {
+  margin-top: 4px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
 }
 
 #main-tabs .tab-pane {
