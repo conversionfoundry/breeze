@@ -13,6 +13,6 @@
 
 <%= content_tag :div, :id => :theme_files do %>
   <%= content_tag :ul do %>
-    <%= file_tree @files, :root => theme.path, :href => "/admin/themes/#{theme.name}/files%s" %>
+    <%= file_tree @files, :root => theme.path, :href => lambda { |f| "/admin/themes/#{theme.name}/#{File.directory?(theme.path + f) ? :folders : :files }#{f}" } %>
   <% end %>
 <% end -%>

@@ -10,6 +10,10 @@ body, td, input, select, textarea, button {
   font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+p {
+  margin: 0px 0px 8px;
+}
+
 #main,
 #left,
 #right {
@@ -318,6 +322,7 @@ body, td, input, select, textarea, button {
 .fake-right-sidebar .large.button {
   width: 100%;
   padding: 8px 0px 9px;
+  text-align: center;
 }
 
 /*}}}*/
@@ -471,6 +476,25 @@ form.editor .overlay h3 {
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 4px;
   -moz-border-radius: 8px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 4px;
+}
+
+form.folder {
+  padding: 8px;
+}
+
+.folder-description {
+  margin: 8px;
+  padding: 7px;
+  background: rgba(255, 255, 192, 0.75);
+  text-shadow: #ffc 0px 1px;
+  border: 1px solid #ffc;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+.folder-description h1 {
+  margin: 0px 0px 8px;
 }
 
 /* }}} */

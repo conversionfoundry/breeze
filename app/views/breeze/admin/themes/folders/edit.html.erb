@@ -1,0 +1,18 @@
+<% if system_folder? @path %>
+  <%= render :partial => @path[1..-1] %>
+<% else %>
+  <%= folder_description do %>
+    <h1><%= content_tag :code, @path %></h1>
+  <% end %>
+<% end %>
+
+<%= form_tag form_action, :class => "new folder", :remote => true do %>
+  <%= text_field_tag "folder[name]" %>
+  <%= submit_tag "Create new folder", :class => "medium create button" %>
+<% end %>
+
+<%= content_tag :div, :class => "fake-right-sidebar" do %>
+  <%= link_to "Delete", form_action, :method => :delete, :remote => true, :class => "large red delete button" %>
+<% end %>
+
+
