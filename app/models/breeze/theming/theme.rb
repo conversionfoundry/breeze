@@ -22,11 +22,15 @@ module Breeze
       end
       
       def view_path
-        File.join path, "views"
+        path
       end
       
       def enable!(bool = true)
-        update_attributes :enabled => bool
+        returning(update_attributes :enabled => bool) do
+          %w(installed configured unconfigured).each do |cache|
+            self.class.instance_variable_set "@#{cache}", nil
+          end
+        end
       end
       
       def disable!
@@ -43,6 +47,14 @@ module Breeze
         when  1 then other.position == -1 ? -1 : 1
         when  0 then name <=> other.name
         end
+      end
+      
+      def files
+        Dir[File.join(path, "**/*")]
+      end
+      
+      def file(filename)
+        File.join(path, filename)
       end
       
       def self.installed
@@ -90,6 +102,9 @@ module Breeze
     protected
       def validate_folder_structure
         FileUtils.mkdir_p view_path
+        %w(images stylesheets javascripts layouts).each do |dir|
+          FileUtils.mkdir_p File.join(view_path, dir)
+        end
       end
     
       def self.theme_dir

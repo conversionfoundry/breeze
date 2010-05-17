@@ -10,3 +10,9 @@
     <%= link_to "Enable now", enable_admin_theme_path(theme.name), :class => "medium enable button" %>
   <% end %>
 <% end %>
+
+<%= content_tag :div, :id => :theme_files do %>
+  <%= content_tag :ul do %>
+    <%= file_tree @files, :root => theme.path, :href => "/admin/themes/#{theme.name}/files%s" %>
+  <% end %>
+<% end -%>

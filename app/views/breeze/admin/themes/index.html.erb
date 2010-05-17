@@ -1,5 +1,9 @@
 <% content_for :title, "Themes" %>
 
+<% content_for :head do %>
+  <%= javascript_include_tag "/breeze/javascripts/themes" %>
+<% end %>
+
 <%= tabbed_layout do -%>
 
 <% end %>
@@ -30,3 +34,9 @@
     <% end %>
   <% end %>
 <% end %>
+
+<% content_for :right do -%>
+  <%= pane_layout do |right| %>
+    
+  <% end %>
+<% end -%>

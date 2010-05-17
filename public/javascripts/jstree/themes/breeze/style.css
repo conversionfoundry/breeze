@@ -1,0 +1,36 @@
+/*
+ * jsTree breeze theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox
+ */
+
+.jstree-breeze ins {
+  background-image: url("icons.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+.jstree-breeze li.jstree-last { background:transparent; }
+.jstree-breeze .jstree-open > ins { background-position:-54px -72px; }
+.jstree-breeze .jstree-closed > ins { background-position:-72px -54px; }
+.jstree-breeze .jstree-leaf > ins { background-position:-72px -72px; }
+
+.jstree-breeze .jstree-no-icons .checkbox { display:inline-block; }
+.jstree-breeze .jstree-no-checkboxes .checkbox { display:none !important; }
+
+.jstree .folder      > a > .icon { background-position: -1px -1px; }
+.jstree .images      > a > .icon { background-position: -1px -18px; }
+.jstree .stylesheets > a > .icon { background-position: -1px -36px; }
+.jstree .layouts     > a > .icon { background-position: -1px -54px; }
+.jstree .javascripts > a > .icon { background-position: -1px -72px; }
+
+.jstree .file > a > .icon { background-position: -19px -1px; }
+.jstree .png  > a > .icon,
+.jstree .jpg  > a > .icon,
+.jstree .gif  > a > .icon { background-position: -19px -19px; }
+.jstree .css  > a > .icon { background-position: -19px -37px; }
+.jstree .erb  > a > .icon { background-position: -19px -55px; }
+.jstree .js   > a > .icon { background-position: -19px -73px; }
+
+.jstree .jstree-clicked { background:#beebff; border:1px solid #99defd; padding:0 1px; }
+
+/* TODO: IE6 support - the `>` selectors */

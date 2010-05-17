@@ -6,7 +6,7 @@ body {
   background: #ddd;
 }
 
-body, td, input, select, textarea {
+body, td, input, select, textarea, button {
   font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -115,21 +115,13 @@ body, td, input, select, textarea {
 }
 
 #main-tabs-tabs .tabs li {
-  display: inline;
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-#main-tabs-tabs .tabs li a {
   display: block;
   height: 32px;
   line-height: 32px;
   float: left;
+  position: relative;
   margin: 8px 4px 0px;
   padding: 0px 8px;
-  text-decoration: none;
-  color: #999;
   background: #d2d2d2 -webkit-gradient(linear, left top, left bottom, color-stop(0.9, rgba(0, 0, 0, 0)), color-stop(1, rgba(0, 0, 0, 0.25)));
   text-shadow: #eee 0px 1px;
   -webkit-border-top-left-radius: 6px;
@@ -140,9 +132,61 @@ body, td, input, select, textarea {
   -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px;
 }
 
-#main-tabs-tabs .tabs li.active a {
+#main-tabs-tabs .tabs li a.tab {
+  text-decoration: none;
+  color: #999;
+  display: block;
+}
+
+#main-tabs-tabs .tabs li.close {
+  padding-left: 24px;
+}
+
+#main-tabs-tabs .tabs li a.close {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: middle;
+  font-size: 150%;
+  font-weight: bold;
+  overflow: hidden;
+  color: #999;
+  text-decoration: none;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.25s ease-in;
+}
+
+#main-tabs-tabs .tabs li .close:hover {
+  opacity: 1.0;
+}
+
+#main-tabs-tabs .tabs li.active {
   background: #f2f2f2;
+}
+
+#main-tabs-tabs .tabs li.active a.tab {
   color: #666;
+}
+
+#main-tabs .tab-pane {
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+#main-tabs .tab-pane .scrollable {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding: 12px;
+  overflow: auto;
 }
 
 /*}}}*/
@@ -260,6 +304,24 @@ body, td, input, select, textarea {
 
 /* }}} */
 
+/* Right sidebar {{{ */
+
+.fake-right-sidebar {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: -224px;
+  width: 208px;
+  padding: 8px;
+}
+
+.fake-right-sidebar .large.button {
+  width: 100%;
+  padding: 8px 0px 9px;
+}
+
+/*}}}*/
+
 /* Forms {{{ */
 
 .button, .button:visited {
@@ -268,6 +330,7 @@ body, td, input, select, textarea {
 	padding: 5px 10px 6px; 
 	color: #fff; 
 	text-decoration: none;
+	border: none;
 	-moz-border-radius: 5px; 
 	-webkit-border-radius: 5px;
 	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
@@ -283,10 +346,10 @@ body, td, input, select, textarea {
 .small.button, .small.button:visited { font-size: 11px; padding: ; }
 .button, .button:visited,
 .medium.button, .medium.button:visited { font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
-.large.button, .large.button:visited { font-size: 14px; padding: 8px 14px 9px; }
+.large.button, .large.button:visited { font-size: 14px; padding: 8px 14px 9px; text-transform: uppercase; }
 
-.green.button, .green.button:visited      { background-color: #91bd09; }
-.green.button:hover                       { background-color: #749a02; }
+.green.button, .green.button:visited      { background-color: #8dc63f; }
+.green.button:hover                       { background-color: #6a952f; }
 .blue.button, .blue.button:visited        { background-color: #2daebf; }
 .blue.button:hover                        { background-color: #007d9a; }
 .red.button, .red.button:visited          { background-color: #e33100; }
@@ -360,6 +423,54 @@ body, td, input, select, textarea {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+form.editor {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+form.editor textarea {
+  position: absolute;
+  top: 8px;
+  margin: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border: none;
+  border-top: 1px solid #aaa;
+  font-family: Monaco, Consolas, sans-serif;
+  resize: none;
+}
+
+form.editor .overlay {
+  position: absolute;
+  top: 8px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+form.editor .overlay h3 {
+  width: 12em;
+  margin: 30% auto 0px;
+  padding: 8px 8px 8px 48px;
+  background: black url(/breeze/images/loading-large-fff-000.gif) no-repeat 8px 50%;
+  opacity: 0.75;
+  font-size: 200%;
+  line-height: 32px;
+  vertical-align: middle;
+  color: white;
+  -webkit-border-radius: 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 4px;
+  -moz-border-radius: 8px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 4px;
 }
 
 /* }}} */
