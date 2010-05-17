@@ -6,6 +6,12 @@ module Breeze
           @files = theme.files.sort
         end
         
+        def show
+          @path = "/" + Array(params[:id]).join("/")
+          file_path = theme.file(@path)
+          send_file file_path, :type => Mime[File.extname(file_path)[1..-1]].to_s, :disposition => "inline"
+        end
+        
         def edit
           @path = "/" + Array(params[:id]).join("/")
           if request.put?

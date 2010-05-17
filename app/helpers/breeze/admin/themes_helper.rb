@@ -25,6 +25,10 @@ module Breeze
         end.html_safe
       end
 
+      def image_file?(path)
+        Mime[File.extname(path)[1..-1]].to_s =~ /^image\//
+      end
+
       def folder_description(&block)
         content_tag :div, :class => "folder-description", &block
       end

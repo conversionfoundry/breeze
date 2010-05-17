@@ -1,5 +1,9 @@
 <%= form_tag "/admin/themes/#{theme.name}/files#{@path}", :method => :put, :remote => true, :class => :editor do -%>
-  <%= text_area_tag "file[contents]", @contents %>
+  <% if image_file?(@path) %>
+    <%= image_tag "/admin/themes/#{theme.name}/raw#{@path}" %>
+  <% else %>
+    <%= text_area_tag "file[contents]", @contents %>
+  <% end %>
   
   <%= content_tag :div, :class => "fake-right-sidebar" do %>
     <%= submit_tag "Save", :class => "large green save button" %>
