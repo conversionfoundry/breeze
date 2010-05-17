@@ -30,6 +30,7 @@ module Breeze
           %w(installed configured unconfigured).each do |cache|
             self.class.instance_variable_set "@#{cache}", nil
           end
+          configuration.save
         end
       end
       
