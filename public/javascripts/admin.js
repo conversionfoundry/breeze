@@ -1,5 +1,3 @@
-$.jstree._themes = '/breeze/javascripts/jstree/themes/';
-
 $(function() {
   $('#main-tabs-tabs li').live('click', function() {
     if (!$(this).hasClass('active')) {

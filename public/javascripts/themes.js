@@ -47,19 +47,6 @@ $(function() {
       }
     }
   });
-  
-  $('#left #theme_files a').live('click', function() {
-    var item = $(this).closest('li');
-    name = $(this).attr('href').substring(1);
-    title = name.replace(/^([^\/]*\/)*/, '');
-    name = name.replace(/[\/\.]/g, '-');
-    open_tab(name, this.href, {
-      close:true,
-      title:title,
-      success: function(tab, pane) {
-      }
-    });
-  });
 });
 
 function open_theme_folder(theme_link, options) {
@@ -76,18 +63,58 @@ function open_theme_folder(theme_link, options) {
         advance_slider($(this), 1);
       }
     });
-    $('#left #theme_files').jstree({
-      themes: {
-        theme: 'breeze',
+    $('#left #theme_files').tree({
+      ui: {
+        theme_path: '/breeze/javascripts/jstree/themes/breeze/style.css',
+        theme_name: 'breeze',
         dots: false
       },
-      animation:false
-    }).find('>ul').addClass('jstree-no-checkboxes');
+      plugins: {
+        contextmenu: {}
+      },
+      types: {
+        'special': {
+          renameable: false,
+          draggable: false,
+          deletable: false
+        },
+        'file': {
+          creatable: false,
+          valid_children: []
+        },
+        'folder': {
+          valid_children: [ 'file', 'folder' ],
+          creatable: false // TODO: implement
+        }
+      },
+      rules: {
+        multiple: false,
+        drag_copy: false
+      },
+      callback: {
+        onselect: function(node, tree) {
+          a = $(node).children('a');
+          url = $(a).attr('href');
+          name = url.substring(1);
+          title = name.replace(/^([^\/]*\/)*/, '');
+          name = name.replace(/[\/\.]/g, '-');
+          open_tab(name, url, {
+            close:true,
+            title:title,
+            success: function(tab, pane) {
+            }
+          });
+        },
+        onmove: function(move_object) {
+          // TODO: implement!
+        }
+      }
+    });
     
     if (options.open) {
       $.each(options.open, function(i, folder) {
         var node = $('#left #theme_files a[href=' + folder + ']');
-        $.jstree._reference('#left #theme_files').open_node(node);
+        $.tree.reference('#left #theme_files').open_branch(node, true);
       });
     }
     

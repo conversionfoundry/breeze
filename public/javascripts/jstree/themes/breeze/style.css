@@ -1,36 +1,51 @@
-/*
- * jsTree breeze theme 1.0
- * Supported features: dots/no-dots, icons/no-icons, focused, loading
- * Supported plugins: ui (hovered, clicked), checkbox
- */
+.tree-breeze li        { background: url(icons.png) no-repeat -72px -72px; }
+.tree-breeze li.closed { background-position: -72px -54px; }
+.tree-breeze li.open   { background-position: -54px -72px; }
 
-.jstree-breeze ins {
-  background-image: url("icons.png");
-  background-repeat: no-repeat;
-  background-color: transparent;
+.tree-breeze li a,
+.tree-breeze li a ins {
+  vertical-align: top;
 }
-.jstree-breeze li.jstree-last { background:transparent; }
-.jstree-breeze .jstree-open > ins { background-position:-54px -72px; }
-.jstree-breeze .jstree-closed > ins { background-position:-72px -54px; }
-.jstree-breeze .jstree-leaf > ins { background-position:-72px -72px; }
 
-.jstree-breeze .jstree-no-icons .checkbox { display:inline-block; }
-.jstree-breeze .jstree-no-checkboxes .checkbox { display:none !important; }
+.tree-breeze li a span {
+  position: relative;
+  top: -4px;
+}
 
-.jstree .folder      > a > .icon { background-position: -1px -1px; }
-.jstree .images      > a > .icon { background-position: -1px -18px; }
-.jstree .stylesheets > a > .icon { background-position: -1px -36px; }
-.jstree .layouts     > a > .icon { background-position: -1px -54px; }
-.jstree .javascripts > a > .icon { background-position: -1px -72px; }
+.tree-breeze li a input, .tree li span input { font-family: Gotham, Helvetica Neue, Helvetica, Arial, sans-serif; }
 
-.jstree .file > a > .icon { background-position: -19px -1px; }
-.jstree .png  > a > .icon,
-.jstree .jpg  > a > .icon,
-.jstree .gif  > a > .icon { background-position: -19px -19px; }
-.jstree .css  > a > .icon { background-position: -19px -37px; }
-.jstree .erb  > a > .icon { background-position: -19px -55px; }
-.jstree .js   > a > .icon { background-position: -19px -73px; }
+.tree-breeze li             a > .icon { background: url(icons.png) no-repeat -19px -1px; }
+.tree-breeze .folder      > a > .icon { background-position: 0px 0px; }
+.tree-breeze .file        > a > .icon { background-position: -19px -1px; }
+.tree-breeze .png         > a > .icon,
+.tree-breeze .jpg         > a > .icon,
+.tree-breeze .gif         > a > .icon { background-position: -19px -19px; }
+.tree-breeze .css         > a > .icon { background-position: -19px -37px; }
+.tree-breeze .erb         > a > .icon { background-position: -19px -55px; }
+.tree-breeze .js          > a > .icon { background-position: -19px -73px; }
+.tree-breeze .images      > a > .icon { background-position: -1px -18px; }
+.tree-breeze .stylesheets > a > .icon { background-position: -1px -36px; }
+.tree-breeze .layouts     > a > .icon { background-position: -1px -54px; }
+.tree-breeze .javascripts > a > .icon { background-position: -1px -72px; }
 
-.jstree .jstree-clicked { background:#beebff; border:1px solid #99defd; padding:0 1px; }
+.tree-breeze .clicked {
+  position: relative;
+  background-color: rgba(0, 174, 239, 0.25);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
 
-/* TODO: IE6 support - the `>` selectors */
+#jstree-marker { background-image: url("icons.png"); }
+
+.marker_plus#jstree-marker {
+  margin: -1px 0px -1px 2px;
+  width: 7px;
+  height: 7px;
+  background-position: -100px -1px;
+}
+
+.marker#jstree-marker {
+  margin: -1px 0px;
+  height: 7px;
+  background-position: -36px -1px;
+}
