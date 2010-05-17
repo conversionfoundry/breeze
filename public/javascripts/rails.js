@@ -76,9 +76,28 @@ jQuery(function ($) {
     e.preventDefault();
   });
 
-  $('a[data-remote],input[data-remote]').live('click', function (e) {
+  $('a[data-remote]:not([data-method=delete]),input[data-remote]:not([data-method=delete])').live('click', function (e) {
     $(this).callRemote();
     e.preventDefault();
+  });
+  
+  $('a[data-remote][data-method=delete]').live('click', function() {
+    var button = this;
+    $('<p>Are you sure you want to delete this?</p>').dialog({
+      modal: true,
+      resizable:false,
+      buttons: {
+        Delete: function() {
+          $(this).dialog('close');
+          $(button).callRemote();
+        },
+        Cancel: function() {
+          $(this).dialog('close');
+        }
+      },
+      title:'Confirm delete'
+    });
+    return false;
   });
 
   $('a[data-method]:not([data-remote])').live('click', function (e){
