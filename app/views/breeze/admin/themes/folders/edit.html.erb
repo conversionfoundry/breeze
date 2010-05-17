@@ -12,7 +12,7 @@
 <% end %>
 
 <%= content_tag :div, :class => "fake-right-sidebar" do %>
-  <%= link_to "Delete", form_action, :method => :delete, :remote => true, :class => "large red delete button" %>
+  <%= link_to("Delete", form_action, :method => :delete, :remote => true, :class => "large red delete button") unless system_folder?(@path) %>
 <% end %>
 
 

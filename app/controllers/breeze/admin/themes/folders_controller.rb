@@ -7,7 +7,7 @@ module Breeze
           if request.put?
 
           elsif request.delete?
-            `rm -r #{File.join theme.path, @path}`
+            `rm -r #{File.join theme.path, @path}` unless system_folder?(@path)
           elsif request.post?
             @new_folder = File.join @path, params[:folder][:name]
             FileUtils.mkdir_p File.join(theme.path, @new_folder)

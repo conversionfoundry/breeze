@@ -10,9 +10,14 @@ body, td, input, select, textarea, button {
   font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-p {
-  margin: 0px 0px 8px;
+a {
+  color: #e33100;
+  outline: none;
 }
+
+a img { border: none; }
+
+p { margin: 0px 0px 8px; }
 
 #main,
 #left,
