@@ -16,6 +16,7 @@
 
 .tree-breeze li             a > .icon { background: url(icons.png) no-repeat -19px -1px; }
 .tree-breeze .folder      > a > .icon { background-position: 0px 0px; }
+.tree-breeze .page        > a > .icon,
 .tree-breeze .file        > a > .icon { background-position: -19px -1px; }
 .tree-breeze .png         > a > .icon,
 .tree-breeze .jpg         > a > .icon,
