@@ -8,6 +8,8 @@ module Breeze
       field :title
       field :subtitle
       field :show_in_navigation, :type => Boolean, :default => true
+      
+      validates_presence_of :title
     end
   end
 end

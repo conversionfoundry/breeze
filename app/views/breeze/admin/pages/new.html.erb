@@ -1,0 +1,7 @@
+<%= breeze_form_for @page, :as => :page, :url => admin_pages_path, :remote => true do |form| %>
+  <%= form.hidden_field :parent_id %>
+  <%= form.fieldset do %>
+    <%= form.text_field :title, :required => true %>
+    <%= form.select :_type, Breeze::Content::NavigationItem.subclasses.map(&:constantize).collect { |t| [ t.label, t.name ] }, :required => true, :label => "Content type" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,6 @@
+<% if @page.errors.empty? %>
+  $('#page_new').closest('.ui-dialog').dialog('close').remove();
+  $('#page_<%= @page.parent_id %>').replaceWith('<%= escape_javascript render(:partial => "page", :object => @page.parent) %>');
+<% else %>
+  $('#page_new').replaceWith('<%= escape_javascript render(:action => :new) %>');
+<% end %>

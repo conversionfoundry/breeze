@@ -75,6 +75,25 @@ module Breeze
         end
       end
       def view_class; self.class.view_class; end
+      
+      def self.label
+        name.demodulize.underscore.humanize
+      end
+      
+      def self.factory(*args)
+        params = args.extract_options! || {}
+        type = args.first || params.delete(:_type) || self.name
+        klass = begin
+          klass = case type
+          when Class then type
+          else type.to_s.constantize
+          end
+        rescue
+          self
+        end
+        raise ArgumentError, "#{klass.name} is not a valid content class" unless klass.ancestors.include?(Breeze::Content::Item)
+        klass.new params
+      end
     end
   end
 end
