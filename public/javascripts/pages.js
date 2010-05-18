@@ -32,6 +32,30 @@ $(function() {
               });
 						}
 					},
+					remove: {
+					  action  : function(node, tree_obj) {
+              $('<p>Are you sure you want to delete this page? There is no undo!</p>').dialog({
+                modal: true,
+                resizable: false,
+                buttons: {
+                  Delete: function() {
+                    $(this).dialog('close');
+                    $.ajax({
+                      url: '/admin/pages/' + $(node).attr('id').substring('5') + '.js',
+                      type: 'post',
+                      dataType: 'script',
+                      data: '_method=delete'
+                    });
+                    $.each(node, function () { tree_obj.remove(this); });
+                  },
+                  Cancel: function() {
+                    $(this).dialog('close');
+                  }
+                },
+                title:'Confirm delete'
+              });
+					  }
+					}
         }
       }
     },

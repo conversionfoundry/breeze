@@ -27,8 +27,12 @@ module Breeze
         end
         
         def regenerate_permalink!
-          self.permalink = if respond_to?(:parent) && !parent.nil?
-            File.join(parent.permalink, slug)
+          self.permalink = if respond_to?(:parent)
+            if parent.nil?
+              "/"
+            else
+              File.join(parent.permalink, slug)
+            end
           else
             "/#{slug}"
           end

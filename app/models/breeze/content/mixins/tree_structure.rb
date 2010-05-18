@@ -10,6 +10,7 @@ module Breeze
           base.named_scope :root, :conditions => { :parent_id => nil }
           
           base.before_create :set_position
+          base.before_destroy :destroy_children
           base.after_destroy :set_sibling_positions
         end
         
@@ -38,10 +39,15 @@ module Breeze
           self.position = scope.count
         end
         
+        def destroy_children
+          children.map &:destroy
+        end
+        
         def set_sibling_positions
           base_class.collection.update(
             { :parent_id => parent_id, :position => { '$gt' => position } },
-            { '$inc' => { :position => -1 } }
+            { '$inc' => { :position => -1 } },
+            :multi => true
           )
         end
       end

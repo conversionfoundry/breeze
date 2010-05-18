@@ -86,7 +86,7 @@ jQuery(function ($) {
     var message = $(this).attr('data-confirm') || 'Are you sure you want to delete this?';
     $('<p>' + message + '</p>').dialog({
       modal: true,
-      resizable:false,
+      resizable: false,
       buttons: {
         Delete: function() {
           $(this).dialog('close');
