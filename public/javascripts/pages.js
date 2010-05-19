@@ -3,7 +3,8 @@ $(function() {
     ui: {
       theme_path: '/breeze/javascripts/jstree/themes/breeze/style.css',
       theme_name: 'breeze',
-      dots: false
+      dots: false,
+      selected_parent_close: false
     },
     plugins: {
       contextmenu: {
@@ -39,9 +40,11 @@ $(function() {
                 resizable: false,
                 buttons: {
                   Delete: function() {
+                    var id = $(node).attr('id').substring('5');
                     $(this).dialog('close');
+                    close_tab(id);
                     $.ajax({
-                      url: '/admin/pages/' + $(node).attr('id').substring('5') + '.js',
+                      url: '/admin/pages/' + id + '.js',
                       type: 'post',
                       dataType: 'script',
                       data: '_method=delete'
