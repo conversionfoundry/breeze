@@ -11,6 +11,7 @@ module Breeze
           base.validates_uniqueness_of :slug, :scope => :parent_id if base.fields[:parent_id].present?
           
           base.before_create :fill_in_slug_and_permalink
+          base.before_save :regenerate_permalink
         end
         
         module ClassMethods

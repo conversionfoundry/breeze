@@ -9,14 +9,14 @@
 <% end %>
 
 <% content_for :left do %>
-  <%= pane_layout do |pages| %>
-    <% pages.header do %>
+  <%= pane_layout do |left| %>
+    <% left.header do %>
       <h2>Pages</h2>
     <% end %>
-    <% pages.inner do %>
+    <% left.inner do %>
       <%= content_tag :div, :id => :pages do %>
         <%= content_tag :ul, :class => "pages" do %>
-          <%= render :partial => "page", :collection => @pages.select(&:root?) %>
+          <%= render :partial => "page", :collection => pages.select(&:root?) %>
         <% end %>
       <% end %>
     <% end %>

@@ -2,7 +2,11 @@ Rails.application.routes.draw do |map|
   devise_for :admin, :class_name => "Breeze::Admin::User"
 
   scope "admin", :name_prefix => "admin", :module => "breeze/admin" do
-    resources :pages
+    resources :pages do
+      member do
+        put :move
+      end
+    end
     
     match "themes/:theme_id/raw/*id" => "themes/files#show", :as => :raw_admin_theme_file
     match "themes/:theme_id/files/*id" => "themes/files#edit", :as => :edit_admin_theme_file

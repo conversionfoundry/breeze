@@ -1,9 +1,1 @@
-<% children = @pages.select { |p| p.parent_id == page.id } %>
-<%= content_tag :li, :id => "page_#{page.id}", :class => "page#{page.root? || (@page && @page.permalink.starts_with?(page.permalink + "/")) ? ' open' : children.empty? ? nil : ' closed'}#{' hidden' unless page.show_in_navigation?}", :rel => (page.root? ? :root : :page) do %>
-  <a href="<%= page.permalink %>" title="<%= page.title %>"><ins class="icon"></ins><%= page.root? ? "Home" : "#{page.slug}" %></a>
-  <% unless children.empty? %>
-    <ul>
-      <%= render :partial => "page", :collection => children %>
-    </ul>
-  <% end %>
-<% end %>
+<%= page_tree_node page %>
