@@ -69,7 +69,7 @@ form.breeze-form fieldset > ol > li ul.errors li { padding:0; border:none; displ
 
 /* STRING & NUMERIC OVERRIDES
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li.string input { max-width:74%; }
+form.breeze-form fieldset > ol > li.text_field input { max-width:74%; }
 form.breeze-form fieldset > ol > li.password input { max-width: 13em; }
 form.breeze-form fieldset > ol > li.numeric input { max-width:74%; }
 
@@ -138,7 +138,23 @@ form.breeze-form abbr {
 form.breeze-form fieldset > ol > li { display: block; clear: left; }
 form.breeze-form fieldset > ol > li label { line-height: 125%; }
 form.breeze-form input, form.breeze-form textarea, form.breeze-form select { font-size: 125%; }
-form.breeze-form fieldset > ol > li.string input { width:74%; }
+form.breeze-form fieldset > ol > li.text_field input { width:74%; }
 
+form.breeze-form fieldset > ol > li.check_box { padding-left: 25%; }
+form.breeze-form fieldset > ol > li.check_box label { float: none; display: inline; }
+
+form.breeze-form fieldset {
+  padding-top: 8px;
+}
+
+form.breeze-form fieldset legend {
+  font-size: 125%;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+form.breeze-form .field_with_errors {
+  display: inline;
+}
 
 /*}}}*/

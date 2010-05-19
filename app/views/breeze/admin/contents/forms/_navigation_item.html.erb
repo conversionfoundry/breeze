@@ -1,0 +1,12 @@
+<%= form.fieldset :legend => "Navigation" do %>
+  <%= form.text_field :title, :required => true %>
+  <%= form.text_field :subtitle, :hint => "In case you need more text in your navigation" %>
+  <%= form.check_box :show_in_navigation, :label => "Show this page in navigation menus?" %>
+  <% unless form.object.root? %>
+    <li>
+      <%= form.label :slug, nil, :required => true %>
+      <span class="field">http://<%= "#{request.host_with_port}#{form.object.parent.permalink}#{'/' unless form.object.parent.root?}" %><%= form.text_field :slug, :wrap => false, :size => 16 %></span>
+      <%= form.errors_for :slug %>
+    </li>
+  <% end %>
+<% end %>

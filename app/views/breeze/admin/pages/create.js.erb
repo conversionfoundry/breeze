@@ -4,5 +4,5 @@
   $('#page_<%= @page.parent_id %>').replaceWith('<%= escape_javascript render(:partial => "page", :object => @page.parent) %>');
   $('#page_<%= @page.id%>>a').click();
 <% else %>
-  $('#page_new').replaceWith('<%= escape_javascript render(:action => :new) %>');
+  $('#page_new').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/pages/new") %>');
 <% end %>

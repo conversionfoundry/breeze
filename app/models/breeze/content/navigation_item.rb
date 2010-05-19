@@ -10,6 +10,10 @@ module Breeze
       field :show_in_navigation, :type => Boolean, :default => true
       
       validates_presence_of :title
+      
+      def editable?
+        false
+      end
     end
   end
 end

@@ -8,9 +8,9 @@ module Breeze
           base.index :permalink, :unique => true
           
           base.validates_uniqueness_of :permalink
-          base.validates_uniqueness_of :slug, :scope => :parent_id if base.fields[:parent_id].present?
+          base.validates_uniqueness_of :slug, :scope => :parent_id
           
-          base.before_create :fill_in_slug_and_permalink
+          base.before_validate :fill_in_slug_and_permalink
           base.before_save :regenerate_permalink
         end
         

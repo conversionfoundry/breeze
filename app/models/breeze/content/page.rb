@@ -6,6 +6,10 @@ module Breeze
       def variables_for_render
         super.merge :page => self
       end
+      
+      def editable?
+        true
+      end
     end
   end
 end

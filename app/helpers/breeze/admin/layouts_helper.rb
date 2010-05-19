@@ -1,4 +1,6 @@
 module Breeze::Admin::LayoutsHelper
+  unloadable
+  
   class PaneLayout
     attr_reader :options
 
@@ -145,6 +147,11 @@ module Breeze::Admin::LayoutsHelper
     pages = SlidingLayout.new(self, options = {})
     yield pages
     pages.to_html    
+  end
+  
+  def scrollable_layout(options = {}, &block)
+    options[:class] = (Array(options[:class]) + %w(scrollable)).join(" ")
+    content_tag :div, options, &block
   end
   
   def collapsible_section(options = {}, &block)

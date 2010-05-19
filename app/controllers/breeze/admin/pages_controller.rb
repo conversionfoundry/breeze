@@ -12,11 +12,16 @@ module Breeze
       
       def create
         @page = Breeze::Content::NavigationItem.factory(params[:page])
-        @page.save
+        @page.save if @page.valid?
       end
       
       def edit
         @page = Breeze::Content::NavigationItem.find params[:id]
+      end
+      
+      def update
+        @page = Breeze::Content::NavigationItem.find params[:id]
+        @page.update_attributes params[:page]
       end
       
       def move

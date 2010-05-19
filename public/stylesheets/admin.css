@@ -113,6 +113,15 @@ p { margin: 0px 0px 8px; }
   width: 100%;
 }
 
+.scrollable {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow: auto;
+}
+
 /*}}}*/
 
 /* Tabs {{{ */
@@ -302,6 +311,22 @@ p { margin: 0px 0px 8px; }
 
 /*}}}*/
 
+/* Main {{{ */
+
+#main {
+  
+}
+
+#main h1 {
+  margin: 0px 0px 16px;
+  padding: 8px 0px;
+  border-bottom: 1px solid #aaa;
+  font-size: 200%;
+  font-weight: normal;
+}
+
+/*}}}*/
+
 /* Left sidebar {{{ */
 
 #left h2 {
@@ -366,7 +391,7 @@ p { margin: 0px 0px 8px; }
 .small.button, .small.button:visited { font-size: 11px; padding: ; }
 .button, .button:visited,
 .medium.button, .medium.button:visited { font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
-.large.button, .large.button:visited { font-size: 14px; padding: 8px 14px 9px; text-transform: uppercase; }
+.large.button, .large.button:visited { font-size: 14px; font-weight: bold; padding: 8px 14px 9px; text-transform: uppercase; }
 
 .green.button, .green.button:visited      { background-color: #8dc63f; }
 .green.button:hover                       { background-color: #6a952f; }
@@ -381,7 +406,46 @@ p { margin: 0px 0px 8px; }
 .yellow.button, .yellow.button:visited		{ background-color: #ffb515; }
 .yellow.button:hover							        { background-color: #fc9200; }
 
+.errors {
+  margin: 8px 0px;
+  padding: 7px;
+  background: rgba(255, 255, 192, 0.75);
+  text-shadow: #ffc 0px 1px;
+  border: 1px solid #ffc;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+.errors h2 {
+  margin: 0px 0px 8px;
+}
+
+.errors a {
+  color: #e33100;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.errors ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.errors ul li {
+  display: block;
+  margin: 0px 0px 8px;
+  padding-left: 20px;
+  background: url(../images/icons/error.png) no-repeat 0px 0px;
+}
+
 /* }}} */
+
+/* Page editor {{{ */
+
+#page_new .errors li.slug { display: none; }
+
+/*}}}*/
 
 /* Theme editor {{{ */
 

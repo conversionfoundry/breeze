@@ -59,7 +59,7 @@ module Breeze
       
       def self.self_and_superclasses
         returning [self] do |list|
-          list += superclass.self_and_superclasses if superclass.respond_to?(:self_and_superclasses)
+          list.concat superclass.self_and_superclasses if superclass.respond_to?(:self_and_superclasses)
         end
       end
       

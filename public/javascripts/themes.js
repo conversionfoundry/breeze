@@ -30,7 +30,6 @@ $(function() {
   $('form.editor').live('submit', function() {
     $(':input', this).each(function() { this.blur(); });
     var save_overlay = $('<div class="overlay" style="display: none;"><h3>Saving…</h3></div>').appendTo($(this)).fadeIn();
-    
   });
   
   $('form.new.folder').live('ajax:success', function() {

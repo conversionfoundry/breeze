@@ -1,4 +1,5 @@
 <%= breeze_form_for @page, :as => :page, :url => admin_pages_path, :remote => true do |form| %>
+  <%= render "/breeze/admin/shared/error_messages", :target => @page, :object_name => :page %>
   <%= form.hidden_field :parent_id %>
   <%= form.fieldset do %>
     <%= form.text_field :title, :required => true %>

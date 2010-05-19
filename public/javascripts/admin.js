@@ -39,6 +39,18 @@ $(function() {
     advance_slider($(this).closest('.sliding'), -1);
     return false;
   });
+  
+  // Get past the fact that, with multiple forms on a page, IDs aren't necessarily unique
+  $('label').live('click', function() {
+    $('#' + $(this).attr('for'), $(this).closest('form')).each(function() { this.focus(); });
+    return false;
+  });
+  
+  $('a[rel*=error]').live('click', function() {
+    console.log(this.hash);
+    $(this.hash, $(this).closest('form')).each(function() { this.focus(); });
+    return false;
+  });
 });
 
 function advance_slider(selector, direction) {
