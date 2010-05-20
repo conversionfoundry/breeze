@@ -15,7 +15,7 @@ module Breeze
         def edit
           @path = "/" + Array(params[:id]).join("/")
           if request.put?
-            @contents = params[:file][:contents]
+            @contents = params[:file][:contents].force_encoding("utf-8")
             File.open(theme.file(@path), "w") do |f|
               f.write @contents
             end
