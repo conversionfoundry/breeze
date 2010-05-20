@@ -93,10 +93,12 @@ function open_tab(name, url, options) {
 
 function close_tab(a) {
   if (typeof(a) == 'string') { a = 'a[href=#tab_' + a + ']'; }
-  var tab_name = $(a).attr('href').substring(5);
-  $(a).parent().remove();
-  $('#main-tabs-content #tab_' + tab_name).remove();
-  if ($('#main-tabs-tabs li.active').length == 0) {
-    $('#main-tabs-tabs li').eq(0).click();
-  }
+  $(a).each(function() {
+    var tab_name = $(this).attr('href').substring(5);
+    $(this).parent().remove();
+    $('#main-tabs-content #tab_' + tab_name).remove();
+    if ($('#main-tabs-tabs li.active').length == 0) {
+      $('#main-tabs-tabs li').eq(0).click();
+    }
+  });
 }
