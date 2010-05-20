@@ -65,7 +65,7 @@ module Breeze
             when true             then 1
             when :active          then ancestry.include?(p) ? 1 : 0
             when Numeric, /^\d+$/ then options[:recurse].to_i
-            else false
+            else 0
             end
             
             if recurse > 0 && p.level == level && !p.root?
