@@ -79,9 +79,5 @@ module Breeze
       end
       content_tag :ul, contents.html_safe, options.except(:level, :home, :recurse).reverse_merge(:class => "#{levels.invert[level] || "level-#{level}"} navigation")
     end
-    
-    def page
-      @variables_for_render[:page]
-    end
   end
 end

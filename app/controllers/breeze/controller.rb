@@ -19,5 +19,19 @@ module Breeze
         context.view_paths.insert 1, *Breeze::Theming::Theme.view_paths
       end
     end
+
+    def view_context
+      returning super do |context|
+        class << context
+          def method_missing(sym, *args, &block)
+            variables_for_render[sym] || super
+          end
+          
+          def variables_for_render
+            assigns['variables_for_render'] ||= {}
+          end
+        end
+      end
+    end
   end
 end
