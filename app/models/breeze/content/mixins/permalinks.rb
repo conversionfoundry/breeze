@@ -12,6 +12,10 @@ module Breeze
           base.validates_uniqueness_of :permalink
         end
         
+        def level
+          permalink.count("/")
+        end
+        
       protected
         def fill_in_slug_and_permalink
           self.slug = self.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if self.slug.blank? && respond_to?(:title) && !self.title.blank?
@@ -32,10 +36,6 @@ module Breeze
           else
             "/#{slug}"
           end
-        end
-        
-        def root_in_tree?
-          respond_to?(:root?) && root?
         end
       end
     end

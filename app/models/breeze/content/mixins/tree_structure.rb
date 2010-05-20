@@ -23,7 +23,10 @@ module Breeze
         def scope
           base_class.criteria.where :parent_id => parent_id
         end
-        alias_method :self_and_siblings, :scope
+        
+        def self_and_siblings
+          scope.order_by([[ :position, :asc ]])
+        end
         
         def siblings
           self_and_siblings.where :id.ne => id
@@ -39,6 +42,12 @@ module Breeze
         
         def move!(move_type, ref_id)
           send :"move_#{move_type}!", ref_id
+        end
+        
+        def self_and_ancestors
+          returning [ self ] do |list|
+            list.insert(0, *parent.self_and_ancestors) unless root?
+          end
         end
         
         module ClassMethods

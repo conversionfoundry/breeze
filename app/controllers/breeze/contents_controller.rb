@@ -1,5 +1,7 @@
 module Breeze
   class ContentsController < Controller
+    unloadable
+    
     def show
       @path = "/" + Array(params[:path]).join("/")
       

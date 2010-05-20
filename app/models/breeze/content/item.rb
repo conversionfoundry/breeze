@@ -28,7 +28,7 @@ module Breeze
       end
       
       def variables_for_render
-        { :content => :self }
+        { :content => self }
       end
       
       def to_xml(options = {})
