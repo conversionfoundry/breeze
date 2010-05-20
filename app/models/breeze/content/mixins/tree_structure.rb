@@ -7,11 +7,13 @@ module Breeze
           base.has_many_related :children, :class_name => base.name, :foreign_key => :parent_id
           base.field :position, :type => Integer, :default => 0
           
-          base.named_scope :root, :conditions => { :parent_id => nil }
-          
           base.before_create :set_position
           base.before_destroy :destroy_children
           base.after_destroy :set_sibling_positions
+          
+          base.class_eval do
+            named_scope :root, where(:parent_id => nil)
+          end
         end
         
         def root?

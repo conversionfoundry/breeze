@@ -2,7 +2,5 @@
   $.tree.reference('#pages').save();
   $('#pages>ul').html('<%= escape_javascript render(:partial => "page", :collection => pages.select(&:root?)) %>');
   $.tree.reference('#pages').restore();
-  $('.fake-right-sidebar .edit.button').attr('href', '<%= @page.permalink %>');
-<% else %>
-  $('#tab_<%= @page.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/pages/edit") %>');
 <% end %>
+$('#tab_<%= @page.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/pages/edit") %>');

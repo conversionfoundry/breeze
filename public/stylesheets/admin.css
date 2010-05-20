@@ -443,8 +443,6 @@ p { margin: 0px 0px 8px; }
 
 /* Page editor {{{ */
 
-#page_new .errors li.slug { display: none; }
-
 /*}}}*/
 
 /* Theme editor {{{ */

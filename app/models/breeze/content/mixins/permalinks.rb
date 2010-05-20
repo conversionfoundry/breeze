@@ -6,17 +6,11 @@ module Breeze
           base.field :permalink
           base.field :slug
           base.index :permalink, :unique => true
-          
-          base.validates_uniqueness_of :permalink
-          base.validates_uniqueness_of :slug, :scope => :parent_id
-          
+
           base.before_validate :fill_in_slug_and_permalink
-          base.before_save :regenerate_permalink
+          base.validates_uniqueness_of :permalink
         end
         
-        module ClassMethods
-        end
-
       protected
         def fill_in_slug_and_permalink
           self.slug = self.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if self.slug.blank? && respond_to?(:title) && !self.title.blank?

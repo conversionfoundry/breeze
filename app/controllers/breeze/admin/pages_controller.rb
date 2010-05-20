@@ -12,7 +12,7 @@ module Breeze
       
       def create
         @page = Breeze::Content::NavigationItem.factory(params[:page])
-        @page.save if @page.valid?
+        @page.save
       end
       
       def edit
