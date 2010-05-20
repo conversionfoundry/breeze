@@ -32,7 +32,6 @@ module Breeze
       def destroy
         @page = Breeze::Content::NavigationItem.find params[:id]
         @page.destroy
-        render :nothing => true
       end
       
     protected

@@ -4,5 +4,12 @@
   <%= form.fieldset do %>
     <%= form.text_field :title, :required => true %>
     <%= form.select :_type, Breeze::Content::NavigationItem.subclasses.map(&:constantize).collect { |t| [ t.label, t.name ] }, :required => true, :label => "Content type" %>
+    <% unless form.object.root? %>
+      <li>
+        <%= form.label :slug, nil, :required => true %>
+        <span class="field">http://<%= "#{request.host_with_port}#{form.object.parent.permalink}#{'/' unless form.object.parent.root?}" %><%= form.text_field :slug, :wrap => false, :size => 16 %></span>
+        <%= form.errors_for :slug %>
+      </li>
+    <% end %>
   <% end %>
 <% end %>

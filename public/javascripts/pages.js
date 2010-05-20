@@ -35,7 +35,7 @@ $(function() {
 					},
 					remove: {
 					  action  : function(node, tree_obj) {
-              $('<p>Are you sure you want to delete this page? There is no undo!</p>').dialog({
+              $('<p>Really delete this page (and all its sub-pages)? There is no undo!</p>').dialog({
                 modal: true,
                 resizable: false,
                 buttons: {
@@ -115,4 +115,12 @@ $(function() {
       $.each(this.__selected_nodes, function(i, e) { self.select_branch($('#' + e), true); });
     }
   });
+  
+  $('#page_new #page_title').live('input', function() {
+    var slug_field = $('#page_slug', $(this).closest('form'));
+    if (slug_field.length > 0 && !slug_field[0].modified) {
+      slug_field.val($(this).val().toLowerCase().replace(/[^a-z0-9\-\_]+/g, '-').replace(/(^\-+|\-+$)/g, ''));
+    }
+  });
+  $('#page_new #page_slug').live('input', function() { this.modified = true; });
 });

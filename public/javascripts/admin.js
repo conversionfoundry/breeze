@@ -47,8 +47,7 @@ $(function() {
   });
   
   $('a[rel*=error]').live('click', function() {
-    console.log(this.hash);
-    $(this.hash, $(this).closest('form')).each(function() { this.focus(); });
+    $((this.hash == '#page_permalink') ? '#page_slug' : this.hash, $(this).closest('form')).each(function() { this.focus(); });
     return false;
   });
 });

@@ -8,6 +8,7 @@
   <%= content_tag :div, :class => "fake-right-sidebar" do %>
     <%= submit_tag "Save", :class => "large green save button" if @page.editable? %>
     <%= link_to "View/edit this page", @page.permalink, :target => :_blank, :class => "large edit button" if @page.editable? %>
+    <%= link_to "Delete this page", admin_page_path, :method => :delete, :remote => true, :confirm => "Really delete this page (and all its sub-pages)? There is no undo!", :class => "large red delete button" if @page.editable? %>
   <% end %>
 <% end %>
 
