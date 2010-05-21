@@ -1,0 +1,200 @@
+/* Toolbar {{{ */
+
+#breeze-toolbar {
+  text-align: left;
+  position: fixed;
+  left: 50%;
+  width: 512px;
+  margin-left: -256px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 2px solid #eee;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 4px;
+}
+
+#breeze-toolbar.top {
+  border-top: none;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
+}
+
+#breeze-toolbar.bottom {
+  border-bottom: none;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
+}
+
+#breeze-toolbar * {
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 13px !important;
+  color: white !important;
+}
+
+#breeze-toolbar input,
+#breeze-toolbar select {
+  color: black !important;
+}
+
+.breeze-toolbar-item {
+  float: left;
+  margin: 8px 0px 4px 0px;
+  padding: 0px 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.breeze-toolbar-item:last-child {
+  border: none;
+}
+
+#breeze-toolbar .breeze-toolbar-item label {
+  display: block;
+  font-size: 11px !important;
+  line-height: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 2px;
+  text-shadow: black 0px 1px;
+}
+
+#breeze_template,
+#breeze_view {
+  width: 128px;
+}
+
+#breeze-toolbar .breeze-toolbar-buttons a {
+  float: left;
+  width: 30px;
+  height: 30px;
+  background: url(images/editor-icons.png) no-repeat 32px -1px;
+  border: 1px solid transparent;
+  opacity: 0.25;
+  text-decoration: none;
+  text-indent: -100em;
+  overflow: hidden;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-transition: opacity 0.12s ease-in;
+}
+
+#breeze-toolbar a.breeze-toolbar-edit-button { background-position: -1px -1px; }
+#breeze-toolbar a.breeze-toolbar-position-button { background-position: -33px -1px; }
+#breeze-toolbar.bottom a.breeze-toolbar-position-button { background-position: -65px -1px; }
+
+#breeze-toolbar .breeze-toolbar-buttons a:hover {
+  opacity: 0.75;
+}
+
+#breeze-toolbar .breeze-toolbar-buttons a.active {
+  border-color: #666;
+  opacity: 1.0;
+  background-color: rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: inset black 0px 1px 2px;
+}
+
+/* }}} */
+
+/* Editable regions {{{ */
+
+.breeze-editable-region {
+  position: relative;
+  -webkit-transition: all 0.25s ease-in;
+}
+
+body.breeze-editing .breeze-editable-region {
+  min-height: 64px;
+  margin: -8px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 49;
+  -webkit-border-radius: 8px;
+  -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-border-radius: 8px;
+  -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
+body.breeze-editing .breeze-editable-region.hover {
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 50;
+}
+
+body.breeze-editing .breeze-editable-region>:last-child:after {
+  display: block;
+  content: '.';
+  height: 0px;
+  overflow: hidden;
+  clear: both;
+}
+
+.breeze-editable-region .breeze-region-label {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: -24px;
+  font: normal 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  line-height: 20px;
+  height: 20px;
+  vertical-align: top !important;
+  padding: 0px 0px 0px 8px;
+  z-index: 50;
+  text-shadow: black 0px 1px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-transition: display -.25s ease-in;
+}
+
+body.breeze-editing .breeze-editable-region .breeze-region-label {
+  display: block;
+}
+
+.breeze-editable-region .breeze-region-label:after {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+  border-top: 8px solid rgba(0, 0, 0, 0.5);
+  border-right: 8px solid transparent;
+  content: ".";
+}
+
+.breeze-editable-region.hover .breeze-region-label { background: rgba(0, 0, 0, 0.75); }
+.breeze-editable-region.hover .breeze-region-label:after { border-top-color: rgba(0, 0, 0, 0.75); }
+
+.breeze-editable-region .breeze-region-label strong {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.breeze-editable-region .breeze-region-label a {
+  display: inline-block;
+  font-weight: bold;
+  line-height: 20px;
+  height: 20px;
+  width: 18px;
+  padding-left: 4px;
+  margin-left: 4px;
+  text-decoration: none;
+  text-indent: -100em;
+  overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  background: url(images/editor-icons.png) no-repeat 0px -32px;
+  cursor: pointer;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.12s ease-in;
+}
+
+body.breeze-editing .breeze-editable-region .breeze-region-label a:hover {
+  opacity: 1.0;
+}
+
+/* }}} */

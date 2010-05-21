@@ -22,8 +22,8 @@ module Breeze
       
       def render(controller, request)
         request.format ||= Mime[:html]
-        view = view_for(request).populate(self, controller, request)
-        view.render!
+        controller.view = view_for(request).populate(self, controller, request)
+        controller.view.render!
         controller.performed?
       end
       

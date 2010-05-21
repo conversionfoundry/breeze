@@ -50,12 +50,16 @@ module Breeze
         end
       end
       
-      def files
-        Dir[File.join(path, "**/*")]
+      def files(spec = "**/*")
+        Dir[File.join(path, spec)]
       end
       
       def file(filename)
         File.join(path, filename)
+      end
+      
+      def templates
+        files("layouts/*").map { |f| File.basename(f, ".html.erb") }.reject { |f| f.starts_with?("_") }
       end
       
       def self.installed
@@ -98,6 +102,10 @@ module Breeze
           return full_path if File.exists?(full_path)
         end
         nil
+      end
+      
+      def self.available_templates
+        enabled.map(&:templates).flatten.sort.uniq
       end
       
     protected

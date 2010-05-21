@@ -5,7 +5,7 @@ module Breeze
     def region(name, options = {}, &block)
       content = content_for_region(name)
       content = capture(&block) if content.blank? && block_given?
-      options[:id] ||= name.to_s.underscore
+      options[:id] ||= "#{name.to_s.underscore}_region"
       options[:class] = ("breeze-editable-region " + (options[:class] || "")).sub(/\s+$/,"")
       content_tag :div, (content || "").html_safe, options
     end
