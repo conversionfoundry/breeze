@@ -5,7 +5,7 @@ module Breeze
       
       field :region
       field :view
-      field :position, :type => Integer
+      field :position, :type => Integer, :default => 0
       belongs_to_related :content, :class_name => "Breeze::Content::Item"
       embedded_in :container, :inverse_of => :placements
       
@@ -31,7 +31,9 @@ module Breeze
     protected
       def set_position
         if container
-          self.position ||= container.placements.for(:view => view, :region => region).count
+          existing = container.placements.for(:view => view, :region => region)
+          self.position ||= existing.count - 1 # -1 for self
+          existing.each { |p| p.position += 1 if p != self && p.position >= position }
         end
       end
     

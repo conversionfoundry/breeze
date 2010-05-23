@@ -17,7 +17,7 @@ module Breeze
             document.write('<script type="text/javascript" src="/breeze/javascripts/rails.js"></s' + 'cript>');
             document.write('<script type="text/javascript" src="/breeze/editor/editor.js"></s' + 'cript>');
             document.write('<script type="text/javascript" defer="defer">$(function() {');
-            document.write('$("body").breeze({ page_id:"#{content.id}", templates:#{Breeze::Theming::Theme.available_templates.inspect} });');
+            document.write('$("body").breeze({ page_id:"#{content.id}", view:"#{self.name}", templates:#{Breeze::Theming::Theme.available_templates.inspect} });');
             #{"document.write('$(\"#breeze-template-chooser\").val(\"#{content.template}\")');" if content.template?}
             document.write('});</s' + 'cript>');
           </script>

@@ -5,7 +5,7 @@ module Breeze
         def self.included(base)
           base.embeds_many :placements, :class_name => "Breeze::Content::Placement" do
             def for(options = {})
-              @target.select { |p| p.match?(options) }
+              @target.select { |p| p.match?(options) }.sort_by { |p| p.position || -1 }
             end
           end
           base.accepts_nested_attributes_for :placements, :reject_if => lambda { |v| v[:delete].present? }

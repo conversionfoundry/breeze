@@ -5,12 +5,15 @@ module Breeze
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
       
-      field :placements_count, :type => Integer, :default => 0
       field :template
       
       embeds_many :views, :class_name => "Breeze::Content::View" do
         def default
           @target.first || @parent.view_class.new(:name => "default")
+        end
+        
+        def by_name(name)
+          name.nil? ? default : detect { |v| v.name == name }
         end
       end
       
@@ -39,10 +42,6 @@ module Breeze
         
       end
 
-      def shared?
-        placements_count > 1
-      end
-      
       def self.html_class
         @html_class ||= name.demodulize.parameterize
       end

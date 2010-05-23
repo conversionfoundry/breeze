@@ -1,3 +1,7 @@
+/* TODO: scope this so it only applies to our stuff */
+@import url(/breeze/stylesheets/ui-theme.css);
+@import url(/breeze/stylesheets/forms.css);
+
 /* Toolbar {{{ */
 
 #breeze-toolbar {
@@ -102,7 +106,9 @@
 
 .breeze-editable-region {
   position: relative;
-  -webkit-transition: all 0.25s ease-in;
+  -webkit-transition-property: background, margin, padding, min-height;
+  -webkit-transition-duration: 0.25s;
+  -webkit-transition-timing-function: ease-in;
 }
 
 body.breeze-editing .breeze-editable-region {
@@ -118,8 +124,10 @@ body.breeze-editing .breeze-editable-region {
 }
 
 body.breeze-editing .breeze-editable-region.hover {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.75);
   z-index: 50;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
 }
 
 body.breeze-editing .breeze-editable-region>:last-child:after {
@@ -132,6 +140,7 @@ body.breeze-editing .breeze-editable-region>:last-child:after {
 
 .breeze-editable-region .breeze-region-label {
   display: none;
+  opacity: 0.0;
   position: absolute;
   left: 0px;
   top: -24px;
@@ -146,11 +155,11 @@ body.breeze-editing .breeze-editable-region>:last-child:after {
   text-shadow: black 0px 1px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  -webkit-transition: display -.25s ease-in;
 }
 
 body.breeze-editing .breeze-editable-region .breeze-region-label {
   display: block;
+  opacity: 1.0;
 }
 
 .breeze-editable-region .breeze-region-label:after {
@@ -195,6 +204,37 @@ body.breeze-editing .breeze-editable-region .breeze-region-label {
 
 body.breeze-editing .breeze-editable-region .breeze-region-label a:hover {
   opacity: 1.0;
+}
+
+/* }}} */
+
+/* Dialogs {{{ */
+
+#breeze-spinner {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin: -64px 0px 0px -64px;
+  width: 128px;
+  height: 128px;
+  background: black url(/breeze/images/loading-huge-fff-000.gif) no-repeat 50% 50%;
+  opacity: 0.75;
+  -webkit-border-radius: 24px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px;
+}
+
+.ui-dialog-content .ui-tabs {
+  margin-top: -39px;
+  background: none;
+}
+
+.ui-dialog-content .ui-tabs .ui-tabs-nav {
+  padding-right: 4px;
+  background: none;
+}
+
+.ui-dialog-content .ui-tabs .ui-tabs-nav li {
+  float: right;
 }
 
 /* }}} */

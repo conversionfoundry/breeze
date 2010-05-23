@@ -12,6 +12,8 @@ module Breeze
       attr_accessor :content
       
       delegate :to_xml, :to_json, :to => :content
+
+      def to_s; name; end
             
       def content
         @content || content_item
@@ -48,7 +50,7 @@ module Breeze
       end
 
       def variables_for_render
-        @variables_for_render ||= content.variables_for_render
+        @variables_for_render ||= content.variables_for_render.merge(:view => self)
       end
     end
   end

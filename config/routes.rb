@@ -8,6 +8,12 @@ Rails.application.routes.draw do |map|
       end
     end
     
+    resources :contents do
+      collection do
+        put :reorder
+      end
+    end
+    
     match "themes/:theme_id/raw/*id" => "themes/files#show", :as => :raw_admin_theme_file
     match "themes/:theme_id/files/*id" => "themes/files#edit", :as => :edit_admin_theme_file
     match "themes/:theme_id/folders/*id" => "themes/folders#edit", :as => :edit_admin_theme_folder

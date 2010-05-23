@@ -369,9 +369,13 @@
 .ui-button:hover	{ background-color: #111 !important; }
 .ui-button:active { top: 1px; }
 
+.ui-button.green       { background-color: #8dc63f !important; }
+.ui-button.green:hover { background-color: #6a952f !important; }
+
 /* Dialog
 ----------------------------------*/
 .ui-dialog {
+  text-align: left;
   position: absolute;
   padding: 8px;
   width: 300px;
@@ -412,14 +416,35 @@
 .ui-slider-vertical .ui-slider-range-min { bottom: 0; }
 .ui-slider-vertical .ui-slider-range-max { top: 0; }/* Tabs
 ----------------------------------*/
-.ui-tabs { position: relative; padding: .2em; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-.ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; }
-.ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; margin: 0 .2em 1px 0; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
+.ui-tabs { position: relative; padding: .2em; zoom: 1; border: none; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.ui-tabs .ui-tabs-nav {
+  margin: 0; padding: 0; border: none;
+  background: transparent -webkit-gradient(linear, left top, left bottom, color-stop(0.9, rgba(0, 0, 0, 0)), color-stop(1, rgba(0, 0, 0, 0.15)));
+  overflow: hidden !important;
+  height: 29px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+}
+.ui-tabs .ui-tabs-nav li {
+  list-style: none; float: left; position: relative; top: 1px; margin: 0 0px 1px 8px; border-bottom: 0 !important; padding: 0; white-space: nowrap;
+  background: #d2d2d2 -webkit-gradient(linear, left top, left bottom, color-stop(0.9, rgba(0, 0, 0, 0)), color-stop(1, rgba(0, 0, 0, 0.25)));
+  text-shadow: #eee 0px 1px;
+  border: none;
+  -webkit-border-top-left-radius: 6px;
+  -webkit-border-top-right-radius: 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0px 0px 2px;
+  -moz-border-radius-topleft: 6px;
+  -moz-border-radius-topright: 6px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
+}
 .ui-tabs .ui-tabs-nav li a { float: left; padding: .5em 1em; text-decoration: none; }
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+  margin-bottom: 0; padding-bottom: 1px;
+  background: #f2f2f2;
+}
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
 .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-.ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none; }
+.ui-tabs .ui-tabs-panel { display: block; border: none; padding: 0; background: none; }
 .ui-tabs .ui-tabs-hide { display: none !important; }
 /* Datepicker
 ----------------------------------*/

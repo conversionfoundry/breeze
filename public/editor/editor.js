@@ -7,12 +7,23 @@
       }
     },
     _init: function() {
-      var self = this;
+      var breeze = this;
       this._loadOptions();
       this._loadStylesheet();
       this._buildToolbar();
       this._augmentRegions();
       this.editing(this.editing());
+      
+      $('body.breeze-editing .breeze-region-label>a.breeze-add-content').live('click', function() {
+        breeze._openDialog('/admin/contents/new?content[container_id]=' + breeze.options.page_id + '&content[region]=' + $(this).closest('.breeze-editable-region').attr('data-region') + '&content[view]=' + breeze.options.view, {
+          title: 'Add content',
+          open: function() {
+            $('.add-content-tabs', this).tabs();
+            $(':input:visible', this).eq(0).each(function() { this.focus(); });
+          }
+        });
+        return false;
+      });
     },
     option: function(key, value) {
       if (typeof(value) != 'undefined') {
@@ -125,13 +136,41 @@
         });
     },
     _augmentRegions: function() {
+      var breeze = this;
       $('.breeze-editable-region[id]').each(function() {
         $(this).attr('data-region', $(this).attr('id').replace(/_region$/, ''))
           .hoverIntent({
             over: function() { $(this).addClass('hover'); },
             out:  function() { $(this).removeClass('hover'); }
           });
-        $('<div class="breeze-region-label"><strong>' + $(this).attr('data-region') + '</strong> <a href="#" class="breeze-add-content">+</a></div>').appendTo(this);
+        $('<div class="breeze-region-label"><strong>' + $(this).attr('data-region') + '</strong> <a href="#" class="breeze-add-content">+</a></div>')
+          .appendTo(this);
+      });
+    },
+    _openDialog: function(path, options) {
+      if ($('#breeze-spinner').length == 0) { $('<div id="breeze-spinner" style="display: none;"></div>').appendTo('body'); }
+      $('#breeze-spinner').fadeIn();
+      
+      $.get(path, function(data) {
+        $('#breeze-spinner').fadeOut();
+        options = $.extend({
+          modal: true,
+          resizable: false,
+          width: 640,
+          buttons: {
+            Cancel: function() {
+              $(this).dialog('close');
+            },
+            OK: function() {
+              $('form:visible', $(this).closest('.ui-dialog')).trigger('submit');
+            }
+          },
+          close: function() {
+            $(this).remove();
+          }
+        }, options || {});
+        $('<div></div>').html(data).appendTo('body').dialog(options);
+        // $('button.ui-button:contains("OK"):not(.green)').addClass('green');
       });
     }
   });

@@ -1,0 +1,20 @@
+<div class="add-content-tabs">
+  <ul>
+    <li><a href="#add-new-content">New content</a></li>
+    <li><a href="#add-existing-content">Existing content</a></li>
+  </ul>
+  <div id="add-new-content">
+    <%= breeze_form_for @content, :as => :content, :url => admin_contents_path(:format => :js), :remote => true do |form| %>
+      <%= form.hidden_field :container_id %>
+      <%= form.hidden_field :region %>
+      <%= form.hidden_field :view %>
+      <%= render "/breeze/admin/shared/error_messages", :target => @content, :object_name => :content %>
+      <%= content_tag :div, :class => "content-form" do %>
+        <%= edit_form_for form %>
+      <% end %>
+    <% end %>
+  </div>
+  <div id="add-existing-content">
+    <p>(not implemented)</p>
+  </div>
+</div>

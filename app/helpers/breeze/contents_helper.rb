@@ -3,8 +3,7 @@ module Breeze
     unloadable
     
     def region(name, options = {}, &block)
-      content = content_for_region(name)
-      content = capture(&block) if content.blank? && block_given?
+      content = content_for_region(name, &block)
       options[:id] ||= "#{name.to_s.underscore}_region"
       options[:class] = ("breeze-editable-region " + (options[:class] || "")).sub(/\s+$/,"")
       content_tag :div, (content || "").html_safe, options
@@ -12,7 +11,12 @@ module Breeze
     
     def content_for_region(name, &block)
       @_region_contents ||= {}
-      @_region_contents[name] = capture(&block) if block_given?
+      placements = page.placements.for(:region => name, :view => view)
+      @_region_contents[name] = if placements.empty?
+        block_given? ? capture(&block) : ""
+      else
+        render :inline => placements.map { |p| p.to_erb(view) }.join("\n")
+      end.html_safe
       @_region_contents[name]
     end
     
