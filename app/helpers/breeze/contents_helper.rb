@@ -44,19 +44,26 @@ module Breeze
         ancestry = pages.first.self_and_ancestors.to_a
         if level < ancestry.length
           siblings = ancestry[level].self_and_siblings.to_a
-          siblings.unshift ancestry[level - 1] if (level == 1 && options[:home] != false) || options[:home]
+          siblings.unshift ancestry[level - 1] if options[:home] || (level == 1 && options[:home] != false)
           siblings.each_with_index do |p, i|
             page_title = if (options[:home] && options[:home] != true) && (p.level < level || p.root?)
               options[:home]
+              case options[:home]
+              when true   then p.title
+              when Symbol then p.send options[:home]
+              when Proc   then options[:home].call(p)
+              else options[:home].to_s
+              end
             else
               p.title
             end
+            page_title = p.title if page_title.blank?
             
             link_options = returning({}) do |o|
               o[:class] = returning [ p.root? ? "home" : p.slug ] do |classes|
-                classes << "active" if (p == page || active.index(p).to_i > 0) && p.level == level
-                classes << "first" if i == 0
-                classes << "last" if i == siblings.length - 1
+                classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
+                classes << "first"  if i == 0
+                classes << "last"   if i == siblings.length - 1
               end.join(" ")
             end
             link = if block_given?
