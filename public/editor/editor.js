@@ -48,11 +48,11 @@
       if (typeof(position) != 'undefined') {
         $('#breeze-toolbar.top').animate({ top: '-48px' }, 'fast', function() {
           $(this).removeClass('top').addClass('bottom')
-            .css({ bottom: '-48px', top:'auto' }).animate({ bottom: '0px' }, 'fast');
+            .css({ bottom: '-48px', top:'auto' }).animate({ bottom: '0px' }, 'normal', 'easeOutCubic');
         });
         $('#breeze-toolbar.bottom').animate({ bottom: '-48px' }, 'fast', function() {
           $(this).removeClass('bottom').addClass('top')
-            .css({ top: '-48px', bottom:'auto' }).animate({ top: '0px' }, 'fast');
+            .css({ top: '-48px', bottom:'auto' }).animate({ top: '0px' }, 'normal', 'easeOutCubic');
         });
 
         return this.option('toolbar', position);
@@ -99,7 +99,7 @@
       buttons = $('<span class="breeze-toolbar-item breeze-toolbar-buttons"></span>')
         .appendTo(this.toolbar);
       
-      $('<a href="#" class="breeze-toolbar-edit-button">Edit</a>')
+      $('<a href="#" class="breeze-toolbar-edit-button" title="Toggle editor">Edit</a>')
         .appendTo(buttons)
         .click(function() {
           breeze.editing(!$(this).hasClass('active'));
@@ -131,7 +131,7 @@
       buttons = $('<span class="breeze-toolbar-item breeze-toolbar-buttons"></span>')
         .appendTo(this.toolbar);
 
-      $('<a href="#" class="breeze-toolbar-position-button">Edit</a>')
+      $('<a href="#" class="breeze-toolbar-position-button" title="Switch top/bottom">Edit</a>')
         .appendTo(buttons)
         .click(function() {
           breeze.toolbarPosition(breeze.toolbarPosition() == 'top' ? 'bottom' : 'top');
@@ -144,11 +144,15 @@
       $('.breeze-editable-region[id]').each(function() {
         $(this).attr('data-region', $(this).attr('id').replace(/_region$/, ''))
           .hoverIntent({
+            timeout: 500,
             over: function() { $(this).addClass('hover'); },
             out:  function() { $(this).removeClass('hover'); }
           });
         $('<div class="breeze-region-label"><strong>' + $(this).attr('data-region') + '</strong> <a href="#" class="breeze-add-content">+</a></div>')
           .appendTo(this);
+      }).sortable({
+        items: '>.breeze-content',
+        connectWith: '.breeze-editable-region[id]'
       });
     },
     _openDialog: function(path, options) {

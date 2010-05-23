@@ -13,6 +13,7 @@
   height: 48px;
   background: rgba(0, 0, 0, 0.75);
   border: 2px solid #eee;
+  z-index: 50;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 4px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 4px;
 }
@@ -125,7 +126,7 @@ body.breeze-editing .breeze-editable-region {
 
 body.breeze-editing .breeze-editable-region.hover {
   background-color: rgba(255, 255, 255, 0.75);
-  z-index: 50;
+  /*z-index: 50;*/
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
 }
