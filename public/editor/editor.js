@@ -142,17 +142,39 @@
     _augmentRegions: function() {
       var breeze = this;
       $('.breeze-editable-region[id]').each(function() {
-        $(this).attr('data-region', $(this).attr('id').replace(/_region$/, ''))
-          .hoverIntent({
-            timeout: 500,
-            over: function() { $(this).addClass('hover'); },
-            out:  function() { $(this).removeClass('hover'); }
-          });
+        $(this).attr('data-region', $(this).attr('id').replace(/_region$/, ''));
         $('<div class="breeze-region-label"><strong>' + $(this).attr('data-region') + '</strong> <a href="#" class="breeze-add-content">+</a></div>')
           .appendTo(this);
       }).sortable({
         items: '>.breeze-content',
-        connectWith: '.breeze-editable-region[id]'
+        connectWith: '.breeze-editable-region[id]',
+        tolerance: 'pointer',
+        cursor: 'move',
+        placeholder: 'breeze-content-placeholder',
+        forcePlaceholderSize: true,
+        update: function(e, ui) {
+          var orders = new Array();
+          var view = breeze.toolbar.find('#breeze_view').val();
+          $('.breeze-editable-region[id]').each(function() {
+            orders.push($(this).sortable('serialize', { key:'page[order][' + this.id.replace(/_region$/, '') + '][]' }));
+          });
+          var order_string = orders.join('&');
+          if (breeze.last_ordering != order_string) {
+            breeze.last_ordering = order_string;
+            $.ajax({
+              url:'/admin/pages/' + breeze.options.page_id + '/sort.js',
+              type:'post',
+              dataType:'javascript',
+              data:'_method=put&page[view]=' + view + '&' + order_string
+            });
+          }
+        },
+        over: function() {
+          $(this).addClass('hover');
+        },
+        out: function() {
+          $(this).removeClass('hover');
+        }
       });
     },
     _openDialog: function(path, options) {

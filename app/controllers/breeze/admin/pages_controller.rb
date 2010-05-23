@@ -24,6 +24,10 @@ module Breeze
         @page.update_attributes params[:page]
       end
       
+      def sort
+        update
+      end
+      
       def move
         @page = Breeze::Content::NavigationItem.find params[:id]
         @page.move! params[:type].to_sym, params[:ref]

@@ -13,6 +13,10 @@ module Breeze
       after_create  :increment_content_placement_count
       after_destroy :decrement_content_placement_count
       
+      def <=>(another)
+        position <=> another.position
+      end
+      
       def match?(options = {})
         (options[:region].blank? || options[:region].to_s == region) &&
         (options[:view].blank? || view.nil? || options[:view].to_s == view)

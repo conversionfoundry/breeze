@@ -5,6 +5,7 @@ Rails.application.routes.draw do |map|
     resources :pages do
       member do
         put :move
+        put :sort
       end
     end
     
