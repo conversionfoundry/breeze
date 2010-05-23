@@ -46,10 +46,14 @@
     },
     toolbarPosition: function(position) {
       if (typeof(position) != 'undefined') {
-        $(this.toolbar)
-          .toggleClass('top', position == 'top').toggleClass('bottom', position == 'bottom');
-        $('#breeze-toolbar.top').css({ top:'0px', bottom:'auto' });
-        $('#breeze-toolbar.bottom').css({ top:'auto', bottom:'0px' });
+        $('#breeze-toolbar.top').animate({ top: '-48px' }, 'fast', function() {
+          $(this).removeClass('top').addClass('bottom')
+            .css({ bottom: '-48px', top:'auto' }).animate({ bottom: '0px' }, 'fast');
+        });
+        $('#breeze-toolbar.bottom').animate({ bottom: '-48px' }, 'fast', function() {
+          $(this).removeClass('bottom').addClass('top')
+            .css({ top: '-48px', bottom:'auto' }).animate({ top: '0px' }, 'fast');
+        });
 
         return this.option('toolbar', position);
       } else return this.option('toolbar');
