@@ -1,14 +1,3 @@
-/* NORMALIZE AND RESET - obviously inspired by Yahoo's reset.css, but scoped to just form.breeze-form
---------------------------------------------------------------------------------------------------*/
-form.breeze-form, form.breeze-form ul, form.breeze-form ol, form.breeze-form li, form.breeze-form fieldset, form.breeze-form legend, form.breeze-form input, form.breeze-form textarea, form.breeze-form select, form.breeze-form p { margin:0; padding:0; }
-form.breeze-form fieldset { border:0; }
-form.breeze-form em, form.breeze-form strong { font-style:normal; font-weight:normal; }
-form.breeze-form ol, form.breeze-form ul { list-style:none; }
-form.breeze-form abbr, form.breeze-form acronym { border:0; font-variant:normal; }
-form.breeze-form input, form.breeze-form textarea, form.breeze-form select { font-family:inherit; font-size:inherit; font-weight:inherit; }
-form.breeze-form input, form.breeze-form textarea, form.breeze-form select { font-size:100%; }
-form.breeze-form legend { white-space:normal; color:#000; }
-
 /* SEMANTIC ERRORS
 --------------------------------------------------------------------------------------------------*/
 form.breeze-form ul.errors { color:#cc0000; margin:0.5em 0 1.5em 25%; list-style:square; }
@@ -144,6 +133,7 @@ form.breeze-form fieldset > ol > li.check_box { padding-left: 25%; }
 form.breeze-form fieldset > ol > li.check_box label { float: none; display: inline; }
 
 form.breeze-form fieldset {
+  border: none;
   padding-top: 8px;
 }
 
@@ -155,6 +145,16 @@ form.breeze-form fieldset legend {
 
 form.breeze-form .field_with_errors {
   display: inline;
+}
+
+form.breeze-form fieldset > ol > li.text_area label {
+  display: block;
+  float: none;
+  width:100%;
+}
+
+form.breeze-form fieldset > ol > li.text_area textarea {
+  font-family: Monaco, monospace !important;
 }
 
 /*}}}*/

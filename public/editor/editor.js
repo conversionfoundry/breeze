@@ -10,6 +10,7 @@
       var breeze = this;
       this._loadOptions();
       this._loadStylesheet();
+      this._loadStylesheet('/breeze/javascripts/marquess/marquess.css'); // TODO: incorporate into main stylesheet
       this._buildToolbar();
       this._augmentRegions();
       this.editing(this.editing());
@@ -19,7 +20,7 @@
           title: 'Add content',
           open: function() {
             $('.add-content-tabs', this).tabs();
-            $(':input:visible', this).eq(0).each(function() { this.focus(); });
+            breeze._prepareEditorDialog(this);
           }
         });
         return false;
@@ -221,6 +222,13 @@
       } else {
         $('#breeze-spinner').fadeOut();
       }
+    },
+    _prepareEditorDialog: function(dialog) {
+      var breeze = this;
+      $('textarea.markup', dialog).marquess({
+        preview: false
+      });
+      $(':input:visible', dialog).eq(0).each(function() { this.focus(); });
     }
   });
 })(jQuery);

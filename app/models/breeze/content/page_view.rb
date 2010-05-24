@@ -17,6 +17,7 @@ module Breeze
             if (typeof(jQuery) == 'undefined') { document.write('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></s' + 'cript>'); }
             if (typeof(jQuery) == 'undefined' || typeof(jQuery.ui) == 'undefined') { document.write('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></s' + 'cript>'); }
             document.write('<script type="text/javascript" src="/breeze/javascripts/rails.js"></s' + 'cript>');
+            document.write('<script type="text/javascript" src="/breeze/javascripts/marquess/marquess.js"></s' + 'cript>');
             document.write('<script type="text/javascript" src="/breeze/editor/editor.js"></s' + 'cript>');
             document.write('<script type="text/javascript" defer="defer">$(function() {');
             document.write('$("body").breeze({ page_id:"#{content.id}", view:"#{self.name}", template:"#{content.template}", templates:#{Breeze::Theming::Theme.available_templates.inspect} });');
