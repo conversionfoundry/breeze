@@ -1,5 +1,18 @@
+require "set"
+
 module Breeze
   module Content
+    def self.classes(superclass = nil)
+      returning (@classes || []).map(&:constantize) do |set|
+        set.reject! { |k| !k.ancestors.include? superclass } unless superclass.nil?
+      end
+    end
+    
+    def self.register_class(*classes_to_register)
+      @classes ||= Set.new(Item.subclasses)
+      @classes.merge classes_to_register.map(&:to_s)
+    end
+    
     def self.[](permalink)
       Item.first :conditions => { :permalink => permalink }
     end

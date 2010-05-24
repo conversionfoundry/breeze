@@ -1,6 +1,8 @@
 en:
   activemodel:
     attributes:
+      breeze/content/item:
+        _type: Content type
       breeze/content/navigation_item:
         slug: URL
         permalink: URL

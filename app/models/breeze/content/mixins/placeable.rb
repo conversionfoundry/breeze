@@ -16,6 +16,10 @@ module Breeze
             after_create :add_to_container
           end
         end
+        
+        def self.classes
+          Content.classes(self)
+        end
 
         def shared?
           placements_count > 1

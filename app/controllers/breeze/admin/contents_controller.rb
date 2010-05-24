@@ -6,14 +6,16 @@ module Breeze
       before_filter :load_container_and_placement, :only => [ :edit, :update, :duplicate, :destroy ]
       
       def new
-        @content = Breeze::Content::Snippet.new(params[:content])
+        @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
       end
       
       def create
-        @content = Breeze::Content::Snippet.create(params[:content])
-        @placement = @content.placement
-        @container = @placement.container
-        @view = @container.views.by_name(@placement.view)
+        @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
+        if @content.save
+          @placement = @content.placement
+          @container = @placement.container
+          @view = @container.views.by_name(@placement.view)
+        end
         respond_to do |format|
           format.js
         end

@@ -16,11 +16,11 @@
       this.editing(this.editing());
       
       $('body.breeze-editing .breeze-region-label>a.breeze-add-content').live('click', function() {
-        breeze._openDialog('/admin/contents/new?content[container_id]=' + breeze.options.page_id + '&content[region]=' + $(this).closest('.breeze-editable-region').attr('data-region') + '&content[view]=' + breeze.options.view, {
+        var url = '/admin/contents/new?content[container_id]=' + breeze.options.page_id + '&content[region]=' + $(this).closest('.breeze-editable-region').attr('data-region') + '&content[view]=' + breeze.options.view;
+        breeze._openDialog(url, {
           title: 'Add content',
           open: function() {
-            $('.add-content-tabs', this).tabs();
-            breeze._prepareEditorDialog(this);
+            breeze._new_content_dialog_open(this, url);
           }
         });
         return false;
@@ -254,6 +254,16 @@
         preview: false
       });
       $(':input:visible', dialog).eq(0).each(function() { this.focus(); });
+    },
+    _new_content_dialog_open: function(dialog, url) {
+      var breeze = this;
+      $('.add-content-tabs', dialog).tabs({ selected: 1 });
+      $('#content__type', dialog).change(function() {
+        $(dialog).load(url + '&content[_type]=' + escape($(this).val()), function() {
+          breeze._new_content_dialog_open(dialog, url);
+        });
+      });
+      breeze._prepareEditorDialog(dialog);
     }
   });
 })(jQuery);

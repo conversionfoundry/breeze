@@ -302,4 +302,12 @@ body.breeze-editing .breeze-content.hover>* {
   float: right;
 }
 
+.ui-dialog fieldset.content-types {
+  background: #ccc;
+  margin: 8px 0px;
+  padding: 8px 8px 0px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
 /* }}} */

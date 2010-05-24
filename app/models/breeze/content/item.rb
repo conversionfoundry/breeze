@@ -89,7 +89,7 @@ module Breeze
       
       def self.factory(*args)
         params = args.extract_options! || {}
-        type = args.first || params.delete(:_type) || self.name
+        type = params.delete(:_type) || args.first || self.name
         klass = begin
           klass = case type
           when Class then type
