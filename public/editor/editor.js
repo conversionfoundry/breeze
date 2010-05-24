@@ -115,6 +115,14 @@
             var label = this.substring(0, 1).toUpperCase() + this.substring(1).replace(/_/g, ' ');
             $(select).append('<option value="' + this + '">' + label + '</option>');
           });
+        })
+        .val(breeze.options.template)
+        .change(function() {
+          f = $('<form action="/admin/pages/' + breeze.options.page_id + '" method="post"></form>')
+            .append('<input type="hidden" name="' + $('meta[name=csrf-param]').attr('content') + '" value="' + $('meta[name=csrf-token]').attr('content') + '" />')
+            .append('<input type="hidden" name="_method" value="put" />')
+            .append('<input type="hidden" name="page[template]" value="' + $(this).val() + '" />')
+            .appendTo('body')[0].submit();
         });
         
       this.view_selector = $('<div class="breeze-view-chooser breeze-toolbar-item"><label for="breeze_view">View:</label><select name="page[view]" id="breeze_view"><option value="">(default)</option></select></div>')

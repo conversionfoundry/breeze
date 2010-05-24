@@ -22,10 +22,15 @@ module Breeze
       def update
         @page = Breeze::Content::NavigationItem.find params[:id]
         @page.update_attributes params[:page]
+        respond_to do |format|
+          format.js
+          format.html { redirect_to @page.permalink }
+        end
       end
       
       def sort
-        update
+        @page = Breeze::Content::NavigationItem.find params[:id]
+        @page.update_attributes params[:page]
       end
       
       def move
