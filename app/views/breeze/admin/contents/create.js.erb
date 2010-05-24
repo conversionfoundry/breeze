@@ -1,6 +1,7 @@
 <% if @content.errors.empty? %>
   $('#content_new').closest('.ui-dialog-content').dialog('close');
-  $('#<%= @content.placement.region %>_region').append('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
+  $('#<%= @placement.region %>_region').append('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
+  $('body').breeze('addContentControls', '#content_<%= @placement.id %>');
 <% else %>
   $('#content_new').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/contents/new") %>');
 <% end %>

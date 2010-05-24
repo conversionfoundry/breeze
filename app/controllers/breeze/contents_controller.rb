@@ -27,7 +27,7 @@ module Breeze
     
   protected
     def add_editing_controls
-      if request.format.html?
+      if request.format.try :html?
         if protect_against_forgery?
           response.body = response.body.sub /(?=<\/head>)/, %(<meta name="csrf-param" content="#{Rack::Utils.escape_html(request_forgery_protection_token)}"/>\n<meta name="csrf-token" content="#{Rack::Utils.escape_html(form_authenticity_token)}"/>).html_safe unless /meta name="csrf-token"/ === response.body
         end

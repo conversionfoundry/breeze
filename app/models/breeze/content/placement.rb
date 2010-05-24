@@ -46,7 +46,16 @@ module Breeze
       end
       
       def decrement_content_placement_count
-        update_content_placement_count -1
+        begin
+          if content
+            if (content.placements_count -= 1).zero?
+              content.destroy
+            else
+              content.save
+            end
+          end
+        rescue Mongoid::Errors::DocumentNotFound
+        end
       end
       
       def update_content_placement_count(by = 1)

@@ -33,6 +33,14 @@ module Breeze
           end
         end
         
+        def containers
+          Breeze::Content::Item.where('placements.content_id' => id).uniq
+        end
+        
+        def placements
+          containers.map { |c| c.placements.select { |p| p.content_id == id } }.flatten.uniq
+        end
+        
         module ClassMethods
           
         end

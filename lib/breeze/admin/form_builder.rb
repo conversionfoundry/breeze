@@ -13,7 +13,7 @@ module Breeze
         template.content_tag :fieldset, contents, options
       end
 
-      (field_helpers - %w(label check_box radio_button fields_for hidden_field)).each do |sym|
+      (field_helpers - %w(label check_box radio_button fields_for hidden_field text_area)).each do |sym|
         src, line = <<-end_src, __LINE__ + 1
           def #{sym}(method, options = {})
             if options[:wrap] == false
@@ -24,6 +24,15 @@ module Breeze
           end
         end_src
         class_eval src, __FILE__, line
+      end
+      
+      def text_area(method, options = {})
+        options[:value] = object.send(:"#{method}_source") if object.respond_to?(:"#{method}_source")
+        if options[:wrap] == false
+          super method, options.except(%w(wrap))
+        else
+          wrap method, super(method, filter_options(options).reverse_merge(:class => :text_area)), options.merge(:kind => :text_area)
+        end
       end
       
       def select(method, choices, options = {}, html_options = {})

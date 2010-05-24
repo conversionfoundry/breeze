@@ -247,6 +247,10 @@
       return $.ui.marquess.getDialog(id).dialog('open');
     },
     
+    save: function() {
+      if (this.options.save) { this.options.save.apply(this, new Array(this.editor)); }
+    },
+    
     log: function(msg) {
       if(!this.options.log) return;
       if(window.console && console.log) {
@@ -255,6 +259,7 @@
     },
 
     destroy: function() {
+      $.Widget.prototype.destroy.apply(this, arguments);
     }
   });
 
@@ -347,6 +352,11 @@
       update: {
         name: 'Update',
         fn: function(editor) { editor.updatePreview(); }
+      },
+      save: {
+        name: 'Save',
+        shortcut:'Meta+S',
+        fn: function(editor) { editor.save(); }
       }
     },
     dialogs: {

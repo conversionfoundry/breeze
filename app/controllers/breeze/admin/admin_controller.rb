@@ -2,7 +2,7 @@ module Breeze
   module Admin
     class AdminController < ApplicationController
       before_filter :authenticate_admin!
-      
+
       layout :determine_layout
       
       helper AdminHelper, LayoutsHelper, ThemesHelper, PagesHelper

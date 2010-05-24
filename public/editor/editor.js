@@ -59,6 +59,23 @@
         return this.option('toolbar', position);
       } else return this.option('toolbar');
     },
+    addContentControls: function(selector) {
+      $(selector).each(function() {
+        var id = this.id.replace(/^content_/, '');
+        var path = '/admin/contents/' + id;        
+        $('<div class="breeze-content-controls"></div>')
+          .appendTo(this)
+          .hide()
+          .append('<a class="edit" href="' + path + '/edit">Edit</a>')
+          .append('<a class="duplicate" href="' + path + '/duplicate.js" data-method="put" data-remote="' + path + '/duplicate.js">Duplicate</a>')
+          .append('<a class="delete" href="' + path + '.js" data-method="delete" data-remote="' + path + '.js">Delete</a>');
+        $(this).hoverIntent({
+          timeout: 500,
+          over: function() { $(this).addClass('hover').find('>.breeze-content-controls').fadeIn(125); },
+          out:  function() { $(this).removeClass('hover').find('>.breeze-content-controls').fadeOut(250); }
+        })
+      });
+    },
     
     _loadOptions: function() {
       var saved_options = $.secureEvalJSON($.cookie('breeze-editor') || '{}');
@@ -180,12 +197,20 @@
             });
           }
         },
-        over: function() {
-          $(this).addClass('hover');
-        },
-        out: function() {
-          $(this).removeClass('hover');
-        }
+        over: function() { $(this).addClass('hover'); },
+        out:  function() { $(this).removeClass('hover'); }
+      });
+      
+      breeze.addContentControls('.breeze-editable-region[id] > .breeze-content');
+      
+      $('.breeze-content-controls .edit').live('click', function() {
+        breeze._openDialog($(this).attr('href'), {
+          title: 'Edit content',
+          open: function() {
+            breeze._prepareEditorDialog(this);
+          }
+        });
+        return false;
       });
     },
     _openDialog: function(path, options) {

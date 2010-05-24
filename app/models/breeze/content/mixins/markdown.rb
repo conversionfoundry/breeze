@@ -30,7 +30,7 @@ module Breeze
               end
 
               define_method("#{attribute}_plain",  proc { strip_markdown_html(__send__(attribute)) if __send__(attribute) } )
-              define_method("#{attribute}_source", proc { __send__("#{attribute}_before_type_cast") } )
+              define_method("#{attribute}_source", proc { read_attribute(attribute) } )
             end
 
             include Breeze::Content::Mixins::Markdown::InstanceMethods

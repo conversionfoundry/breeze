@@ -211,6 +211,7 @@ body.breeze-editing .breeze-editable-region .breeze-region-label a:hover {
 body.breeze-editing .breeze-content {
   position: relative;
   cursor: move;
+  min-height: ;
 }
 
 body.breeze-editing .ui-sortable-helper {
@@ -222,6 +223,52 @@ body.breeze-editing .breeze-content-placeholder {
   padding: 4px;
   -webkit-border-radius: 4px;
   -webkit-box-shadow: inset rgba(0, 0, 0, 0.25) 0px 1px 4px;
+}
+
+body.breeze-editing .breeze-content .breeze-content-controls {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 60px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.75);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+body.breeze-editing .breeze-content .breeze-content-controls a {
+  display: block;
+  float: left;
+  width: 20px;
+  height: 20px;
+  background: url(images/editor-icons.png) no-repeat 20px 20px;
+  text-decoration: none;
+  text-indent: -100em;
+  overflow: hidden;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.25s ease-in;
+}
+
+body.breeze-editing .breeze-content .breeze-content-controls a:hover { opacity: 1.0; }
+
+body.breeze-editing .breeze-content .breeze-content-controls a.edit      { background-position: -20px -32px; }
+body.breeze-editing .breeze-content .breeze-content-controls a.duplicate { background-position: -40px -32px; }
+body.breeze-editing .breeze-content .breeze-content-controls a.delete    { background-position: -60px -32px; }
+
+body.breeze-editing .breeze-content.hover {
+  background: rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+body.breeze-editing .breeze-content>* {
+  opacity: 1.0;
+  min-height: 20px;
+  -webkit-transition: opacity 0.25s ease-in;
+}
+
+body.breeze-editing .breeze-content.hover>* {
+  opacity: 0.75;
 }
 
 /*}}}*/

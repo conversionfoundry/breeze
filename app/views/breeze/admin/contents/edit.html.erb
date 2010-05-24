@@ -1,0 +1,6 @@
+<%= breeze_form_for @content, :as => :content, :url => admin_content_path(@placement.id, :format => :js), :remote => true do |form| %>
+  <%= render "/breeze/admin/shared/error_messages", :target => @content, :object_name => :content %>
+  <%= content_tag :div, :class => "content-form" do %>
+    <%= edit_form_for form %>
+  <% end %>
+<% end %>

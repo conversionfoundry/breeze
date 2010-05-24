@@ -10,6 +10,10 @@ module Breeze
       def editable?
         true
       end
+      
+      def self.[](permalink)
+        where(:permalink => permalink).first
+      end
     end
   end
 end
