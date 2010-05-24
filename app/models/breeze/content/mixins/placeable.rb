@@ -22,7 +22,7 @@ module Breeze
         end
 
         def add_to_container(container = nil, region = nil, view = nil, position = nil)
-          container ||= Breeze::Content::Item.find(@container_id)
+          container ||= Breeze::Content::Item.find(@container_id) if @container_id
           region ||= @region
           view ||= @view
           

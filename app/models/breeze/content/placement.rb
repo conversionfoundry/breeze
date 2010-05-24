@@ -32,6 +32,17 @@ module Breeze
         end
       end
       
+      def duplicate
+        content.add_to_container container, region, view, position + 1
+      end
+      
+      def unlink!
+        decrement_content_placement_count
+        self.content_id = self.content.duplicate({ :placements_count => 1 }).id
+        save
+        self
+      end
+      
     protected
       def set_position
         if container

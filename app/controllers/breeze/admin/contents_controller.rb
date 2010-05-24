@@ -3,6 +3,8 @@ module Breeze
     class ContentsController < AdminController
       unloadable
       
+      before_filter :load_container_and_placement, :only => [ :edit, :update, :duplicate, :destroy ]
+      
       def new
         @content = Breeze::Content::Snippet.new(params[:content])
       end
@@ -18,33 +20,33 @@ module Breeze
       end
       
       def edit
-        @container = Breeze::Content::Item.where('placements._id' => params[:id]).first
-        @placement = @container.placements.by_id(params[:id])
         @content = @placement.content
       end
       
       def update
-        @container = Breeze::Content::Item.where('placements._id' => params[:id]).first
-        @placement = @container.placements.by_id(params[:id])
         # TODO: check for unlinking here
         @content = @placement.content
         @content.update_attributes params[:content]
       end
       
       def duplicate
-        @container = Breeze::Content::Item.where('placements._id' => params[:id]).first
-        @old_placement = @container.placements.by_id(params[:id])
-        @placement = @old_placement.content.add_to_container @container, @old_placement.region, @old_placement.view, @old_placement.position + 1
+        @old_placement, @placement = @placement, @placement.duplicate.unlink!
       end
       
       def destroy
-        if @container = Breeze::Content::Item.where('placements._id' => params[:id]).first
+        if @container && @placement
           if @placement = @container.placements.by_id(params[:id])
             @placement.destroy
           end
         end
       end
       
+    protected
+      def load_container_and_placement
+        if @container = Breeze::Content::Item.where('placements._id' => params[:id]).first
+          @placement = @container.placements.by_id(params[:id])
+        end
+      end
     end
   end
 end

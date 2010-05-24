@@ -42,6 +42,14 @@ module Breeze
         
       end
 
+      def duplicate(attrs = {})
+        returning self.class.new do |duplicate|
+          duplicate.attributes = @attributes.except(*%w(_id id versions)).dup
+          duplicate.attributes = attrs
+          duplicate.save
+        end
+      end
+
       def self.html_class
         @html_class ||= name.demodulize.parameterize
       end
