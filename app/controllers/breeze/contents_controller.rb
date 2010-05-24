@@ -10,6 +10,7 @@ module Breeze
       @path = "/" + Array(params[:path]).join("/")
       
       if @path != "/" && file_path = Breeze::Theming::Theme.file(@path)
+        request.format = File.extname(file_path)[1..-1]
         # TODO: move this into metal
         response.etag = [ file_path, File.mtime(file_path) ]
         if request.fresh? response
@@ -26,12 +27,14 @@ module Breeze
     
   protected
     def add_editing_controls
-      if protect_against_forgery?
-        response.body = response.body.sub /(?=<\/head>)/, %(<meta name="csrf-param" content="#{Rack::Utils.escape_html(request_forgery_protection_token)}"/>\n<meta name="csrf-token" content="#{Rack::Utils.escape_html(form_authenticity_token)}"/>).html_safe unless /meta name="csrf-token"/ === response.body
-      end
+      if request.format.html?
+        if protect_against_forgery?
+          response.body = response.body.sub /(?=<\/head>)/, %(<meta name="csrf-param" content="#{Rack::Utils.escape_html(request_forgery_protection_token)}"/>\n<meta name="csrf-token" content="#{Rack::Utils.escape_html(form_authenticity_token)}"/>).html_safe unless /meta name="csrf-token"/ === response.body
+        end
       
-      if admin_signed_in? && request.format.html? && !request.xhr? && view && view.respond_to?(:editor_html)
-        response.body = response.body.sub /(?=<\/body>)/, view.editor_html
+        if admin_signed_in? && !request.xhr? && view && view.respond_to?(:editor_html)
+          response.body = response.body.sub /(?=<\/body>)/, view.editor_html
+        end
       end
     end
   end
