@@ -16,15 +16,13 @@ module Breeze
       end
       
       def duplicate(attrs = {})
-        new_slug, i = slug, 1
+        new_slug, i = slug, 2
         while Breeze::Content::Item.where(:slug => new_slug, :parent_id => attrs[:parent_id] || parent_id).count > 0
-          i += 1
-          new_slug = "#{slug}-#{i}"
+          new_slug, i = "#{slug}-#{i}", i + 1
         end
         returning super(attrs.merge(:slug => new_slug, :position => position + 1)) do |new_item|
           unless children.empty?
             children.each { |child| child.duplicate(:parent_id => new_item.id) }
-            new_item.reload
           end
         end
       end
