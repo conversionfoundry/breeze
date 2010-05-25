@@ -20,8 +20,16 @@ describe Breeze::Content::Item do
       @items << SearchTestItem.create(:content => "Laboris", :extra => "foo")
     end
     
-    it "should description" do
-      
+    it "should find the correct items when searching" do
+      @results = Breeze::Content::Item.search_for_text("lorem")
+      @results.should include(@items[0], @items[1])
+      @results.should_not include(@items[2])
+    end
+    
+    it "should find the correct items when searching for multiple terms" do
+      @results = Breeze::Content::Item.search_for_text("foo laboris")
+      @results.should include(@items[0], @items[2])
+      @results.should_not include(@items[1])
     end
   end
 end
