@@ -270,7 +270,15 @@
         $('.breeze-search-results', dialog)
           .html(data)
           .find('.insert-content-button').button().click(function() {
-            
+            var container_id = $('#content_container_id', dialog).val();
+            var region = $('#content_region', dialog).val();
+            var view = $('#breeze_view').val();
+            $.ajax({
+              url: $(this).attr('href'),
+              type: 'post',
+              dataType: 'script',
+              data: 'container_id=' + container_id + '&region=' + region + '&view=' + view
+            });
             return false;
           });
       });

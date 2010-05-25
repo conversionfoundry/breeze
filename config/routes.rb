@@ -13,6 +13,7 @@ Rails.application.routes.draw do |map|
     resources :contents do
       member do
         post :duplicate
+        post :insert
       end
       collection do
         put :reorder

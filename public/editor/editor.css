@@ -233,6 +233,7 @@ body.breeze-editing .breeze-content .breeze-content-controls {
   width: 60px;
   height: 20px;
   background: rgba(0, 0, 0, 0.75);
+  -webkit-transition: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
 }
@@ -327,6 +328,7 @@ body.breeze-editing .breeze-content.hover>* {
   position: relative;
   border-top: 1px solid #aaa;
   padding: 8px 96px 8px 0px;
+  min-height: 48px;
 }
 
 .ui-dialog .breeze-search-results ol li .insert-content-button {

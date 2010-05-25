@@ -35,6 +35,12 @@ module Breeze
         @old_placement, @placement = @placement, @placement.duplicate.unlink!
       end
       
+      def insert
+        @content = Breeze::Content::Item.find params[:id]
+        @container = Breeze::Content::Item.find params[:container_id]
+        @placement = @content.add_to_container @container, params[:region], params[:view]
+      end
+      
       def destroy
         if @container && @placement
           if @placement = @container.placements.by_id(params[:id])

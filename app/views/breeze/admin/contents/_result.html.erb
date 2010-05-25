@@ -1,4 +1,5 @@
 <%= content_tag :li do %>
   <%= render :inline => result.to_erb(nil) %>
-  <%= link_to "Insert", "#", :class => "insert-content-button" %>
+  <%= link_to "Insert", insert_admin_content_path(result, :format => :js), :class => "insert-content-button" %>
+  <%= pluralize result.placements_count, "page" %>
 <% end %>

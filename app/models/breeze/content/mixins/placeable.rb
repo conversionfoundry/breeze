@@ -27,8 +27,8 @@ module Breeze
 
         def add_to_container(container = nil, region = nil, view = nil, position = nil)
           container ||= Breeze::Content::Item.find(@container_id) if @container_id
-          region ||= @region
-          view ||= @view
+          region = @region if region.blank?
+          view = @view || "default" if view.blank?
           
           if container && region && view
             @placement = container.placements.create(:region => region, :view => view, :position => position, :content_id => self.id)
