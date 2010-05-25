@@ -67,7 +67,7 @@
           .appendTo(this)
           .hide()
           .append('<a class="edit" href="' + path + '/edit">Edit</a>')
-          .append('<a class="duplicate" href="' + path + '/duplicate.js" data-method="put" data-remote="' + path + '/duplicate.js">Duplicate</a>')
+          .append('<a class="duplicate" href="' + path + '/duplicate.js" data-method="post" data-remote="' + path + '/duplicate.js">Duplicate</a>')
           .append('<a class="delete" href="' + path + '.js" data-method="delete" data-remote="' + path + '.js">Delete</a>');
         $(this).hoverIntent({
           timeout: 500,

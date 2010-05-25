@@ -38,6 +38,12 @@ module Breeze
         @page.move! params[:type].to_sym, params[:ref]
       end
       
+      def duplicate
+        @page = Breeze::Content::NavigationItem.find params[:id]
+        @page = @page.duplicate
+        render :action => :create
+      end
+      
       def destroy
         @page = Breeze::Content::NavigationItem.find params[:id]
         @page.destroy

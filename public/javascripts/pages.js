@@ -58,6 +58,19 @@ $(function() {
                 title:'Confirm delete'
               });
 					  }
+					},
+					duplicate: {
+					  label   : "Duplicate",
+					  icon    : "duplicate_page",
+					  visible : function(node, tree_obj) { return node.length == 1 && $(node).attr('rel') != 'root'; },
+					  action  : function(node, tree_obj) {
+						  var id = $(node).attr('id').substring(5);
+					    $.ajax({
+					      url: '/admin/pages/' + id + '/duplicate.js',
+					      type: 'post',
+					      dataType: 'script'
+					    });
+					  } 
 					}
         }
       }

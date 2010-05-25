@@ -6,12 +6,13 @@ Rails.application.routes.draw do |map|
       member do
         put :move
         put :sort
+        post :duplicate
       end
     end
     
     resources :contents do
       member do
-        put :duplicate
+        post :duplicate
       end
       collection do
         put :reorder

@@ -38,6 +38,12 @@ module Breeze
           end
         end
         
+        def duplicate(attrs = {})
+          returning super do |new_item|
+            new_item.placements.each { |p| p.send :increment_content_placement_count }
+          end
+        end
+        
         module ClassMethods
         end
       end

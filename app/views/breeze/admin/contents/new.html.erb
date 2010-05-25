@@ -13,7 +13,7 @@
       <%= form.hidden_field :view %>
       
       <%= form.fieldset :class => "content-types" do %>
-        <%= form.select :_type, Breeze::Content::Mixins::Placeable.classes.map { |k| [ k.label, k.to_s ] } %>
+        <%= form.select :_type, Breeze::Content::Mixins::Placeable.classes.map { |k| [ k.label, k.to_s ] }.sort_by(&:first) %>
       <% end %>
       
       <%= render "/breeze/admin/shared/error_messages", :target => @content, :object_name => :content %>

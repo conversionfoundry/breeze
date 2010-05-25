@@ -5,7 +5,7 @@ module Breeze
         def self.included(base)
           base.belongs_to_related :parent, :class_name => base.name
           base.has_many_related :children, :class_name => base.name, :foreign_key => :parent_id
-          base.field :position, :type => Integer, :default => 0
+          base.field :position, :type => Integer
           
           base.before_create :set_position
           base.before_destroy :destroy_children
@@ -56,7 +56,8 @@ module Breeze
         
       protected
         def set_position
-          self.position = scope.count
+          self.position ||= scope.count
+          update_sibling_positions 1, self.position - 1
         end
         
         def destroy_children
