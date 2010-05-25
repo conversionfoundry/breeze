@@ -4,7 +4,14 @@
     <li><a href="#add-new-content">New content</a></li>
   </ul>
   <div id="add-existing-content">
-    <p>(not implemented)</p>
+    <%= form_tag search_admin_contents_path(:format => :html), :method => :get, :remote => true, :class => "search-contents breeze-form" do %>
+      <fieldset class="search">
+        <label for="new_content_query">Search for content:</label>
+        <input type="search" class="search" name="q" id="new_content_query" />
+        <%= submit_tag "Search", :class => "medium search button" %>
+      </fieldset>
+    <% end %>
+    <%= content_tag :div, "", :class => "breeze-search-results" %>
   </div>
   <div id="add-new-content">
     <%= breeze_form_for @content, :as => :content, :url => admin_contents_path(:format => :js), :remote => true do |form| %>

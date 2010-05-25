@@ -158,3 +158,45 @@ form.breeze-form fieldset > ol > li.text_area textarea {
 }
 
 /*}}}*/
+
+/* Buttons {{{ */
+
+.breeze-form .button, .breeze-form .button:visited {
+	background: #222 url(../images/button-overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	border: none;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+}
+
+.breeze-form .button:hover	{ background-color: #111; color: #fff; }
+.breeze-form .button:active { top: 1px; }
+.breeze-form .small.button, .breeze-form .small.button:visited { font-size: 11px; padding: ; }
+.breeze-form .button, .button:visited,
+.breeze-form .medium.button, .breeze-form .medium.button:visited { font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
+.breeze-form .large.button, .breeze-form .large.button:visited { font-size: 14px; font-weight: bold; padding: 8px 14px 9px; text-transform: uppercase; }
+
+.breeze-form .green.button, .breeze-form .green.button:visited      { background-color: #8dc63f; }
+.breeze-form .green.button:hover                                    { background-color: #6a952f; }
+.breeze-form .blue.button, .breeze-form .blue.button:visited        { background-color: #2daebf; }
+.breeze-form .blue.button:hover                                     { background-color: #007d9a; }
+.breeze-form .red.button, .breeze-form .red.button:visited          { background-color: #e33100; }
+.breeze-form .red.button:hover                                      { background-color: #872300; }
+.breeze-form .magenta.button, .breeze-form .magenta.button:visited	{ background-color: #a9014b; }
+.breeze-form .magenta.button:hover	        					            	{ background-color: #630030; }
+.breeze-form .orange.button, .breeze-form .orange.button:visited		{ background-color: #ff5c00; }
+.breeze-form .orange.button:hover					        		              { background-color: #d45500; }
+.breeze-form .yellow.button, .breeze-form .yellow.button:visited		{ background-color: #ffb515; }
+.breeze-form .yellow.button:hover							                      { background-color: #fc9200; }
+
+/*}}}*/
+

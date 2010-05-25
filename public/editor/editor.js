@@ -266,6 +266,9 @@
           breeze._new_content_dialog_open(dialog, url);
         });
       });
+      $('form.search-contents', dialog).bind('ajax:success', function(e, data, status, xhr) {
+        $('.breeze-search-results', dialog).html(data);
+      });
       breeze._prepareEditorDialog(dialog);
     }
   });

@@ -5,6 +5,7 @@ module Breeze
     def self.classes(superclass = nil)
       returning (@classes || []).map(&:constantize) do |set|
         set.reject! { |k| !k.ancestors.include? superclass } unless superclass.nil?
+        set << superclass if superclass.is_a?(Class)
       end
     end
     

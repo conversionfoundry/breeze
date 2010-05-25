@@ -16,6 +16,7 @@ Rails.application.routes.draw do |map|
       end
       collection do
         put :reorder
+        get :search
       end
     end
     

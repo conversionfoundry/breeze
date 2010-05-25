@@ -32,6 +32,16 @@ describe Breeze::Content::Placement do
     @content.reload.placements_count.should == 1
   end
   
+  describe "when destroyed" do
+    before :each do
+      @placement.destroy
+    end
+    
+    it "should delete its content" do
+      PlacementTestContent.count.should be_zero
+    end
+  end
+  
   describe "when duplicated" do
     before :each do
       @new_placement = @placement.duplicate
@@ -52,6 +62,21 @@ describe Breeze::Content::Placement do
     
     it "should be positioned directly after the old placement" do
       @new_placement.position.should == @placement.position + 1
+    end
+    
+    describe "and destroyed" do
+      before :each do
+        @new_placement.destroy
+      end
+
+      it "should not delete its content" do
+        PlacementTestContent.count.should == 1
+      end
+
+      it "should decrement its content's placements_count" do
+        @content.reload
+        @content.placements_count.should == 1
+      end
     end
     
     describe "and unlinked" do
@@ -75,6 +100,16 @@ describe Breeze::Content::Placement do
       
       it "should set the placements_count for the new content to 1" do
         @new_content.placements_count.should == 1
+      end
+      
+      describe "and destroyed" do
+        before :each do
+          @new_placement.destroy
+        end
+
+        it "should delete its content" do
+          PlacementTestContent.count.should == 1
+        end
       end
     end
   end

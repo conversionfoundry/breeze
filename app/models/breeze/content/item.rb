@@ -13,7 +13,7 @@ module Breeze
         end
         
         def by_name(name)
-          name.nil? ? default : detect { |v| v.name == name }
+          detect { |v| v.name == name } || default
         end
       end
       
@@ -47,6 +47,21 @@ module Breeze
           duplicate.attributes = @attributes.except(*%w(_id id versions)).dup
           duplicate.attributes = attrs
           duplicate.save
+        end
+      end
+      
+      def contains_text(*strings)
+        options = strings.extract_options!
+        if options[:all]
+          strings.each do |string|
+            return false unless @attributes.any? { |_, value| String === value && value.index(string) }
+          end
+          true
+        else
+          strings.each do |string|
+            return true if @attributes.any? { |_, value| String === value && value.index(string) }
+          end
+          false
         end
       end
 
@@ -100,6 +115,25 @@ module Breeze
         end
         raise ArgumentError, "#{klass.name} is not a valid content class" unless klass.ancestors.include?(Breeze::Content::Item)
         klass.new params
+      end
+      
+      def self.search(&block)
+        returning [] do |results|
+          collection.find do |cursor|
+            cursor.each do |document|
+              score = block.call document
+              results << [ document, score == true ? 1.0 : score ] unless score == false
+            end
+          end
+        end.sort_by(&:last).map(&:first).reverse
+      end
+      
+      def self.search_for_text(query, options = {})
+        query = query.split(/\s+/).reject(&:blank?).map { |s| Regexp.new s.strip, Regexp::IGNORECASE }
+        query << options.reverse_merge(:all => true)
+        search do |item|
+          (!options[:class] || item.is_a?(options[:class])) && item.contains_text(*query)
+        end
       end
     end
   end

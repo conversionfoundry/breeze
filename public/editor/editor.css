@@ -303,12 +303,17 @@ body.breeze-editing .breeze-content.hover>* {
   float: right;
 }
 
-.ui-dialog fieldset.content-types {
+.ui-dialog fieldset.content-types,
+.ui-dialog fieldset.search {
   background: #ccc;
   margin: 8px 0px;
   padding: 8px 8px 0px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
+}
+
+.ui-dialog fieldset.search {
+  padding-bottom: 8px;
 }
 
 /* }}} */

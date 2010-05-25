@@ -43,6 +43,14 @@ module Breeze
         end
       end
       
+      def search
+        @results = if params[:q]
+          Breeze::Content::Item.search_for_text params[:q], :class => Breeze::Content::Mixins::Placeable
+        else
+          []
+        end
+      end
+      
     protected
       def load_container_and_placement
         if @container = Breeze::Content::Item.where('placements._id' => params[:id]).first
