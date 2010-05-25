@@ -89,6 +89,7 @@
 #breeze-toolbar a.breeze-toolbar-edit-button { background-position: -1px -1px; }
 #breeze-toolbar a.breeze-toolbar-position-button { background-position: -33px -1px; }
 #breeze-toolbar.bottom a.breeze-toolbar-position-button { background-position: -65px -1px; }
+#breeze-toolbar a.breeze-admin-button { background-position: -97px -1px; }
 
 #breeze-toolbar .breeze-toolbar-buttons a:hover {
   opacity: 0.75;

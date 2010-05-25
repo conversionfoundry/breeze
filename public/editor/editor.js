@@ -164,6 +164,9 @@
           
           return false;
         });
+
+      $('<a href="/admin/pages" class="breeze-admin-button" title="Back to admin">Back to admin</a>')
+        .appendTo(buttons);
     },
     _augmentRegions: function() {
       var breeze = this;
