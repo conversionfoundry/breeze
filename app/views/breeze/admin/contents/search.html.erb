@@ -1,6 +1,7 @@
 <% if @results.empty? %>
   <p class="empty">No results matched your search.</p>
 <% else %>
+  <h3><%= pluralize @results.count, "result" %></h3>
   <%= content_tag :ol do %>
     <%= render :partial => "result", :collection => @results %>
   <% end %>

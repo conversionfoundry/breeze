@@ -303,8 +303,8 @@ body.breeze-editing .breeze-content.hover>* {
   float: right;
 }
 
-.ui-dialog fieldset.content-types,
-.ui-dialog fieldset.search {
+.ui-dialog .breeze-form fieldset.content-types,
+.ui-dialog .breeze-form fieldset.search {
   background: #ccc;
   margin: 8px 0px;
   padding: 8px 8px 0px;
@@ -312,8 +312,33 @@ body.breeze-editing .breeze-content.hover>* {
   -moz-border-radius: 8px;
 }
 
-.ui-dialog fieldset.search {
+.ui-dialog .breeze-form fieldset.search {
   padding-bottom: 8px;
+}
+
+.ui-dialog .breeze-search-results {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.ui-dialog .breeze-search-results ol li {
+  list-style: none;
+  display: block;
+  position: relative;
+  border-top: 1px solid #aaa;
+  padding: 8px 96px 8px 0px;
+}
+
+.ui-dialog .breeze-search-results ol li .insert-content-button {
+  position: absolute;
+  right: 0px;
+  top: 8px;
+}
+
+.ui-dialog .breeze-search-results p.empty {
+  line-height: 5em;
+  vertical-align: middle;
+  text-align: center;
 }
 
 /* }}} */

@@ -1,3 +1,4 @@
 <%= content_tag :li do %>
   <%= render :inline => result.to_erb(nil) %>
+  <%= link_to "Insert", "#", :class => "insert-content-button" %>
 <% end %>

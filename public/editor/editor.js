@@ -267,7 +267,12 @@
         });
       });
       $('form.search-contents', dialog).bind('ajax:success', function(e, data, status, xhr) {
-        $('.breeze-search-results', dialog).html(data);
+        $('.breeze-search-results', dialog)
+          .html(data)
+          .find('.insert-content-button').button().click(function() {
+            
+            return false;
+          });
       });
       breeze._prepareEditorDialog(dialog);
     }
