@@ -89,4 +89,10 @@ describe Breeze::Content::Page do
       end
     end
   end
+
+  describe "when destroyed" do
+    it "should delete its content" do
+      lambda { @page.destroy }.should change(Breeze::Content::Snippet, :count).by(-1)
+    end
+  end
 end

@@ -3,5 +3,8 @@
   $('#<%= @placement.region %>_region').append('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
   $('body').breeze('addContentControls', '#content_<%= @placement.id %>');
 <% else %>
-  $('#content_new').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/contents/new") %>');
+  var dialog = $('#content_new').closest('.ui-dialog-content');
+  dialog.html('<%= escape_javascript render(:template => "/breeze/admin/contents/new") %>');
+  var url = '/admin/contents/new?content[container_id]=<%= @content.container_id %>&content[region]=<%= @content.region %>&content[view]=<% @content.view %>';
+  $('body').breeze('new_content_dialog_open', dialog[0], url);
 <% end %>

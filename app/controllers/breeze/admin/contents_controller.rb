@@ -26,7 +26,7 @@ module Breeze
       end
       
       def update
-        # TODO: check for unlinking here
+        @placement.unlink! if @placement.shared? && !params[:update_all]
         @content = @placement.content
         @content.update_attributes params[:content]
       end
@@ -55,6 +55,12 @@ module Breeze
         else
           []
         end
+      end
+      
+      def instances
+        @content = Breeze::Content::Item.find params[:id]
+        @instances = @content ? @content.containers : []
+        render :layout => false
       end
       
     protected

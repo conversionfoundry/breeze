@@ -343,4 +343,23 @@ body.breeze-editing .breeze-content.hover>* {
   text-align: center;
 }
 
+.ui-dialog .update-all {
+  margin: 8px 0px;
+  padding: 7px 7px 0px;
+  background: rgba(255, 255, 192, 0.75);
+  text-shadow: #ffc 0px 1px;
+  border: 1px solid #ffc;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+.ui-dialog .update-all label {
+  font-weight: bold;
+}
+
+.ui-dialog .update-all ul {
+  margin: 0px 0px 7px 2em;
+}
+
 /* }}} */

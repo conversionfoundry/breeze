@@ -14,6 +14,7 @@ module Breeze
             attr_reader :placement
             
             after_create :add_to_container
+            after_destroy :destroy_placements
           end
         end
         
@@ -47,6 +48,13 @@ module Breeze
         
         module ClassMethods
           
+        end
+        
+      protected
+        def destroy_placements
+          containers.each do |container|
+            container.placements.each { |p| p.destroy if p.content_id == id }
+          end
         end
       end
     end

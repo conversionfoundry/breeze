@@ -14,10 +14,11 @@ Rails.application.routes.draw do |map|
       member do
         post :duplicate
         post :insert
+        get  :instances
       end
       collection do
-        put :reorder
-        get :search
+        put  :reorder
+        get  :search
       end
     end
     

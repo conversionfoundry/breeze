@@ -13,6 +13,7 @@ module Breeze
             end
           end
           base.accepts_nested_attributes_for :placements, :reject_if => lambda { |v| v[:delete].present? }
+          base.before_destroy :destroy_placements
         end
         
         def to_erb(view)
@@ -45,6 +46,11 @@ module Breeze
         end
         
         module ClassMethods
+        end
+        
+      protected
+        def destroy_placements
+          placements.destroy_all
         end
       end
     end

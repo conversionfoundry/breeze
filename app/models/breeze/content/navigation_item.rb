@@ -15,6 +15,8 @@ module Breeze
         false
       end
       
+      def to_s; title; end
+      
       def duplicate(attrs = {})
         new_slug, i = slug, 2
         while Breeze::Content::Item.where(:slug => new_slug, :parent_id => attrs[:parent_id] || parent_id).count > 0

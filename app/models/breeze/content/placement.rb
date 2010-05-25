@@ -59,9 +59,10 @@ module Breeze
       def decrement_content_placement_count
         begin
           if content
-            if (content.placements_count -= 1).zero?
+            content.placements_count -= 1
+            if content.placements_count.zero?
               content.destroy
-            else
+            elsif content.placements_count > 0
               content.save
             end
           end

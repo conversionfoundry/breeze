@@ -20,7 +20,7 @@
         breeze._openDialog(url, {
           title: 'Add content',
           open: function() {
-            breeze._new_content_dialog_open(this, url);
+            breeze.new_content_dialog_open(this, url);
           }
         });
         return false;
@@ -258,12 +258,18 @@
       });
       $(':input:visible', dialog).eq(0).each(function() { this.focus(); });
     },
-    _new_content_dialog_open: function(dialog, url) {
+    new_content_dialog_open: function(dialog, url) {
       var breeze = this;
-      $('.add-content-tabs', dialog).tabs({ selected: 1 });
+      $('.add-content-tabs', dialog).tabs({
+        selected: 1,
+        select: function(e, ui) {
+          console.log($('textarea, input[type=search]', ui.panel).eq(0));
+          $('textarea, input[type=search]', ui.panel).eq(0).each(function() { this.focus(); });
+        }
+      });
       $('#content__type', dialog).change(function() {
         $(dialog).load(url + '&content[_type]=' + escape($(this).val()), function() {
-          breeze._new_content_dialog_open(dialog, url);
+          breeze.new_content_dialog_open(dialog, url);
         });
       });
       $('form.search-contents', dialog).bind('ajax:success', function(e, data, status, xhr) {
@@ -283,7 +289,13 @@
           });
       });
       breeze._prepareEditorDialog(dialog);
+      $('textarea, input[type=search]', dialog).eq(0).each(function() { this.focus(); });
     }
+  });
+  
+  $('.breeze-form a[rel*=error]').live('click', function() {
+    $((this.hash == '#page_permalink') ? '#page_slug' : this.hash, $(this).closest('form')).each(function() { this.focus(); });
+    return false;
   });
 })(jQuery);
 

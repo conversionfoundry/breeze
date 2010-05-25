@@ -32,6 +32,12 @@ describe Breeze::Content::Placement do
     @content.reload.placements_count.should == 1
   end
   
+  it "should be destroyed when its content is destroyed" do
+    @content.destroy
+    @container.reload
+    @container.placements.should be_empty
+  end
+  
   describe "when destroyed" do
     before :each do
       @placement.destroy
