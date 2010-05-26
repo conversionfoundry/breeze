@@ -290,6 +290,10 @@ body.breeze-editing .breeze-content.hover>* {
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px;
 }
 
+.ui-dialog-content * {
+  color: #222;
+}
+
 .ui-dialog-content .ui-tabs {
   margin-top: -39px;
   background: none;

@@ -8,7 +8,7 @@
 .breeze-form fieldset { }
 .breeze-form fieldset.inputs { }
 .breeze-form fieldset.buttons { padding-left:25%; }
-.breeze-form fieldset ol { }
+.breeze-form fieldset ol { padding: 0px; }
 .breeze-form fieldset.buttons li { float:left; padding-right:0.5em; }
 
 /* clearfixing the fieldsets */
@@ -177,6 +177,8 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 	position: relative;
 	cursor: pointer;
 }
+
+.ui-dialog-content .ui-button-text { color: #fff !important; }
 
 .breeze-form .button:hover	{ background-color: #111; color: #fff; }
 .breeze-form .button:active { top: 1px; }
