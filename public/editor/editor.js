@@ -339,6 +339,12 @@
         return false;
       });
     });
+    $('#marquess_link_text, #marquess_link_url').keypress(function(e) {
+      if (e.which == 13) {
+        $('button:contains(OK)', $(this).closest('.ui-dialog')).click();
+        return false;
+      }
+    });
   };
 })(jQuery);
 
