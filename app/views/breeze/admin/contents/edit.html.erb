@@ -4,7 +4,7 @@
   <% if form.object.shared? -%>
     <div class="update-all">
       <p><%= check_box_tag :update_all, "1", true %> <label for="update_all">Update other instances?</label></p>
-      <p class="inline-hints">This piece of content is used elsewhere on the site. (<%= link_to_function "Show me where else this content appears", "$('.instances', $(this).closest('div')).show().load('/admin/contents/#{@content.id}/instances')" %>)</p>
+      <p class="inline-hints">This piece of content is used elsewhere on the site. (<%= link_to_function "Show me where else this content appears", "$('.instances', $(this).closest('div')).show().load('/admin/contents/#{@content.id}/instances', function() { $('a[href=' + window.location.pathname + ']', this).closest('li').hide(); })" %>)</p>
       <div class="instances" style="display: none;">Loading...</div>
     </div>
   <% end -%>
