@@ -2,6 +2,7 @@ module Breeze
   module Content
     class Item
       include Mongoid::Document
+      include Mongoid::Timestamps
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
       

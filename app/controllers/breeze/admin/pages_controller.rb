@@ -6,6 +6,10 @@ module Breeze
       def index
       end
       
+      def list
+        render :layout => false
+      end
+      
       def new
         @page = Breeze::Content::NavigationItem.factory(params[:page])
       end

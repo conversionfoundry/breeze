@@ -1,121 +1,121 @@
 /* SEMANTIC ERRORS
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form ul.errors { color:#cc0000; margin:0.5em 0 1.5em 25%; list-style:square; }
-form.breeze-form ul.errors li { padding:0; border:none; display:list-item; }
+.breeze-form ul.errors { color:#cc0000; margin:0.5em 0 1.5em 25%; list-style:square; }
+.breeze-form ul.errors li { padding:0; border:none; display:list-item; }
 
 /* FIELDSETS & LISTS
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset { }
-form.breeze-form fieldset.inputs { }
-form.breeze-form fieldset.buttons { padding-left:25%; }
-form.breeze-form fieldset ol { }
-form.breeze-form fieldset.buttons li { float:left; padding-right:0.5em; }
+.breeze-form fieldset { }
+.breeze-form fieldset.inputs { }
+.breeze-form fieldset.buttons { padding-left:25%; }
+.breeze-form fieldset ol { }
+.breeze-form fieldset.buttons li { float:left; padding-right:0.5em; }
 
 /* clearfixing the fieldsets */
-form.breeze-form fieldset { display: inline-block; }
-form.breeze-form fieldset:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-html[xmlns] form.breeze-form fieldset { display: block; }
-* html form.breeze-form fieldset { height: 1%; }
+.breeze-form fieldset { display: inline-block; }
+.breeze-form fieldset:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+html[xmlns] .breeze-form fieldset { display: block; }
+* html .breeze-form fieldset { height: 1%; }
 
 /* INPUT LIs
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li { margin-bottom: 8px; }
+.breeze-form fieldset > ol > li { margin-bottom: 8px; }
 
 /* clearfixing the li's */
-form.breeze-form fieldset > ol > li { display: inline-block; }
-form.breeze-form fieldset > ol > li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-html[xmlns] form.breeze-form fieldset > ol > li { display: block; }
-* html form.breeze-form fieldset > ol > li { height: 1%; }
+.breeze-form fieldset > ol > li { display: inline-block; }
+.breeze-form fieldset > ol > li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+html[xmlns] .breeze-form fieldset > ol > li { display: block; }
+* html .breeze-form fieldset > ol > li { height: 1%; }
 
-form.breeze-form fieldset > ol > li.required { }
-form.breeze-form fieldset > ol > li.optional { }
-form.breeze-form fieldset > ol > li.error { }
+.breeze-form fieldset > ol > li.required { }
+.breeze-form fieldset > ol > li.optional { }
+.breeze-form fieldset > ol > li.error { }
 
 /* LABELS
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li label { display:block; width:25%; float:left; padding-top:.2em; }
-form.breeze-form fieldset > ol > li > li label { line-height:100%; padding-top:0; }
-form.breeze-form fieldset > ol > li > li label input { line-height:100%; vertical-align:middle; margin-top:-0.1em;}
+.breeze-form fieldset > ol > li label { display:block; width:25%; float:left; padding-top:.2em; }
+.breeze-form fieldset > ol > li > li label { line-height:100%; padding-top:0; }
+.breeze-form fieldset > ol > li > li label input { line-height:100%; vertical-align:middle; margin-top:-0.1em;}
 
 /* NESTED FIELDSETS AND LEGENDS (radio, check boxes and date/time inputs use nested fieldsets)
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li fieldset { position:relative; }
-form.breeze-form fieldset > ol > li fieldset legend { position:absolute; width:95%; padding-top:0.1em; left: 0px; }
-form.breeze-form fieldset > ol > li fieldset legend span { position:absolute; }
-form.breeze-form fieldset > ol > li fieldset legend.label label { position:absolute; }
-form.breeze-form fieldset > ol > li fieldset ol { float:left; width:74%; margin:0; padding:0 0 0 25%; }
-form.breeze-form fieldset > ol > li fieldset ol li { padding:0; border:0; }
+.breeze-form fieldset > ol > li fieldset { position:relative; }
+.breeze-form fieldset > ol > li fieldset legend { position:absolute; width:95%; padding-top:0.1em; left: 0px; }
+.breeze-form fieldset > ol > li fieldset legend span { position:absolute; }
+.breeze-form fieldset > ol > li fieldset legend.label label { position:absolute; }
+.breeze-form fieldset > ol > li fieldset ol { float:left; width:74%; margin:0; padding:0 0 0 25%; }
+.breeze-form fieldset > ol > li fieldset ol li { padding:0; border:0; }
 
 /* INLINE HINTS
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li p.inline-hints { color:#666; margin:0.5em 0 0 25%; }
+.breeze-form fieldset > ol > li p.inline-hints { color:#666; margin:0.5em 0 0 25%; }
 
 /* INLINE ERRORS
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li p.inline-errors { color:#e33100; margin:0.5em 0 0 25%; }
-form.breeze-form fieldset > ol > li ul.errors { color:#cc0000; margin:0.5em 0 0 25%; list-style:square; }
-form.breeze-form fieldset > ol > li ul.errors li { padding:0; border:none; display:list-item; }
+.breeze-form fieldset > ol > li p.inline-errors { color:#e33100; margin:0.5em 0 0 25%; }
+.breeze-form fieldset > ol > li ul.errors { color:#cc0000; margin:0.5em 0 0 25%; list-style:square; }
+.breeze-form fieldset > ol > li ul.errors li { padding:0; border:none; display:list-item; }
 
 /* STRING & NUMERIC OVERRIDES
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li.text_field input { max-width:74%; }
-form.breeze-form fieldset > ol > li.password input { max-width: 13em; }
-form.breeze-form fieldset > ol > li.numeric input { max-width:74%; }
+.breeze-form fieldset > ol > li.text_field input { max-width:74%; }
+.breeze-form fieldset > ol > li.password input { max-width: 13em; }
+.breeze-form fieldset > ol > li.numeric input { max-width:74%; }
 
 /* TEXTAREA OVERRIDES
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li.text textarea { width:74%; }
+.breeze-form fieldset > ol > li.text textarea { width:74%; }
 
 /* HIDDEN OVERRIDES
 The dual declarations are required because of our clearfix display hack on the LIs, which is more
 specific than the more general rule below. TODO: Revist the clearing hack and this rule.
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset ol li.hidden,
-html[xmlns] form.breeze-form fieldset ol li.hidden { display:none; }
+.breeze-form fieldset ol li.hidden,
+html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 
 /* BOOLEAN OVERRIDES
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li.boolean label { padding-left:25%; width:auto; }
-form.breeze-form fieldset > ol > li.boolean label input { margin:0 0.5em 0 0.2em; }
+.breeze-form fieldset > ol > li.boolean label { padding-left:25%; width:auto; }
+.breeze-form fieldset > ol > li.boolean label input { margin:0 0.5em 0 0.2em; }
 
 /* RADIO OVERRIDES
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li.radio { }
-form.breeze-form fieldset > ol > li.radio fieldset ol { margin-bottom:-0.6em; }
-form.breeze-form fieldset > ol > li.radio fieldset ol li { margin:0.1em 0 0.5em 0; }
-form.breeze-form fieldset > ol > li.radio fieldset ol li label { float:none; width:100%; }
-form.breeze-form fieldset > ol > li.radio fieldset ol li label input { margin-right:0.2em; }
+.breeze-form fieldset > ol > li.radio { }
+.breeze-form fieldset > ol > li.radio fieldset ol { margin-bottom:-0.6em; }
+.breeze-form fieldset > ol > li.radio fieldset ol li { margin:0.1em 0 0.5em 0; }
+.breeze-form fieldset > ol > li.radio fieldset ol li label { float:none; width:100%; }
+.breeze-form fieldset > ol > li.radio fieldset ol li label input { margin-right:0.2em; }
 
 
 /* CHECK BOXES (COLLECTION) OVERRIDES
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li.check_boxes { }
-form.breeze-form fieldset > ol > li.check_boxes fieldset ol { margin-bottom:-0.6em; }
-form.breeze-form fieldset > ol > li.check_boxes fieldset ol li { margin:0.1em 0 0.5em 0; }
-form.breeze-form fieldset > ol > li.check_boxes fieldset ol li label { float:none; width:100%; }
-form.breeze-form fieldset > ol > li.check_boxes fieldset ol li label input { margin-right:0.2em; }
+.breeze-form fieldset > ol > li.check_boxes { }
+.breeze-form fieldset > ol > li.check_boxes fieldset ol { margin-bottom:-0.6em; }
+.breeze-form fieldset > ol > li.check_boxes fieldset ol li { margin:0.1em 0 0.5em 0; }
+.breeze-form fieldset > ol > li.check_boxes fieldset ol li label { float:none; width:100%; }
+.breeze-form fieldset > ol > li.check_boxes fieldset ol li label input { margin-right:0.2em; }
 
 /* DATE & TIME OVERRIDES
 --------------------------------------------------------------------------------------------------*/
-form.breeze-form fieldset > ol > li.date fieldset ol li,
-form.breeze-form fieldset > ol > li.time fieldset ol li,
-form.breeze-form fieldset > ol > li.datetime fieldset ol li { float:left; width:auto; margin:0 .3em 0 0; }
+.breeze-form fieldset > ol > li.date fieldset ol li,
+.breeze-form fieldset > ol > li.time fieldset ol li,
+.breeze-form fieldset > ol > li.datetime fieldset ol li { float:left; width:auto; margin:0 .3em 0 0; }
 
-form.breeze-form fieldset > ol > li.date fieldset ol li label,
-form.breeze-form fieldset > ol > li.time fieldset ol li label,
-form.breeze-form fieldset > ol > li.datetime fieldset ol li label { display:none; }
+.breeze-form fieldset > ol > li.date fieldset ol li label,
+.breeze-form fieldset > ol > li.time fieldset ol li label,
+.breeze-form fieldset > ol > li.datetime fieldset ol li label { display:none; }
 
-form.breeze-form fieldset > ol > li.date fieldset ol li label input, 
-form.breeze-form fieldset > ol > li.time fieldset ol li label input, 
-form.breeze-form fieldset > ol > li.datetime fieldset ol li label input { display:inline; margin:0; padding:0;  }
+.breeze-form fieldset > ol > li.date fieldset ol li label input, 
+.breeze-form fieldset > ol > li.time fieldset ol li label input, 
+.breeze-form fieldset > ol > li.datetime fieldset ol li label input { display:inline; margin:0; padding:0;  }
 
 /*}}}*/
 
 /* Overrides {{{ */
 
-form.breeze-form fieldset { display: block; }
+.breeze-form fieldset { display: block; }
 
-form.breeze-form abbr {
+.breeze-form abbr {
   color: #e33100;
   font-size: 200%;
   line-height: 0.3em;
@@ -124,36 +124,36 @@ form.breeze-form abbr {
   margin-left: 0.25em;
 }
 
-form.breeze-form fieldset > ol > li { display: block; clear: left; }
-form.breeze-form fieldset > ol > li label { line-height: 125%; }
-form.breeze-form input, form.breeze-form textarea, form.breeze-form select { font-size: 125%; }
-form.breeze-form fieldset > ol > li.text_field input { width:74%; }
+.breeze-form fieldset > ol > li { display: block; clear: left; }
+.breeze-form fieldset > ol > li label { line-height: 125%; }
+.breeze-form input, .breeze-form textarea, .breeze-form select { font-size: 125%; }
+.breeze-form fieldset > ol > li.text_field input { width:74%; }
 
-form.breeze-form fieldset > ol > li.check_box { padding-left: 25%; }
-form.breeze-form fieldset > ol > li.check_box label { float: none; display: inline; }
+.breeze-form fieldset > ol > li.check_box { padding-left: 25%; }
+.breeze-form fieldset > ol > li.check_box label { float: none; display: inline; }
 
-form.breeze-form fieldset {
+.breeze-form fieldset {
   border: none;
   padding-top: 8px;
 }
 
-form.breeze-form fieldset legend {
+.breeze-form fieldset legend {
   font-size: 125%;
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
 
-form.breeze-form .field_with_errors {
+.breeze-form .field_with_errors {
   display: inline;
 }
 
-form.breeze-form fieldset > ol > li.text_area label {
+.breeze-form fieldset > ol > li.text_area label {
   display: block;
   float: none;
   width:100%;
 }
 
-form.breeze-form fieldset > ol > li.text_area textarea {
+.breeze-form fieldset > ol > li.text_area textarea {
   font-family: Monaco, monospace !important;
 }
 

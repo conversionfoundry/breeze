@@ -457,7 +457,7 @@
               } else {
                 before += (options.before || '');
                 after = (options.after || '') + after;
-                text = options.defaultText == false ? '' : options.defaultText || 'text';
+                text = options.defaultText == false ? '' : text || options.defaultText || 'text';
               }
             } else {
               if (before.substring(before.length - options.before.length) == options.before && after.substring(0, options.after.length) == options.after) {

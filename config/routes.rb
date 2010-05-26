@@ -8,6 +8,9 @@ Rails.application.routes.draw do |map|
         put :sort
         post :duplicate
       end
+      collection do
+        get :list
+      end
     end
     
     resources :contents do
