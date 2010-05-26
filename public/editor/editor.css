@@ -322,7 +322,7 @@ body.breeze-editing .breeze-content.hover>* {
   overflow: auto;
 }
 
-.ui-dialog .breeze-search-results ol li {
+.ui-dialog .breeze-search-results>ol>li {
   list-style: none;
   display: block;
   position: relative;
@@ -331,7 +331,7 @@ body.breeze-editing .breeze-content.hover>* {
   min-height: 48px;
 }
 
-.ui-dialog .breeze-search-results ol li .insert-content-button {
+.ui-dialog .breeze-search-results>ol>li .insert-content-button {
   position: absolute;
   right: 0px;
   top: 8px;
@@ -358,8 +358,21 @@ body.breeze-editing .breeze-content.hover>* {
   font-weight: bold;
 }
 
-.ui-dialog .update-all ul {
-  margin: 0px 0px 7px 2em;
+.ui-dialog .instances ul {
+  margin: 0px 0px 7px;
+}
+
+.ui-dialog .instances ul li {
+  list-style: none;
+  display: block;
+  padding-left: 20px;
+  background: url(images/page.png) no-repeat 0px 0px;
+  line-height: 18px;
+  vertical-align: middle;
+}
+
+.ui-dialog .instances ul li small {
+  
 }
 
 #marquess_link_select {

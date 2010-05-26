@@ -1,5 +1,7 @@
 <%= content_tag :li do %>
   <%= render :inline => result.to_erb(nil) %>
   <%= link_to "Insert", insert_admin_content_path(result, :format => :js), :class => "insert-content-button" %>
-  <%= pluralize result.placements_count, "page" %>
+  <%= content_tag :div, :class => "instances" do %>
+    <%= link_to_function pluralize(result.placements_count, "page"), "$(this).closest('div').html('Loading...').load('/admin/contents/#{result.id}/instances')" %>
+  <% end %>
 <% end %>

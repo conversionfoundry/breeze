@@ -1,5 +1,5 @@
 <ul>
   <% @instances.each do |instance| -%>
-    <li><%= link_to instance.to_s, instance.permalink, :target => :_blank %></li>
+    <li><%= link_to instance.to_s, instance.permalink, :target => :_blank %> <small>(<%= instance.permalink %>)</small></li>
   <% end -%>
 </ul>
