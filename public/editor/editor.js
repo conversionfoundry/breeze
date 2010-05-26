@@ -335,9 +335,9 @@
         return false;
       });
       $('li.open, li.closed').click(function() {
-        $(this).closest('li').toggleClass('open').toggleClass('closed');
+        $(this).toggleClass('open').toggleClass('closed');
         return false;
-      });
+      }).filter('.open').click();
     });
     $('#marquess_link_text, #marquess_link_url').keypress(function(e) {
       if (e.which == 13) {
