@@ -1,0 +1,33 @@
+<% content_for :title, "Assets" %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "/breeze/javascripts/jcrop/css/jquery.Jcrop.css" %>
+  <%= javascript_include_tag "/breeze/javascripts/assets", "/breeze/javascripts/jcrop/js/jquery.Jcrop.min.js" %>
+<% end %>
+
+<%= pane_layout do |main| %>
+  <% main.inner do %>
+    <%= render :partial => "asset", :collection => Breeze::Content::Asset.all %>
+  <% end %>
+<% end %>
+
+<% content_for :left do %>
+  <%= pane_layout do |left| %>
+    <% left.header do %>
+      <h2>Assets</h2>
+    <% end %>
+    <% left.inner do %>
+      <%= content_tag :div, :id => :folders do %>
+        <%= content_tag :ul, :class => "folders" do %>
+
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :right do %>
+  <%= pane_layout do |right| %>
+    
+  <% end %>
+<% end -%>
