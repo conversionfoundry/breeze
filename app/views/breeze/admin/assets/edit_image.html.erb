@@ -24,7 +24,7 @@
       <div class="image-crop" style="display: none">
         <p class="dimensions"><%= text_field_tag "asset[crop][target_width]", @asset.image_width %> &times; <%= text_field_tag "asset[crop][target_height]", @asset.image_height %> pixels</p>
         <ul class="radio">
-          <li><%= radio_button_tag "asset[crop][mode]", "force", true %> Force aspect ratio</li>
+          <li><%= radio_button_tag "asset[crop][mode]", "crop", true %> Force aspect ratio</li>
           <li><%= radio_button_tag "asset[crop][mode]", "resize_to_fit" %> Resize to fit</li>
           <li><%= radio_button_tag "asset[crop][mode]", "resize_to_fill" %> Resize and crop to fit</li>
         </ul>
