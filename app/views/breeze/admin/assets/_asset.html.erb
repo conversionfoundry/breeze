@@ -1,6 +1,6 @@
 <%= content_tag :div, :class => "asset#{' image' if asset.image?}", :id => "asset_#{asset.id}" do %>
   <%= content_tag :div, :class => "icon #{asset.extension}" do %>
-    <%= image_tag asset.file.url(:icon) if asset.image? %>
+    <%= image_tag asset.file.url(:thumbnail) if asset.image? %>
   <% end %>
   <%= link_to "Edit", edit_admin_asset_path(asset), :rel => "edit" %>
 <% end %>

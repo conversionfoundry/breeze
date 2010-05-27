@@ -79,6 +79,14 @@ p { margin: 0px 0px 8px; }
   border-bottom: 1px solid rgba(255, 255, 255, 0.75);
 }
 
+#main .inner {
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
 #left .inner {
   position: absolute;
   left: 0px;
@@ -205,7 +213,7 @@ p { margin: 0px 0px 8px; }
   bottom: 0px;
 }
 
-#main-tabs .tab-pane .scrollable {
+#main .inner .scrollable {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -546,51 +554,15 @@ form.folder {
 
 /* }}} */
 
-/* Image editor {{{ */
+/* Assets {{{ */
 
-.ui-dialog .image-editor {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  right: 0px;
-  bottom: -8px;
-  overflow: hidden;
+#assets {
+  padding: 8px;
 }
 
-.ui-dialog .image-editor .image-preview {
-  position: absolute;
-  left: 8px;
-  top: 8px;
-  right: 232px;
-  bottom: 8px;
-  overflow: hidden;
-}
-
-.ui-dialog .image-editor .image-preview .img {
-  position: absolute;
-}
-
-.ui-dialog .image-editor .image-preview .img img {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-}
-
-.ui-dialog .image-editor form {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-  padding: 0px;
-  width: 224px;
-  overflow: auto;
-  background: #ddd;
-}
-
-.ui-dialog .image-editor form h3 {
-  margin: 0px 0px 1px;
+#assets h3 {
+  clear: left;
+  margin: 0px 0px 8px;
   background: #aaa;
   color: #222;
   padding: 0px 8px;
@@ -600,32 +572,128 @@ form.folder {
   vertical-align: middle;
 }
 
-.ui-dialog .image-editor form p {
-  padding: 8px;
-  margin: 0px;
+#assets .image {
+  float: left;
+  margin: 0px 8px 8px 0px;
+  width: 144px;
+  height: 136px;
+  position: relative;
+  -webkit-transition: background 0.25s ease-in;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
 }
 
-.ui-dialog .image-editor form ul {
-  margin: 0px 8px 8px;
-  padding: 0px;
+#assets .image:hover {
+  background: rgba(0, 0, 0, 0.15);
 }
 
-.ui-dialog .image-editor form ul li {
-  display: block;
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-.ui-dialog .image-editor form p.dimensions input {
-  width: 3em;
-  text-align: right;
-}
-
-.ui-dialog .image-editor form .button.preview {
-  width: 180px;
-  color: white;
+#assets .image .icon {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 128px;
+  height: 128px;
+  line-height: 128px;
   text-align: center;
+  vertical-align: middle;
 }
 
-/*}}}*/
+#assets .image .icon img {
+  line-height: 128px;
+  vertical-align: middle;
+}
+
+#assets .image .meta {
+  display: block;
+  opacity: 0.0;
+  position: absolute;
+  z-index: 1;
+  left: 0px;
+  top: 136px;
+  right: 0px;
+  padding: 0px 8px;
+  height: 0px;
+  background: rgba(255, 255, 192, 0.75);
+  font-size: 85%;
+  -webkit-transition-property: opacity, padding, height;
+  -webkit-transition-duration: 0.15s;
+  -webkit-transition-timing-function: ease-in;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
+}
+
+#assets .image .meta:before {
+  position: absolute;
+  left: 16px;
+  top: -8px;
+  width: 0px;
+  height: 0px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid rgba(255, 255, 192, 0.75);
+  content: ".";
+  text-indent: -100em;
+  overflow: hidden;
+}
+
+#assets .image:hover .meta {
+  opacity: 1.0;
+  padding: 8px;
+  height: auto;
+}
+
+#assets .image .meta .filename {
+  display: block;
+}
+
+#assets .image .meta small {
+  font-size: 100%;
+  opacity: 0.5;
+  display: block;
+}
+
+#assets .image .meta small abbr {
+  text-transform: uppercase;
+}
+
+#assets .image .links {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  opacity: 0.0;
+  -webkit-transition: opacity 0.25s ease-in;
+}
+
+#assets .image:hover .links {
+  opacity: 1.0;
+}
+
+#assets .image .links a {
+  display: block;
+  clear: left;
+  float: left;
+  line-height: 20px;
+  vertical-align: middle;
+  margin: 0px 0px 2px;
+  padding: 0px 4px 0px 24px;
+  vertical-align: middle;
+  background-color: rgba(255, 255, 255, 0.75);
+  background-repeat: no-repeat;
+  background-position: 4px 50%;
+  color: #222;
+  text-decoration: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-transition: background-color 0.15s ease-in;
+}
+
+#assets .image .links a.edit { background-image: url(../images/icons/picture-edit.png); }
+#assets .image .links a.delete { background-image: url(../images/icons/delete.png); }
+
+#assets .image .links a:hover { background-color: white; }
+
+/* }}} */

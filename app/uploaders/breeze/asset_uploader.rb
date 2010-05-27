@@ -5,8 +5,9 @@ module Breeze
     storage :file
     
     # TODO: make these conditional
-    version :icon    do; process :resize_to_fit   => [  48,  48 ]; end
-    version :preview do; process :resize_to_limit => [ 224, 224 ]; end
+    version :icon      do; process :resize_to_fit   => [  48,  48 ]; end
+    version :thumbnail do; process :resize_to_limit => [ 128, 128 ]; end
+    version :preview   do; process :resize_to_limit => [ 224, 224 ]; end
     
     def store_path(for_file = filename)
       File.join *[version_name ? "images/thumbnails/#{version_name}" : "assets", model.folder, full_filename(for_file)].compact

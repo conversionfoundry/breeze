@@ -238,3 +238,109 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 }
 
 /*}}}*/
+
+/* Image editor {{{ */
+
+.ui-dialog .image-editor {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: -8px;
+}
+
+.ui-dialog .image-editor .image-preview {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  right: 232px;
+  bottom: 8px;
+  overflow: hidden;
+}
+
+.ui-dialog .image-editor .image-preview .img {
+  position: absolute;
+}
+
+.ui-dialog .image-editor .image-preview .img img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+}
+
+.ui-dialog .image-editor form {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  padding: 0px;
+  width: 224px;
+  overflow: auto;
+  background: #ddd;
+}
+
+.ui-dialog .image-editor form h3 {
+  margin: 0px 0px 1px;
+  background: #aaa;
+  color: #222;
+  padding: 0px 8px;
+  text-transform: uppercase;
+  font-weight: normal;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.ui-dialog .image-editor form p {
+  padding: 8px;
+  margin: 0px;
+}
+
+.ui-dialog .image-editor form ul {
+  margin: 0px 8px 8px;
+  padding: 0px;
+}
+
+.ui-dialog .image-editor form ul li {
+  display: block;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.ui-dialog .image-editor form p.dimensions input {
+  width: 3em;
+  text-align: right;
+}
+
+.ui-dialog .image-editor form .button.preview {
+  width: 180px;
+  color: white;
+  text-align: center;
+}
+
+.image-crop-container {
+  position: absolute;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
+.image-crop-container:after {
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+  border-top: 12px solid rgba(0, 0, 0, 0.75);
+  border-right: 12px solid transparent;
+  content: ".";
+  text-indent: -100em;
+  overflow: hidden;
+}
+
+/*}}}*/

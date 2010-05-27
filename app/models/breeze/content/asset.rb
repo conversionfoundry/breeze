@@ -15,6 +15,10 @@ module Breeze
         !!(file && /^image\// === Mime[extension].to_s)
       end
       
+      def basename
+        attributes[:file]
+      end
+      
       def extension
         File.extname(file.path)[1..-1].downcase
       end
