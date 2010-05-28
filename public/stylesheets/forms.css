@@ -309,13 +309,34 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
   padding: 0px;
 }
 
+.ui-dialog .image-editor form div.image-name {
+  padding-top: 6px;
+}
+
+.ui-dialog .image-editor form .image-name input,
+.ui-dialog .image-editor form .image-name textarea {
+  width: 188px;
+}
+
+.ui-dialog .image-editor form .image-name label {
+  display: block;
+  margin-top: -8px;
+  font-size: 85%;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.ui-dialog .image-editor form .image-name p {
+  padding: 4px 8px;
+}
+
 .ui-dialog .image-editor form p.dimensions input {
   width: 3em;
   text-align: right;
 }
 
 .ui-dialog .image-editor form .button.preview {
-  width: 180px;
+  width: 160px;
   color: white;
   text-align: center;
 }

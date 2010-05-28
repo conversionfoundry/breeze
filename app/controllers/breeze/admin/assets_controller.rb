@@ -13,6 +13,11 @@ module Breeze
         render :action => "edit_image" if @asset.image?
       end
       
+      def update
+        @asset = Breeze::Content::Asset.find params[:id]
+        @asset.update_attributes params[:asset]
+      end
+      
       def destroy
         @asset = Breeze::Content::Asset.find params[:id]
         @asset.try :destroy

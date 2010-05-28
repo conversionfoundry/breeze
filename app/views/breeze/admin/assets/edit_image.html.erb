@@ -4,11 +4,13 @@
       <%= image_tag @asset.file.url, :width => @asset.image_width, :height => @asset.image_height %>
     <% end %>
   <% end %>
-  <%= form_for @asset, :as => :asset, :url => admin_asset_path(@asset, :format => :js) do |form| %>
+  <%= form_for @asset, :as => :asset, :url => admin_asset_path(@asset, :format => :js), :remote => true do |form| %>
     <div class="properties">
-      <h3 class="image-name">Name and description</h3>
+      <h3 class="image-name">Name/description</h3>
       <div class="image-name">
-        
+        <p><label for="asset_basename">Filename</label> <%= form.text_field :basename %></p>
+        <p><label for="asset_title">Title</label> <%= form.text_field :title %></p>
+        <p><label for="asset_description">Description</label> <%= form.text_area :description, :rows => 3 %></p>
       </div>
       <h3 class="image-current-size">Current Size</a></h3>
       <div class="image-current-size">
