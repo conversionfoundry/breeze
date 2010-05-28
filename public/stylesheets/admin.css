@@ -562,7 +562,7 @@ form.folder {
 
 #assets h3 {
   clear: left;
-  margin: 0px 0px 8px;
+  margin: 0px 0px 16px;
   background: #aaa;
   color: #222;
   padding: 0px 8px;
@@ -576,8 +576,9 @@ form.folder {
   float: left;
   margin: 0px 8px 8px 0px;
   width: 144px;
-  height: 136px;
+  height: 144px;
   position: relative;
+  top: -8px;
   -webkit-transition: background 0.25s ease-in;
   -webkit-border-top-left-radius: 8px;
   -webkit-border-top-right-radius: 8px;
@@ -605,13 +606,14 @@ form.folder {
   vertical-align: middle;
 }
 
-#assets .image .meta {
+#assets .image .meta,
+#assets .other-assets .asset .links {
   display: block;
   opacity: 0.0;
   position: absolute;
   z-index: 1;
   left: 0px;
-  top: 136px;
+  top: 144px;
   right: 0px;
   padding: 0px 8px;
   height: 0px;
@@ -626,7 +628,8 @@ form.folder {
   -moz-border-radius-bottomright: 8px;
 }
 
-#assets .image .meta:before {
+#assets .image .meta:before,
+#assets .other-assets .asset .links:before {
   position: absolute;
   left: 16px;
   top: -8px;
@@ -640,7 +643,8 @@ form.folder {
   overflow: hidden;
 }
 
-#assets .image:hover .meta {
+#assets .image:hover .meta,
+#assets .other-assets .asset:hover .links {
   opacity: 1.0;
   padding: 8px;
   height: auto;
@@ -672,6 +676,15 @@ form.folder {
   opacity: 1.0;
 }
 
+#assets .image img {
+  -webkit-transition: -webkit-box-shadow 0.25s ease-in;
+}
+
+#assets .image:hover img {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
 #assets .image .links a {
   display: block;
   clear: left;
@@ -695,5 +708,66 @@ form.folder {
 #assets .image .links a.delete { background-image: url(../images/icons/delete.png); }
 
 #assets .image .links a:hover { background-color: white; }
+
+#assets .other-assets .asset {
+  float: left;
+  margin: 0px 8px 8px 0px;
+  width: 220px;
+  height: 64px;
+  position: relative;
+  top: -8px;
+  -webkit-transition: background 0.25s ease-in;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
+}
+
+#assets .other-assets .asset:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+#assets .other-assets .asset .icon {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  height: 48px;
+  padding-left: 48px;
+  width: 152px;
+  background: url(../images/icons/mime/any.png) no-repeat 0px 50%;
+}
+
+#assets .other-assets .pdf .icon { background-image: url(../images/icons/mime/pdf.png); }
+#assets .other-assets .doc .icon,
+#assets .other-assets .txt .icon { background-image: url(../images/icons/mime/text.png); }
+#assets .other-assets .xls .icon { background-image: url(../images/icons/mime/spreadsheet.png); }
+#assets .other-assets .mov .icon,
+#assets .other-assets .flv .icon,
+#assets .other-assets .wmv .icon,
+#assets .other-assets .m4v .icon { background-image: url(../images/icons/mime/video.png); }
+
+#assets .other-assets .asset .links {
+  top: 64px;
+  font-size: 100%;
+  line-height: 18px;
+  vertical-align: middle;
+}
+
+#assets .other-assets .asset:hover .links {
+  height: 18px;
+}
+
+#assets .other-assets .asset .links a {
+  color: #222;
+  float: left;
+  text-decoration: none;
+  padding: 0px 8px 0px 18px;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+}
+
+#assets .other-assets .asset .links a.view { background-image: url(../images/icons/download.png); }
+#assets .other-assets .asset .links a.edit { background-image: url(../images/icons/asset-edit.png); }
+#assets .other-assets .asset .links a.delete { background-image: url(../images/icons/delete.png); }
 
 /* }}} */

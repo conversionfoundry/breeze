@@ -3,7 +3,7 @@
     <%= image_tag image.file.url(:thumbnail) %>
   <% end %>
   <%= content_tag :div, :class => :meta do %>
-    <span class="filename"><%= truncate image.basename, :length => 22 %></span>
+    <span class="filename" title="<%= image.basename %>"><%= truncate image.basename, :length => 22 %></span>
     <small class="dimensions"><%= image.image_width || "??" %> &times; <%= image.image_height || "??" %>, <abbr><%= image.extension %></abbr></small>
   <% end %>
   <%= content_tag :div, :class => :links do %>

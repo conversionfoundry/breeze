@@ -4,7 +4,8 @@ module Breeze
       unloadable
       
       def index
-        @assets = Breeze::Content::Asset.all
+        # TODO: sort into folders
+        @assets = Breeze::Content::Asset.all.order_by([[ :file, :asc ]])
       end
       
       def edit

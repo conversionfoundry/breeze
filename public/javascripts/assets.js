@@ -80,6 +80,10 @@
                 refreshControls();
               }).bind('input', function() { $(this).change(); });
               $('.preview.button', dialog).click(function() {
+                if ($('body>.image-crop-container').remove().length > 0) {
+                  $(document).unbind('.dismiss_preview');
+                  return false;
+                }
                 var has_selection = $('#asset_crop_selection_width', dialog).is(':visible');
                 var original_width = parseInt($('#asset_image_width', dialog).val());
                 var original_height = parseInt($('#asset_image_height', dialog).val());
@@ -114,7 +118,6 @@
                 }
                 
                 var o = $(this).offset();
-                $('body>.image-crop-container').remove();
                 var preview = $('<div class="image-crop-container"><div class="image-crop-mask"><img src="' + $('img', dialog).attr('src') + '" /></div></div>')
                 .appendTo('body')
                 .find('img').css({

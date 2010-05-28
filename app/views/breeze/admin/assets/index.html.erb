@@ -15,7 +15,10 @@
       <%= content_tag :div, :class => "assets image-assets" do %>
         <%= render :partial => "image", :collection => @assets.select(&:image?) %>
       <% end %>
-      
+      <h3>Other stuff</h3>
+      <%= content_tag :div, :class => "assets other-assets" do %>
+        <%= render :partial => "asset", :collection => @assets.reject(&:image?) %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
@@ -37,6 +40,8 @@
 
 <% content_for :right do %>
   <%= pane_layout do |right| %>
-    
+    <% right.inner do %>
+
+    <% end %>
   <% end %>
 <% end -%>

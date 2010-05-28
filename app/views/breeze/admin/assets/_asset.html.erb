@@ -1,6 +1,10 @@
-<%= content_tag :div, :class => "asset#{' image' if asset.image?}", :id => "asset_#{asset.id}" do %>
+<%= content_tag :div, :class => "asset #{asset.extension}", :id => "asset_#{asset.id}" do %>
   <%= content_tag :div, :class => "icon #{asset.extension}" do %>
-    <%= image_tag asset.file.url(:thumbnail) if asset.image? %>
+    <span class="filename"><%= asset.basename %></span>
   <% end %>
-  <%= link_to "Edit", edit_admin_asset_path(asset), :rel => "edit" %>
+  <%= content_tag :div, :class => :links do %>
+    <%= link_to "View", asset.file.url, :class => :view, :rel => :view, :target => :_blank %>
+    <%= link_to "Edit", edit_admin_asset_path(asset), :class => :edit, :rel => :edit %>
+    <%= link_to "Delete", admin_asset_path(asset), :method => :delete, :remote => true, :class => :delete, :rel => :delete %>
+  <% end %>
 <% end %>
