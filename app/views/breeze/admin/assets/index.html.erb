@@ -1,8 +1,8 @@
 <% content_for :title, "Assets" %>
 
 <% content_for :head do %>
-  <%= stylesheet_link_tag "/breeze/javascripts/jcrop/css/jquery.Jcrop.css" %>
-  <%= javascript_include_tag "/breeze/javascripts/assets", "/breeze/javascripts/jcrop/js/jquery.Jcrop.min.js" %>
+  <%= stylesheet_link_tag "/breeze/javascripts/jcrop/css/jquery.Jcrop.css", "/breeze/javascripts/uploadify/uploadify.css" %>
+  <%= javascript_include_tag "/breeze/javascripts/assets", "/breeze/javascripts/jcrop/js/jquery.Jcrop.min.js", "/breeze/javascripts/uploadify/swfobject.js", "/breeze/javascripts/uploadify/uploadify.js" %>
 <% end %>
 
 <%= pane_layout do |main| %>
@@ -41,7 +41,7 @@
 <% content_for :right do %>
   <%= pane_layout do |right| %>
     <% right.inner do %>
-
+      <%= render :partial => "upload" %>
     <% end %>
   <% end %>
 <% end -%>

@@ -155,5 +155,21 @@
       
       return false;
     });
+    
+    $('#right #uploader').each(function() {
+      script_data = {};
+      script_data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
+      script_data[$(this).attr('data-session-key')] = $(this).attr('data-session-id');
+      $(this).uploadify({
+        uploader:   '/breeze/javascripts/uploadify/uploadify.swf',
+        script:     '/breeze/javascripts/uploadify/uploadify.php',
+        folder:     '/breeze/javascripts/uploadify/uploads-folder',
+        cancelImg:  '/breeze/images/icons/delete.png',
+        multi:      true,
+        auto:       true,
+        script:     '/admin/assets',
+        scriptData: script_data
+      });
+    });
   });
 })(jQuery);

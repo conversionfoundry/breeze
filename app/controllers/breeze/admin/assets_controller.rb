@@ -2,10 +2,19 @@ module Breeze
   module Admin
     class AssetsController < AdminController
       unloadable
+
+      # TODO: authenticate file uploads
+      # skip_before_filter :verify_authenticity_token, :only => [ :create ]
+      skip_before_filter :authenticate_admin!, :only => [ :create ]
       
       def index
         # TODO: sort into folders
         @assets = Breeze::Content::Asset.all.order_by([[ :file, :asc ]])
+      end
+      
+      def create
+        # TODO: report status
+        render :nothing => true
       end
       
       def edit
