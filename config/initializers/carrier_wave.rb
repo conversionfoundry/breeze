@@ -18,7 +18,16 @@ module CarrierWave
       def version(name, options = {}, &block)
         name = name.to_sym
         version_conditions[name] = options
-        super name, &block
+        versions[name] = Class.new(self)
+        versions[name].version_names.push(*version_names)
+        versions[name].version_names.push(name)
+        class_eval <<-RUBY
+          def #{name}
+            versions[:#{name}]
+          end
+        RUBY
+        versions[name].class_eval(&block) if block
+        versions[name]
       end
     end
 
