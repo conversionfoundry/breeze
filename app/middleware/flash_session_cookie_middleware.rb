@@ -12,6 +12,9 @@ class FlashSessionCookieMiddleware
       unless req.params[session_key].nil?
         env['HTTP_COOKIE'] = "#{session_key}=#{req.params[session_key]}".freeze
       end
+      %w(rack.request.query_hash rack.request.form_hash).each do |k|
+        env[k]["authenticity_token"].sub!(" ", "+") if env[k].present? && env[k]["authenticity_token"].present?
+      end
     end
     
     @app.call(env)
