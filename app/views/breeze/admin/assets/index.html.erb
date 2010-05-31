@@ -16,7 +16,7 @@
         <%= render :partial => "image", :collection => @assets.select(&:image?) %>
       <% end %>
       <h3>Other stuff</h3>
-      <%= content_tag :div, :class => "assets other-assets" do %>
+      <%= content_tag :div, :class => "assets asset-assets" do %>
         <%= render :partial => "asset", :collection => @assets.reject(&:image?) %>
       <% end %>
     <% end %>
@@ -45,3 +45,9 @@
     <% end %>
   <% end %>
 <% end -%>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    show_or_hide_asset_section_headings();
+  });
+</script>

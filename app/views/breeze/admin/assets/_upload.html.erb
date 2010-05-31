@@ -1,2 +1,3 @@
-<h2>Upload files</h2>
-<%= content_tag :div, "", :id => "uploader", "data-session-key" => Rails::Application.config.session_options[:key], "data-session-id" => cookies[Rails::Application.config.session_options[:key]] %>
+<%= content_tag :div, :id => "uploader", "data-session-key" => Rails::Application.config.session_options[:key], "data-session-id" => cookies[Rails::Application.config.session_options[:key]] do %>
+  <%= link_to "Upload file(s)...", new_admin_asset_path, :class => "large upload button" %>
+<% end %>

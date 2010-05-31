@@ -607,7 +607,7 @@ form.folder {
 }
 
 #assets .image .meta,
-#assets .other-assets .asset .links {
+#assets .asset-assets .asset .links {
   display: block;
   opacity: 0.0;
   position: absolute;
@@ -629,7 +629,7 @@ form.folder {
 }
 
 #assets .image .meta:before,
-#assets .other-assets .asset .links:before {
+#assets .asset-assets .asset .links:before {
   position: absolute;
   left: 16px;
   top: -8px;
@@ -644,7 +644,7 @@ form.folder {
 }
 
 #assets .image:hover .meta,
-#assets .other-assets .asset:hover .links {
+#assets .asset-assets .asset:hover .links {
   opacity: 1.0;
   padding: 8px;
   height: auto;
@@ -677,10 +677,6 @@ form.folder {
 }
 
 #assets .image img {
-  -webkit-transition: -webkit-box-shadow 0.25s ease-in;
-}
-
-#assets .image:hover img {
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
 }
@@ -709,7 +705,7 @@ form.folder {
 
 #assets .image .links a:hover { background-color: white; }
 
-#assets .other-assets .asset {
+#assets .asset-assets .asset {
   float: left;
   margin: 0px 8px 8px 0px;
   width: 220px;
@@ -723,11 +719,11 @@ form.folder {
   -moz-border-radius-topright: 8px;
 }
 
-#assets .other-assets .asset:hover {
+#assets .asset-assets .asset:hover {
   background: rgba(0, 0, 0, 0.15);
 }
 
-#assets .other-assets .asset .icon {
+#assets .asset-assets .asset .icon {
   position: absolute;
   left: 8px;
   top: 8px;
@@ -737,27 +733,27 @@ form.folder {
   background: url(../images/icons/mime/any.png) no-repeat 0px 50%;
 }
 
-#assets .other-assets .pdf .icon { background-image: url(../images/icons/mime/pdf.png); }
-#assets .other-assets .doc .icon,
-#assets .other-assets .txt .icon { background-image: url(../images/icons/mime/text.png); }
-#assets .other-assets .xls .icon { background-image: url(../images/icons/mime/spreadsheet.png); }
-#assets .other-assets .mov .icon,
-#assets .other-assets .flv .icon,
-#assets .other-assets .wmv .icon,
-#assets .other-assets .m4v .icon { background-image: url(../images/icons/mime/video.png); }
+#assets .asset-assets .pdf .icon { background-image: url(../images/icons/mime/pdf.png); }
+#assets .asset-assets .doc .icon,
+#assets .asset-assets .txt .icon { background-image: url(../images/icons/mime/text.png); }
+#assets .asset-assets .xls .icon { background-image: url(../images/icons/mime/spreadsheet.png); }
+#assets .asset-assets .mov .icon,
+#assets .asset-assets .flv .icon,
+#assets .asset-assets .wmv .icon,
+#assets .asset-assets .m4v .icon { background-image: url(../images/icons/mime/video.png); }
 
-#assets .other-assets .asset .links {
+#assets .asset-assets .asset .links {
   top: 64px;
   font-size: 100%;
   line-height: 18px;
   vertical-align: middle;
 }
 
-#assets .other-assets .asset:hover .links {
+#assets .asset-assets .asset:hover .links {
   height: 18px;
 }
 
-#assets .other-assets .asset .links a {
+#assets .asset-assets .asset .links a {
   color: #222;
   float: left;
   text-decoration: none;
@@ -766,8 +762,12 @@ form.folder {
   background-position: 0px 0px;
 }
 
-#assets .other-assets .asset .links a.view { background-image: url(../images/icons/download.png); }
-#assets .other-assets .asset .links a.edit { background-image: url(../images/icons/asset-edit.png); }
-#assets .other-assets .asset .links a.delete { background-image: url(../images/icons/delete.png); }
+#assets .asset-assets .asset .links a.view { background-image: url(../images/icons/download.png); }
+#assets .asset-assets .asset .links a.edit { background-image: url(../images/icons/asset-edit.png); }
+#assets .asset-assets .asset .links a.delete { background-image: url(../images/icons/delete.png); }
+
+#uploaderUploader {
+  margin: 5px 0px 0px 5px;
+}
 
 /* }}} */

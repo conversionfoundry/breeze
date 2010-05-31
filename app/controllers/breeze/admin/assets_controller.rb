@@ -9,8 +9,12 @@ module Breeze
       end
       
       def create
-        # TODO: report status
-        render :nothing => true
+        @asset = Breeze::Content::Asset.from_upload params
+        @asset.save
+        respond_to do |format|
+          format.html { render :partial => @asset.class.name.demodulize.underscore, :object => @asset, :layout => false }
+          format.js
+        end
       end
       
       def edit

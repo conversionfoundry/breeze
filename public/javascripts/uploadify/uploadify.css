@@ -24,17 +24,18 @@ THE SOFTWARE.
 */
 
 .uploadifyQueue {
-  border-top: 1px solid #aaa;
+  margin: 0px 8px;
 }
 .uploadifyQueueItem {
+  margin: 0px 0px 8px;
 	font-size: 11px;
-	border-bottom: 1px solid #aaa;
-	background-color: #f2f2f2;
+	background-color: #fff;
 	padding: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
 }
 .uploadifyError {
-	border: 2px solid #FBCBBC !important;
-	background-color: #FDE5DD !important;
+	background-color: rgba(237, 28, 36, 0.25);
 }
 .uploadifyQueueItem .cancel {
 	float: right;

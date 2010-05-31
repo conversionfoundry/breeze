@@ -32,6 +32,22 @@ module Breeze
         File.join [folder, attributes[:file]].compact
       end
       
+      def self.file_mask
+        /.*$/
+      end
+      
+      def self.===(filename)
+        case filename
+        when String then file_mask === filename
+        else super
+        end
+      end
+            
+      def self.from_upload(params = {})
+        klass = subclasses.map(&:constantize).detect { |k| k === params[:Filename] } || self
+        klass.new :file => params[:file], :folder => params[:folder]
+      end
+      
     protected
       def all_files
         [ file.path ] + file.versions.values.map { |f| File.join(Rails.root, "public", f.to_s) }

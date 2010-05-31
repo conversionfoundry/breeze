@@ -14,6 +14,10 @@ module Breeze
         true
       end
       
+      def self.file_mask
+        /\.(jpg|jpeg|png|gif)$/i
+      end
+      
     protected
       def reprocess_file
         if image? && !@crop.blank?
