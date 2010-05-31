@@ -48,13 +48,18 @@ module Breeze
         klass.new :file => params[:file], :folder => params[:folder]
       end
       
+      def self.folders
+        root = File.join Rails.root, "public", "assets"
+        ["/"] + Dir.glob(File.join(root, "**/*")).select { |f| File.directory?(f) }.map { |f| f[root.length..-1] }
+      end
+      
     protected
       def all_files
         [ file.path ] + file.versions.values.map { |f| File.join(Rails.root, "public", f.to_s) }
       end
     
       def rename_file
-        unless @basename.blank? && @basename != attributes[:file]
+        if !@basename.blank? && @basename != attributes[:file]
           @basename += "." + extension unless /\.\w+/ === @basename
           all_files.each do |src|
             dest = src.sub /#{path}$/, @basename

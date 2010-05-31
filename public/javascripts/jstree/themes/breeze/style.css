@@ -14,20 +14,21 @@
 
 .tree-breeze li a input, .tree li span input { font-family: Gotham, Helvetica Neue, Helvetica, Arial, sans-serif; }
 
-.tree-breeze li             a > .icon { background: url(icons.png) no-repeat -19px -1px; }
-.tree-breeze .folder      > a > .icon { background-position: 0px 0px; }
-.tree-breeze .page        > a > .icon,
-.tree-breeze .file        > a > .icon { background-position: -19px -1px; }
-.tree-breeze .png         > a > .icon,
-.tree-breeze .jpg         > a > .icon,
-.tree-breeze .gif         > a > .icon { background-position: -19px -19px; }
-.tree-breeze .css         > a > .icon { background-position: -19px -37px; }
-.tree-breeze .erb         > a > .icon { background-position: -19px -55px; }
-.tree-breeze .js          > a > .icon { background-position: -19px -73px; }
-.tree-breeze .images      > a > .icon { background-position: -1px -18px; }
-.tree-breeze .stylesheets > a > .icon { background-position: -1px -36px; }
-.tree-breeze .layouts     > a > .icon { background-position: -1px -54px; }
-.tree-breeze .javascripts > a > .icon { background-position: -1px -72px; }
+.tree-breeze li             a > ins { background: url(icons.png) no-repeat -19px -1px; }
+#left #folders li a ins,
+.tree-breeze .folder      > a > ins { background-position: 0px 0px; }
+.tree-breeze .page        > a > ins,
+.tree-breeze .file        > a > ins { background-position: -19px -1px; }
+.tree-breeze .png         > a > ins,
+.tree-breeze .jpg         > a > ins,
+.tree-breeze .gif         > a > ins { background-position: -19px -19px; }
+.tree-breeze .css         > a > ins { background-position: -19px -37px; }
+.tree-breeze .erb         > a > ins { background-position: -19px -55px; }
+.tree-breeze .js          > a > ins { background-position: -19px -73px; }
+.tree-breeze .images      > a > ins { background-position: -1px -18px; }
+.tree-breeze .stylesheets > a > ins { background-position: -1px -36px; }
+.tree-breeze .layouts     > a > ins { background-position: -1px -54px; }
+.tree-breeze .javascripts > a > ins { background-position: -1px -72px; }
 
 .tree-breeze .clicked {
   position: relative;

@@ -155,46 +155,6 @@
       
       return false;
     });
-    
-    $('#right #uploader').each(function() {
-      script_data = {};
-      script_data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
-      script_data[$(this).attr('data-session-key')] = $(this).attr('data-session-id');
-      $(this).uploadify({
-        uploader:     '/breeze/javascripts/uploadify/uploadify.swf',
-        script:       '/breeze/javascripts/uploadify/uploadify.php',
-        folder:       '/breeze/javascripts/uploadify/uploads-folder',
-        cancelImg:    '/breeze/images/icons/delete.png',
-        buttonImg:    '/breeze/images/buttons/upload.png',
-        width:        215,
-        height:       40,
-        multi:        true,
-        auto:         true,
-        script:       '/admin/assets',
-        scriptData:   script_data,
-        fileDataName: 'file',
-        wmode:        'transparent',
-        folder:       '/',
-        
-        onComplete: function(event, queue_id, file_obj, response, data) {
-          var id = /id="([^"]+)"/.exec(response);
-          if (id && id[1]) {
-            $('#' + id[1]).remove();
-          }
-          
-          var match = /class="(\w+) asset/.exec(response);
-          var group = match ? match[1] : 'asset';
-          $('#assets .' + group + '-assets').prepend(response);
-          show_or_hide_asset_section_headings();
-          return true;
-        }
-      });
-      
-      $('#right .upload.button').click(function() {
-        
-        return false;
-      });
-    });
   });
 })(jQuery);
 

@@ -25,8 +25,10 @@ Rails.application.routes.draw do |map|
       end
     end
     
-    resources :assets do
-      
+    resources :assets
+    
+    namespace :assets do
+      resources :folders
     end
     
     match "themes/:theme_id/raw/*id" => "themes/files#show", :as => :raw_admin_theme_file

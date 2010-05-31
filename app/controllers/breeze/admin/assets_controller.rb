@@ -4,10 +4,10 @@ module Breeze
       unloadable
 
       def index
-        # TODO: sort into folders
-        @assets = Breeze::Content::Asset.all.order_by([[ :file, :asc ]])
+        @folder = params[:folder] || "/"
+        @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
       end
-      
+    
       def create
         @asset = Breeze::Content::Asset.from_upload params
         @asset.save
@@ -16,21 +16,27 @@ module Breeze
           format.js
         end
       end
-      
+    
       def edit
         @asset = Breeze::Content::Asset.find params[:id]
         render :action => "edit_image" if @asset.image?
       end
-      
+    
       def update
         @asset = Breeze::Content::Asset.find params[:id]
         @asset.update_attributes params[:asset]
       end
-      
+    
       def destroy
         @asset = Breeze::Content::Asset.find params[:id]
         @asset.try :destroy
       end
+    
+    protected
+      def folders
+        @folders ||= Breeze::Content::Asset.folders
+      end
+      helper_method :folders
     end
   end
 end
