@@ -92,7 +92,7 @@ module Breeze::Admin::LayoutsHelper
   protected
     def header_html
       @context.content_tag :div, @context.content_tag(:ul, tabs.map { |t|
-        @context.content_tag(:li, @context.link_to(t[:title], "#tab_#{t[:name]}").html_safe, { :class => "#{:active if options[:current].to_s == t[:name].to_s}" }, false)
+        @context.content_tag(:li, @context.link_to(t[:title], "#tab_#{t[:name]}", :class => :tab).html_safe, { :class => "#{:active if options[:current].to_s == t[:name].to_s}" }, false)
       }.join("\n").html_safe, { :class => :tabs }, false) + @header.to_s, :id => "#{options[:id] || "main-tabs"}-tabs", :class => "header"
     end
     
