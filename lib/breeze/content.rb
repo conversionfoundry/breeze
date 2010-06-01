@@ -17,8 +17,14 @@ module Breeze
     def self.[](permalink)
       Item.first :conditions => { :permalink => permalink }
     end
+    
+    def self.const_missing(sym)
+      Custom::Type.get(sym) || super
+    end
   end
 end
+
+require "breeze/content/custom/type"
 
 Dir[File.expand_path("../../app/models/breeze/content/*.rb", File.dirname(__FILE__))].each do |f|
   require f

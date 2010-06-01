@@ -1,0 +1,30 @@
+<% content_for :title, "Custom types" %>
+
+<% content_for :head do %>
+  <%= javascript_include_tag "/breeze/javascripts/custom_types" %>
+<% end %>
+
+<%= tabbed_layout do %>
+
+<% end %>
+
+<% content_for :left do %>
+  <%= pane_layout do |types| %>
+    <% types.header do %>
+      <h2>Custom types</h2>
+    <% end %>
+    <% types.inner do %>
+      <ul id="types">
+        <%= render :partial => "custom_type", :collection => @custom_types %>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :right do %>
+  <%= pane_layout do |right| %>
+    <% right.header do %>
+      <%= link_to "New custom type", new_admin_custom_type_path, :class => "large new custom_type button" %>
+    <% end %>
+  <% end %>
+<% end %>

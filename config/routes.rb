@@ -25,6 +25,12 @@ Rails.application.routes.draw do |map|
       end
     end
     
+    resources :custom_types do
+      collection do
+        get :new_field
+      end
+    end
+    
     resources :assets
     
     namespace :assets do

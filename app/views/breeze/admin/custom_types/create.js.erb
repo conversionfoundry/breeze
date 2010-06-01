@@ -1,0 +1,6 @@
+<% if @custom_type.errors.empty? %>
+  close_tab('new_custom_type');
+  $('#left #custom-types').prepend('<%= escape_javascript render(:partial => "custom_type", :object => @custom_type) %>');
+<% else %>
+  $('#custom_type_new').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/custom_types/new") %>');
+<% end %>

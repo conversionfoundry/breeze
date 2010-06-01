@@ -1,0 +1,11 @@
+<%= render "/breeze/admin/shared/error_messages", :target => @custom_type, :object_name => :custom_type %>
+<%= form.fieldset do %>
+  <%= form.text_field :name %>
+<% end %>
+<fieldset>
+  <legend>Fields</legend>
+  <%= form.fields_for :custom_fields, :class => "custom-fields" do |field| %>
+    <%= render :partial => "field", :object => field.object %>
+  <% end %>
+  <%= link_to "Add another field", "#", :class => "add-field button" %>
+</fieldset>

@@ -771,3 +771,41 @@ form.folder {
 }
 
 /* }}} */
+
+/* Custom types {{{ */
+
+#custom_type_type_name {
+  font-family: Monaco, monospace;
+}
+
+fieldset.custom-field {
+  background: #ddd;
+  padding-right: 40px;
+  padding-bottom: 0px;
+  margin-bottom: 8px;
+  position: relative;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
+fieldset.custom-field a.delete {
+  z-index: 1;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background: url(/breeze/images/icons/delete.png) no-repeat 0px 0px;
+  text-indent: -100em;
+  overflow: hidden;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.25s ease-in;
+}
+
+fieldset.custom-field a.delete:hover { opacity: 1.0; }
+
+fieldset.custom-field ol.form {
+  margin: 0px;
+}
+
+/*}}}*/
