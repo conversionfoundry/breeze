@@ -1,0 +1,21 @@
+<h2>Sign in</h2>
+
+<%= content_tag :div, flash.to_a.map { |key, message| content_tag :div, message.html_safe, :class => "flash #{key}" }.join.html_safe, :id => "flash" if flash.any? %>
+
+<%= form_for resource, :as => resource_name, :url => session_path(resource_name) do |form| %>
+  <%= form.hidden_field :remember_me, :value => 1 %>
+  <ol class="form">
+    <li><%= form.label :email %> <%= form.text_field :email %></li>
+    <li><%= form.label :password %> <%= form.password_field :password %></li>
+  </ol>
+  <%= form.submit "Sign in", :class => "button" %>
+<% end %>
+
+<%= content_tag :div, :id => :forgot do %>
+  <%= link_to "Forgot your password?", new_password_path(resource_name), :class => "forgot" %>
+  <%= content_tag :div, :id => :forgot_form, :style => "display: none" do %>
+    <%= render :file => "/devise/passwords/new" %>
+  <% end %>
+<% end %>
+
+<div class="cleaner"></div>

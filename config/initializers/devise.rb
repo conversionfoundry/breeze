@@ -114,3 +114,10 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
 end
+
+Rails::Application.configure do
+  config.to_prepare do
+    Devise::SessionsController.layout "sessions"
+    Devise::PasswordsController.layout false
+  end
+end
