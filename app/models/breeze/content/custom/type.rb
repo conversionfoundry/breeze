@@ -57,8 +57,13 @@ module Breeze
           @classes[type_name] ||= where(:type_name => type_name).first.try(:create_class)
         end
         
-        def self.classes
+        def self.classes(type = nil)
           @all_classes ||= all.map(&:to_class)
+          if type
+            @all_classes.select { |c| c.ancestors.include?(type) }
+          else
+            @all_classes
+          end
         end
       
       protected
