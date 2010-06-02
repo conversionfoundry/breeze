@@ -9,7 +9,7 @@ module Breeze
       
       def new
         @custom_type = Breeze::Content::Custom::Type.new
-        @custom_type.custom_fields.build({}, Breeze::Content::Custom::StringField)
+        @custom_type.custom_fields.build({ :position => 0 }, Breeze::Content::Custom::StringField)
       end
       
       def new_field
@@ -20,6 +20,21 @@ module Breeze
       def create
         @custom_type = Breeze::Content::Custom::Type.new params[:custom_type]
         @custom_type.save
+      end
+      
+      def edit
+        @custom_type = Breeze::Content::Custom::Type.find params[:id]
+      end
+      
+      def update
+        @custom_type = Breeze::Content::Custom::Type.find params[:id]
+        @custom_type.attributes = params[:custom_type]
+        @custom_type.save
+      end
+      
+      def destroy
+        @custom_type = Breeze::Content::Custom::Type.find params[:id]
+        @custom_type.destroy
       end
     end
   end

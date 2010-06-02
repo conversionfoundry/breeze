@@ -111,7 +111,7 @@ module Breeze
     protected
       def validate_folder_structure
         FileUtils.mkdir_p view_path
-        %w(images stylesheets javascripts layouts).each do |dir|
+        %w(images stylesheets javascripts layouts partials).each do |dir|
           FileUtils.mkdir_p File.join(view_path, dir)
         end
       end

@@ -143,6 +143,12 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
   letter-spacing: 0.2em;
 }
 
+.breeze-form fieldset legend small {
+  text-transform: none;
+  letter-spacing: normal;
+  color: #666;
+}
+
 .breeze-form .field_with_errors {
   display: inline;
 }

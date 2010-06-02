@@ -359,6 +359,13 @@ p { margin: 0px 0px 8px; }
 
 /* Right sidebar {{{ */
 
+#right .header .button {
+  margin: 3px 8px;
+  width: 208px;
+  padding: 8px 0px 9px;
+  text-align: center;
+}
+
 .fake-right-sidebar {
   position: absolute;
   top: 0px;
@@ -374,6 +381,24 @@ p { margin: 0px 0px 8px; }
   margin: 0px 0px 8px;
   padding: 8px 0px 9px;
   text-align: center;
+}
+
+#right .help,
+.fake-right-sidebar .help {
+  margin: 0px 0px 8px;
+  padding: 8px;
+  background: rgba(255, 255, 192, 0.75);
+  text-shadow: #ffc 0px 1px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px;
+  -webkit-border-radius: 8px;
+}
+
+#right .help h3,
+.fake-right-sidebar .help h3 {
+  margin: 0px 0px 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 
 /*}}}*/
@@ -774,8 +799,10 @@ form.folder {
 
 /* Custom types {{{ */
 
-#custom_type_type_name {
+#custom_type_type_name,
+.custom-field .custom-field-name {
   font-family: Monaco, monospace;
+  font-size: 100%;
 }
 
 fieldset.custom-field {
@@ -806,6 +833,45 @@ fieldset.custom-field a.delete:hover { opacity: 1.0; }
 
 fieldset.custom-field ol.form {
   margin: 0px;
+}
+
+#left #custom-types {
+  margin: 0px;
+  padding: 0px;
+}
+
+#left #custom-types li {
+  display: inline;
+  list-style: none;
+}
+
+#left #custom-types li a {
+  display: block;
+  background: #ccc;
+  margin: 0px 0px 8px;
+  padding: 8px;
+  color: #222;
+  text-decoration: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+#left #custom-types li a strong {
+  display: block;
+  text-transform: uppercase;
+}
+
+#left #custom-types li a code {
+  display: block;
+  font-size: 85%;
+  color: #666;
+}
+
+#left #custom-types li a:hover { background: #bbb; }
+
+#custom_type_new .add-field,
+#custom_type_edit .add-field {
+  margin: 0px 12px 8px;
 }
 
 /*}}}*/

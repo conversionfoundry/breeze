@@ -1,0 +1,23 @@
+<%= breeze_form_for @custom_type, :as => :custom_type, :url => admin_custom_type_path(@custom_type, :format => :js), :remote => true do |form| %>
+  <%= scrollable_layout do %>
+    <h1>Edit custom type</h1>
+    <%= render :partial => "form", :object => form %>
+  <% end %>
+  
+  <%= content_tag :div, :class => "fake-right-sidebar" do %>
+    <%= submit_tag "Save", :class => "large green save button" %>
+    <%= link_to "Delete", admin_custom_type_path(@custom_type, :format => :js), :method => :delete, :remote => true, :class => "large red delete button" %>
+    
+    <div class="help">
+      <h3>Theming this content</h3>
+      <p>
+        Breeze will generate a default HTML representation of this content, which you can theme entirely with CSS if you want.
+      </p>
+      <p>
+        To customise the generated HTML, create a file called <code>_<%= @custom_type.default_template_name %>.html.erb</code>
+        in the <code>partials</code> directory of your theme or Rails application. Your custom fields will be available
+        as variables within this template.
+      </p>
+    </div>
+  <% end %>
+<% end %>

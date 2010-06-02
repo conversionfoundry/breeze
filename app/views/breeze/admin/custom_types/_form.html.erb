@@ -2,10 +2,10 @@
 <%= form.fieldset do %>
   <%= form.text_field :name %>
 <% end %>
-<fieldset>
-  <legend>Fields</legend>
-  <%= form.fields_for :custom_fields, :class => "custom-fields" do |field| %>
-    <%= render :partial => "field", :object => field.object %>
-  <% end %>
-  <%= link_to "Add another field", "#", :class => "add-field button" %>
+<fieldset class="custom-fields">
+  <legend>Fields <small>(drag to reorder)</small></legend>
+  <% form.object.custom_fields.sort_by(&:position).each do |field| %>
+    <%= render :partial => "field", :object => field %>
+  <% end -%>
 </fieldset>
+<%= link_to "Add another field", "#", :class => "add-field button" %>

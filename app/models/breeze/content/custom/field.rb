@@ -6,6 +6,7 @@ module Breeze
         
         field :name
         field :label
+        field :position, :type => Integer
         embedded_in :custom_type, :inverse_of => :fields
         
         before_validate :fill_in_name
@@ -14,6 +15,14 @@ module Breeze
         
         def define_on(klass)
           klass.field name
+        end
+        
+        def <=>(another)
+          _index.to_i <=> another._index.to_i
+        end
+        
+        def self.label
+          self.class.name.demodulize.humanize
         end
         
         def self.types

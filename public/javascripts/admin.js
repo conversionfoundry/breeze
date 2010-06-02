@@ -22,6 +22,18 @@ $(function() {
     return false;
   });
   
+  $.flashMessage = function(message, options) {
+    options = options || {}
+    $('#flash .flash .close').click();
+    if (!options.auto) {
+      message += '<a href="#" class="close">&times;</a>';
+    }
+    $('<div class="flash" style="display: none;">' + message + '</div>').prependTo('#flash').slideDown('fast').each(function() {
+      var flash_message = this;
+      setTimeout(function() { $(flash_message).slideUp('fast', function() { $(this).remove(); }); }, 2000);
+    });
+  };
+  
   $('.flash .close').live('click', function() {
     $(this).closest('.flash').slideUp('fast', function() { $(this).remove(); });
     return false;
