@@ -57,6 +57,25 @@ module Breeze
         errors.empty? ? "".html_safe : template.content_tag(:p, errors.to_sentence.untaint, :class => "inline-errors")
       end
       
+      def content_type_select(method = :_type, options = {})
+        select_options = returning "" do |str|
+          Breeze::Content::Mixins::Placeable.classes.sort_by(&:label).group_by do |klass|
+            if klass.ancestors.include?(Breeze::Content::Custom::Instance)
+              "Custom types"
+            else
+              "Built in" 
+            end
+          end.sort_by(&:first).collect do |group_label, classes|
+            str << "<optgroup label=\"#{group_label}\">"
+            classes.each do |c|
+              str << "<option value=\"#{c.to_s}\"#{' selected="selected"' if c == @object.class}>#{c.label}</option>"
+            end
+            str << "</optgroup>"
+          end
+        end.html_safe
+        wrap method, template.content_tag(:select, select_options, :name => "#{@object_name}[#{method}]", :id => "#{@object_name}_#{method}"), options
+      end
+      
     protected
       def wrap(method, input, options)
         contents = returning "" do |str|

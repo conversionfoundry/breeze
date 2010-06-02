@@ -273,6 +273,18 @@ body.breeze-editing .breeze-content.hover>* {
   opacity: 0.75;
 }
 
+.rendering-error {
+  font-family: Monaco, monospace;
+	background-color: rgba(237, 28, 36, 0.25);
+	border: 2px solid #ed1c24;
+	padding: 6px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
+.rendering-error h3 {
+  font-size: 125%;
+}
 /*}}}*/
 
 /* Dialogs {{{ */

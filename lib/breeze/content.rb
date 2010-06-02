@@ -14,6 +14,10 @@ module Breeze
       @classes.merge classes_to_register.map(&:to_s)
     end
     
+    def self.unregister_class(*classes_to_unregister)
+      classes_to_unregister.each { |c| @classes.delete c.to_s }
+    end
+    
     def self.[](permalink)
       Item.first :conditions => { :permalink => permalink }
     end

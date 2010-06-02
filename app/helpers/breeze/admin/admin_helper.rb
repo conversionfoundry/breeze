@@ -23,7 +23,12 @@ module Breeze
             next
           end
         end
-        content_tag :p, "There is no configuration for this content type."
+        
+        if form.object.is_a? Breeze::Content::Custom::Instance 
+          form.object.edit_form(form)
+        else
+          content_tag :p, "There is no configuration for this content type."
+        end
       end
     
       [:form_for, :fields_for].each do |meth|

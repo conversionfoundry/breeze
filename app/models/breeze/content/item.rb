@@ -65,6 +65,10 @@ module Breeze
           false
         end
       end
+      
+      def self._types
+        @_type ||= [subclasses + subclasses + [self.name] + Breeze::Content::Custom::Type.classes.map(&:name)].flatten.uniq
+      end
 
       def self.html_class
         @html_class ||= name.demodulize.parameterize

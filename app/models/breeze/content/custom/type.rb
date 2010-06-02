@@ -47,28 +47,32 @@ module Breeze
         validates_uniqueness_of :type_name
       
         def to_class
-          _custom_type = self
-                    
-          returning Class.new(Breeze::Content::Custom::Instance) do |klass|
-            klass.send :define_method, :custom_type do
-              _custom_type
-            end
-            
-            custom_fields.each do |field|
-              field.define_on klass
-            end
-            Breeze::Content.const_set type_name, klass
-          end
+          self.class.get(type_name)
         end
         
         delegate :default_template_name, :to => :to_class
       
         def self.get(type_name)
           @classes ||= {}
-          @classes[type_name] ||= where(:type_name => type_name).first.try(:to_class)
+          @classes[type_name] ||= where(:type_name => type_name).first.try(:create_class)
+        end
+        
+        def self.classes
+          @all_classes ||= all.map(&:to_class)
         end
       
       protected
+        def create_class
+          returning Class.new(Breeze::Content::Custom::Instance) do |klass|
+            klass.send :include, Breeze::Content::Mixins::Placeable
+            custom_fields.each do |field|
+              field.define_on klass
+            end
+            Breeze::Content.const_set type_name, klass
+            Breeze::Content.register_class "Breeze::Content::#{type_name}"
+          end
+        end
+      
         def fill_in_type_name
           self.type_name = name.underscore.gsub(/\s+/, "_").camelize if type_name.blank? && !name.blank?
         end
@@ -79,7 +83,9 @@ module Breeze
       
         def self.reset(type_name)
           @classes.delete type_name
+          @all_classes = []
           Breeze::Content.send :remove_const, type_name if Breeze::Content.const_defined?(type_name)
+          Breeze::Content.unregister_class "Breeze::Content::#{type_name}"
         end
       end
     end

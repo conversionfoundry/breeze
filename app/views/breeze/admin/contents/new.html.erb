@@ -5,6 +5,9 @@
   </ul>
   <div id="add-existing-content">
     <%= form_tag search_admin_contents_path(:format => :html), :method => :get, :remote => true, :class => "search-contents breeze-form" do %>
+      <%= hidden_field_tag :container_id, @content.container_id %>
+      <%= hidden_field_tag :region, @content.region %>
+      <%= hidden_field_tag :view, @content.view %>
       <fieldset class="search">
         <label for="new_content_query">Search for content:</label>
         <input type="search" class="search" name="q" id="new_content_query" />
@@ -20,7 +23,7 @@
       <%= form.hidden_field :view %>
       
       <%= form.fieldset :class => "content-types" do %>
-        <%= form.select :_type, Breeze::Content::Mixins::Placeable.classes.map { |k| [ k.label, k.to_s ] }.sort_by(&:first) %>
+        <%= form.content_type_select %>
       <% end %>
       
       <%= render "/breeze/admin/shared/error_messages", :target => @content, :object_name => :content %>

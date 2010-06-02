@@ -18,11 +18,19 @@ module Breeze
         end
         
         def <=>(another)
-          _index.to_i <=> another._index.to_i
+          position <=> another.position
+        end
+        
+        def editor(form)
+          form.text_field name.to_sym, :label => label
+        end
+        
+        def to_html(view, instance)
+          "<div class=\"#{name}\">#{instance.send name.to_sym}</div>"
         end
         
         def self.label
-          self.class.name.demodulize.humanize
+          name.demodulize.underscore.humanize
         end
         
         def self.types

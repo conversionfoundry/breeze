@@ -14,7 +14,7 @@ module Breeze
         if @content.save
           @placement = @content.placement
           @container = @placement.container
-          @view = @container.views.by_name(@placement.view)
+          @view = @container.views.by_name(@placement.view).populate(@container, self, request)
         end
         respond_to do |format|
           format.js
@@ -29,16 +29,19 @@ module Breeze
         @placement.unlink! if @placement.shared? && !params[:update_all]
         @content = @placement.content
         @content.update_attributes params[:content]
+        @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
       
       def duplicate
         @old_placement, @placement = @placement, @placement.duplicate.unlink!
+        @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
       
       def insert
         @content = Breeze::Content::Item.find params[:id]
         @container = Breeze::Content::Item.find params[:container_id]
         @placement = @content.add_to_container @container, params[:region], params[:view]
+        @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
       
       def destroy
@@ -50,6 +53,8 @@ module Breeze
       end
       
       def search
+        @container = Breeze::Content::Item.find params[:container_id]
+        @view = @container.views.by_name(params[:view]).populate(@container, self, request)
         @results = if params[:q]
           Breeze::Content::Item.search_for_text params[:q], :class => Breeze::Content::Mixins::Placeable
         else

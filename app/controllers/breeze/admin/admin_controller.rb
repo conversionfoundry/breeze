@@ -1,6 +1,6 @@
 module Breeze
   module Admin
-    class AdminController < ApplicationController
+    class AdminController < Breeze::Controller
       before_filter :authenticate_admin!
 
       layout :determine_layout

@@ -128,6 +128,7 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 .breeze-form fieldset > ol > li label { line-height: 125%; }
 .breeze-form input, .breeze-form textarea, .breeze-form select { font-size: 125%; }
 .breeze-form fieldset > ol > li.text_field input { width:74%; }
+.breeze-form fieldset > ol > li.text_field input.numeric { width: auto; }
 
 .breeze-form fieldset > ol > li.check_box { padding-left: 25%; }
 .breeze-form fieldset > ol > li.check_box label { float: none; display: inline; }
