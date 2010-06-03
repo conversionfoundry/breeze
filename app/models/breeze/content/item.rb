@@ -18,7 +18,7 @@ module Breeze
         end
       end
       
-      def view_for(request)
+      def view_for(controller, request)
         views.default
       end
       
@@ -26,7 +26,7 @@ module Breeze
       
       def render(controller, request)
         request.format ||= Mime[:html]
-        controller.view = view_for(request).populate(self, controller, request)
+        controller.view = view_for(controller, request).populate(self, controller, request)
         controller.view.render!
         controller.performed?
       end

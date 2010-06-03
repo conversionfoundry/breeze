@@ -143,7 +143,7 @@
             .appendTo('body')[0].submit();
         });
         
-      this.view_selector = $('<div class="breeze-view-chooser breeze-toolbar-item"><label for="breeze_view">View:</label><select name="page[view]" id="breeze_view"><option value="">(default)</option></select></div>')
+      this.view_selector = $('<div class="breeze-view-chooser breeze-toolbar-item"><label for="breeze_view">View:</label><select name="page[view]" id="breeze_view"></select></div>')
         .appendTo(this.toolbar)
         .find('select')
         .each(function() {
@@ -152,6 +152,10 @@
             var label = this.substring(0, 1).toUpperCase() + this.substring(1).replace(/_/g, ' ');
             $(select).append('<option value="' + this + '">' + label + '</option>');
           });
+        })
+        .val(breeze.options.view)
+        .change(function() {
+          window.location.search = '?view=' + $(this).val();
         });
 
       buttons = $('<span class="breeze-toolbar-item breeze-toolbar-buttons"></span>')
