@@ -13,6 +13,20 @@ module Breeze
       end
     end
     
+    rescue_from CanCan::AccessDenied do
+      respond_to do |format|
+        format.html do
+          if request.xhr?
+            render :file => "breeze/errors/access_denied", :layout => false
+          else
+            flash[:error] = "Sorry, looks like you don't have permission to do that."
+            redirect_to admin_root_path
+          end
+        end
+        format.js { head :access_denied }
+      end
+    end
+    
   protected
     def lookup_context
       @lookup_context ||= returning(ActionView::LookupContext.new(self.class._view_paths, details_for_lookup)) do |context|

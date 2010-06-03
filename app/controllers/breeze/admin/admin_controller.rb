@@ -31,6 +31,10 @@ module Breeze
           super
         end
       end
+      
+      def current_ability
+        current_user.ability
+      end
     end
   end
 end

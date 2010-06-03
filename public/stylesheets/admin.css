@@ -915,3 +915,15 @@ fieldset.custom-field ol.form {
 #left #users li a:hover { background: #bbb; }
 
 /*}}}*/
+
+/* Errors (access denied, etc) {{{ */
+
+#main .error-message {
+  
+}
+
+#main .error-message p {
+  margin: 0px 12px 8px;
+}
+
+/*}}}*/

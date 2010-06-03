@@ -8,3 +8,8 @@ en:
         permalink: URL
       breeze/content/page:
         title: Page title
+  breeze:
+    users:
+      roles:
+        admin: Administrator
+      
