@@ -19,6 +19,7 @@
 .tree-breeze .folder      > a > ins { background-position: 0px 0px; }
 .tree-breeze .page        > a > ins,
 .tree-breeze .file        > a > ins { background-position: -19px -1px; }
+.tree-breeze .hidden      > a > ins { background-position: -37px -19px; }
 .tree-breeze .png         > a > ins,
 .tree-breeze .jpg         > a > ins,
 .tree-breeze .gif         > a > ins { background-position: -19px -19px; }

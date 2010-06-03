@@ -43,7 +43,7 @@ module Breeze
         
         ancestry = pages.first.self_and_ancestors.to_a
         if level < ancestry.length
-          siblings = ancestry[level].self_and_siblings.to_a
+          siblings = ancestry[level].self_and_siblings.to_a.select(&:show_in_navigation?)
           siblings.unshift ancestry[level - 1] if options[:home] || (level == 1 && options[:home] != false)
           siblings.each_with_index do |p, i|
             page_title = if (options[:home] && options[:home] != true) && (p.level < level || p.root?)
