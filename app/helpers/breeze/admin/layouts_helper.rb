@@ -160,4 +160,8 @@ module Breeze::Admin::LayoutsHelper
     content = content_tag :div, capture(&block), :class => "collapsible-inner", :style => "display: #{open ? 'block' : 'none'};"
     content_tag(:div, header + content, options.reverse_merge(:class => "collapsible-section #{open ? 'open' : 'closed'}"))
   end
+  
+  def fake_right_sidebar(&block)
+    content_tag :div, :class => "fake-right-sidebar", &block
+  end
 end

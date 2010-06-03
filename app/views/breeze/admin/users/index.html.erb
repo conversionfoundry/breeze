@@ -1,1 +1,30 @@
 <% content_for :title, "Users" -%>
+
+<% content_for :head do %>
+  <%= javascript_include_tag "/breeze/javascripts/users" %>
+<% end %>
+
+<%= tabbed_layout do -%>
+
+<% end %>
+
+<% content_for :left do %>
+  <%= pane_layout do |left| %>
+    <% left.header do %>
+      <h2>Users</h2>
+    <% end %>
+    <% left.inner do %>
+      <%= content_tag :div, :id => :users do %>
+        <%= content_tag :ul do %>
+          <%= render :partial => "user", :collection => @users %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :right do -%>
+  <%= pane_layout do |right| %>
+    
+  <% end %>
+<% end -%>

@@ -1,0 +1,20 @@
+<%= breeze_form_for @user, :as => :user, :url => admin_user_path(@user, :format => :js), :remote => true do |form| %>
+  <%= scrollable_layout do %>
+    <%= render "/breeze/admin/shared/error_messages", :target => @user, :object_name => :user %>
+    <h1>Edit user</h1>
+    <%= form.fieldset do %>
+      <%= form.text_field :first_name, :required => true %>
+      <%= form.text_field :last_name, :required => true %>
+      <%= form.text_field :display_name %>
+    <% end %>
+  
+    <%= form.fieldset :legend => "Password" do %>
+      <%= form.password_field :password %>
+      <%= form.password_field :password_confirmation %>
+    <% end %>
+  <% end %>
+
+  <%= fake_right_sidebar do %>
+    <%= submit_tag "Save", :class => "large green save button" %>
+  <% end %>
+<% end %>

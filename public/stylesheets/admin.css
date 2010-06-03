@@ -875,3 +875,43 @@ fieldset.custom-field ol.form {
 }
 
 /*}}}*/
+
+/* Users {{{ */
+
+#left #users ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+#left #users li {
+  display: inline;
+  list-style: none;
+}
+
+#left #users li a {
+  display: block;
+  background: #ccc;
+  margin: 0px 0px 8px;
+  padding: 8px;
+  color: #222;
+  text-decoration: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+#left #users li a strong {
+  display: block;
+  font-size: 125%;
+}
+
+#left #users li a small {
+  display: block;
+  font-size: 85%;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+#left #users li a:hover { background: #bbb; }
+
+/*}}}*/

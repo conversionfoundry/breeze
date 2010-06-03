@@ -7,6 +7,8 @@ module Breeze
       field :first_name
       field :last_name
       field :display_name
+
+      validates_presence_of :first_name, :last_name
     
       devise :database_authenticatable, :recoverable, :rememberable
       

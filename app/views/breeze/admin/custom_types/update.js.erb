@@ -1,6 +1,6 @@
 <% if @custom_type.errors.empty? %>
-  $('#left #custom_types li a[data-id=<%= @custom_type.id %>] strong, a[href=tab_<%= @custom_type.id %>]').text('<%= escape_javascript @custom_type.name %>');
+  $('#left #custom_types li a[data-id=<%= @custom_type.id %>] strong, a[href=#tab_<%= @custom_type.id %>]').text('<%= escape_javascript @custom_type.name %>');
+  $.flashMessage('Your custom type has been updated.', { auto: true });
 <% end %>
 $('#tab_<%= @custom_type.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/custom_types/edit") %>');
-$.flashMessage('Your custom type has been updated.', { auto: true });
 renumber_fields('#tab_<%= @custom_type.id %>');

@@ -1,0 +1,5 @@
+<% if @user.errors.empty? %>
+  $('#left #users li a[data-id=<%= @user.id %>] strong, a[href=#tab_<%= @user.id %>]').text('<%= escape_javascript @user.to_s %>');
+  $.flashMessage('Your details have been updated.', { auto: true });
+<% end %>
+$('#tab_<%= @user.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/users/edit") %>');
