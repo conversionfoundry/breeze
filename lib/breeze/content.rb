@@ -6,7 +6,7 @@ module Breeze
       returning (@classes || []).map(&:constantize) do |set|
         set.reject! { |k| !k.ancestors.include? superclass } unless superclass.nil?
         set << superclass if superclass.is_a?(Class)
-      end
+      end.uniq
     end
     
     def self.register_class(*classes_to_register)
