@@ -34,7 +34,7 @@ module Breeze::Admin::LayoutsHelper
     end
     
     def to_html
-      @context.content_tag :div, (header_html + inner_html + footer_html).html_safe, options.reverse_merge(:id => :layout), false
+      @context.content_tag :div, (header_html + inner_html + footer_html).html_safe, options.reverse_merge(:id => :layout).except(:header, :inner, :footer), false
     end
     
   protected
