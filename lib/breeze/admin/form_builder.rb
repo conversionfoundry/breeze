@@ -5,10 +5,15 @@ module Breeze
       
       attr_reader :template
       
-      def fieldset(options = {}, &block)
+      def fieldset(*args, &block)
+        options = args.extract_options!
         contents = returning "" do |str|
           str << (options.key?(:legend) ? template.content_tag(:legend, options.delete(:legend)) : "")
-          str << template.content_tag(:ol, :class => :form, &block)
+          if block_given?
+            str << template.content_tag(:ol, :class => :form, &block)
+          else
+            str << template.content_tag(:ol, (args.first || "").html_safe, :class => :form)
+          end
         end.html_safe
         template.content_tag :fieldset, contents, options
       end
@@ -17,7 +22,7 @@ module Breeze
         src, line = <<-end_src, __LINE__ + 1
           def #{sym}(method, options = {})
             if options[:wrap] == false
-              super method, options.except(%w(wrap))
+              super method, filter_options(options)
             else
               wrap method, super(method, filter_options(options).reverse_merge(:class => :#{sym})), options.merge(:kind => :#{sym})
             end
@@ -39,17 +44,22 @@ module Breeze
         wrap method, super(method, choices, filter_options(options), html_options), options.merge(:kind => :select)
       end
       
+      def date_select(method, options = {}, html_options = {})
+        wrap method, super(method, filter_options(options), html_options), options.merge(:kind => :date)
+      end
+      
       def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
-        wrap method, super(method, filter_options(options).reverse_merge(:class => :check_box), checked_value, unchecked_value) + " " + 
-          label(method, options[:label], :required => options[:required]), options.merge(:label => false, :kind => :check_box)
+        wrap method, super(method, filter_options(options).reverse_merge(:class => :check_box), checked_value, unchecked_value) + " " +
+          label(method, options[:label] || method.to_s.humanize, :required => options[:required]), options.merge(:label => false, :kind => :check_box)
+      end
+      
+      def radio_button(method, tag_value, options = {})
+        wrap method, super(method, tag_value, filter_options(options).reverse_merge(:class => :radio_button)) + " " + label(method, options[:label] || method.to_s.humanize, :required => options[:required]), options.merge(:label => false, :kind => :radio_button)
       end
       
       def label(method, text = nil, options = {})
-        returning super(method, text, filter_options(options)) do |str|
-          if options[:required]
-            str.gsub! /<\/label>$/, "<abbr title=\"required\">*</abbr></label>"
-          end
-        end.html_safe
+        text = ((text || options[:label] || method.to_s.humanize) + "<abbr title=\"required\">*</abbr>").html_safe if options[:required]
+        super method, text, filter_options(options)
       end
       
       def errors_for(method)
@@ -88,7 +98,7 @@ module Breeze
       end
       
       def filter_options(options)
-        options.except :label, :hint, :kind, :errors, :required
+        options.except :label, :hint, :kind, :errors, :required, :wrap
       end
       
       def sanitize_id(name)

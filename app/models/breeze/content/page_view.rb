@@ -3,6 +3,10 @@ module Breeze
     class PageView < View
       unloadable
       
+      def page
+        content
+      end
+      
       def render_as_html
         controller.instance_variable_set "@variables_for_render", variables_for_render
         # TODO: catch the missing template error if the template isn't available.

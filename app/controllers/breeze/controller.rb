@@ -1,7 +1,5 @@
 module Breeze
   class Controller < ApplicationController
-    unloadable
-    
     helper ContentsHelper
     
     rescue_from Breeze::Errors::RequestError do |error|
