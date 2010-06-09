@@ -27,8 +27,9 @@ module Breeze
       
       def render!
         format = (request.format || Mime[:html]).to_sym
+        format = Mime[:html] if format.to_s == "*/*" # IE!
         renderer = :"render_as_#{format.to_sym}"
-        
+
         if respond_to?(renderer)
           send renderer
         else
@@ -38,6 +39,7 @@ module Breeze
           elsif content.respond_to? converter
             controller.send :render, format => content.send(converter)
           else
+            Rails.logger.info "Could not render as #{format}".red
             raise Breeze::Errors::NotAcceptable, request
           end
         end
