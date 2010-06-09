@@ -9,6 +9,7 @@ module Breeze
           base.before_validate :fill_in_slug_and_permalink
           base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
           base.validates_uniqueness_of :permalink
+          base.index :permalink
         end
         
         def level
