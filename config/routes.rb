@@ -52,7 +52,11 @@ Rails.application.routes.draw do |map|
         put :reorder
       end
     end
-    resources :users
+    resources :users do
+      member do
+        put :preferences
+      end
+    end
     root :to => "dashboards#show"
   end
   

@@ -3,8 +3,8 @@ module Breeze
     class UsersController < AdminController
       unloadable
       
-      before_filter :load_user, :only => [ :show, :edit, :update, :destroy ]
-      load_and_authorize_resource :resource => User
+      before_filter :load_user, :only => [ :show, :edit, :update, :preferences, :destroy ]
+      load_and_authorize_resource :resource => User, :except => :preferences
       
       def index
         @users = User.all.sort_by &:to_s
@@ -22,6 +22,12 @@ module Breeze
           params[:user].delete :roles
         end
         @user.update_attributes params[:user]
+      end
+      
+      def preferences
+        authorize! :update, @user
+        @user.update_attributes params[:user]
+        render :nothing => true
       end
       
     protected

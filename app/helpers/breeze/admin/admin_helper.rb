@@ -30,6 +30,24 @@ module Breeze
           content_tag :p, "There is no configuration for this content type."
         end
       end
+      
+      def admin_menu
+        # TODO: customisable menu
+        menu = []
+        menu << { :name => "Dashboard", :path => admin_root_path, :regexp => /^\/admin\/$/ }
+        menu << { :name => "Pages",     :path => admin_pages_path  } if can? :manage, Breeze::Content::Item
+        menu << { :name => "Assets",    :path => admin_assets_path } if can? :manage, Breeze::Content::Item
+        menu << { :name => "Users",     :path => admin_users_path  } if current_user.admin?
+        menu << { :name => "Themes",    :path => admin_themes_path } if can? :manage, Breeze::Theming::Theme
+        
+        menu = menu.sort_by { |item| current_user.menu_order.index(item[:name]) || 999999 }
+        
+        items = menu.collect do |item|
+          content_tag :li, link_to(item[:name], item[:path]), :class => "#{:active if (item[:regexp] || /^#{item[:path]}/) === request.path}"
+        end.join.html_safe
+        
+        content_tag :ul, items, :class => "menu"
+      end
     
       [:form_for, :fields_for].each do |meth|
         src = <<-END_SRC

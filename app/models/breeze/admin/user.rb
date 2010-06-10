@@ -10,6 +10,7 @@ module Breeze
       field :last_name
       field :display_name
       field :roles, :type => Array, :default => []
+      field :menu_order, :type => Array, :default => []
 
       validates_presence_of :first_name, :last_name
     

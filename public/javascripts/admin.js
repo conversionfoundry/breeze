@@ -11,6 +11,18 @@ $(function() {
   $('#main-tabs-tabs ul.tabs').sortable({
     axis:'x'
   });
+  $('#header .menu').sortable({
+    axis:'x',
+    update: function(e, ui) {
+      var data = '_method=put';
+      $('#header .menu li a').each(function() { data += '&user[menu_order][]=' + escape($(this).text()); });
+      $.ajax({
+        url:'/admin/users/' + $('meta[name=breeze-user-id]').attr('content') + '/preferences',
+        data: data,
+        type: 'post'
+      });
+    }
+  });
   $('#main-tabs-tabs a.close').live('click', function() {
     close_tab($(this).parent().find('a.tab'));
     return false;
