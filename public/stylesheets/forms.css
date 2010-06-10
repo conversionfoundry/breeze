@@ -132,6 +132,7 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 
 .breeze-form fieldset > ol > li.check_box { padding-left: 25%; }
 .breeze-form fieldset > ol > li.check_box label { float: none; display: inline; }
+.breeze-form fieldset > ol > li.check_box p.inline-hints { margin-left: 2em; }
 
 .breeze-form fieldset {
   border: none;
