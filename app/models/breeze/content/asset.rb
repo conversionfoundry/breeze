@@ -31,6 +31,9 @@ module Breeze
       def path(f = folder)
         File.join [f, attributes[:file]].compact
       end
+      alias_method :permalink, :path
+
+      def to_s; attributes[:file]; end
       
       def self.file_mask
         /.*$/

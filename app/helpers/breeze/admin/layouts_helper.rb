@@ -121,7 +121,7 @@ module Breeze::Admin::LayoutsHelper
     end
     
     def page(name, options = {}, &block)
-      pages << [ name, @context.capture(&block).html_safe, options ]
+      pages << [ name, (@context.capture(&block) || "").html_safe, options ]
       return
     end
     

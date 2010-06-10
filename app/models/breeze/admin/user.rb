@@ -52,6 +52,16 @@ module Breeze
           end
         end
       end
+      
+      def self.with_user(user)
+        old_user, @_user = @_user, user
+        yield
+        @_user = old_user
+      end
+      
+      def self.current
+        @_user
+      end
     end
   end
 end

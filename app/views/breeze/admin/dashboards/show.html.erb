@@ -2,7 +2,10 @@
 
 <%= tabbed_layout do |tabs| %>
   <% tabs.activity :title => "Recent activity" do %>
-
+    <% Breeze::Admin::Activity::LogMessage.order_by([[ :created_at, -1 ]]).each do |message| %>
+      <%= message.to_html.html_safe %>
+    <% end %>
+    
   <% end %>
 <% end %>
 

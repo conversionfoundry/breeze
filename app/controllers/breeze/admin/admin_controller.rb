@@ -4,6 +4,7 @@ module Breeze
       unloadable
       
       before_filter :authenticate_admin!
+      around_filter :set_current_user
 
       layout :determine_layout
       
@@ -36,6 +37,10 @@ module Breeze
       
       def current_ability
         current_user.ability
+      end
+      
+      def set_current_user(&block)
+        User.with_user current_user, &block
       end
     end
   end
