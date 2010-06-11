@@ -39,6 +39,7 @@ module Breeze
         menu << { :name => "Assets",    :path => admin_assets_path } if can? :manage, Breeze::Content::Item
         menu << { :name => "Users",     :path => admin_users_path  } if current_user.admin?
         menu << { :name => "Themes",    :path => admin_themes_path } if can? :manage, Breeze::Theming::Theme
+        menu << { :name => "Custom types",  :path => admin_custom_types_path } if can? :manage, Breeze::Content::Custom::Type
         
         ordering = current_user.menu_order || []
         menu = menu.sort_by { |item| ordering.index(item[:name]) || 999999 }
