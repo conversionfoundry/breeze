@@ -6,4 +6,8 @@ $(function() {
     });
     return false;
   });
+  
+  if (window.location.hash) {
+    $('#left #users a[data-id=' + window.location.hash.substring(1) + ']').click();
+  }
 });

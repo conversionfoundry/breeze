@@ -17,7 +17,7 @@
         <a class="logo" href="/admin">Breeze</a>
         <% if signed_in? %>
           <div id="signed-in-user">
-            Signed in as <%= link_to current_user, edit_admin_user_path(current_user), :class => :user %> |
+            Signed in as <%= link_to current_user, admin_users_path(:anchor => current_user.id), :class => :user %> |
             <%= link_to "Sign out", destroy_admin_session_path %>
           </div>
         <% end -%>
