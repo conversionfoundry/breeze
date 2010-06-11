@@ -7,7 +7,11 @@ module Breeze
         def show
           @folder = params[:id] || "/"
           @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
-        end        
+        end
+        
+        def create
+          
+        end
       end
     end
   end

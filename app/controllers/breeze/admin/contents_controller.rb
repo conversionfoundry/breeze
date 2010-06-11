@@ -14,6 +14,7 @@ module Breeze
         if @content.save
           @placement = @content.placement
           @container = @placement.container
+          @container.save
           @view = @container.views.by_name(@placement.view).populate(@container, self, request)
         end
         respond_to do |format|
@@ -29,6 +30,7 @@ module Breeze
         @placement.unlink! if @placement.shared? && !params[:update_all]
         @content = @placement.content
         @content.update_attributes params[:content]
+        @container.save
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
       
@@ -40,6 +42,7 @@ module Breeze
       def insert
         @content = Breeze::Content::Item.find params[:id]
         @container = Breeze::Content::Item.find params[:container_id]
+        @container.save
         @placement = @content.add_to_container @container, params[:region], params[:view]
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
@@ -48,6 +51,7 @@ module Breeze
         if @container && @placement
           if @placement = @container.placements.by_id(params[:id])
             @placement.destroy
+            @container.save
           end
         end
       end
