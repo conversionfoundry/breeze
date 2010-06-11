@@ -22,11 +22,13 @@ module Breeze
             end
           end
         end
-        field :options, :class => Hash
+        field :options, :type => Hash
         field :text
         field :html
         
         before_save :cache_text
+        
+        def self.per_page; 20; end
         
         def verb
           read_attribute(:verb).to_s
@@ -42,6 +44,7 @@ module Breeze
         
         def to_s;    self.text ||= as_text; end
         def to_html; self.html ||= as_html; end
+        def kind; base_class.name.demodulize.underscore.to_sym; end
         
       protected
         def past_tense
@@ -58,21 +61,19 @@ module Breeze
         end
         
         def as_text
-          if user_id
-            "#{user} #{past_tense} #{objects.map(&:to_s).to_sentence}"
-          else
-            "#{objects.map(&:to_s).to_sentence} #{objects.length > 1 ? "were" : "was"} #{past_tense}"
-          end
+          to_sentence objects.map(&:to_s)
         end
         
         def as_html
-          linked_objects = objects.map &:linked
-          text = if user_id
-            "#{user} #{past_tense} #{linked_objects.to_sentence}"
+          to_sentence objects.map { |o| o.linked(:verb == :delete) }
+        end
+        
+        def to_sentence(objects)
+          if user_id
+            "#{user} #{past_tense} #{objects.to_sentence}"
           else
-            "#{linked_objects.to_sentence} #{objects.length > 1 ? "were" : "was"} #{past_tense}"
+            "#{objects.to_sentence} #{objects.length > 1 ? "were" : "was"} #{past_tense}"
           end
-          %Q{<li class="#{verb} #{base_class.name.demodulize.underscore}">#{text}</li>}
         end
       end
     end

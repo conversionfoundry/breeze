@@ -1,6 +1,9 @@
+require 'will_paginate/view_helpers/action_view'
+
 module Breeze
   class Controller < ApplicationController
     helper ContentsHelper
+    helper WillPaginate::ViewHelpers::ActionView
     
     rescue_from Breeze::Errors::RequestError do |error|
       respond_to do |format|

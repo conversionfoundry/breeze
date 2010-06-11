@@ -2,10 +2,13 @@
 
 <%= tabbed_layout do |tabs| %>
   <% tabs.activity :title => "Recent activity" do %>
-    <% Breeze::Admin::Activity::LogMessage.order_by([[ :created_at, -1 ]]).each do |message| %>
-      <%= message.to_html.html_safe %>
-    <% end %>
-    
+    <h1>Recent activity</h1>
+    <div id="recent-activity">
+      <%#= will_paginate @log_messages %>
+      <%= content_tag :ul, :class => "log-messages" do %>
+        <%= render :partial => "log_message", :collection => @log_messages %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
 

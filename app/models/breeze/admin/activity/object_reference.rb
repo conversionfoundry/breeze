@@ -26,8 +26,8 @@ module Breeze
         
         def to_s; self.str ||= object.to_s; end
         
-        def linked
-          if live?
+        def linked(deleted = false)
+          if live? && !deleted
             link = object.respond_to?(:permalink) ? object.permalink : "/admin/#{base_class.name.demodulize.pluralize.underscore}/#{oid}"
             %Q{<a href="#{link}">#{to_s}</a>}
           else
