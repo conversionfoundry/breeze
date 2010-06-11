@@ -14,7 +14,8 @@
   <body>
     <div id="header">
       <div class="top">
-        <a class="logo" href="/admin">Breeze</a>
+        <%= link_to "Breeze", admin_root_path, :class => "logo" %>
+        <%= link_to "Visit site", root_path, :class => "visit-site", :target => :_blank, :title => "Visit site" %>
         <% if signed_in? %>
           <div id="signed-in-user">
             Signed in as <%= link_to current_user, admin_users_path(:anchor => current_user.id), :class => :user %> |

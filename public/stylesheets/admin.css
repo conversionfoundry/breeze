@@ -320,9 +320,30 @@ p { margin: 0px 0px 8px; }
   letter-spacing: -0.12em;
 }
 
-#header .menu {
+#header .visit-site {
   position: absolute;
   left: 232px;
+  top: 4px;
+  width: 40px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.5) url(/breeze/images/buttons/visit-site.png) no-repeat 50% 50%;
+  text-decoration: none;
+  text-shadow: none;
+  text-indent: -100em;
+  overflow: hidden;
+  opacity: 0.25;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-transition: all 0.15s ease-in;
+}
+
+#header .visit-site:hover {
+  opacity: 0.75;
+}
+
+#header .menu {
+  position: absolute;
+  left: 276px;
   top: 4px;
   margin: 0px;
   padding: 0px;
