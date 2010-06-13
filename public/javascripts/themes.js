@@ -75,7 +75,8 @@ function open_theme_folder(theme_link, options) {
         'special': {
           renameable: false,
           draggable: false,
-          deletable: false
+          deletable: false,
+          creatable: true
         },
         'file': {
           creatable: false,
@@ -83,7 +84,7 @@ function open_theme_folder(theme_link, options) {
         },
         'folder': {
           valid_children: [ 'file', 'folder' ],
-          creatable: false // TODO: implement
+          creatable: true
         }
       },
       rules: {
