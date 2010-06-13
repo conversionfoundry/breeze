@@ -1,5 +1,3 @@
-$('#left #themes .theme a[href=<%= admin_theme_files_path(theme) %>]').each(function() {
-  var folders_to_open = get_open_theme_folders();
-  open_theme_folder(this, { open:folders_to_open });
-  close_tab('admin-themes-<%= theme.name %>-files<%= @path.gsub(/[\/\.]/, '-') %>');
-});
+$('#left #theme_files a[href=<%= admin_theme_files_path(theme) + @path %>]').parent().remove();
+close_tab('admin-themes-<%= theme.name %>-files<%= @path.gsub(/[\/\.]/, '-') %>');
+$.tree.reference('#left #theme_files').refresh();

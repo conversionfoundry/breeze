@@ -2,10 +2,16 @@ module Breeze
   module Admin
     module Themes
       class FoldersController < Breeze::Admin::AdminController
+        unloadable
+        
         def edit
           @path = "/" + Array(params[:id]).join("/")
           if request.put?
-
+            if params[:folder].try(:key?, :name) && !system_folder?(@path)
+              @new_path = File.join(File.dirname(@path), params[:folder][:name])
+              FileUtils.mv File.join(theme.path, @path), File.join(theme.path, @new_path)
+            end
+            render :action => :update
           elsif request.delete?
             `rm -r #{File.join theme.path, @path}` unless system_folder?(@path)
           elsif request.post?

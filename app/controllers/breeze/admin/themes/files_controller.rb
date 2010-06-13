@@ -2,6 +2,8 @@ module Breeze
   module Admin
     module Themes
       class FilesController < Breeze::Admin::AdminController
+        unloadable
+        
         def index
           @files = theme.files.sort
         end
@@ -15,7 +17,7 @@ module Breeze
         def edit
           @path = "/" + Array(params[:id]).join("/")
           if request.put?
-            @contents = params[:file][:contents]
+            @contents = (params[:file] ? params[:file][:contents] : nil) || ""
             @contents = @contents.force_encoding("utf-8") if @contents.respond_to?(:force_encoding)
             File.open(theme.file(@path), "w") do |f|
               f.write @contents
