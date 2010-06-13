@@ -37,7 +37,7 @@ module Breeze
       
         index :type_name, :unique => true
       
-        before_validate :fill_in_type_name
+        before_validation :fill_in_type_name
         after_save :reset_class
         after_destroy :reset_class
 

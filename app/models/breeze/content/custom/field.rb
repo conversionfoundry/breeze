@@ -9,7 +9,7 @@ module Breeze
         field :position, :type => Integer
         embedded_in :custom_type, :inverse_of => :fields
         
-        before_validate :fill_in_name
+        before_validation :fill_in_name
         validates_presence_of :name
         validates_format_of :name, :with => /^[a-z]\w*$/, :message => "must consist of lower-case letters, numbers and underscores"
         
