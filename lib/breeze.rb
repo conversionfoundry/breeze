@@ -9,3 +9,4 @@ module Breeze
 end
 
 require "breeze/theming"
+require "breeze/admin/activity"
