@@ -11,6 +11,7 @@
   <% end %>
   <% main.inner do %>
     <%= scrollable_layout :id => :assets do %>
+      <h1>Files in <tt><%= File.join("/assets", @folder || "/").sub(/\/$/, "") %></tt></h1>
       <%= render :partial => "assets", :locals => { :assets => @assets, :folder => @folder } %>
     <% end %>
   <% end %>
@@ -74,11 +75,6 @@
           return true;
         }
       });
-      
-      $('#right .upload.button').click(function() {
-        
-        return false;
-      });
     });
     
     show_or_hide_asset_section_headings();
@@ -90,20 +86,30 @@
         selected_delete: false
       },
       plugins: {
-        contextmenu: {}
+        contextmenu: {
+          items: {
+            rename : {
+  						visible	: function (NODE, TREE_OBJ) { if(NODE.length != 1) return false; return TREE_OBJ.check("renameable", NODE) && $(NODE).attr('rel') != 'root'; },
+  					}
+  				}
+        }
       },
       types: {
+        'default': {
+          'delete': true,
+          'deletable': true,
+          'rename': true,
+          'renameable': true,
+          'create': true
+        },
         'root': {
-          valid_children: [ 'file', 'folder' ],
-          creatable: true,
-          deletable: false,
-          renameable: false
+          'delete': false,
+          'deletable': false,
+          'rename': false,
+          'start_drag': false,
+          'move_node': false
         },
         'folder': {
-          valid_children: [ 'file', 'folder' ],
-          creatable: true,
-          deletable: true,
-          renameable: true
         }
       },
       rules: {
@@ -112,18 +118,68 @@
       },
       callback: {
         onselect: function(node, tree) {
-          folder = $(node).attr('data-folder');
-          $('#right #uploader').uploadifySettings('folder', folder);
-          $('#assets')
-            .fadeTo('normal', 0.5)
-            .load('/admin/assets/folders/' + folder.replace(/\//g, '%2f'), function() {
-              show_or_hide_asset_section_headings();
-              $(this).fadeTo('normal', 1.0);
-            });
+          a = $(node).children('a');
+          url = $(a).attr('href');
+          if (url != '') {
+            folder = $(node).attr('data-folder');
+            $('#right #uploader').uploadifySettings('folder', folder);
+            $('#assets')
+              .fadeTo('normal', 0.5)
+              .load('/admin/assets/folders/' + folder.replace(/\//g, '%2f'), function() {
+                show_or_hide_asset_section_headings();
+                $(this).fadeTo('normal', 1.0);
+              });
+          }
         },
-        onmove: function(move_object) {
+        onmove: function(node, ref, type, tree, rollback) {
+          // TODO: implement!
+          $.flashMessage('Sorry, dragging and dropping of files and folders is not implemented yet.', { auto: false });
+          $.tree.rollback(rollback);
+        },
+        ondelete: function(node, tree, rollback) {
+          $('#assets').fadeOut(function() { $(this).html('').fadeIn(); });
+          $.ajax({
+            url: $('>a', node).attr('href'),
+            type: 'post',
+            data: '_method=delete'
+          });
+        },
+        onrename: function(node, tree) {
+          var a = $('>a', node), name = get_folder_name(node);
+          var parent_node = $(node).parent().closest('li');
+          var parent_folder = parent_node.attr('data-folder');
+          var parent_href = $('>a', parent_node).attr('data-folder');
+          var new_path = parent_folder == '/' ? '/' + name : parent_folder + '/' + name;
+          if (a.attr('href') != '') {
+            $.ajax({
+              url: a.attr('href'),
+              data: '_method=put&folder[name]=' + name,
+              type: 'post',
+              success: function() {
+                $(node).attr('data-folder', new_path).attr('rel', 'folder')
+                  .find('>a').attr('href', '/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();
+                $('#right #uploader').uploadifySettings('folder', new_path);
+              }
+            });
+          } else {
+            // New folder
+            $.ajax({
+              url:'/admin/assets/folders',
+              type:'post',
+              data:'parent_folder=' + parent_folder + '&folder_name=' + name,
+              success: function() {
+                $(node).attr('data-folder', new_path).attr('rel', 'folder')
+                  .find('>a').attr('href', '/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();
+                $('#right #uploader').uploadifySettings('folder', new_path);
+              }
+            });
+          }
         }
       }
     });
   });
+  
+  function get_folder_name(node) {
+    return $('a', node).contents().filter(function() { return this.nodeType == 3; }).eq(0).text();
+  }
 </script>

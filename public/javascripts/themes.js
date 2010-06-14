@@ -70,16 +70,24 @@ function open_theme_folder(theme_link, options) {
         selected_delete: false
       },
       plugins: {
-        contextmenu: {}
+        contextmenu: {
+          items: {
+            rename : {
+  						visible	: function (NODE, TREE_OBJ) { if(NODE.length != 1) return false; return TREE_OBJ.check("renameable", NODE) && $(NODE).attr('rel') != 'root'; },
+  					}
+  				}
+        }
       },
       types: {
         'default': {
           'delete': true,
+          'deletable': true,
           'rename': true,
           'create': true
         },
         'special': {
           'rename': false,
+          'deletable': false,
           'start_drag': false,
           'move_node': false
         },
@@ -118,8 +126,7 @@ function open_theme_folder(theme_link, options) {
             $.ajax({
               url: a.attr('href'),
               data: '_method=put&folder[name]=' + name,
-              type: 'post',
-              dataType: 'string'
+              type: 'post'
             });
           } else {
             var parent_href = $('>a', $(node).parent().closest('li')).attr('href');

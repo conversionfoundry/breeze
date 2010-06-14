@@ -52,8 +52,11 @@ module Breeze
       end
       
       def self.folders
-        root = File.join Rails.root, "public", "assets"
         ["/"] + Dir.glob(File.join(root, "**/*")).select { |f| File.directory?(f) }.map { |f| f[root.length..-1] }
+      end
+      
+      def self.root
+        @_root ||= File.join(Rails.root, "public", "assets")
       end
       
     protected

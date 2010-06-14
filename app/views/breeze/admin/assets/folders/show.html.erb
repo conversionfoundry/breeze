@@ -1,1 +1,2 @@
+<h1>Files in <tt><%= File.join("/assets", @folder).sub(/\/$/, "") %></tt></h1>
 <%= render :partial => "/breeze/admin/assets/assets", :locals => { :assets => @assets, :folder => @folder } %>

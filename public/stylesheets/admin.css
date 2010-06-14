@@ -667,6 +667,19 @@ form.folder {
   padding: 8px;
 }
 
+#assets h1 {
+  border: none;
+  margin: 0px 8px;
+}
+
+#assets h1 tt {
+  background: #ccc;
+  padding: 0px 0.25em;
+  -webkit-border-radius: 8px;
+  -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px;
+  -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px;
+}
+
 #assets h3 {
   clear: left;
   margin: 0px 0px 16px;
