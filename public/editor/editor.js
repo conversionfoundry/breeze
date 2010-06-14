@@ -39,6 +39,9 @@
         $(this.toolbar).each(function() {
           $('.breeze-toolbar-edit-button', this).toggleClass('active', toggle);
         });
+        $('.breeze-editable-region[id]')
+          .sortable(toggle ? 'enable' : 'disable')
+          .find('>.breeze-region-label').toggle(toggle);
         return this.option('editing', toggle);
       } else return this.option('editing');
     },
@@ -60,10 +63,11 @@
       } else return this.option('toolbar');
     },
     addContentControls: function(selector) {
+      var breeze = this;
       $(selector).each(function() {
         var id = this.id.replace(/^content_/, '');
         var path = '/admin/contents/' + id;        
-        $('<div class="breeze-content-controls"></div>')
+        $('<div class="breeze-content-controls" style="display: none"></div>')
           .appendTo(this)
           .hide()
           .append('<a class="edit" href="' + path + '/edit">Edit</a>')
@@ -71,8 +75,8 @@
           .append('<a class="delete" href="' + path + '.js" data-method="delete" data-remote="' + path + '.js">Delete</a>');
         $(this).hoverIntent({
           timeout: 500,
-          over: function() { $(this).addClass('hover').find('>.breeze-content-controls').fadeIn(125); },
-          out:  function() { $(this).removeClass('hover').find('>.breeze-content-controls').fadeOut(250); }
+          over: function() { if (breeze.editing()) $(this).addClass('hover').find('>.breeze-content-controls').fadeIn(125); },
+          out:  function() { if (breeze.editing()) $(this).removeClass('hover').find('>.breeze-content-controls').fadeOut(250); }
         })
       });
     },
@@ -176,7 +180,7 @@
       var breeze = this;
       $('.breeze-editable-region[id]').each(function() {
         $(this).attr('data-region', $(this).attr('id').replace(/_region$/, ''));
-        $('<div class="breeze-region-label"><strong>' + $(this).attr('data-region') + '</strong> <a href="#" class="breeze-add-content">+</a></div>')
+        $('<div class="breeze-region-label" style="display: none;"><strong>' + $(this).attr('data-region') + '</strong> <a href="#" class="breeze-add-content">+</a></div>')
           .appendTo(this);
       }).sortable({
         items: '>.breeze-content',
