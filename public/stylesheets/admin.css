@@ -677,6 +677,7 @@ form.folder {
   padding: 0px 0.25em;
   -webkit-border-radius: 8px;
   -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px;
+  -moz-border-radius: 8px;
   -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px;
 }
 
