@@ -4,3 +4,4 @@
   $.tree.reference('#pages').restore();
 <% end %>
 $('#tab_<%= @page.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/pages/edit") %>');
+$.flashMessage('Page saved.');
