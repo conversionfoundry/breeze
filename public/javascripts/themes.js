@@ -72,8 +72,27 @@ function open_theme_folder(theme_link, options) {
       plugins: {
         contextmenu: {
           items: {
-            rename : {
+            rename: {
   						visible	: function (NODE, TREE_OBJ) { if(NODE.length != 1) return false; return TREE_OBJ.check("renameable", NODE) && $(NODE).attr('rel') != 'root'; },
+  					},
+  					remove: {
+  					  action	: function (NODE, TREE_OBJ) {
+  					    var message = $(this).attr('data-confirm') || 'Are you sure you want to delete this?';
+                $('<p>' + message + '</p>').dialog({
+                  modal: true,
+                  resizable: false,
+                  buttons: {
+                    Delete: function() {
+                      $(this).dialog('close');
+                      $.each(NODE, function () { TREE_OBJ.remove(this); });
+                    },
+                    Cancel: function() {
+                      $(this).dialog('close');
+                    }
+                  },
+                  title:'Confirm delete'
+                });
+  					  }
   					}
   				}
         }
@@ -125,7 +144,7 @@ function open_theme_folder(theme_link, options) {
           if (a.attr('href') != '') {
             $.ajax({
               url: a.attr('href'),
-              data: '_method=put&folder[name]=' + name,
+              data: '_method=put&' + ($(node).hasClass('folder') ? 'folder' : 'file') + '[name]=' + name,
               type: 'post'
             });
           } else {

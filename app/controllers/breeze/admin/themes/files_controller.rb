@@ -22,6 +22,12 @@ module Breeze
             File.open(theme.file(@path), "w") do |f|
               f.write @contents
             end
+            if params[:file] && params[:file][:name]
+              @old_path = @path
+              @path = File.join File.dirname(@old_path), params[:file][:name].gsub(/\s+/, "_")
+              FileUtils.mv theme.file(@old_path), theme.file(@path)
+              render :action => :move
+            end
           elsif request.delete?
             `rm -r #{File.join theme.path, @path}`
             render :action => :destroy
