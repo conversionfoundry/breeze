@@ -30,6 +30,8 @@ Rails.application.routes.draw do |map|
         get :new_field
       end
     end
+
+    match "assets/folders" => "assets/folders#show"
     
     resources :assets
     
