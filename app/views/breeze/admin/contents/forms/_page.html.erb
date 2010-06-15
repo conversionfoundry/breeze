@@ -1,0 +1,7 @@
+<%= edit_form_for form, Breeze::Content::NavigationItem %>
+
+<%= form.fieldset :legend => "SEO" do %>
+  <%= form.text_field :seo_title %>
+  <%= form.text_area :seo_meta_description, :rows => 3 %>
+  <%= form.text_area :seo_meta_keywords, :rows => 3 %>
+<% end %>

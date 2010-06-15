@@ -528,6 +528,17 @@ p { margin: 0px 0px 8px; }
 
 /* Page editor {{{ */
 
+.breeze-form fieldset ol li label[for=page_seo_meta_description],
+.breeze-form fieldset ol li label[for=page_seo_meta_keywords] {
+  float: left;
+  width: 25%;
+}
+
+#page_seo_meta_description,
+#page_seo_meta_keywords {
+  width: 74%;
+}
+
 /*}}}*/
 
 /* Theme editor {{{ */
