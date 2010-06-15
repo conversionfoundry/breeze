@@ -43,6 +43,7 @@ Rails.application.routes.draw do |map|
     resources :themes do
       scope :module => "themes" do
         resources :files
+        resources :folders
       end
       member do
         put :enable

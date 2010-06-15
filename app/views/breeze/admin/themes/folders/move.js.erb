@@ -1,0 +1,3 @@
+<% @old_id, @new_id = [@old_path, @path].map { |p| "#tab_admin-themes-#{theme.name}-folders#{p.gsub(/[\/\. ]/, '-')}" }%>
+$('a[href=<%= @old_id %>]').attr('href', '<%= @new_id %>').text('<%= escape_javascript File.basename(@path) %>');
+$('<%= @old_id %>').attr('id', '<%= @new_id %>').html('<%= escape_javascript render(:file => "/breeze/admin/themes/folders/edit.html.erb") %>');

@@ -5,15 +5,26 @@ module Breeze
         unloadable
         
         def edit
-          @path = "/" + Array(params[:id]).join("/")
+          @path = "/" + Array(params[:id]).join("/").gsub("+", " ")
           if request.put?
             if params[:folder].try(:key?, :name) && !system_folder?(@path)
               @new_path = File.join(File.dirname(@path), params[:folder][:name])
               FileUtils.mv File.join(theme.path, @path), File.join(theme.path, @new_path)
             end
-            render :action => :update
+            if params[:folder] && params[:folder][:name]
+              @old_path = @path
+              @path = File.join File.dirname(@old_path), params[:folder][:name]
+              begin
+                FileUtils.mv theme.file(@old_path), theme.file(@path)
+              rescue
+              end
+              render :action => :move
+            else
+              render :action => :update
+            end
           elsif request.delete?
-            `rm -r #{File.join theme.path, @path}` unless system_folder?(@path)
+            FileUtils.rm_r theme.file(@path) unless system_folder?(@path)
+            render :action => :destroy
           elsif request.post?
             @new_folder = File.join @path, params[:folder][:name]
             FileUtils.mkdir_p File.join(theme.path, @new_folder)

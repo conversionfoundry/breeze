@@ -129,8 +129,8 @@ function open_theme_folder(theme_link, options) {
           if (url != '') {
             name = url.substring(1);
             title = name.replace(/^([^\/]*\/)*/, '');
-            name = name.replace(/[\/\.]/g, '-');
-            open_tab(name, url, {
+            name = name.replace(/[\/\. ]/g, '-');
+            open_tab(name, url.replace(/ /g, '+'), {
               close:true,
               title:title,
               success: function(tab, pane) {
@@ -144,7 +144,7 @@ function open_theme_folder(theme_link, options) {
           if (a.attr('href') != '') {
             $.ajax({
               url: a.attr('href'),
-              data: '_method=put&' + ($(node).hasClass('folder') ? 'folder' : 'file') + '[name]=' + name,
+              data: '_method=put&' + ($(node).hasClass('folder') ? 'folder' : 'file') + '[name]=' + escape(name),
               type: 'post'
             });
           } else {
