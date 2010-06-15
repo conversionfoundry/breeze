@@ -73,11 +73,10 @@
           .append('<a class="edit" href="' + path + '/edit">Edit</a>')
           .append('<a class="duplicate" href="' + path + '/duplicate.js" data-method="post" data-remote="' + path + '/duplicate.js">Duplicate</a>')
           .append('<a class="delete" href="' + path + '.js" data-method="delete" data-remote="' + path + '.js">Delete</a>');
-        $(this).hoverIntent({
-          timeout: 500,
-          over: function() { if (breeze.editing()) $(this).addClass('hover').find('>.breeze-content-controls').fadeIn(125); },
-          out:  function() { if (breeze.editing()) $(this).removeClass('hover').find('>.breeze-content-controls').fadeOut(250); }
-        })
+        $(this).hover(
+          function() { if (breeze.editing()) $(this).addClass('hover').find('>.breeze-content-controls').fadeIn(125); },
+          function() { if (breeze.editing()) $(this).removeClass('hover').find('>.breeze-content-controls').fadeOut(250); }
+        )
       });
     },
     
