@@ -89,8 +89,8 @@ function open_tab(name, url, options) {
     } else {
       if (typeof(options) == 'undefined') { options = {}; }
       var title = options.title || name;
-      var tab = '<li class="';
-      if (options.close) { tab += 'close '; }
+      var tab = '<li class="loading';
+      if (options.close) { tab += ' close'; }
       tab += '"><a class="tab" href="#tab_' + name + '">' + title + '</a>';
       if (options.close) { tab += '<a class="close" href="#">&times;</a>'; }
       tab += '</li>';
@@ -105,6 +105,8 @@ function open_tab(name, url, options) {
       $('#main-tabs-tabs li:last').click();
       $('#tab_' + name).load(url, function() {
         if (options.success) {
+          $tab.removeClass('loading');
+          $('#main-tabs-tabs ul.tabs').sortable('refresh');
           options.success($tab, $pane);
         }
       });
