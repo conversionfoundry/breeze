@@ -4,6 +4,11 @@ module Breeze
       class FoldersController < AdminController
         unloadable
         
+        def index
+          show
+          render :action => :show
+        end
+        
         def show
           @folder = File.join "/", (params[:id] || "/")
           @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
