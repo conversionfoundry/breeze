@@ -103,9 +103,9 @@ function open_tab(name, url, options) {
       }
       $('#main-tabs-tabs li:last').click();
       $('#tab_' + name).load(url, function() {
+        $tab.removeClass('loading');
+        $('#main-tabs-tabs ul.tabs').sortable('refresh');
         if (options.success) {
-          $tab.removeClass('loading');
-          $('#main-tabs-tabs ul.tabs').sortable('refresh');
           options.success($tab, $pane);
         }
       });
