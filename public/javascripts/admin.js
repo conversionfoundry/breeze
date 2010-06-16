@@ -97,7 +97,6 @@ function open_tab(name, url, options) {
       $('#main-tabs-tabs ul').append(tab);
       var tab_content = '<div class="tab-pane" id="tab_' + name + '"></div>';
       $('#main-tabs-content').append(tab_content);
-      // TODO: activity spinner
       var $tab = $('#main-tabs-tabs li:last'), $pane = $('#tab_' + name);
       if (typeof(options.close) == 'function') {
         $tab.find('a.close').bind('click', options.close);
