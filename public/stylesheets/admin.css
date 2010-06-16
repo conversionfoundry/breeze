@@ -548,6 +548,17 @@ p { margin: 0px 0px 8px; }
   width: 74%;
 }
 
+.breeze-form li.url.http span.https,
+.breeze-form li.url.https span.http {
+  display: none;
+}
+
+.breeze-form li.url.https span.https {
+  background: #ffc;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
 /*}}}*/
 
 /* Theme editor {{{ */
