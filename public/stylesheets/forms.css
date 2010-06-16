@@ -122,6 +122,7 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
   font-weight: bold;
   vertical-align: bottom;
   margin-left: 0.25em;
+  border: none;
 }
 
 .breeze-form fieldset > ol > li { display: block; clear: left; }
