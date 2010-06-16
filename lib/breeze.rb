@@ -1,10 +1,22 @@
 module Breeze
-  def self.version
+  extend self
+
+  def version
     "0.0.1"
   end
   
-  def self.config
+  def config
     @config ||= Configuration.first || Configuration.create
+  end
+  
+  def with_domain(domain, &block)
+    old_domain, @_domain = @_domain, domain
+    yield
+    @_domain = old_domain
+  end
+  
+  def domain
+    @_domain
   end
 end
 

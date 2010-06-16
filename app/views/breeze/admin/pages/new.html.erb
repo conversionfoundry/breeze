@@ -3,7 +3,7 @@
   <%= form.hidden_field :parent_id %>
   <%= form.fieldset do %>
     <%= form.text_field :title, :required => true %>
-    <%= form.select :_type, (Breeze::Content.classes(Breeze::Content::NavigationItem) - [Breeze::Content::NavigationItem]).collect { |t| [ t.label, t.name ] }, :required => true, :label => "Content type" %>
+    <%= form.select :_type, (Breeze::Content.classes(Breeze::Content::NavigationItem) - [Breeze::Content::NavigationItem]).collect { |t| [ t.label, t.name ] }.sort_by(&:first), :required => true, :label => "Content type" %>
     <% unless form.object.root? %>
       <li>
         <%= form.label :slug, nil, :required => true %>

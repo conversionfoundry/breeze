@@ -5,6 +5,8 @@ module Breeze
     helper ContentsHelper
     helper WillPaginate::ViewHelpers::ActionView
     
+    around_filter :set_domain_from_request
+    
     rescue_from Breeze::Errors::RequestError do |error|
       respond_to do |format|
         @error = error
@@ -47,6 +49,10 @@ module Breeze
           end
         end
       end
+    end
+
+    def set_domain_from_request(&block)
+      Breeze.with_domain "#{request.protocol}#{request.host_with_port}", &block
     end
   end
 end

@@ -11,7 +11,7 @@ module Breeze
       end
       
       def new
-        @page = Breeze::Content::NavigationItem.factory(params[:page])
+        @page = Breeze::Content::NavigationItem.factory((params[:page] || {}).reverse_merge(:_type => "Breeze::Content::Page"))
       end
       
       def create

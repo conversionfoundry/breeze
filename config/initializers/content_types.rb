@@ -1,3 +1,3 @@
 Rails::Application.configure do
-  Breeze::Content.register_class(*%w(Item NavigationItem Page Snippet Asset Image).map { |s| "Breeze::Content::#{s}".constantize })
+  Breeze::Content.register_class(*%w(Item NavigationItem Page Snippet Asset Image Sitemap).map { |s| "Breeze::Content::#{s}" })
 end

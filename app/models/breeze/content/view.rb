@@ -27,7 +27,7 @@ module Breeze
       
       def render!
         format = (request.format || Mime[:html]).to_sym
-        format = Mime[:html] if format.to_s == "*/*" # IE!
+        format = :html if format.to_s == "*/*" # IE!
         renderer = :"render_as_#{format.to_sym}"
 
         if respond_to?(renderer)
