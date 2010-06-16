@@ -5,7 +5,8 @@ module Breeze
         unloadable
         
         def show
-          @folder = params[:id] || "/"
+          @folder = File.join "/", (params[:id] || "/")
+          @folder = "/#{@folder}" unless @folder.starts_with
           @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
         end
         
@@ -17,7 +18,7 @@ module Breeze
         end
         
         def update
-          @folder = params[:id] || "/"
+          @folder = File.join "/", (params[:id] || "/")
           if @new_folder = params[:folder] && params[:folder][:name]
             @new_folder = File.join File.dirname(@folder), @new_folder
             FileUtils.mkdir_p File.join(Breeze::Content::Asset.root, @new_folder)
@@ -31,7 +32,7 @@ module Breeze
         end
         
         def destroy
-          @folder = params[:id] || "/"
+          @folder = File.join "/", (params[:id] || "/")
           Breeze::Content::Asset.where({ :folder => /^#{@folder}(\/.*)?$/ }).each(&:destroy)
           FileUtils.rm_r File.join(Breeze::Content::Asset.root, @folder)
         end
