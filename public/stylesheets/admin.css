@@ -325,7 +325,6 @@ p { margin: 0px 0px 8px; }
 #signed-in-user a.user {
   font-weight: bold;
   font-size: 125%;
-  letter-spacing: -0.12em;
 }
 
 #header .visit-site {
