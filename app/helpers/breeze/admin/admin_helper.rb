@@ -34,7 +34,7 @@ module Breeze
       def admin_menu
         # TODO: customisable menu
         menu = []
-        menu << { :name => "Dashboard", :path => admin_root_path, :regexp => /^\/admin\/$/ }
+        menu << { :name => "Dashboard", :path => admin_root_path, :regexp => /^\/admin\/?$/ }
         menu << { :name => "Pages",     :path => admin_pages_path  } if can? :manage, Breeze::Content::Item
         menu << { :name => "Assets",    :path => admin_assets_path } if can? :manage, Breeze::Content::Item
         menu << { :name => "Users",     :path => admin_users_path  } if current_user.admin?
