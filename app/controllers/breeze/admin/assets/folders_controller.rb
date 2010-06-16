@@ -6,7 +6,6 @@ module Breeze
         
         def show
           @folder = File.join "/", (params[:id] || "/")
-          @folder = "/#{@folder}" unless @folder.starts_with
           @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
         end
         
