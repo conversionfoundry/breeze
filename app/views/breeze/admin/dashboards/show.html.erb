@@ -2,13 +2,12 @@
 
 <%= tabbed_layout do |tabs| %>
   <% tabs.activity :title => "Recent activity" do %>
-    <h1>Recent activity</h1>
-    <div id="recent-activity">
-      <%#= will_paginate @log_messages %>
-      <%= content_tag :ul, :class => "log-messages" do %>
-        <%= render :partial => "log_message", :collection => @log_messages %>
-      <% end %>
-    </div>
+    <%= scrollable_layout do %>
+      <h1>Recent activity</h1>
+      <div id="recent-activity">
+        
+      </div>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -19,3 +18,13 @@
     <% end %>
   <% end %>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#recent-activity').load('/admin/activity/log_messages');
+    $('#recent-activity .pagination a').live('click', function() {
+      $('#recent-activity').load($(this).attr('href'));
+      return false;
+    });
+  });
+</script>

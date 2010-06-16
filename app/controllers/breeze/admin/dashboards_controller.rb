@@ -4,7 +4,7 @@ module Breeze
       unloadable
       
       def show
-        @log_messages = Activity::LogMessage.order_by([[ :created_at, -1 ]]).paginate :page => 1
+        @log_messages = Activity::LogMessage.order_by([[ :created_at, -1 ]]).paginate :page => 1, :per_page => 3
       end
     end
   end

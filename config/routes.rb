@@ -60,6 +60,10 @@ Rails.application.routes.draw do |map|
         put :preferences
       end
     end
+    
+    namespace :activity do
+      resources :log_messages
+    end
     root :to => "dashboards#show"
   end
   

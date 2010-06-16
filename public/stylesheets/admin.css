@@ -1084,4 +1084,54 @@ ul.log-messages li.create.navigation_item .message { background-image: url(/bree
 ul.log-messages li.delete.navigation_item .message { background-image: url(/breeze/images/log/page_delete.png); }
 ul.log-messages li.update.navigation_item .message { background-image: url(/breeze/images/log/page_edit.png); }
 
+#recent-activity {
+  position: relative;
+}
+
+#recent-activity .pagination {
+  position: absolute;
+  top: -3.5em;
+  right: 12px;
+  height: 1.5em;
+}
+
 /* }}} */
+
+/* Pagination {{{ */
+
+.pagination {
+  height: 1.5em;
+}
+
+.pagination a,
+.pagination em,
+.pagination span {
+  display: block;
+  float: left;
+  background: white;
+  height: 1.5em;
+  line-height: 1.5em;
+  vertical-align: middle;
+  margin-left: 0.5em;
+  min-width: 0.5em;
+  padding: 0ex 0.5em;
+  text-align: center;
+  text-decoration: none;
+  color: #222;
+  -webkit-border-radius: 0.25em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
+}
+
+.pagination em {
+  background: #ccc;
+  font-style: normal;
+  font-weight: bold;
+  -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px;
+}
+
+.pagination .disabled {
+  color: #999;
+  -webkit-box-shadow: none;
+}
+
+/*}}}*/
