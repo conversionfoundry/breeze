@@ -623,12 +623,12 @@ p { margin: 0px 0px 8px; }
   -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
 }
 
-form.editor {
+form.editor .pane {
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
-  bottom: 0px;
+  bottom: 8px;
   margin: 0px;
   padding: 0px;
 }
@@ -642,7 +642,10 @@ form.editor textarea {
   bottom: 0px;
   border: none;
   border-top: 1px solid #aaa;
-  font-family: Monaco, Consolas, sans-serif;
+  font-family: Monaco, Consolas, monospace;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
   resize: none;
 }
 
