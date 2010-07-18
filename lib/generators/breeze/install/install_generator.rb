@@ -11,10 +11,12 @@ module Breeze
         in_root do
           inside "public" do
             if !File.exists?("breeze")
+              log "", "Creating symlinks..."
               run extify("ln -s ../vendor/plugins/breeze/public breeze")
             end
           end
         end
+        generate :theme, File.basename(Rails.root)
       end
     end
   end
