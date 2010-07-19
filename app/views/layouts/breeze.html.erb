@@ -14,7 +14,7 @@
   <body>
     <div id="header">
       <div class="top">
-        <%= link_to "Breeze", admin_root_path, :class => "logo" %>
+        <%= render :partial => "breeze/logo" %>
         <%= link_to "Visit site", root_path, :class => "visit-site", :target => :_blank, :title => "Visit site" %>
         <% if signed_in? %>
           <div id="signed-in-user">
