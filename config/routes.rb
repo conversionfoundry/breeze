@@ -69,5 +69,6 @@ Rails.application.routes.draw do |map|
   
   match "stylesheets/*path", :to => "breeze/stylesheets#show"
   root :to => "breeze/contents#show"
+  match "breeze/*path", :to => "static_files#serve"
   match "*path" => "breeze/contents#show"
 end
