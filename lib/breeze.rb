@@ -1,5 +1,6 @@
 module Breeze
   extend self
+  extend Breeze::Hooks
 
   def version
     "0.0.1"

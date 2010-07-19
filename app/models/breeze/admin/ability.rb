@@ -15,6 +15,8 @@ module Breeze
           can :destroy,      Breeze::Admin::User   do |subject| ; user.admin? && user != subject ; end
           can :assign_roles, Breeze::Admin::User   do |subject| ; user.admin?                    ; end
         end
+        
+        Breeze.run_hook :define_abilities, user, self
       end
     end
   end
