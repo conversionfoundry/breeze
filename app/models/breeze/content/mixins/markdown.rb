@@ -19,7 +19,7 @@ module Breeze
                 value = read_attribute(attribute)
 
                 if type.nil? && value
-                  marked_down[attribute.to_sym] ||= RDiscount.new(value).to_html
+                  marked_down[attribute.to_sym] ||= RDiscount.new(value).to_html.html_safe
                 elsif type.nil? && value.nil?
                   nil
                 elsif type_options.include?(type.to_s)
