@@ -64,6 +64,13 @@ Rails.application.routes.draw do |map|
     namespace :activity do
       resources :log_messages
     end
+    
+    resource :settings do
+      member do
+        get :current_time
+      end
+    end
+    
     root :to => "dashboards#show"
   end
   

@@ -18,7 +18,7 @@ module Breeze
         template.content_tag :fieldset, contents, options
       end
 
-      (field_helpers - %w(label check_box radio_button fields_for hidden_field text_area)).each do |sym|
+      (field_helpers - %w(label check_box radio_button fields_for hidden_field text_area time_zone_select)).each do |sym|
         src, line = <<-end_src, __LINE__ + 1
           def #{sym}(method, options = {})
             if options[:wrap] == false
@@ -46,6 +46,10 @@ module Breeze
       
       def date_select(method, options = {}, html_options = {})
         wrap method, super(method, filter_options(options), html_options), options.merge(:kind => :date)
+      end
+      
+      def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
+        wrap method, super(method, priority_zones, filter_options(options), html_options), options.merge(:kind => :time_zone)
       end
       
       def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")

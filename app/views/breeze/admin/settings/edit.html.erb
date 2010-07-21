@@ -1,0 +1,36 @@
+<% content_for :title, "Settings" %>
+
+<%= tabbed_layout do |tabs| %>
+  <% tabs.general do %>
+    <%= breeze_form_for Breeze.config, :as => :settings, :url => admin_settings_path, :method => :put do |form| %>
+      <%= scrollable_layout do %>
+        <h1>General settings</h1>
+        <%= form.fieldset :legend => "Time zone" do %>
+          <%= form.time_zone_select :time_zone, nil, :label => "Zone", :hint => render("current_time") %>
+        <% end %>
+      <% end %>
+      <%= fake_right_sidebar do %>
+        <%= form.submit "Save settings", :class => "large green save button" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :right do %>
+  <%= pane_layout do |right| %>
+    <% right.header do %>
+
+    <% end %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#settings_time_zone').change(function() {
+      var hint = $('.inline-hints', $(this).closest('li'));
+      $.get('/admin/settings/current_time?zone=' + escape($(this).val()), function(data) {
+        hint.html(data);
+      });
+    });
+  });
+</script>

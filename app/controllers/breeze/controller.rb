@@ -4,7 +4,8 @@ module Breeze
   class Controller < ApplicationController
     helper ContentsHelper
     helper WillPaginate::ViewHelpers::ActionView
-    
+
+    around_filter :set_time_zone
     around_filter :set_domain_from_request
     
     rescue_from Breeze::Errors::RequestError do |error|
@@ -53,6 +54,12 @@ module Breeze
 
     def set_domain_from_request(&block)
       Breeze.with_domain "#{request.protocol}#{request.host_with_port}", &block
+    end
+    
+    def set_time_zone
+      old_time_zone, Time.zone = Time.zone, Breeze.config.time_zone
+      yield
+      Time.zone = old_time_zone
     end
   end
 end
