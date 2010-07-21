@@ -19,7 +19,8 @@ module Breeze
     end
     
     def self.[](permalink)
-      Item.first :conditions => { :permalink => permalink }
+      Breeze.run_hook(:get_content_by_permalink, permalink) ||
+      Item.first(:conditions => { :permalink => permalink })
     end
     
     def self.const_missing(sym)
