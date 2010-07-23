@@ -95,8 +95,8 @@ module Breeze
         contents = returning "" do |str|
           str << label(method, options[:label], :required => options[:required]) unless options[:label] == false
           str << input
-          str << template.content_tag(:p, options[:hint], :class => "inline-hints") if options[:hint]
           str << errors_for(method) if options[:errors] != false
+          str << template.content_tag(:p, options[:hint], :class => "inline-hints") if options[:hint]
         end
         template.content_tag :li, contents.html_safe, (options[:wrap] || {}).reverse_merge(:class => options[:kind])
       end
