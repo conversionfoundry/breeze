@@ -3,6 +3,8 @@ module Breeze
     class Item
       include Mongoid::Document
       include Mongoid::Timestamps
+      identity :type => String
+
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
       

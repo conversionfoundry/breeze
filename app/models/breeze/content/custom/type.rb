@@ -3,6 +3,7 @@ module Breeze
     module Custom
       class Type
         include Mongoid::Document
+        identity :type => String
       
         field :name
         field :type_name

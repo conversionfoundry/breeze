@@ -1,6 +1,7 @@
 module Breeze
   class Configuration
     include Mongoid::Document
+    identity :type => String
     
     field :time_zone, :default => lambda { Rails.application.config.time_zone }
     

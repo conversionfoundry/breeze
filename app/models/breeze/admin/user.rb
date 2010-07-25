@@ -5,6 +5,7 @@ module Breeze
     class User
       include Mongoid::Document
       extend ActiveSupport::Memoizable
+      identity :type => String
     
       field :first_name
       field :last_name

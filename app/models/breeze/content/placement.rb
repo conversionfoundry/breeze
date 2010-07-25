@@ -2,6 +2,7 @@ module Breeze
   module Content
     class Placement
       include Mongoid::Document
+      identity :type => String
       
       field :region
       field :view

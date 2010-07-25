@@ -2,6 +2,8 @@ module Breeze
   module Content
     class View
       include Mongoid::Document
+      identity :type => String
+
       extend ActiveSupport::Memoizable
       
       embedded_in :content_item, :inverse_of => :views
