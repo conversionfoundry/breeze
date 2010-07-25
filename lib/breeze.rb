@@ -1,6 +1,7 @@
 module Breeze
   extend self
   extend Breeze::Hooks
+  extend Breeze::Queueing
 
   def version
     "0.0.1"
