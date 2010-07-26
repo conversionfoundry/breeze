@@ -23,7 +23,7 @@ html[xmlns] .breeze-form fieldset { display: block; }
 
 /* clearfixing the li's */
 .breeze-form fieldset > ol > li { display: inline-block; }
-.breeze-form fieldset > ol > li:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.breeze-form fieldset > ol > li:after { content: " "; display: block; height: 0; clear: both; visibility: hidden; overflow: hidden; text-indent: -100em; }
 html[xmlns] .breeze-form fieldset > ol > li { display: block; }
 * html .breeze-form fieldset > ol > li { height: 1%; }
 
