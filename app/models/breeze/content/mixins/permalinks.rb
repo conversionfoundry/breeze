@@ -10,12 +10,22 @@ module Breeze
           base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
           base.validates_uniqueness_of :permalink
           base.index :permalink
+          
+          base.class_eval do
+            def permalink(include_domain = false)
+              if include_domain
+                "#{Breeze.domain}#{read_attribute(:permalink)}"
+              else
+                read_attribute(:permalink)
+              end
+            end
+          end
         end
         
         def level
           permalink.count("/")
         end
-        
+
       protected
         def fill_in_slug_and_permalink
           self.slug = self.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if self.slug.blank? && respond_to?(:title) && !self.title.blank?
