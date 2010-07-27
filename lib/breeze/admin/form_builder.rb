@@ -48,6 +48,10 @@ module Breeze
         wrap method, super(method, filter_options(options), html_options), options.merge(:kind => :date)
       end
       
+      def time_select(method, options = {}, html_options = {})
+        wrap method, super(method, filter_options(options), html_options), options.merge(:kind => :time)
+      end
+      
       def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
         wrap method, super(method, priority_zones, filter_options(options), html_options), options.merge(:kind => :time_zone)
       end
