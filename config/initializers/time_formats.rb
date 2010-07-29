@@ -24,6 +24,23 @@ module ActionView
         end
       end
       alias_method_chain :select_hour, :twelve_hour_time
+      
+      def build_options(selected, options = {})
+        start         = options.delete(:start) || 0
+        stop          = options.delete(:end) || 59
+        step          = options.delete(:step) || 1
+        leading_zeros = options.delete(:leading_zeros).nil? ? true : false
+
+        select_options = []
+        selected = selected && (selected / step) * step
+        start.step(stop, step) do |i|
+          value = leading_zeros ? sprintf("%02d", i) : i
+          tag_options = { :value => value }
+          tag_options[:selected] = "selected" if selected == i
+          select_options << content_tag(:option, value, tag_options)
+        end
+        (select_options.join("\n") + "\n").html_safe
+      end
     end
   end
 end
