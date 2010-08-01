@@ -72,7 +72,7 @@ module Breeze
       
       def errors_for(method)
         errors = @object.errors[method.to_sym]
-        errors.empty? ? "".html_safe : template.content_tag(:p, errors.to_sentence.untaint, :class => "inline-errors")
+        errors.empty? ? "".html_safe : template.content_tag(:p, errors.uniq.to_sentence.untaint, :class => "inline-errors")
       end
       
       def content_type_select(method = :_type, options = {})
