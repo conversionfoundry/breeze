@@ -63,8 +63,11 @@ $(function() {
   
   // Get past the fact that, with multiple forms on a page, IDs aren't necessarily unique
   $('label').live('click', function() {
-    $('#' + $(this).attr('for'), $(this).closest('form')).each(function() { this.focus(); });
-    return false;
+    var control = $('#' + $(this).attr('for'), $(this).closest('form'));
+    if (control.is(':text,textarea')) {
+      control.each(function() { this.focus(); }
+      return false;
+    });
   });
   
   $('a[rel*=error]').live('click', function() {
