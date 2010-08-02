@@ -67,7 +67,7 @@ $(function() {
     if (control.is(':text,textarea')) {
       control.each(function() { this.focus(); });
       return false;
-    });
+    }
   });
   
   $('a[rel*=error]').live('click', function() {
