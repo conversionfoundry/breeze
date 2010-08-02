@@ -29,6 +29,7 @@ $(function() {
                       $('#page_new:visible').trigger('submit');
                     }
                   },
+                  close: function() { $(this).remove(); }
                 });
               });
 						}
@@ -36,6 +37,7 @@ $(function() {
 					remove: {
 					  action  : function(node, tree_obj) {
               $('<p>Really delete this page (and all its sub-pages)? There is no undo!</p>').dialog({
+                title:'Confirm delete',
                 modal: true,
                 resizable: false,
                 buttons: {
@@ -55,7 +57,7 @@ $(function() {
                     $(this).dialog('close');
                   }
                 },
-                title:'Confirm delete'
+                close: function() { $(this).remove(); }
               });
 					  }
 					},
