@@ -65,7 +65,7 @@ $(function() {
   $('label').live('click', function() {
     var control = $('#' + $(this).attr('for'), $(this).closest('form'));
     if (control.is(':text,textarea')) {
-      control.each(function() { this.focus(); }
+      control.each(function() { this.focus(); });
       return false;
     });
   });

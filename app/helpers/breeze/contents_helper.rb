@@ -39,11 +39,13 @@ module Breeze
           end
         end.flatten.compact
         
-        active = page ? page.self_and_ancestors.to_a : []
-        
         ancestry = pages.first.self_and_ancestors.to_a
-        if level < ancestry.length
+        active = page ? ancestry.dup : []
+        ancestry << ancestry.last.children.first
+        ancestry.compact!
+        if level <= ancestry.length
           siblings = ancestry[level].self_and_siblings.to_a.select(&:show_in_navigation?)
+          Rails.logger.info siblings.inspect.green
           siblings.unshift ancestry[level - 1] if options[:home] || (level == 1 && options[:home] != false)
           siblings.each_with_index do |p, i|
             page_title = if (options[:home] && options[:home] != true) && (p.level < level || p.root?)
