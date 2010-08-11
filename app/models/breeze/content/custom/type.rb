@@ -40,6 +40,7 @@ module Breeze
       
         before_validation :fill_in_type_name
         after_save :reset_class
+        before_destroy :destroy_instances
         after_destroy :reset_class
 
         validates_presence_of :name
@@ -81,6 +82,10 @@ module Breeze
       
         def fill_in_type_name
           self.type_name = name.underscore.gsub(/\s+/, "_").camelize if type_name.blank? && !name.blank?
+        end
+        
+        def destroy_instances
+          to_class.destroy_all
         end
       
         def reset_class
