@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     namespace :assets do
       resources :folders
     end
+    get "assets/folders/*path" => "assets/folders#show"
     
     match "themes/:theme_id/raw/*id" => "themes/files#show", :as => :raw_admin_theme_file
     match "themes/:theme_id/files/*id" => "themes/files#edit", :as => :edit_admin_theme_file

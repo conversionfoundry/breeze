@@ -10,7 +10,14 @@ module Breeze
         end
         
         def show
-          @folder = File.join "/", (params[:id] || "/")
+          path = if params[:path].present?
+            Array(params[:path]).reject(&:blank?).join("/")
+          elsif params[:id].present?
+            params[:id]
+          else
+            "/"
+          end
+          @folder = File.join "/", path
           @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
         end
         
