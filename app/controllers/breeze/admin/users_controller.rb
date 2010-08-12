@@ -10,6 +10,14 @@ module Breeze
         @users = User.all.sort_by &:to_s
       end
       
+      def new
+        
+      end
+      
+      def create
+        
+      end
+      
       def edit
       end
       
