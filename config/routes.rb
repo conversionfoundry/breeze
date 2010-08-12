@@ -1,4 +1,4 @@
-Rails.application.routes.draw do |map|
+Rails.application.routes.draw do
   devise_for :admin, :class_name => "Breeze::Admin::User"
 
   scope "admin", :name_prefix => "admin", :module => "breeze/admin" do
@@ -31,7 +31,8 @@ Rails.application.routes.draw do |map|
       end
     end
 
-    match "assets/folders" => "assets/folders#show"
+    get "assets/folders" => "assets/folders#show"
+    post "assets/folders" => "assets/folders#create"
     
     resources :assets
     
