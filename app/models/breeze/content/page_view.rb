@@ -1,8 +1,6 @@
 module Breeze
   module Content
     class PageView < View
-      unloadable
-      
       def page
         content
       end

@@ -1,8 +1,6 @@
 module Breeze
   module Content
     class Sitemap < Page
-      unloadable
-      
       def pages
         Breeze::Content::Page.order_by :position
       end
