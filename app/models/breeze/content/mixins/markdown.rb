@@ -19,7 +19,7 @@ module Breeze
                 value = read_attribute(attribute)
 
                 if type.nil? && value
-                  marked_down[attribute.to_sym] ||= RDiscount.new(value).to_html.html_safe
+                  marked_down[attribute.to_sym] ||= mark_down(value)
                 elsif type.nil? && value.nil?
                   nil
                 elsif type_options.include?(type.to_s)
@@ -63,6 +63,10 @@ module Breeze
 
           def markdown!
             self.class.markdown_attributes.each { |attr| __send__(attr) }
+          end
+          
+          def mark_down(str)
+            RDiscount.new(str).to_html.html_safe
           end
 
           def reload
