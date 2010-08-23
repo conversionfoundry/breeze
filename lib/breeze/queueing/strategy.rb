@@ -18,13 +18,17 @@ module Breeze
       def self.factory(options = {})
         strategy = options[:strategy] || :synchronous
         begin
-          klass = Breeze::Queueing.const_get strategy.to_s.camelize
+          klass = "Breeze::Queueing::#{strategy.to_s.camelize}".constantize
           klass.new options.except(:strategy)
         rescue Exception => e
           Rails.logger.error e.inspect
           Rails.logger.warn "Could not initialize queue: proceeding with synchronous queueing strategy."
           Synchronous.new
         end
+      end
+      
+      def self.to_sym
+        name.underscore.to_sym
       end
     end
   end
