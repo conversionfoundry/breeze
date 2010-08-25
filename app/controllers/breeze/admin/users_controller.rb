@@ -4,7 +4,7 @@ module Breeze
       unloadable
       
       before_filter :load_user, :only => [ :show, :edit, :update, :preferences, :destroy ]
-      load_and_authorize_resource :resource => User, :except => :preferences
+      load_and_authorize_resource :class => User, :except => :preferences
       
       def index
         @users = User.all.sort_by &:to_s
