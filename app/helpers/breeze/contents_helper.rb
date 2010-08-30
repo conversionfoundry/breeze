@@ -45,7 +45,6 @@ module Breeze
         ancestry.compact!
         if level <= ancestry.length
           siblings = ancestry[level].self_and_siblings.to_a.select(&:show_in_navigation?)
-          Rails.logger.info siblings.inspect.green
           siblings.unshift ancestry[level - 1] if options[:home] || (level == 1 && options[:home] != false)
           siblings.each_with_index do |p, i|
             page_title = if (options[:home] && options[:home] != true) && (p.level < level || p.root?)
@@ -82,7 +81,7 @@ module Breeze
             end
             
             if recurse > 0 && p.level == level && !p.root?
-              unless (child = p.children.first).nil?
+              unless (child = page || p.children.first).nil?
                 link << navigation(child, options.merge(:level => level + 1, :recurse => recurse - 1), &block)
               end
             end
