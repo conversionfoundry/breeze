@@ -43,7 +43,7 @@ module Breeze
         active = page ? ancestry.dup : []
         ancestry << ancestry.last.children.first
         ancestry.compact!
-        if level <= ancestry.length
+        if level <= ancestry.length && ancestry[level].present?
           siblings = ancestry[level].self_and_siblings.to_a.select(&:show_in_navigation?)
           siblings.unshift ancestry[level - 1] if options[:home] || (level == 1 && options[:home] != false)
           siblings.each_with_index do |p, i|
