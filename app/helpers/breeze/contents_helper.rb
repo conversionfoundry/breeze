@@ -15,8 +15,16 @@ module Breeze
       @_region_contents[name] = if placements.empty?
         block_given? ? capture(&block) : ""
       else
-        render :inline => placements.map { |p| p.to_erb(view) }.join("\n")
-      end.html_safe
+        returning("") do |str|
+          placements.each do |p|
+            begin
+              str << render(:inline => p.to_erb(view))
+            rescue Exception => e
+              content_tag :div, e.to_s, :class => "breeze-content #{p.content.html_class} content_#{p.content_id}#{" shared" if p.shared?}", :id => "content_#{p.content_id}"
+            end
+          end
+        end.html_safe
+      end
       @_region_contents[name]
     end
     
