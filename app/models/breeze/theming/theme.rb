@@ -60,7 +60,7 @@ module Breeze
       end
       
       def templates
-        files("layouts/*").map { |f| File.basename(f, ".html.erb") }.reject { |f| f.starts_with?("_") }
+        files("layouts/*").reject { |f| File.directory?(f) }.map { |f| File.basename(f, ".html.erb") }.reject { |f| f.starts_with?("_") }
       end
       
       def self.installed
