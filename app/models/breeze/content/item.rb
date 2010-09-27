@@ -69,7 +69,13 @@ module Breeze
       end
       
       def self._types
-        @_type ||= [subclasses + subclasses + [self.name] + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq
+        @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
+      end
+      
+      def self.recurse_subclasses
+        [].tap do |result|
+          ObjectSpace.each_object(Class) { |klass| result << klass if klass < self }
+        end
       end
 
       def self.html_class
@@ -78,7 +84,7 @@ module Breeze
       def html_class; self.class.html_class; end
 
       def self.base_class
-        if self == Item || superclass == Item || superclass == Object
+        if self.to_s == "Breeze::Content::Item" || superclass.to_s == "Breeze::Content::Item" || superclass == Object
           self
         else
           superclass.base_class
@@ -120,7 +126,7 @@ module Breeze
         rescue
           self
         end
-        raise ArgumentError, "#{klass.name} is not a valid content class" unless klass.ancestors.include?(Breeze::Content::Item)
+        # raise ArgumentError, "#{klass.name} is not a valid content class" unless klass.ancestors.include?(Breeze::Content::Item)
         klass.new params
       end
       

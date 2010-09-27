@@ -3,8 +3,8 @@ require "set"
 module Breeze
   module Content
     def self.classes(superclass = nil)
-      returning (@classes || []).map(&:constantize) do |set|
-        set.reject! { |k| !k.ancestors.include? superclass } unless superclass.nil?
+      returning (@classes || []).map(&:to_s).map(&:constantize) do |set|
+        set.reject! { |k| !k.ancestors.map(&:to_s).include? superclass.to_s } unless superclass.nil?
         set << superclass if superclass.is_a?(Class)
       end.uniq
     end

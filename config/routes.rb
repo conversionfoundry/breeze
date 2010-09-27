@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin, :class_name => "Breeze::Admin::User"
 
-  scope "admin", :name_prefix => "admin", :module => "breeze/admin" do
+  scope "admin", :as => "admin", :module => "breeze/admin" do
     resources :pages do
       member do
         put :move
