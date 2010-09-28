@@ -48,7 +48,7 @@ module Breeze
         end.flatten.compact
         
         ancestry = pages.first.self_and_ancestors.to_a
-        active = page ? ancestry.dup : []
+        active = page ? (page.root? ? [page] : ancestry.dup) : []
         ancestry << ancestry.last.children.first
         ancestry.compact!
         if level <= ancestry.length && ancestry[level].present?
