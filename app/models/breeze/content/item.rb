@@ -73,7 +73,7 @@ module Breeze
       end
       
       def self.recurse_subclasses
-        [].tap do |result|
+        [self].tap do |result|
           ObjectSpace.each_object(Class) { |klass| result << klass if klass < self }
         end
       end
