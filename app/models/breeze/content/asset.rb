@@ -47,7 +47,7 @@ module Breeze
       end
             
       def self.from_upload(params = {})
-        klass = subclasses.map(&:constantize).detect { |k| k === params[:Filename] } || self
+        klass = subclasses.map { |s| s.to_s.constantize }.detect { |k| k === params[:Filename] } || self
         klass.new :file => params[:file], :folder => params[:folder]
       end
       

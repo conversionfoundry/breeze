@@ -35,7 +35,7 @@ module Breeze
         end
         
         def self.types
-          @_field_types ||= subclasses.sort.map &:constantize
+          @_field_types ||= subclasses.map(&:to_s).sort.map &:constantize
         end
         
       protected
