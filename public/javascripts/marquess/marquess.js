@@ -539,17 +539,19 @@
               text   = '\n';
           
           if (previousLine = /[^\r\n]+$/.exec(before)) {
-            var indent = /^[ \t]+[ \t\>\*\-0-9\.]*/.exec(previousLine[0])[0];
-            if (indent == previousLine) {
-              before = before.substring(0, before.length - indent.length);
-            } else {
-              indent = $.map(indent.split('.'), function(text, i) {
-                if (m = /[0-9]+$/.exec(text)) {
-                  text = text.substring(0, text.length - m[0].length) + (parseInt(m[0]) + 1);
-                }
-                return text;
-              }).join('.');
-              text += indent;
+            if (t = /^[ \t]+[ \t\>\*\-0-9\.]*/.exec(previousLine[0])) {
+              var indent = t[0];
+              if (indent == previousLine) {
+                before = before.substring(0, before.length - indent.length);
+              } else {
+                indent = $.map(indent.split('.'), function(text, i) {
+                  if (m = /[0-9]+$/.exec(text)) {
+                    text = text.substring(0, text.length - m[0].length) + (parseInt(m[0]) + 1);
+                  }
+                  return text;
+                }).join('.');
+                text += indent;
+              }
             }
           }
           
