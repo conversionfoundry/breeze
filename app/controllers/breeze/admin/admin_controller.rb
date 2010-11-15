@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     class AdminController < Breeze::Controller
-      unloadable
-      
       before_filter :kick_out_ie
       before_filter :authenticate_admin!
       around_filter :set_current_user

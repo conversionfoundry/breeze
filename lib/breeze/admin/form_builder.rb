@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     class FormBuilder < ActionView::Helpers::FormBuilder
-      unloadable
-      
       attr_reader :template
       
       def fieldset(*args, &block)

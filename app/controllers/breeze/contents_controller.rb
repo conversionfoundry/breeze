@@ -1,7 +1,5 @@
 module Breeze
   class ContentsController < Controller
-    unloadable
-    
     after_filter :add_editing_controls
     
     attr_accessor :view

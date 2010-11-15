@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     class AssetsController < AdminController
-      unloadable
-
       def index
         @folder = params[:folder] || "/"
         @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])

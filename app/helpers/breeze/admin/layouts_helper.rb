@@ -1,6 +1,4 @@
 module Breeze::Admin::LayoutsHelper
-  unloadable
-  
   class PaneLayout
     attr_reader :options
 

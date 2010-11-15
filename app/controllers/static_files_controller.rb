@@ -1,6 +1,4 @@
 class StaticFilesController < ActionController::Metal
-  unloadable
-  
   include ActionController::RackDelegation
   include ActionController::Streaming
   

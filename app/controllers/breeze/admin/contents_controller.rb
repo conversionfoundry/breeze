@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     class ContentsController < AdminController
-      unloadable
-      
       before_filter :load_container_and_placement, :only => [ :edit, :update, :duplicate, :destroy ]
       
       def new

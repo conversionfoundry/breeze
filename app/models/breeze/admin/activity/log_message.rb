@@ -2,8 +2,6 @@ module Breeze
   module Admin
     module Activity
       class LogMessage
-        unloadable
-        
         include Mongoid::Document
         include Mongoid::Timestamps
         identity :type => String

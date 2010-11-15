@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     class UsersController < AdminController
-      unloadable
-      
       before_filter :load_user, :only => [ :show, :edit, :update, :preferences, :destroy ]
       load_and_authorize_resource :class => User, :except => :preferences
       

@@ -2,8 +2,6 @@ module Breeze
   module Admin
     module Themes
       class FilesController < Breeze::Admin::AdminController
-        unloadable
-        
         def index
           @files = theme.files.sort
         end

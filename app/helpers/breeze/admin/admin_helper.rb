@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     module AdminHelper
-      unloadable
-      
       def flash_messages
         if flash.any?
           flash.to_a.map { |key, message|

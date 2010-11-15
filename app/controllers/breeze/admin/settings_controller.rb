@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     class SettingsController < AdminController
-      unloadable
-      
       def show
         render :action => "edit"
       end

@@ -2,8 +2,6 @@ module Breeze
   module Admin
     module Themes
       class FoldersController < Breeze::Admin::AdminController
-        unloadable
-        
         def edit
           @path = "/" + Array(params[:id]).join("/").gsub("+", " ")
           if request.put?

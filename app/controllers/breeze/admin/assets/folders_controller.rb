@@ -2,8 +2,6 @@ module Breeze
   module Admin
     module Assets
       class FoldersController < AdminController
-        unloadable
-        
         def index
           show
           render :action => :show

@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     class CustomTypesController < AdminController
-      unloadable
-      
       def index
         @custom_types = Breeze::Content::Custom::Type.all.order_by :name
       end

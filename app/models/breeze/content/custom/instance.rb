@@ -39,6 +39,13 @@ module Breeze
           @custom_type ||= Breeze::Content::Custom::Type.where(:type_name => name.demodulize).first
         end
         def custom_type; self.class.custom_type; end
+        
+        def is_a?(k)
+          case k.to_s
+          when "Breeze::Content::Custom::Instance" then true
+          else super
+          end
+        end
       end
     end
   end

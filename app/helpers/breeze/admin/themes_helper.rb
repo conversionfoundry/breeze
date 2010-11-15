@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     module ThemesHelper
-      unloadable
-      
       def file_tree(files, options = {})
         options[:filename] ||= :to_s
         options[:root] ||= ""

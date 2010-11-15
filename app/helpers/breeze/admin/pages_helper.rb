@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     module PagesHelper
-      unloadable
-      
       def page_tree_node(page)
         children = pages.select { |p| p.parent_id == page.id }
         contents = link_to content_tag(:ins, "", :class => :icon) + (page.root? ? "Home" : page.title), page.permalink, :title => page.title

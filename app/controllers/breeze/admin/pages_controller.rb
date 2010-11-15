@@ -1,8 +1,6 @@
 module Breeze
   module Admin
     class PagesController < AdminController
-      unloadable
-      
       def index
       end
       

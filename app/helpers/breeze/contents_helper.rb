@@ -1,7 +1,5 @@
 module Breeze
   module ContentsHelper
-    unloadable
-    
     def region(name, options = {}, &block)
       content = content_for_region(name, &block)
       options[:id] ||= "#{name.to_s.underscore}_region"
