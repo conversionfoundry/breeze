@@ -399,7 +399,7 @@
               }
               for (f in data.files) {
                 file = data.files[f];
-                h.append('<li class="image" data-file="' + file.filename + '" data-title="' + escape(file.title || '') + '"><span>' + file.filename + '</span></li>');
+                h.append('<li class="image" data-file="' + file.filename + '" data-title="' + escape(file.title || '') + '" data-width="' + (file.width || '') + '" data-height="' + (file.width || '') + '"><span>' + file.filename + '</span></li>');
               }
               folder_count = $('.folders ul', dialog).length;
 
