@@ -59,6 +59,24 @@ module Breeze
         @_root ||= File.join(Rails.root, "public", "assets")
       end
       
+      def self.by_folder(&block)
+        files = all.order_by(:file.asc)
+        files_by_folder = folders.sort.map { |folder| [ folder, files.select { |f| f.folder == folder } ] }
+        files_by_folder.inject({ :folders => {} }) do |hash, (folder, files)|
+          list = if folder == "/"
+            hash[:files] ||= []
+          else
+            tree = folder.split("/")[1..-1].inject(hash) do |h, f|
+              h[:folders][f] ||= { :files => [], :folders => {} }
+            end
+            tree[:files]
+          end
+          files.map!(&block) if block_given?
+          list.push *files
+          hash
+        end
+      end
+      
     protected
       def all_files
         [ file.path ] + file.versions.values.map { |f| File.join(Rails.root, "public", f.to_s) }

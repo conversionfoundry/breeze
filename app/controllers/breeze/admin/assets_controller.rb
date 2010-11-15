@@ -31,6 +31,13 @@ module Breeze
         @asset = Breeze::Content::Asset.find params[:id]
         @asset.try :destroy
       end
+      
+      def images
+        @images = Breeze::Content::Image.by_folder do |i|
+          { :filename => i[:file], :width => i.image_width, :height => i.image_height, :title => i.title }
+        end
+        render :json => @images
+      end
     
     protected
       def folders

@@ -305,6 +305,7 @@
   });
   
   $.ui.marquess.commands['link'].fn = function(editor) {
+    $.ui.marquess.current = editor;
     html = $('<div class="marquess-dialog breeze-form"><fieldset><ol class="form"><li class="text_field"><label for="marquess_link_text">Link text<abbr title="required">*</abbr></label><input class="text_field" name="link_text" id="marquess_link_text" /></li><li class="text_field"><label for="marquess_link_url">URL<abbr title="required">*</abbr></label><input class="text_field" name="link_url" id="marquess_link_url" /></li><ul id="marquess_link_select"></ul></div>');
     $(html).dialog({
       title:     'Insert a link',
@@ -330,29 +331,127 @@
           $(this).dialog("close");
         }
       },
+      open: function() {
+        $('#marquess_link_text', this).val(editor.editor.selectedText()).each(function() { this.focus(); });
+        $('#marquess_link_select', this).load('/admin/pages/list', function() {
+          $('a', this).click(function() {
+            if ($('#marquess_link_text').val() == '') { $('#marquess_link_text').val($(this).text()); }
+            $('#marquess_link_url').val($(this).attr('href'));
+            return false;
+          });
+          $('li.open, li.closed').click(function() {
+            $(this).toggleClass('open').toggleClass('closed');
+            return false;
+          }).filter('.open').click();
+        });
+        $('#marquess_link_text, #marquess_link_url', this).keypress(function(e) {
+          if (e.which == 13) {
+            $('button:contains(OK)', $(this).closest('.ui-dialog')).click();
+            return false;
+          }
+        });
+      },
       close: function() {
         $(this).remove();
       }
     });
-    $('#marquess_link_text').val(editor.editor.selectedText()).each(function() { this.focus(); });
-    $('#marquess_link_select').load('/admin/pages/list', function() {
-      $('a', this).click(function() {
-        if ($('#marquess_link_text').val() == '') { $('#marquess_link_text').val($(this).text()); }
-        $('#marquess_link_url').val($(this).attr('href'));
-        return false;
-      });
-      $('li.open, li.closed').click(function() {
-        $(this).toggleClass('open').toggleClass('closed');
-        return false;
-      }).filter('.open').click();
-    });
-    $('#marquess_link_text, #marquess_link_url').keypress(function(e) {
-      if (e.which == 13) {
-        $('button:contains(OK)', $(this).closest('.ui-dialog')).click();
-        return false;
+  };
+  
+  $.ui.marquess.commands['image'].fn = function(editor) {
+    $.ui.marquess.current = editor;
+    html = $('<div class="marquess-dialog marquess-image-dialog breeze-form"><div class="folders-container"><div class="folders"></div></div><fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
+    $(html).dialog({
+      title:     'Insert an image',
+      width:     512,
+      modal:     true,
+      resizable: false,
+      buttons:   {
+        'OK': function() {
+          url = $('#marquess_image_url').val();
+          if (!(/^(\/|https?:\/\/)/.test(url))) {
+            url = 'http://' + url;
+          }
+          $.ui.marquess.current.transform({
+            defaultText: 'image title',
+            text: $('#marquess_image_title').val(),
+            before: '![',
+            after: '](' + url + ')',
+            inline: true
+          });
+          $(this).dialog("close");
+        },
+        'Cancel': function() {
+          $(this).dialog("close");
+        }
+      },
+      open: function() {
+        var dialog = this;
+        $.ajax({
+          url: '/admin/assets/images.json',
+          type: 'get',
+          dataType: 'json',
+          success: function(data) {
+            add_image_folder = function(dialog, name, data) {
+              h = $('<ul data-folder="' + name + '"></ul>');
+              h.appendTo($('.folders', dialog));
+              for (f in data.folders) {
+                h.append('<li class="folder" data-folder="' + f + '"><span>' + f + '</span></li>');
+              }
+              for (f in data.files) {
+                file = data.files[f];
+                h.append('<li class="image" data-file="' + file.filename + '" data-title="' + escape(file.title || '') + '"><span>' + file.filename + '</span></li>');
+              }
+              folder_count = $('.folders ul', dialog).length;
+
+              $('.folders', dialog).width(Math.max(folder_count * 200, $('.folders', dialog).parent().width()));
+              $('.folders ul', dialog).width(Math.floor($('.folders', dialog).width() / folder_count));
+              $('.folders-container', dialog).scrollTo('.folders ul:last-child', dialog);
+            };
+            
+            dialog.files = data;
+            add_image_folder(dialog, '', dialog.files);
+            $('.folders li.folder', dialog).live('click', function() {
+              $(this).addClass('selected').siblings().removeClass('selected');
+              path = '';
+              data = dialog.files;
+              $(this).closest('ul').nextAll('ul, .image-info').remove();
+              $(this).closest('ul').prevAll('ul').each(function() {
+                f = $(this).attr('data-folder');
+                path += f + '/';
+                if (f && f != '') data = data.folders[f];
+              });
+              f = $(this).closest('ul').attr('data-folder');
+              path += f + '/';
+              if (f && f != '') data = data.folders[f];
+              f = $(this).attr('data-folder');
+              path += f + '/';
+              if (f && f != '') data = data.folders[f];
+              add_image_folder(dialog, f, data);
+            });
+            
+            $('.folders li.image', dialog).live('click', function() {
+              $(this).addClass('selected').siblings().removeClass('selected');
+              $(this).closest('ul').nextAll('ul, .image-info').remove();
+              var info = $('<div class="image-info"></div>').appendTo('.folders', dialog);
+              $('.folders', dialog).width(Math.max(folder_count * 200 + 200, $('.folders', dialog).parent().width()));
+              $('.folders ul', dialog).width(Math.floor(($('.folders', dialog).width() - 200) / folder_count));
+              var path = $.map($('.folders ul', dialog), function(f) { return $(f).attr('data-folder'); }).join('/') + '/' + $(this).attr('data-file');
+              $('#marquess_image_url', dialog).val('/assets' + path);
+              $('#marquess_image_title', dialog).val($(this).attr('data-title'));
+              info.append('<img src="/images/thumbnails/thumbnail/' + path + '" />')
+              info.append('<strong>' + $(this).attr('data-file') + '</strong>');
+              info.append('<small>' + ($(this).attr('data-width') || '??') + '&times;' + ($(this).attr('data-height') || '??') + '</small>');
+              $('.folders-container', dialog).scrollTo('.image-info', dialog);
+            });
+          }
+        })
+      },
+      close: function() {
+        $(this).remove();
       }
     });
   };
+  
 })(jQuery);
 
 // Cookies: http://stilbuero.de/jquery/cookie/
@@ -399,3 +498,15 @@ return'"'+string+'"';};var _escapeable=/["\\\x00-\x1f\x7f-\x9f]/g;var _meta={'\b
 * @author    Brian Cherne <brian@cherne.net>
 */
 (function($){$.fn.hoverIntent=function(f,g){var cfg={sensitivity:7,interval:100,timeout:0};cfg=$.extend(cfg,g?{over:f,out:g}:f);var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY;};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if((Math.abs(pX-cX)+Math.abs(pY-cY))<cfg.sensitivity){$(ob).unbind("mousemove",track);ob.hoverIntent_s=1;return cfg.over.apply(ob,[ev]);}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=0;return cfg.out.apply(ob,[ev]);};var handleHover=function(e){var p=(e.type=="mouseover"?e.fromElement:e.toElement)||e.relatedTarget;while(p&&p!=this){try{p=p.parentNode;}catch(e){p=this;}}if(p==this){return false;}var ev=jQuery.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);}if(e.type=="mouseover"){pX=ev.pageX;pY=ev.pageY;$(ob).bind("mousemove",track);if(ob.hoverIntent_s!=1){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}}else{$(ob).unbind("mousemove",track);if(ob.hoverIntent_s==1){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob);},cfg.timeout);}}};return this.mouseover(handleHover).mouseout(handleHover);};})(jQuery);
+
+/**
+ * jQuery.ScrollTo - Easy element scrolling using jQuery.
+ * Copyright (c) 2007-2009 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
+ * Dual licensed under MIT and GPL.
+ * Date: 5/25/2009
+ * @author Ariel Flesler
+ * @version 1.4.2
+ *
+ * http://flesler.blogspot.com/2007/10/jqueryscrollto.html
+ */
+;(function(d){var k=d.scrollTo=function(a,i,e){d(window).scrollTo(a,i,e)};k.defaults={axis:'xy',duration:parseFloat(d.fn.jquery)>=1.3?0:1};k.window=function(a){return d(window)._scrollable()};d.fn._scrollable=function(){return this.map(function(){var a=this,i=!a.nodeName||d.inArray(a.nodeName.toLowerCase(),['iframe','#document','html','body'])!=-1;if(!i)return a;var e=(a.contentWindow||a).document||a.ownerDocument||a;return d.browser.safari||e.compatMode=='BackCompat'?e.body:e.documentElement})};d.fn.scrollTo=function(n,j,b){if(typeof j=='object'){b=j;j=0}if(typeof b=='function')b={onAfter:b};if(n=='max')n=9e9;b=d.extend({},k.defaults,b);j=j||b.speed||b.duration;b.queue=b.queue&&b.axis.length>1;if(b.queue)j/=2;b.offset=p(b.offset);b.over=p(b.over);return this._scrollable().each(function(){var q=this,r=d(q),f=n,s,g={},u=r.is('html,body');switch(typeof f){case'number':case'string':if(/^([+-]=)?\d+(\.\d+)?(px|%)?$/.test(f)){f=p(f);break}f=d(f,this);case'object':if(f.is||f.style)s=(f=d(f)).offset()}d.each(b.axis.split(''),function(a,i){var e=i=='x'?'Left':'Top',h=e.toLowerCase(),c='scroll'+e,l=q[c],m=k.max(q,i);if(s){g[c]=s[h]+(u?0:l-r.offset()[h]);if(b.margin){g[c]-=parseInt(f.css('margin'+e))||0;g[c]-=parseInt(f.css('border'+e+'Width'))||0}g[c]+=b.offset[h]||0;if(b.over[h])g[c]+=f[i=='x'?'width':'height']()*b.over[h]}else{var o=f[h];g[c]=o.slice&&o.slice(-1)=='%'?parseFloat(o)/100*m:o}if(/^\d+$/.test(g[c]))g[c]=g[c]<=0?0:Math.min(g[c],m);if(!a&&b.queue){if(l!=g[c])t(b.onAfterFirst);delete g[c]}});t(b.onAfter);function t(a){r.animate(g,j,b.easing,a&&function(){a.call(this,n,b)})}}).end()};k.max=function(a,i){var e=i=='x'?'Width':'Height',h='scroll'+e;if(!d(a).is('html,body'))return a[h]-d(a)[e.toLowerCase()]();var c='client'+e,l=a.ownerDocument.documentElement,m=a.ownerDocument.body;return Math.max(l[h],m[h])-Math.min(l[c],m[c])};function p(a){return typeof a=='object'?a:{top:a,left:a}}})(jQuery);

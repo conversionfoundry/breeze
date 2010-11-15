@@ -395,10 +395,15 @@ body.breeze-editing .breeze-content.hover>* {
   margin-left: 25%;
 }
 
+#marquess_link_select ul {
+  margin: 0px;
+}
+
 #marquess_link_select li {
   display: block;
+  margin: 0px;
   list-style: none;
-  padding-left: 18px;
+  padding: 0px 0px 0px 18px;
   line-height: 18px;
   vertical-align: middle;
   background: url(/breeze/javascripts/jstree/themes/breeze/icons.png) no-repeat 0px 20px;
@@ -426,5 +431,78 @@ body.breeze-editing .breeze-content.hover>* {
 }
 
 #marquess_link_select li.closed ul { display: none; }
+
+.marquess-image-dialog .folders-container {
+  width: 100%;
+  height: 256px;
+  overflow-x: scroll;
+  margin: -9px 0px 0px 0px;
+  padding: 0px;
+  border: 1px solid #999;
+}
+
+.marquess-image-dialog .folders-container .folders {
+  height: 240px;
+}
+
+.marquess-image-dialog .folders-container .folders ul {
+  float: left;
+  overflow-y: scroll;
+  min-width: 200px;
+  height: 240px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.marquess-image-dialog .folders-container .folders ul li,
+.marquess-image-dialog .folders-container .folders ul li span {
+  margin: 0px;
+  padding: 0px 24px 0px 0px;
+  display: block;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.marquess-image-dialog .folders-container .folders ul li.folder span {
+  font-weight: bold;
+  padding: 0px 0px 0px 24px;
+  background: url(/breeze/editor/images/image-browser.png) no-repeat 0px -40px;
+}
+
+.marquess-image-dialog .folders-container .folders ul li.image span {
+  padding: 0px 0px 0px 24px;
+  background: url(/breeze/editor/images/image-browser.png) no-repeat -20px -20px;
+}
+
+.marquess-image-dialog .folders-container .folders ul li.folder {
+  background: url(/breeze/editor/images/image-browser.png) no-repeat 100% 0px;
+}
+
+.marquess-image-dialog .folders-container .folders ul li.selected {
+  background-color: #ccc;
+}
+
+.marquess-image-dialog .image-info {
+  float: left;
+  width: 200px;
+  position: relative;
+  text-align: center;
+  height: 240px;
+  overflow: auto;
+}
+
+.marquess-image-dialog .image-info img {
+  float: none;
+  display: block;
+  margin: 16px auto 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
+.marquess-image-dialog .image-info strong,
+.marquess-image-dialog .image-info small {
+  display: block;
+  text-align: center;
+}
 
 /* }}} */

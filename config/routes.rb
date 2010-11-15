@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       end
     end
 
+    get "assets/images(.:format)" => "assets#images"
+
     get "assets/folders" => "assets/folders#show"
     post "assets/folders" => "assets/folders#create"
     
