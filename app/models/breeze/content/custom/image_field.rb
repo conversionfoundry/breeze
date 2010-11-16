@@ -6,7 +6,7 @@ module Breeze
         field :height, :type => Integer
         
         def define_on(klass)
-          klass.field name, :markdown => true
+          klass.field name
         end
         
         def to_html(view, instance)
