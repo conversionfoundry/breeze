@@ -391,6 +391,22 @@ body.breeze-editing .breeze-content.hover>* {
   
 }
 
+.ui-dialog .image_field .browse {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #eee url(/breeze/javascripts/marquess/marquess-toolbar.png) no-repeat 0px -112px;
+  border: 4px solid #eee;
+  text-indent: -100em;
+  overflow: hidden;
+  text-decoration: none;
+  margin-left: 8px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
 #marquess_link_select {
   margin-left: 25%;
 }

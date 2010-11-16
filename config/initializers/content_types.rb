@@ -6,6 +6,4 @@ Rails::Application.config.to_prepare do
   Breeze::Content::Custom::StringField
   Breeze::Content::Custom::TextField
   Breeze::Content::Custom::ImageField
-  
-  Rails.logger.info Breeze::Content::Custom::Type.classes.inspect.green
 end

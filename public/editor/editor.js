@@ -359,99 +359,118 @@
   
   $.ui.marquess.commands['image'].fn = function(editor) {
     $.ui.marquess.current = editor;
-    html = $('<div class="marquess-dialog marquess-image-dialog breeze-form"><div class="folders-container"><div class="folders"></div></div><fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
-    $(html).dialog({
-      title:     'Insert an image',
-      width:     512,
-      modal:     true,
-      resizable: false,
-      buttons:   {
-        'OK': function() {
-          url = $('#marquess_image_url').val();
-          if (!(/^(\/|https?:\/\/)/.test(url))) {
-            url = 'http://' + url;
+    
+    $.breeze.image_dialog(function(url, title) {
+      editor.transform({
+        defaultText: 'image title',
+        text: title,
+        before: '![',
+        after: '](' + url + ')',
+        inline: true
+      });
+    });
+    
+  };
+  
+  $('.ui-dialog .image_field .browse').live('click', function() {
+    var button = this;
+    $.breeze.image_dialog(function(url, title) {
+      $('input', $(button).closest('li')).eq(0).val(url);
+    });
+    return false;
+  });
+  
+  $.breeze = $.extend({}, {
+    image_dialog: function(action) {
+      html = $('<div class="marquess-dialog marquess-image-dialog breeze-form"><div class="folders-container"><div class="folders"></div></div><fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
+      $(html).dialog({
+        title:     'Insert an image',
+        width:     512,
+        modal:     true,
+        resizable: false,
+        buttons:   {
+          'OK': function() {
+            url = $('#marquess_image_url').val();
+            if (!(/^(\/|https?:\/\/)/.test(url))) {
+              url = 'http://' + url;
+            }
+            title = $('#marquess_image_title').val();
+            (action)(url, title);
+            $(this).dialog("close");
+          },
+          'Cancel': function() {
+            $(this).dialog("close");
           }
-          $.ui.marquess.current.transform({
-            defaultText: 'image title',
-            text: $('#marquess_image_title').val(),
-            before: '![',
-            after: '](' + url + ')',
-            inline: true
-          });
-          $(this).dialog("close");
         },
-        'Cancel': function() {
-          $(this).dialog("close");
-        }
-      },
-      open: function() {
-        var dialog = this;
-        $.ajax({
-          url: '/admin/assets/images.json',
-          type: 'get',
-          dataType: 'json',
-          success: function(data) {
-            add_image_folder = function(dialog, name, data) {
-              h = $('<ul data-folder="' + name + '"></ul>');
-              h.appendTo($('.folders', dialog));
-              for (f in data.folders) {
-                h.append('<li class="folder" data-folder="' + f + '"><span>' + f + '</span></li>');
-              }
-              for (f in data.files) {
-                file = data.files[f];
-                h.append('<li class="image" data-file="' + file.filename + '" data-title="' + escape(file.title || '') + '" data-width="' + (file.width || '') + '" data-height="' + (file.width || '') + '"><span>' + file.filename + '</span></li>');
-              }
-              folder_count = $('.folders ul', dialog).length;
+        open: function() {
+          var dialog = this;
+          $.ajax({
+            url: '/admin/assets/images.json',
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+              add_image_folder = function(dialog, name, data) {
+                h = $('<ul data-folder="' + name + '"></ul>');
+                h.appendTo($('.folders', dialog));
+                for (f in data.folders) {
+                  h.append('<li class="folder" data-folder="' + f + '"><span>' + f + '</span></li>');
+                }
+                for (f in data.files) {
+                  file = data.files[f];
+                  h.append('<li class="image" data-file="' + file.filename + '" data-title="' + escape(file.title || '') + '" data-width="' + (file.width || '') + '" data-height="' + (file.width || '') + '"><span>' + file.filename + '</span></li>');
+                }
+                folder_count = $('.folders ul', dialog).length;
 
-              $('.folders', dialog).width(Math.max(folder_count * 200, $('.folders', dialog).parent().width()));
-              $('.folders ul', dialog).width(Math.floor($('.folders', dialog).width() / folder_count));
-              $('.folders-container', dialog).scrollTo('.folders ul:last-child', dialog);
-            };
-            
-            dialog.files = data;
-            add_image_folder(dialog, '', dialog.files);
-            $('.folders li.folder', dialog).live('click', function() {
-              $(this).addClass('selected').siblings().removeClass('selected');
-              path = '';
-              data = dialog.files;
-              $(this).closest('ul').nextAll('ul, .image-info').remove();
-              $(this).closest('ul').prevAll('ul').each(function() {
+                $('.folders', dialog).width(Math.max(folder_count * 200, $('.folders', dialog).parent().width()));
+                $('.folders ul', dialog).width(Math.floor($('.folders', dialog).width() / folder_count));
+                $('.folders-container', dialog).scrollTo('.folders ul:last-child', dialog);
+              };
+
+              dialog.files = data;
+              add_image_folder(dialog, '', dialog.files);
+              $('.folders li.folder', dialog).live('click', function() {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                path = '';
+                data = dialog.files;
+                $(this).closest('ul').nextAll('ul, .image-info').remove();
+                $(this).closest('ul').prevAll('ul').each(function() {
+                  f = $(this).attr('data-folder');
+                  path += f + '/';
+                  if (f && f != '') data = data.folders[f];
+                });
+                f = $(this).closest('ul').attr('data-folder');
+                path += f + '/';
+                if (f && f != '') data = data.folders[f];
                 f = $(this).attr('data-folder');
                 path += f + '/';
                 if (f && f != '') data = data.folders[f];
+                add_image_folder(dialog, f, data);
               });
-              f = $(this).closest('ul').attr('data-folder');
-              path += f + '/';
-              if (f && f != '') data = data.folders[f];
-              f = $(this).attr('data-folder');
-              path += f + '/';
-              if (f && f != '') data = data.folders[f];
-              add_image_folder(dialog, f, data);
-            });
-            
-            $('.folders li.image', dialog).live('click', function() {
-              $(this).addClass('selected').siblings().removeClass('selected');
-              $(this).closest('ul').nextAll('ul, .image-info').remove();
-              var info = $('<div class="image-info"></div>').appendTo('.folders', dialog);
-              $('.folders', dialog).width(Math.max(folder_count * 200 + 200, $('.folders', dialog).parent().width()));
-              $('.folders ul', dialog).width(Math.floor(($('.folders', dialog).width() - 200) / folder_count));
-              var path = $.map($('.folders ul', dialog), function(f) { return $(f).attr('data-folder'); }).join('/') + '/' + $(this).attr('data-file');
-              $('#marquess_image_url', dialog).val('/assets' + path);
-              $('#marquess_image_title', dialog).val($(this).attr('data-title'));
-              info.append('<img src="/images/thumbnails/thumbnail/' + path + '" />')
-              info.append('<strong>' + $(this).attr('data-file') + '</strong>');
-              info.append('<small>' + ($(this).attr('data-width') || '??') + '&times;' + ($(this).attr('data-height') || '??') + '</small>');
-              $('.folders-container', dialog).scrollTo('.image-info', dialog);
-            });
-          }
-        })
-      },
-      close: function() {
-        $(this).remove();
-      }
-    });
-  };
-  
+
+              $('.folders li.image', dialog).live('click', function() {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                $(this).closest('ul').nextAll('ul, .image-info').remove();
+                var info = $('<div class="image-info"></div>').appendTo('.folders', dialog);
+                $('.folders', dialog).width(Math.max(folder_count * 200 + 200, $('.folders', dialog).parent().width()));
+                $('.folders ul', dialog).width(Math.floor(($('.folders', dialog).width() - 200) / folder_count));
+                var path = $.map($('.folders ul', dialog), function(f) { return $(f).attr('data-folder'); }).join('/') + '/' + $(this).attr('data-file');
+                $('#marquess_image_url', dialog).val('/assets' + path);
+                $('#marquess_image_title', dialog).val($(this).attr('data-title'));
+                info.append('<img src="/images/thumbnails/thumbnail/' + path + '" />')
+                info.append('<strong>' + $(this).attr('data-file') + '</strong>');
+                info.append('<small>' + ($(this).attr('data-width') || '??') + '&times;' + ($(this).attr('data-height') || '??') + '</small>');
+                $('.folders-container', dialog).scrollTo('.image-info', dialog);
+              });
+            }
+          })
+        },
+        close: function() {
+          $(this).remove();
+        }
+      });
+    }
+  });
+
 })(jQuery);
 
 // Cookies: http://stilbuero.de/jquery/cookie/

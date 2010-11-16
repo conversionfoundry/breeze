@@ -111,7 +111,7 @@ module Breeze
       end
       
       def filter_options(options)
-        options.except :label, :hint, :kind, :errors, :required, :wrap
+        options.except :label, :hint, :kind, :errors, :required, :wrap, :before, :after
       end
       
       def sanitize_id(name)
