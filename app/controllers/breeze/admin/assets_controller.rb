@@ -7,7 +7,11 @@ module Breeze
       end
     
       def create
-        @asset = Breeze::Content::Asset.from_upload params
+        if (@asset = Breeze::Content::Asset.where(:file => params[:Filename], :folder => params[:folder]).first)
+          @asset.file, @asset.folder = params[:file], params[:folder]
+        else
+          @asset ||= Breeze::Content::Asset.from_upload params
+        end
         @asset.save
         respond_to do |format|
           format.html { render :partial => @asset.class.name.demodulize.underscore, :object => @asset, :layout => false }
@@ -23,6 +27,10 @@ module Breeze
       def update
         @asset = Breeze::Content::Asset.find params[:id]
         @asset.update_attributes params[:asset]
+        respond_to do |format|
+          format.js
+          format.json { render :json => { :filename => @asset[:file], :width => @asset.image_width, :height => @asset.image_height, :title => @asset.title, :id => @asset.id.to_s } }
+        end
       end
     
       def destroy
@@ -32,7 +40,7 @@ module Breeze
       
       def images
         @images = Breeze::Content::Image.by_folder do |i|
-          { :filename => i[:file], :width => i.image_width, :height => i.image_height, :title => i.title }
+          { :filename => i[:file], :width => i.image_width, :height => i.image_height, :title => i.title, :id => i.id.to_s }
         end
         render :json => @images
       end

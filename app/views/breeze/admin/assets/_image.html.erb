@@ -1,4 +1,4 @@
-<%= content_tag :div, :class => "image asset", :id => "asset_#{image.id}", :"data-filename" => image.basename do %>
+<%= content_tag :div, :class => "image asset", :id => "asset_#{image.id}", :"data-filename" => image.basename, :"data-width" => image.image_width, :"data-height" => image.image_height, :"data-id" => image.id do %>
   <%= content_tag :div, :class => "icon #{image.extension}" do %>
     <%= image_tag image.file.url(:thumbnail) %>
   <% end %>

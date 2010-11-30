@@ -391,6 +391,12 @@ body.breeze-editing .breeze-content.hover>* {
   
 }
 
+.ui-dialog #uploaderUploader {
+  position: absolute;
+  right: 5px;
+  top: 8px;
+}
+
 .ui-dialog .image_field .browse {
   display: inline-block;
   width: 16px;
@@ -405,6 +411,10 @@ body.breeze-editing .breeze-content.hover>* {
   -moz-border-radius: 4px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
+.image-editor h3 {
+font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 #marquess_link_select {

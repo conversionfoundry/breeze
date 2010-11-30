@@ -11,6 +11,7 @@
       this._loadOptions();
       this._loadStylesheet();
       this._loadStylesheet('/breeze/javascripts/marquess/marquess.css'); // TODO: incorporate into main stylesheet
+      this._loadStylesheet('/breeze/javascripts/jcrop/css/jquery.Jcrop.css');
       this._buildToolbar();
       this._augmentRegions();
       this.editing(this.editing());
@@ -368,23 +369,28 @@
         after: '](' + url + ')',
         inline: true
       });
-    });
+    }, { upload: true });
     
   };
   
   $('.ui-dialog .image_field .browse').live('click', function() {
-    var button = this;
+    var button = this, options = { upload: true }, wrapper = $(this).closest('li');
+    if ((w = wrapper.attr('data-width')) != '' && (h = wrapper.attr('data-width')) != '') {
+      options.size = { width:parseInt(w), height:parseInt(h) };
+    }
     $.breeze.image_dialog(function(url, title) {
-      $('input', $(button).closest('li')).eq(0).val(url);
-    });
+      $('input', wrapper).eq(0).val(url);
+    }, options);
     return false;
   });
   
   $.breeze = $.extend({}, {
-    image_dialog: function(action) {
-      html = $('<div class="marquess-dialog marquess-image-dialog breeze-form"><div class="folders-container"><div class="folders"></div></div><fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
+    image_dialog: function(action, options) {
+      options = options || {};
+      uploader = options.upload ? '<div id="uploader"></div>' : '';
+      html = $('<div class="marquess-dialog marquess-image-dialog breeze-form">' + uploader + '<div class="folders-container"><div class="folders"></div></div><fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
       $(html).dialog({
-        title:     'Insert an image',
+        title:     'Insert an image' + (options.size ? '<small>(' + options.size.width + '&times;' + options.size.height + ')</small>' : ''),
         width:     512,
         modal:     true,
         resizable: false,
@@ -404,6 +410,34 @@
         },
         open: function() {
           var dialog = this;
+          $('#uploader', this).each(function() {
+            script_data = {};
+            script_data[$('meta[name=csrf-param]').attr('content')] = $('#content_edit [name=authenticity_token]').val();
+            script_data[$('meta[name=session-key]').attr('content')] = $('meta[name=session-id]').attr('content');
+            $(this).uploadify({
+              uploader:     '/breeze/javascripts/uploadify/uploadify.swf',
+              cancelImg:    '/breeze/images/icons/delete.png',
+              buttonImg:    '/breeze/images/buttons/upload-small.png',
+              width:        160,
+              height:       28,
+              multi:        true,
+              auto:         true,
+              script:       '/admin/assets.html',
+              scriptData:   script_data,
+              fileDataName: 'file',
+              wmode:        'transparent',
+              folder:       '/',
+
+              onComplete: function(event, queue_id, file_obj, response, data) {
+                d = $(response);
+                id = d.attr('data-id');
+                $('.folders ul', dialog).last().find('[data-id=' + id + ']').remove();
+                $('.folders ul', dialog).last().append('<li class="image" data-file="' + d.attr('data-filename') + '" data-title="' + escape($('img', d).attr('title') || '') + '" data-width="' + d.attr('data-width') + '" data-height="' + d.attr('data-height') + '" data-id="' + id + '"><span>' + d.attr('data-filename') + ' <small>(' + d.attr('data-width') + '&times;' + d.attr('data-height') + ')</small></span></li>');
+                $('.folders ul li', dialog).last().click();
+                return true;
+              }
+            });
+          });
           $.ajax({
             url: '/admin/assets/images.json',
             type: 'get',
@@ -417,7 +451,7 @@
                 }
                 for (f in data.files) {
                   file = data.files[f];
-                  h.append('<li class="image" data-file="' + file.filename + '" data-title="' + escape(file.title || '') + '" data-width="' + (file.width || '') + '" data-height="' + (file.width || '') + '"><span>' + file.filename + '</span></li>');
+                  h.append('<li class="image" data-file="' + file.filename + '" data-title="' + escape(file.title || '') + '" data-width="' + (file.width || '') + '" data-height="' + (file.height || '') + '" data-id="' + file.id + '"><span>' + file.filename + ' <small>(' + file.width + '&times;' + file.height + ')</small></span></li>');
                 }
                 folder_count = $('.folders ul', dialog).length;
 
@@ -444,6 +478,9 @@
                 f = $(this).attr('data-folder');
                 path += f + '/';
                 if (f && f != '') data = data.folders[f];
+                $('#uploader', dialog).each(function() {
+                  $(this).uploadifySettings('folder', path.replace(/^\/(.*)\/$/, '/$1'));
+                });
                 add_image_folder(dialog, f, data);
               });
 
@@ -459,7 +496,35 @@
                 info.append('<img src="/images/thumbnails/thumbnail/' + path + '" />')
                 info.append('<strong>' + $(this).attr('data-file') + '</strong>');
                 info.append('<small>' + ($(this).attr('data-width') || '??') + '&times;' + ($(this).attr('data-height') || '??') + '</small>');
+                info.append('<a href="/admin/assets/' + $(this).attr('data-id') + '/edit" class="edit button">Edit</a>');
+                $('.button', info).button();
                 $('.folders-container', dialog).scrollTo('.image-info', dialog);
+              });
+              
+              $('.image-info .edit', dialog).live('click', function() {
+                var button = this;
+                image_editor({
+                  url: this.href,
+                  size: options.size,
+                  ok: function(dialog) {
+                    $.ajax({
+                      url: $(button).attr('href').replace(/\/edit$/, '.json'),
+                      type: 'post',
+                      dataType: 'json',
+                      data: $('form:visible', dialog).serialize(),
+                      success: function(data) {
+                        $('.folders li.image[data-id=' + data.id + ']')
+                          .attr('data-width', data.width)
+                          .attr('data-height', data.height)
+                          .attr('data-title', data.title)
+                          .click()
+                          .find('small').html('(' + (data.width || '??') + '&times;' + (data.height || '??') + ')');
+                        $(dialog).dialog('close');
+                      }
+                    });
+                  }
+                });
+                return false;
               });
             }
           })

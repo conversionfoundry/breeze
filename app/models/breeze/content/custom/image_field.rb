@@ -15,7 +15,7 @@ module Breeze
         end
         
         def editor(form)
-          form.text_field name.to_sym, :label => sized_label, :wrap => { :class => "image_field" }, :after => "<a class=\"browse\" href=\"#\">Browse</a>".html_safe
+          form.text_field name.to_sym, :label => sized_label, :wrap => { :class => "image_field", :"data-width" => width, :"data-height" => height }, :after => "<a class=\"browse\" href=\"#\">Browse</a>".html_safe
         end
         
         def sized_label
