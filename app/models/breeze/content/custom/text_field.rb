@@ -2,6 +2,8 @@ module Breeze
   module Content
     module Custom
       class TextField < Field
+        field :rows, :type => Integer, :default => 8
+        
         def self.label
           "Text (multi-line)"
         end
@@ -11,7 +13,11 @@ module Breeze
         end
 
         def editor(form)
-          form.text_area name.to_sym, :label => label, :rows => 8, :class => "markup"
+          form.text_area name.to_sym, :label => label, :rows => rows, :class => "markup"
+        end
+        
+        def rows
+          self[:rows] || 8
         end
       end
     end
