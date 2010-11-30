@@ -15,7 +15,7 @@ module Breeze
         end
         
         def edit_form(form)
-          form.fieldset do
+          form.fieldset :legend => custom_type.name do
             custom_type.custom_fields.sort.collect do |field|
               field.editor form
             end.join("\n").html_safe
