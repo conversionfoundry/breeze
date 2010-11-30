@@ -88,9 +88,9 @@ function image_editor(options) {
         $('#asset_crop_resize, input[type=radio]', dialog).click(refreshControls);
         if (options.size && options.size.width && options.size.height) {
           $('#asset_crop_resize')[0].checked = true;
-          $('#asset_crop_mode_resize_to_fill')[0].checked = true;
           $('#asset_crop_target_width').val(options.size.width);
           $('#asset_crop_target_height').val(options.size.height);
+          api.setOptions({ aspectRatio: options.size.width / options.size.height });
           refreshControls();
         }
         $('input[type=text]', dialog).bind('input', refreshControls);
