@@ -40,6 +40,7 @@ module Breeze
       def unlink!
         decrement_content_placement_count
         self.content_id = self.content.duplicate({ :placements_count => 1 }).id
+        self.content = Breeze::Content::Item.find self.content_id
         save
         self
       end

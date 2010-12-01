@@ -41,7 +41,7 @@ module Breeze
         
         def duplicate(attrs = {})
           returning super do |new_item|
-            new_item.placements.each { |p| p.send :increment_content_placement_count }
+            placements.each { |p| p.content.add_to_container new_item, p.region, p.view, p.position }
           end
         end
         

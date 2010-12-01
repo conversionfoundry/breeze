@@ -47,7 +47,7 @@ module Breeze
 
       def duplicate(attrs = {})
         returning self.class.new do |duplicate|
-          duplicate.attributes = @attributes.except(*%w(_id id versions)).dup
+          duplicate.attributes = @attributes.except(*%w(_id id versions placements)).dup
           duplicate.attributes = attrs
           duplicate.save
         end
