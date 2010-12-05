@@ -134,7 +134,25 @@ function open_theme_folder(theme_link, options) {
               close:true,
               title:title,
               success: function(tab, pane) {
-                $('textarea', pane).each(function() { this.focus(); });
+                $('textarea', pane).each(function() {
+                  var options = {
+                    height: $(this).height(),
+                    path: "/breeze/javascripts/codemirror/js/",
+                    stylesheet: ["/breeze/javascripts/codemirror/css/xmlcolors.css", "/breeze/javascripts/codemirror/css/jscolors.css", "/breeze/javascripts/codemirror/css/csscolors.css"]
+                  };
+                  if (/\.js$/.test(url)) {
+                    options.parserfile = ["tokenizejavascript.js", "parsejavascript.js"];
+                    options.autoMatchParens = true;
+                  } else if (/\.css$/.test(url)) {
+                    options.parserfile = ["parsecss.js"];
+                    options.autoMatchParens = true;
+                  } else {
+                    options.parserfile = ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js", "parsehtmlmixed.js"];
+                  }
+                  var editor = CodeMirror.fromTextArea(this, options);
+                });
+                
+                // $('iframe textarea', pane).each(function() { this.focus(); });
               }
             });
           }
