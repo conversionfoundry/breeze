@@ -25,6 +25,8 @@
 
 <% content_for :right do -%>
   <%= pane_layout do |right| %>
-    
+    <% right.header do %>
+      <%= link_to "New user", new_admin_user_path, :class => "large new user button" if can? :create, Breeze::Admin::User %>
+    <% end %>
   <% end %>
 <% end -%>

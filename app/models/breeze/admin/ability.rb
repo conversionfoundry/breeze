@@ -11,6 +11,7 @@ module Breeze
           can :manage,       Breeze::Content::Item
           can :manage,       Breeze::Content::Custom::Type if user.admin? || user.designer?
           can :manage,       Breeze::Theming::Theme if user.admin? || user.designer?
+          can :create,       Breeze::Admin::User   do |subject| ; user.admin?                    ; end
           can :update,       Breeze::Admin::User   do |subject| ; user.admin? || user == subject ; end
           can :destroy,      Breeze::Admin::User   do |subject| ; user.admin? && user != subject ; end
           can :assign_roles, Breeze::Admin::User   do |subject| ; user.admin?                    ; end

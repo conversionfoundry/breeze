@@ -1,0 +1,9 @@
+<% if @user.errors.empty? %>
+  close_tab('new_user');
+  $('#left #users').prepend('<%= escape_javascript render(:partial => "user", :object => @user) %>');
+  $('#left #users a[data-id=<%= @user.id %>]').click();
+  $.flashMessage('User created.', { auto: true });
+  $('#tab_<%= @user.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/users/edit") %>');
+<% else %>
+  $('#user_new').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/users/new") %>');
+<% end %>

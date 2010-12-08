@@ -1,5 +1,16 @@
 $(function() {
-  $('#left #users a[data-id]').click(function() {
+  $('.new.user.button').click(function() {
+    open_tab('new_user', '/admin/users/new', {
+      title: 'New user',
+      close: true,
+      success: function(tab, pane) {
+        renumber_fields(pane);
+      }
+    });
+    return false;
+  });
+
+  $('#left #users a[data-id]').live('click', function() {
     open_tab($(this).attr('data-id'), $(this).attr('href'), {
       title: $('strong', this).text(),
       close: true
