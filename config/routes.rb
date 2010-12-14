@@ -75,6 +75,8 @@ Rails.application.routes.draw do
       end
     end
     
+    resources :redirects
+    
     root :to => "dashboards#show"
   end
   

@@ -14,6 +14,32 @@
       <% end %>
     <% end %>
   <% end %>
+  
+  <% tabs.redirects do %>
+    <% scrollable_layout do%>
+      <h1>Redirects</h1>
+      <%= form_for Breeze::Content::Redirect.new, :as => :redirect, :url => admin_redirects_path(:js), :remote => true do |form| %>
+        <table class="fancy redirects">
+          <thead>
+            <tr>
+              <th>From</th><th>To</th><th>Kind</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render :partial => "/breeze/admin/redirects/redirect", :collection => Breeze::Content::Redirect.order_by(:permalink.asc) %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td><%= form.text_field :permalink %></td>
+              <td><%= form.text_field :target %></td>
+              <td><%= form.select :kind, Breeze::Content::Redirect::KINDS.to_a.map { |k, v| [ "#{v} (#{k})", k ] } %></td>
+              <td><%= form.submit "Add", :class => "add button" %></td>
+            </tr>
+          </tfoot>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <% content_for :right do %>

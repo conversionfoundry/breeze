@@ -1162,3 +1162,162 @@ ul.log-messages li.update.navigation_item .message { background-image: url(/bree
 }
 
 /*}}}*/
+
+/* Tables {{{ */
+
+table.fancy {
+  border-collapse: collapse;
+  border-spacing: 0px;
+  width: 100%;
+}
+
+table.fancy thead th {
+  background: #999;
+  border-bottom: 1px solid #999;
+  height: 24px;
+  line-height: 24px;
+  vertical-align: middle;
+  padding: 0px 8px;
+  text-align: left;
+}
+
+table.fancy thead th:first-child {
+  background-position: 0px 0px;
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+
+table.fancy thead th:last-child {
+  background-position: 100% 0px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+
+table.fancy tbody td {
+  border-bottom: 1px solid #999;
+  padding: 0px 8px;
+  vertical-align: top;
+}
+
+table.fancy tfoot td {
+  background: #ddd;
+  padding: 8px;
+}
+
+table.fancy tfoot td:first-child {
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+}
+
+table.fancy tfoot td:last-child {
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+}
+
+table.fancy tfoot .pagination a, table.fancy tfoot .pagination span {
+  padding: 0em .3em;
+}
+
+table.fancy tfoot .pagination span.disabled {
+  color: #999;
+}
+
+table.fancy tfoot .pagination span.current {
+  background: white;
+  min-width: 16px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
+table.fancy tfoot .pagination a {
+  text-decoration: none;
+  color: #333;
+}
+
+table.fancy tfoot .pagination .previous_page {
+  margin-left: 0px;
+}
+
+table.fancy tfoot .pagination a:hover, table.fancy tfoot .pagination a:focus {
+  text-decoration: underline;
+}
+
+table.fancy tbody tr:hover td {
+  background-color: #fff;
+}
+
+table.fancy td.empty {
+  padding: 3em 8px;
+  text-align: center;
+  vertical-align: middle;
+  color: #999;
+}
+
+table.fancy tbody tr:hover td.empty {
+  background: none;
+}
+
+table td.odd,  table th.odd,  table tr.odd td,  table tr.odd th {
+  background: none;
+}
+
+table td.even, table th.even, table tr.even td, table tr.even th {
+  background-color: #ddd;
+}
+
+.container .with-selected {
+  position: absolute;
+  left: 0px;
+  top: -32px;
+  background: #ffc;
+  padding: 4px 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -webkit-border-radius: 4px;
+}
+
+.container .with-selected:after {
+  content: ".";
+  text-indent: -2em;
+  position: absolute;
+  left: 16px;
+  bottom: -8px;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+  border-left: 8px solid #ffc;
+  border-bottom: 8px solid transparent;
+}
+
+/*}}}*/
+
+/* Settings {{{ */
+
+#redirect_new {
+  margin: 12px;
+}
+
+table.redirects tbody td {
+  padding: 4px 8px;
+  vertical-align: top;
+}
+
+table.redirects tfoot td {
+  vertical-align: top;
+}
+
+table.redirects tfoot td .inline-errors { color: #ed1c24; }
+
+table.redirects tr a[data-remote] {
+  color: #ed1c24;
+  font-size: 150%;
+  text-decoration: none;
+  line-height: 50%;
+  opacity: 0;
+  -webkit-transition: opacity 0.12s ease-in-out;
+}
+
+table.redirects tr:hover a[data-remote] {
+  opacity: 1;
+}
+
+/*}}}*/
