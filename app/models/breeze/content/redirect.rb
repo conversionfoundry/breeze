@@ -28,8 +28,8 @@ module Breeze
       
     protected
       def check_leading_slashes
-        self.permalink = "/#{permalink}" unless permalink.blank? || permalink.starts_with?("/")
-        self.target = "/#{target}" unless target.blank? || target.starts_with?("/")
+        self.permalink = "/#{permalink.sub(/\/$/, "")}" unless permalink.blank? || permalink.starts_with?("/")
+        self.target = "/#{target.sub(/\/$/, "")}" unless target.blank? || target.starts_with?("/")
       end
         
     end
