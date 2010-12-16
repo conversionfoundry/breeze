@@ -18,7 +18,6 @@ module Breeze
         end
       else
         @path.sub!(/\.([^\.]*)$/) { request.format = $1; "" }
-        Rails.logger.info Breeze::Content[@path].inspect.red
         @content = Breeze::Content[@path] or raise Breeze::Errors::NotFound, request
         @content.render(self, request) or render :nothing => true, :layout => false
       end
