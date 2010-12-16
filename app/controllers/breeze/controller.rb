@@ -11,7 +11,7 @@ module Breeze
     rescue_from Breeze::Errors::RequestError do |error|
       respond_to do |format|
         @error = error
-        format.html { render :file => "breeze/errors/#{error.to_sym}", :layout => "error", :status => error.status_code }
+        format.html { render :file => "breeze/errors/#{error.to_sym}", :layout => "error", :status => (chrome? ? :ok : error.status_code) }
         format.xml  { render :xml => "", :status => error.status_code }
         format.any  { render :nothing => true, :status => error.status_code }
       end
@@ -60,6 +60,10 @@ module Breeze
       old_time_zone, Time.zone = Time.zone, Breeze.config.time_zone
       yield
       Time.zone = old_time_zone
+    end
+    
+    def chrome?
+      /chrome/i === request.env['HTTP_USER_AGENT']
     end
   end
 end
