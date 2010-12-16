@@ -13,7 +13,6 @@ module Breeze
       end
       
       def create
-        Rails.logger.info params[:page].inspect.red
         @page = Breeze::Content::NavigationItem.factory(params[:page])
         @page.save
       end

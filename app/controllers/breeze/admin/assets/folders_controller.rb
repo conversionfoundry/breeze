@@ -23,7 +23,6 @@ module Breeze
           @folder = (params[:folder_name] || "new").sub(%r{^/+}, "")
           @parent = params[:parent_folder] || "/"
           @folder = File.join @parent, @folder
-          Rails.logger.info File.join(Breeze::Content::Asset.root, @folder).red
           FileUtils.mkdir_p File.join(Breeze::Content::Asset.root, @folder)
         end
         
