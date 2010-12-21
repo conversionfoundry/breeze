@@ -393,8 +393,8 @@ body.breeze-editing .breeze-content.hover>* {
 
 .ui-dialog #uploaderUploader {
   position: absolute;
-  right: 5px;
-  top: 8px;
+  right: 0px;
+  top: 3px;
 }
 
 .ui-dialog .image_field .browse {
