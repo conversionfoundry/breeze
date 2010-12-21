@@ -20,6 +20,8 @@ module Breeze
       
     protected
       def reprocess_file
+        rename_file
+        
         if image? && !@crop.blank?
           target_width, target_height = @crop[:target_width].to_i, @crop[:target_height].to_i
           if target_width > 0 && target_height > 0 && (target_width < image_width || target_height || image_height)

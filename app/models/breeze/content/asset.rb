@@ -83,29 +83,33 @@ module Breeze
       end
     
       def rename_file
-        if folder_changed? && !folder_was.blank?
-          old_path = path(folder_was)
-          self.folder = "/" if self.folder.blank?
-          b = attributes[:file]
-          all_files.each do |dest|
-            src = File.join(dest.sub(/#{File.join(folder, b)}$/, File.join(folder_was, b)))
-            if src != dest
-              FileUtils.mkdir_p File.dirname(dest)
-              FileUtils.mv src, dest
+        unless @renamed
+          if folder_changed? && !folder_was.blank?
+            old_path = path(folder_was)
+            self.folder = "/" if self.folder.blank?
+            b = attributes[:file]
+            all_files.each do |dest|
+              src = File.join(dest.sub(/#{File.join(folder, b)}$/, File.join(folder_was, b)))
+              if src != dest
+                FileUtils.mkdir_p File.dirname(dest)
+                FileUtils.mv src, dest
+              end
             end
+            @_mounters[:file] = nil
           end
-          @_mounters[:file] = nil
-        end
         
-        if !@basename.blank? && @basename != attributes[:file]
-          @basename += "." + extension unless /\.\w+/ === @basename
-          all_files.each do |src|
-            dest = src.sub /#{path}$/, @basename
-            FileUtils.mv src, dest if src != dest
+          if !@basename.blank? && @basename != attributes[:file]
+            @basename += "." + extension unless /\.\w+/ === @basename
+            all_files.each do |src|
+              dest = src.sub /#{path}$/, "/" + @basename
+              FileUtils.mv src, dest if src != dest
+            end
+            write_attribute :file, @basename
+            @_mounters[:file] = nil
+            @basename = nil
           end
-          write_attribute :file, @basename
-          @_mounters[:file] = nil
-          @basename = nil
+          
+          @renamed = true
         end
       end
     end
