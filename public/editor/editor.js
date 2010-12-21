@@ -375,8 +375,9 @@
   
   $('.ui-dialog .image_field .browse').live('click', function() {
     var button = this, options = { upload: true }, wrapper = $(this).closest('li');
-    if ((w = wrapper.attr('data-width')) != '' && (h = wrapper.attr('data-width')) != '') {
+    if ((w = wrapper.attr('data-width')) && (h = wrapper.attr('data-width'))) {
       options.size = { width:parseInt(w), height:parseInt(h) };
+      console.log(options.size);
     }
     $.breeze.image_dialog(function(url, title) {
       $('input', wrapper).eq(0).val(url);
@@ -493,7 +494,7 @@
                 var path = $.map($('.folders ul', dialog), function(f) { return $(f).attr('data-folder'); }).join('/') + '/' + $(this).attr('data-file');
                 $('#marquess_image_url', dialog).val('/assets' + path);
                 $('#marquess_image_title', dialog).val($(this).attr('data-title'));
-                info.append('<img src="/images/thumbnails/thumbnail/' + path + '" />')
+                info.append('<img src="/images/thumbnails/thumbnail' + path + '" />')
                 info.append('<strong>' + $(this).attr('data-file') + '</strong>');
                 info.append('<small>' + ($(this).attr('data-width') || '??') + '&times;' + ($(this).attr('data-height') || '??') + '</small>');
                 info.append('<a href="/admin/assets/' + $(this).attr('data-id') + '/edit" class="edit button">Edit</a>');
