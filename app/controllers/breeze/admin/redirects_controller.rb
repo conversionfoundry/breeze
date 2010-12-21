@@ -4,7 +4,6 @@ module Breeze
       def create
         @redirect = Breeze::Content::Redirect.new params[:redirect]
         @redirect.save
-        Rails.logger.info @redirect.errors.inspect.red
       end
       
       def destroy
