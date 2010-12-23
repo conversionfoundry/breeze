@@ -43,6 +43,8 @@
 <script type="text/javascript" charset="utf-8">
   $(function() {
     $('#right #uploader').each(function() {
+      $('.asset').makeDraggable();
+      
       script_data = {};
       script_data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
       script_data[$(this).attr('data-session-key')] = $(this).attr('data-session-id');
@@ -126,6 +128,7 @@
               .load('/admin/assets/folders/' + folder.replace(/\//g, '%2f'), function() {
                 show_or_hide_asset_section_headings();
                 $(this).fadeTo('normal', 1.0);
+                $('.asset', this).makeDraggable();
               });
           }
         },
@@ -175,9 +178,42 @@
         }
       }
     });
+
+    $('#left #folders li a').makeDroppable();
   });
   
   function get_folder_name(node) {
     return $('a', node).contents().filter(function() { return this.nodeType == 3; }).eq(0).text();
+  }
+  
+  $.fn.makeDraggable = function() {
+    $(this).draggable({
+      appendTo: 'body',
+      helper: 'clone',
+      zIndex: 100,
+      opacity: 0.85,
+      cursorAt: { left: -8, top: -8 }
+    });
+  }
+  
+  $.fn.makeDroppable = function() {
+    $(this).droppable({
+      accept: '.asset',
+      tolerance: 'pointer',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var id = ui.draggable.attr('data-id'),
+            folder = $(this).closest('li').attr('data-folder');
+        ui.draggable.fadeOut(function() {
+          $(this).remove();
+          $.ajax({
+            url: '/admin/assets/' + id + '.js',
+            type: 'post',
+            dataType: 'script',
+            data: '_method=put&asset[folder]=' + folder
+          });
+        });
+      }
+    });
   }
 </script>

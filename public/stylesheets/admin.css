@@ -925,6 +925,29 @@ form.folder {
   margin: 5px 0px 0px 5px;
 }
 
+#left #folders a {
+  display: block;
+  position: relative;
+  z-index: 10;
+}
+
+#left #folders a.drop-hover {
+  color: #ec008c !important;
+}
+
+.asset.ui-draggable-dragging {
+  background: #ccc;
+  padding: 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
+.asset.ui-draggable-dragging img,
+.asset.ui-draggable-dragging a,
+.asset.ui-draggable-dragging .dimensions {
+  display: none;
+}
+
 /* }}} */
 
 /* Custom types {{{ */
