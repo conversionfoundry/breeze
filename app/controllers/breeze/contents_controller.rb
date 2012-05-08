@@ -28,7 +28,7 @@ module Breeze
       if request.format.try :html?
         if protect_against_forgery?
           response.body = response.body.sub /(?=<\/head>)/, %(<meta name="csrf-param" content="#{Rack::Utils.escape_html(request_forgery_protection_token)}"/>\n<meta name="csrf-token" content="#{Rack::Utils.escape_html(form_authenticity_token)}"/>\n).html_safe unless /meta name="csrf-token"/ === response.body
-          response.body = response.body.sub /(?=<\/head>)/, %(<meta name="session-key" content="#{Rails::Application.config.session_options[:key]}"/>\n<meta name="session-id" content="#{cookies[Rails::Application.config.session_options[:key]]}"/>\n).html_safe
+          response.body = response.body.sub /(?=<\/head>)/, %(<meta name="session-key" content="#{Rails.configuration.session_options[:key]}"/>\n<meta name="session-id" content="#{cookies[Rails.configuration.session_options[:key]]}"/>\n).html_safe
         end
       
         if admin_signed_in? && !request.xhr? && view && view.respond_to?(:editor_html)

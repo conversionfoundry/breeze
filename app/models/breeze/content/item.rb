@@ -12,7 +12,7 @@ module Breeze
       
       embeds_many :views, :class_name => "Breeze::Content::View" do
         def default
-          @target.first || @parent.view_class.new(:name => "default")
+          @target.first || @base.view_class.new(:name => "default")
         end
         
         def by_name(name)
@@ -46,7 +46,7 @@ module Breeze
       end
 
       def duplicate(attrs = {})
-        returning self.class.new do |duplicate|
+        self.class.new.tap do |duplicate|
           duplicate.attributes = @attributes.except(*%w(_id id versions placements)).dup
           duplicate.attributes = attrs
           duplicate.save
@@ -93,7 +93,7 @@ module Breeze
       def base_class; self.class.base_class; end
       
       def self.self_and_superclasses
-        returning [self] do |list|
+        [self].tap do |list|
           list.concat superclass.self_and_superclasses if superclass.respond_to?(:self_and_superclasses)
         end
       end
@@ -131,7 +131,7 @@ module Breeze
       end
       
       def self.search(&block)
-        returning [] do |results|
+        [].tap do |results|
           collection.find do |cursor|
             cursor.each do |document|
               score = block.call document

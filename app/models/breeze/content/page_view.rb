@@ -1,6 +1,6 @@
 module Breeze
   module Content
-    class PageView < View
+    class PageView < Breeze::Content::View
       def page
         content
       end

@@ -16,7 +16,7 @@
     <% left.inner do %>
       <%= content_tag :div, :id => :users do %>
         <%= content_tag :ul do %>
-          <%= render :partial => "user", :collection => @users %>
+          <%= render :partial => "breeze/admin/users/user", :collection => @users %>
         <% end %>
       <% end %>
     <% end %>

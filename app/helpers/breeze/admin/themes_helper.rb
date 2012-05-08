@@ -8,7 +8,7 @@ module Breeze
         options[:href] ||= lambda { |s| s }
         this_dir = /^#{options[:folder]}\/([^\/]+)$/
         
-        returning "" do |str|
+        "".tap do |str|
           files.map(&options[:filename]).each do |filename|
             if this_dir === filename
               path = filename[options[:root].length..-1]

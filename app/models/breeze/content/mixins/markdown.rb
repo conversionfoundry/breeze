@@ -8,7 +8,8 @@ module Breeze
         
         module ClassMethods
           def markdown(*attributes)
-            write_inheritable_attribute(:markdown_attributes, markdown_attributes + Array(attributes))
+            # TODO
+            #class_attribute(:markdown_attributes, markdown_attributes + Array(attributes))
             @markdown_unicode = String.new.respond_to? :chars
 
             type_options = %w( plain source )
@@ -37,12 +38,12 @@ module Breeze
           end
 
           def markdown_attributes
-            read_inheritable_attribute(:markdown_attributes) ||
-            write_inheritable_attribute(:markdown_attributes, [])
+            class_attribute(:markdown_attributes) ||
+            class_attribute(:markdown_attributes, [])
           end
           
           def field(name, options = {})
-            returning super(name, options.reject { |k, v| k == :markdown }) do
+            super(name, options.reject { |k, v| k == :markdown }).tap do
               markdown name if options[:markdown]
             end
           end
@@ -81,7 +82,7 @@ module Breeze
 
         private
           def strip_markdown_html(html)
-            returning html.dup.gsub(html_regexp, '') do |h|
+            html.dup.gsub(html_regexp, '').tap do |h|
               markdown_glyphs.each do |(entity, char)|
                 sub = [ :gsub!, entity, char ]
                 @textiled_unicode ? h.chars.send(*sub) : h.send(*sub)

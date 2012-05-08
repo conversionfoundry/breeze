@@ -203,7 +203,7 @@
               url:'/admin/pages/' + breeze.options.page_id + '/sort.js',
               type:'post',
               dataType:'javascript',
-              data:'_method=put&page[view]=' + view + '&' + order_string,
+              data: $('meta[name=csrf-param]').attr('content') + "=" + $('meta[name=csrf-token]').attr('content') + '&_method=put&page[view]=' + view + '&' + order_string,
               complete: function() { breeze._spinner(false); }
             });
           }
@@ -429,7 +429,7 @@
           var dialog = this;
           $('#uploader', this).each(function() {
             script_data = {};
-            script_data[$('meta[name=csrf-param]').attr('content')] = $('#content_edit [name=authenticity_token]').val();
+            script_data[$('meta[name=csrf-param]').attr('content')] = $('#edit_content [name=authenticity_token]').val();
             script_data[$('meta[name=session-key]').attr('content')] = $('meta[name=session-id]').attr('content');
             $(this).uploadify({
               uploader:     '/breeze/javascripts/uploadify/uploadify.swf',

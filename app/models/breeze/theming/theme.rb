@@ -27,7 +27,7 @@ module Breeze
       end
       
       def enable!(bool = true)
-        returning(update_attributes :enabled => bool) do
+        (update_attributes :enabled => bool).tap do
           %w(installed configured unconfigured).each do |cache|
             self.class.instance_variable_set "@#{cache}", nil
           end

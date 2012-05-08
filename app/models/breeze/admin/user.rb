@@ -48,7 +48,7 @@ module Breeze
       end
       
       def self.roles
-        @_roles ||= returning({}) do |hash|
+        @_roles ||= ({}).tap do |hash|
           ROLES.each do |role|
             hash[role] = I18n::t role, :scope => [ :breeze, :users, :roles ], :default => role.to_s.humanize
           end

@@ -70,7 +70,7 @@ module Breeze
       
       protected
         def create_class
-          returning Class.new(Breeze::Content::Custom::Instance) do |klass|
+          Class.new(Breeze::Content::Custom::Instance).tap do |klass|
             klass.send :include, Breeze::Content::Mixins::Placeable
             custom_fields.each do |field|
               field.define_on klass

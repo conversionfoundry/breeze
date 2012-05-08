@@ -3,7 +3,7 @@ require "set"
 module Breeze
   module Content
     def self.classes(superclass = nil)
-      returning (@classes || []).map(&:to_s).map(&:constantize) do |set|
+      (@classes || []).map(&:to_s).map(&:constantize).tap do |set|
         set.reject! { |k| !k.ancestors.map(&:to_s).include? superclass.to_s } unless superclass.nil?
         set << superclass if superclass.is_a?(Class)
       end.uniq
@@ -25,13 +25,24 @@ module Breeze
     end
     
     def self.const_missing(sym)
-      Custom::Type.get(sym) || super
+      #Custom::Type.get(sym) || super
     end
   end
 end
 
-require "breeze/content/custom/type"
-
+# TODO:
+#require "breeze/content/custom/type"
+require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/markdown.rb"
+require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/tree_structure.rb"
+require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/permalinks.rb"
+require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/container.rb"
+require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/placeable.rb"
+require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/item.rb"
+require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/view.rb"
 Dir[File.expand_path("../../app/models/breeze/content/*.rb", File.dirname(__FILE__))].each do |f|
+  require f
+end
+
+Dir[File.expand_path("../../app/models/breeze/content/custom/*.rb", File.dirname(__FILE__))].each do |f|
   require f
 end

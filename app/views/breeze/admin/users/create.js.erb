@@ -5,5 +5,5 @@
   $.flashMessage('User created.', { auto: true });
   $('#tab_<%= @user.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/users/edit") %>');
 <% else %>
-  $('#user_new').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/users/new") %>');
+  $('#new_user').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/users/new") %>');
 <% end %>

@@ -22,7 +22,7 @@ module Breeze
       end      
       
       def populate(content, controller, request)
-        returning dup do |view|
+        dup.tap do |view|
           view.content, view.controller, view.request = content, controller, request
         end
       end

@@ -33,13 +33,13 @@ module Breeze
     
   protected
     def lookup_context
-      @lookup_context ||= returning(ActionView::LookupContext.new(self.class._view_paths, details_for_lookup)) do |context|
+      @lookup_context ||= (ActionView::LookupContext.new(self.class._view_paths, details_for_lookup)).tap do |context|
         context.view_paths.insert 1, *Breeze::Theming::Theme.view_paths
       end
     end
 
     def view_context
-      returning super do |context|
+      super.tap do |context|
         class << context
           def method_missing(sym, *args, &block)
             variables_for_render[sym] || super

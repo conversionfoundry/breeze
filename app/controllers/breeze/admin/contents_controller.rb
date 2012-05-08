@@ -11,8 +11,10 @@ module Breeze
         @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
         if @content.save
           @placement = @content.placement
-          @container = @placement.container
-          @container.save
+          #todo
+          #@container = @placement.container
+          #@container.save
+          @container = Breeze::Content::Item.find @content.container_id
           @view = @container.views.by_name(@placement.view).populate(@container, self, request)
         end
         respond_to do |format|

@@ -1,7 +1,7 @@
-Rails.application.routes.draw do
-  devise_for :admin, :class_name => "Breeze::Admin::User"
+Breeze::Engine.routes.draw do
+  devise_for :admin, :class_name => "Breeze::Admin::User", :module => :devise
 
-  scope "admin", :as => "admin", :module => "breeze/admin" do
+  namespace :admin, :as => "admin", :module => "admin" do
     resources :pages do
       member do
         put :move
@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     get "assets/folders/*path" => "assets/folders#show"
     
     match "themes/:theme_id/raw/*id" => "themes/files#show", :as => :raw_admin_theme_file
-    match "themes/:theme_id/files/*id" => "themes/files#edit", :as => :edit_admin_theme_file
+    match "themes/:theme_id/files/*id" => "themes/files#edit", :as => :edit_admin_theme_file, :format => false
     match "themes/:theme_id/folders/*id" => "themes/folders#edit", :as => :edit_admin_theme_folder
     resources :themes do
       scope :module => "themes" do
@@ -80,8 +80,8 @@ Rails.application.routes.draw do
     root :to => "dashboards#show"
   end
   
-  match "stylesheets/*path", :to => "breeze/stylesheets#show"
-  root :to => "breeze/contents#show"
+  match "stylesheets/*path", :to => "stylesheets#show"
+  root :to => "contents#show"
   match "breeze/*path", :to => "static_files#serve"
-  match "*path" => "breeze/contents#show"
+  match "*path" => "contents#show"
 end

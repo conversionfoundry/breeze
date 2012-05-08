@@ -23,7 +23,7 @@ module Breeze
         end
         
         def locals
-          returning({}) do |hash|
+          ({}).tap do |hash|
             custom_type.custom_fields.each do |field|
               field_name = field.name.to_sym
               value = send field_name

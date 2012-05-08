@@ -12,7 +12,7 @@
   <% main.inner do %>
     <%= scrollable_layout :id => :assets do %>
       <h1>Files in <tt><%= File.join("/assets", @folder || "/").sub(/\/$/, "") %></tt></h1>
-      <%= render :partial => "assets", :locals => { :assets => @assets, :folder => @folder } %>
+      <%= render :partial => "breeze/admin/assets/assets", :locals => { :assets => @assets, :folder => @folder } %>
     <% end %>
   <% end %>
 <% end %>
@@ -25,7 +25,7 @@
     <% left.inner do %>
       <%= content_tag :div, :id => :folders do %>
         <%= content_tag :ul, :class => "folders" do %>
-          <%= render :partial => "folder", :object => "/" %>
+          <%= render :partial => "breeze/admin/assets/folder", :object => "/" %>
         <% end %>
       <% end %>
     <% end %>
@@ -35,7 +35,7 @@
 <% content_for :right do %>
   <%= pane_layout do |right| %>
     <% right.inner do %>
-      <%= render :partial => "upload" %>
+      <%= render :partial => "breeze/admin/assets/upload" %>
     <% end %>
   <% end %>
 <% end -%>
@@ -151,10 +151,15 @@
           var parent_folder = parent_node.attr('data-folder');
           var parent_href = $('>a', parent_node).attr('data-folder');
           var new_path = parent_folder == '/' ? '/' + name : parent_folder + '/' + name;
+          var data = {};
+          data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
+          data['_method'] = 'post';
+
           if (a.attr('href') != '') {
+            data['folder[name]'] = name
             $.ajax({
               url: a.attr('href'),
-              data: '_method=put&folder[name]=' + name,
+              data: data,
               type: 'post',
               success: function() {
                 $(node).attr('data-folder', new_path).attr('rel', 'folder')
@@ -164,10 +169,12 @@
             });
           } else {
             // New folder
+            data['parent_folder'] = parent_folder;
+            data['folder_name'] = name;
             $.ajax({
               url:'/admin/assets/folders',
               type:'post',
-              data:'parent_folder=' + parent_folder + '&folder_name=' + name,
+              data: data,
               success: function() {
                 $(node).attr('data-folder', new_path).attr('rel', 'folder')
                   .find('>a').attr('href', '/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();

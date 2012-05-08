@@ -18,11 +18,14 @@ $(function() {
   
   $('#left .theme-status a.enable, #left .theme-status a.disable').live('click', function() {
     var $this = $(this);
+    data = {};
+    data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
+    data['_method'] = 'put';
     $.ajax({
       url: this.href,
       type: 'post',
       dataType: 'script',
-      data: '_method=put'
+      data: data /* '_method=put' */
     });
     return false;
   });

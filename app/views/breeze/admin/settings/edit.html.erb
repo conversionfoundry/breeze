@@ -6,7 +6,7 @@
       <%= scrollable_layout do %>
         <h1>General settings</h1>
         <%= form.fieldset :legend => "Time zone" do %>
-          <%= form.time_zone_select :time_zone, nil, :label => "Zone", :hint => render("current_time") %>
+          <%= form.time_zone_select :time_zone, nil, :label => "Zone", :hint => render("breeze/admin/settings/current_time") %>
         <% end %>
       <% end %>
       <%= fake_right_sidebar do %>
@@ -31,7 +31,7 @@
           <tfoot>
             <tr>
               <td><%= form.text_field :permalink %></td>
-              <td><%= form.text_field :target %></td>
+              <td><%= form.text_field :targetlink %></td>
               <td><%= form.select :kind, Breeze::Content::Redirect::KINDS.to_a.map { |k, v| [ "#{v} (#{k})", k ] } %></td>
               <td><%= form.submit "Add", :class => "add button" %></td>
             </tr>

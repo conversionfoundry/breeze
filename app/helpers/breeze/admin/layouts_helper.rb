@@ -37,7 +37,7 @@ module Breeze::Admin::LayoutsHelper
     
   protected
     def capture_content(*args, &block)
-      returning("") do |str|
+      "".tap do |str|
         str << args.flatten.join("\n") if args.any?
         str << @context.capture(&block) if block_given?
       end.html_safe
@@ -133,7 +133,7 @@ module Breeze::Admin::LayoutsHelper
     
   protected
     def content_html
-      returning "" do |str|
+      "".tap do |str|
         pages.each_with_index do |(name, page, options), i|
           str << @context.content_tag(:div, page, options.merge(:style => "left: #{i * 100}%;", :class => :page))
         end

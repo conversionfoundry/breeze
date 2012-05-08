@@ -16,6 +16,6 @@
     </li>
   </ol>
   <ol class="field-options">
-    <%= render :partial => field.class.name.demodulize.underscore, :object => field unless field.class == Breeze::Content::Custom::Field %>
+    <%= render :partial => "breeze/admin/custom_types/#{field.class.name.demodulize.underscore}", :object => field unless field.class == Breeze::Content::Custom::Field %>
   </ol>
 </fieldset>

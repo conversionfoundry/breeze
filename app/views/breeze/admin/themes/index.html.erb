@@ -17,7 +17,7 @@
         <% end %>
         <% themes.inner do %>
           <ul id="themes">
-            <%= render :partial => "theme", :collection => Breeze::Theming::Theme.installed %>
+            <%= render :partial => "breeze/admin/themes/theme", :collection => Breeze::Theming::Theme.installed %>
           </ul>
         <% end %>
       <% end %>

@@ -37,7 +37,7 @@ module Breeze
         while Breeze::Content::Item.where(:slug => new_slug, :parent_id => attrs[:parent_id] || parent_id).count > 0
           new_slug, i = "#{slug}-#{i}", i + 1
         end
-        returning super(attrs.merge(:slug => new_slug, :position => position + 1)) do |new_item|
+        super(attrs.merge(:slug => new_slug, :position => position + 1)).tap do |new_item|
           unless children.empty?
             children.each { |child| child.duplicate(:parent_id => new_item.id) }
           end

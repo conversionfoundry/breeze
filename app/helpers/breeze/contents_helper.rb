@@ -13,7 +13,7 @@ module Breeze
       @_region_contents[name] = if placements.empty?
         block_given? ? capture(&block) : ""
       else
-        returning("") do |str|
+        "".tap do |str|
           placements.each do |p|
             begin
               str << render(:inline => p.to_erb(view))
@@ -33,7 +33,7 @@ module Breeze
 
       args.unshift page if args.empty? && !page.nil?
       
-      contents = returning "" do |str|
+      contents = "".tap do |str|
         pages = args.map do |arg|
           if arg.root?
             arg.children.first
@@ -66,8 +66,8 @@ module Breeze
             end
             page_title = p.title if page_title.blank?
             
-            link_options = returning({}) do |o|
-              o[:class] = returning [ p.root? ? "home" : p.slug ] do |classes|
+            link_options = ({}).tap do |o|
+              o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1

@@ -113,11 +113,13 @@ Devise.setup do |config|
   #   end
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
+  
+  config.router_name = :breeze
 end
 
-Rails::Application.configure do
-  config.to_prepare do
+Rails.configuration.to_prepare do
+  #config.to_prepare do
     Devise::SessionsController.layout "sessions"
     Devise::PasswordsController.layout false
-  end
+  #end
 end

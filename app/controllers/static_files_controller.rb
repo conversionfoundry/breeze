@@ -1,6 +1,7 @@
 class StaticFilesController < ActionController::Metal
   include ActionController::RackDelegation
-  include ActionController::Streaming
+  #include ActionController::Streaming
+  include ActionController::DataStreaming
   
   def serve
     if request.path =~ /^\/breeze\/([^\?\#]*$)$/

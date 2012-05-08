@@ -56,7 +56,7 @@ module Breeze
       end
       
       def selection_rect
-        returning({}) do |rect|
+        ({}).tap do |rect|
           %w(selection_x selection_y selection_width selection_height).each do |k|
             return false if @crop[k.to_sym].blank?
             rect[k.sub(/^selection_/, '').to_sym] = @crop[k.to_sym].to_i

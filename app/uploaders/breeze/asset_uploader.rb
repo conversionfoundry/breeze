@@ -1,6 +1,6 @@
 module Breeze
   class AssetUploader < CarrierWave::Uploader::Base
-    include CarrierWave::ConditionalVersions
+    #include CarrierWave::ConditionalVersions
     include CarrierWave::RMagick
     
     storage :file

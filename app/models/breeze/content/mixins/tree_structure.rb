@@ -45,7 +45,7 @@ module Breeze
         end
         
         def self_and_ancestors
-          returning [ self ] do |list|
+          [ self ].tap do |list|
             list.insert(0, *parent.self_and_ancestors) unless root?
           end
         end

@@ -14,7 +14,9 @@ $(function() {
   $('#header .menu').sortable({
     axis:'x',
     update: function(e, ui) {
-      var data = '_method=put';
+      var data = {};
+      //data[$('meta[name=csrf-param]').attr('content')] = $('#edit_content [name=authenticity_token]').val();
+      data['_method'] = 'put';
       $('#header .menu li a').each(function() { data += '&user[menu_order][]=' + escape($(this).text()); });
       $.ajax({
         url:'/admin/users/' + $('meta[name=breeze-user-id]').attr('content') + '/preferences',

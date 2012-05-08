@@ -1,8 +1,8 @@
 <% if @page.errors.empty? %>
-  $('#page_new').closest('.ui-dialog-content').dialog('close');
-  $('#page_new').closest('.ui-dialog').remove();
-  $('#page_<%= @page.parent_id %>').replaceWith('<%= escape_javascript render(:partial => "page", :object => @page.parent) %>');
+  $('#new_page').closest('.ui-dialog-content').dialog('close');
+  $('#new_page').closest('.ui-dialog').remove();
+  $('#page_<%= @page.parent_id %>').replaceWith('<%= escape_javascript render(:partial => "breeze/admin/pages/page", :object => @page.parent) %>');
   $('#page_<%= @page.id%>>a').click();
 <% else %>
-  $('#page_new').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/pages/new") %>');
+  $('#new_page').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/pages/new") %>');
 <% end %>

@@ -5,7 +5,7 @@ module Breeze
       
       def fieldset(*args, &block)
         options = args.extract_options!
-        contents = returning "" do |str|
+        contents = "".tap do |str|
           str << (options.key?(:legend) ? template.content_tag(:legend, options.delete(:legend)) : "")
           if block_given?
             str << template.content_tag(:ol, :class => :form, &block)
@@ -74,7 +74,7 @@ module Breeze
       end
       
       def content_type_select(method = :_type, options = {})
-        select_options = returning "" do |str|
+        select_options = "".tap do |str|
           Breeze::Content::Mixins::Placeable.classes.sort_by(&:label).group_by do |klass|
             if klass.ancestors.include?(Breeze::Content::Custom::Instance)
               "Custom types"
@@ -94,7 +94,7 @@ module Breeze
       
     protected
       def wrap(method, input, options)
-        contents = returning "" do |str|
+        contents = "".tap do |str|
           str << label(method, options[:label], :required => options[:required]) unless options[:label] == false
           str << wrap_field(input, options)
           str << errors_for(method) if options[:errors] != false

@@ -14,7 +14,7 @@ module Breeze
         end
         @asset.save
         respond_to do |format|
-          format.html { render :partial => @asset.class.name.demodulize.underscore, :object => @asset, :layout => false }
+          format.html { render :partial => "breeze/admin/assets/#{@asset.class.name.demodulize.underscore}", :object => @asset, :layout => false }
           format.js
         end
       end

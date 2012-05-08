@@ -26,7 +26,7 @@ $(function() {
                       $(this).dialog('close');
                     },
                     OK: function() {
-                      $('#page_new:visible').trigger('submit');
+                      $('#new_page:visible').trigger('submit');
                     }
                   },
                   close: function() { $(this).remove(); }
@@ -131,11 +131,11 @@ $(function() {
     }
   });
   
-  $('#page_new #page_title').live('input', function() {
+  $('#new_page #page_title').live('input', function() {
     var slug_field = $('#page_slug', $(this).closest('form'));
     if (slug_field.length > 0 && !slug_field[0].modified) {
       slug_field.val($(this).val().toLowerCase().replace(/[^a-z0-9\-\_]+/g, '-').replace(/(^\-+|\-+$)/g, ''));
     }
   });
-  $('#page_new #page_slug').live('input', function() { this.modified = true; });
+  $('#new_page #page_slug').live('input', function() { this.modified = true; });
 });

@@ -1,9 +1,9 @@
 <% if @content.errors.empty? %>
-  $('#content_edit').closest('.ui-dialog-content').dialog('close');
+  $('#edit_content').closest('.ui-dialog-content').dialog('close');
   <%# TODO: render using correct view %>
   <%# TODO: update other instances of the same content (different placement IDs) %>
   $('#content_<%= @placement.id %>').replaceWith('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
   $('body').breeze('addContentControls', '#content_<%= @placement.id %>');
 <% else %>
-  $('#content_edit').closest('.ui-dialog-content').html('<%= escape_javascript render(:template => "/breeze/admin/contents/edit") %>');
+  $('#edit_content').closest('.ui-dialog-content').html('<%= escape_javascript render(:template => "/breeze/admin/contents/edit") %>');
 <% end %>

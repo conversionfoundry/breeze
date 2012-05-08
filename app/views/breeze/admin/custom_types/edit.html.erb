@@ -1,7 +1,7 @@
 <%= breeze_form_for @custom_type, :as => :custom_type, :url => admin_custom_type_path(@custom_type, :format => :js), :remote => true do |form| %>
   <%= scrollable_layout do %>
     <h1>Edit custom type</h1>
-    <%= render :partial => "form", :object => form %>
+    <%= render :partial => "breeze/admin/custom_types/form", :object => form %>
   <% end %>
   
   <%= content_tag :div, :class => "fake-right-sidebar" do %>

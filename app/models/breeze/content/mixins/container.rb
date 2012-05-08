@@ -17,7 +17,7 @@ module Breeze
         end
         
         def to_erb(view)
-          returning("") do |str|
+          "".tap do |str|
             placements.for(:view => view).group_by(&:region).each do |region, placements|
               str << "<%= content_for_region :#{region.to_sym} do %>\n"
               placements.each do |placement|
@@ -40,7 +40,7 @@ module Breeze
         end
         
         def duplicate(attrs = {})
-          returning super do |new_item|
+          super.tap do |new_item|
             placements.each { |p| p.content.add_to_container new_item, p.region, p.view, p.position }
           end
         end

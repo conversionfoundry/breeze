@@ -2,7 +2,7 @@ module Breeze
   module Hooks
     def hook(hook_name, &block)
       @_hooks ||= {}
-      returning(@_hooks[hook_name.to_sym] ||= []) do |hooks|
+      (@_hooks[hook_name.to_sym] ||= []).tap do |hooks|
         hooks << block
       end
     end

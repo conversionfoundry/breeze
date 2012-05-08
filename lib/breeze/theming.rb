@@ -12,7 +12,7 @@ module Breeze
         
         def enable!(name, enabled = true)
           theme = @target.detect { |t| t.name == name } || create(:name => name)
-          returning theme do |t|
+          theme.tap do |t|
             t.enable!(enabled)
           end
         end
