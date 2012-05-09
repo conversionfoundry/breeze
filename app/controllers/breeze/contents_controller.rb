@@ -6,7 +6,6 @@ module Breeze
     
     def show
       @path = "/" + Array(params[:path]).join("/")
-      
       if @path != "/" && file_path = Breeze::Theming::Theme.file(@path)
         request.format = File.extname(file_path)[1..-1]
         # TODO: move this into metal

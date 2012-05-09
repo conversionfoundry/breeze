@@ -7,6 +7,7 @@ class FlashSessionCookieMiddleware
 
   def call(env)
     if env['HTTP_USER_AGENT'] =~ /^(Adobe|Shockwave) Flash/
+      binding.pry
       req = Rack::Request.new(env)
       session_key = Rails.configuration.session_options[:key]
       unless req.params[session_key].nil?
