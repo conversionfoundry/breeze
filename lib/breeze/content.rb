@@ -30,17 +30,19 @@ module Breeze
   end
 end
 
+require 'pry'
+
 # TODO:
 #require "breeze/content/custom/type"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/markdown.rb"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/tree_structure.rb"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/permalinks.rb"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/container.rb"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/mixins/placeable.rb"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/uploaders/breeze/asset_uploader.rb"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/uploaders/breeze/image_uploader.rb"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/item.rb"
-require "/Users/blair/source/rails32/experiment/vendor/engines/breeze/app/models/breeze/content/view.rb"
+require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/markdown.rb"
+require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/tree_structure.rb"
+require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/permalinks.rb"
+require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/container.rb"
+require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/placeable.rb"
+require "#{Breeze::Engine.root}/app/uploaders/breeze/asset_uploader.rb"
+require "#{Breeze::Engine.root}/app/uploaders/breeze/image_uploader.rb"
+require "#{Breeze::Engine.root}/app/models/breeze/content/item.rb"
+require "#{Breeze::Engine.root}/app/models/breeze/content/view.rb"
 Dir[File.expand_path("../../app/models/breeze/content/*.rb", File.dirname(__FILE__))].each do |f|
   require f
 end
