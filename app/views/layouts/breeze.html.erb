@@ -5,9 +5,10 @@
     <title><%= [ yield(:title), "Breeze" ].compact.join(" | ") %></title>
     <%= csrf_meta_tag %>
     <meta name="breeze-user-id" content="<%= current_user.id %>" />
-    <%= stylesheet_link_tag "/breeze/stylesheets/ui-theme", "/breeze/stylesheets/forms", "/breeze/stylesheets/admin" %>
-    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js", "/breeze/javascripts/rails", "/breeze/javascripts/cookies", "/breeze/javascripts/hotkeys", "/breeze/javascripts/admin" %>
-    <%= javascript_include_tag "/breeze/javascripts/jstree/jstree", "/breeze/javascripts/jstree/plugins/jquery.tree.contextmenu.js" %>
+    <%= stylesheet_link_tag "breeze/breeze" %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js" %>
+    <%= javascript_include_tag "breeze/breeze" %>
+    <%#= javascript_include_tag "/breeze/javascripts/jstree/jstree", "/breeze/javascripts/jstree/plugins/jquery.tree.contextmenu.js" %>
     <%= yield :head %>
   </head>
 

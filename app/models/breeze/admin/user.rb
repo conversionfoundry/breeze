@@ -21,9 +21,8 @@ module Breeze
       ROLES = [ :admin, :editor, :designer ]
       
       def name
-        display_name.blank? ? [ first_name, last_name ].compact.join(" ") : display_name
+        @name ||= display_name.blank? ? [ first_name, last_name ].compact.join(" ") : display_name
       end
-      memoize :name
       alias_method :to_s, :name
       
       def role?(sym)
