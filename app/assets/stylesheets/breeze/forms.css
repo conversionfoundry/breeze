@@ -191,7 +191,7 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 
 .breeze-form .button:hover	{ background-color: #111; color: #fff; }
 .breeze-form .button:active { top: 1px; }
-.breeze-form .small.button, .breeze-form .small.button:visited { font-size: 11px; padding: ; }
+.breeze-form .small.button, .breeze-form .small.button:visited { font-size: 11px; }
 .breeze-form .button, .button:visited,
 .breeze-form .medium.button, .breeze-form .medium.button:visited { font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
 .breeze-form .large.button, .breeze-form .large.button:visited { font-size: 14px; font-weight: bold; padding: 8px 14px 9px; text-transform: uppercase; }
