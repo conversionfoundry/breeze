@@ -54,7 +54,7 @@ body, input {
 #login #error_explanation {
   margin: 0px 16px 8px;
   padding: 8px 8px 8px 24px;
-  background: rgba(255, 255, 204, 0.75) url(/breeze/images/icons/error.png) no-repeat 4px 8px;
+  background: rgba(255, 255, 204, 0.75) image_url(icons/error.png) no-repeat 4px 8px;
   -webkit-border-radius: 4px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px;
   -moz-border-radius: 4px;
