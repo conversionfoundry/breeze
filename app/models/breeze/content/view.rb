@@ -4,8 +4,6 @@ module Breeze
       include Mongoid::Document
       identity :type => String
 
-      extend ActiveSupport::Memoizable
-      
       embedded_in :content_item, :inverse_of => :views
       field :name
       
