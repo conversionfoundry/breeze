@@ -91,7 +91,7 @@
       $.cookie('breeze-editor', $.toJSON(this.options.preferences), { path: '/', expires: date });
     },
     _loadStylesheet: function(href) {
-      $('<link rel="stylesheet" type="text/css" href="' + (href || '/breeze/editor/editor.css') + '" />')
+      $('<link rel="stylesheet" type="text/css" href="' + (href || '/assets/breeze/editor/editor.css') + '" />')
         .appendTo('head');
     },
     _buildToolbar: function() {

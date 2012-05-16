@@ -3,7 +3,7 @@ module Breeze
     isolate_namespace Breeze
 
     initializer "breeze.assets.precompile" do |app|
-      app.config.assets.precompile += [ "breeze/*", "breeze/icons/*", "breeze/log/*" ]
+      app.config.assets.precompile += [ "breeze/breeze", "breeze/front", "breeze/icons/*", "breeze/log/*" ]
     end
   end
 end

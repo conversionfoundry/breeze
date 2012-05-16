@@ -1,6 +1,6 @@
 /* TODO: scope this so it only applies to our stuff */
-@import url(/breeze/stylesheets/ui-theme.css);
-@import url(/breeze/stylesheets/forms.css);
+@import url(/assets/breeze/ui-theme.css);
+@import url(/assets/breeze/forms.css);
 
 /* Toolbar {{{ */
 
@@ -75,7 +75,7 @@
   float: left;
   width: 30px;
   height: 30px;
-  background: url(images/editor-icons.png) no-repeat 32px -1px;
+  background: url(editor-icons.png) no-repeat 32px -1px;
   border: 1px solid transparent;
   opacity: 0.25;
   text-decoration: none;
@@ -195,7 +195,7 @@ body.breeze-editing .breeze-editable-region .breeze-region-label {
   text-indent: -100em;
   overflow: hidden;
   border-left: 1px solid rgba(255, 255, 255, 0.25);
-  background: url(images/editor-icons.png) no-repeat 0px -32px;
+  background: url(editor-icons.png) no-repeat 0px -32px;
   cursor: pointer;
   opacity: 0.5;
   -webkit-transition: opacity 0.12s ease-in;
@@ -243,7 +243,7 @@ body.breeze-editing .breeze-content .breeze-content-controls a {
   float: left;
   width: 20px;
   height: 20px;
-  background: url(images/editor-icons.png) no-repeat 20px 20px;
+  background: url(editor-icons.png) no-repeat 20px 20px;
   text-decoration: none;
   text-indent: -100em;
   overflow: hidden;
