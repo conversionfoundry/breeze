@@ -1,6 +1,6 @@
 /* TODO: scope this so it only applies to our stuff */
-@import url(/assets/breeze/ui-theme.css);
-@import url(/assets/breeze/forms.css);
+@import url(/cached/breeze/ui-theme.css);
+@import url(/cached/breeze/forms.css);
 
 /* Toolbar {{{ */
 
@@ -212,7 +212,7 @@ body.breeze-editing .breeze-editable-region .breeze-region-label a:hover {
 body.breeze-editing .breeze-content {
   position: relative;
   cursor: move;
-  min-height: ;
+  /* min-height: ; */
 }
 
 body.breeze-editing .ui-sortable-helper {

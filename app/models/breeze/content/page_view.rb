@@ -19,7 +19,7 @@ module Breeze
             if (typeof(jQuery) == 'undefined') { document.write('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></s' + 'cript>'); }
             if (typeof(jQuery) == 'undefined' || typeof(jQuery.ui) == 'undefined') { document.write('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></s' + 'cript>'); }
 
-            document.write('<script type="text/javascript" src="/assets/breeze/front.js"></s' + 'cript>');
+            document.write('<script type="text/javascript" src="/cached/breeze/front.js"></s' + 'cript>');
             document.write('<script type="text/javascript" defer="defer">$(function() {');
             document.write('$("body").breeze({ page_id:"#{content.id}", view:"#{self.name}", views:#{(content.views.empty? ? %w(default) : content.views.map(&:name)).inspect}, template:"#{content.template}", templates:#{Breeze::Theming::Theme.available_templates.inspect} });');
             #{"document.write('$(\"#breeze-template-chooser\").val(\"#{content.template}\")');" if content.template?}
