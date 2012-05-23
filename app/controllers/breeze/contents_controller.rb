@@ -5,6 +5,7 @@ module Breeze
     attr_accessor :view
     
     def show
+      binding.pry
       @path = "/" + Array(params[:path]).join("/")
       if @path != "/" && file_path = Breeze::Theming::Theme.file(@path)
         request.format = File.extname(file_path)[1..-1]
