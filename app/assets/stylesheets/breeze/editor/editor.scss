@@ -532,3 +532,52 @@ font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 /* }}} */
+
+.editor-panel {
+  display: none;
+  float: left;
+  width: 400px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #f2f2f2;
+}
+
+.editor-panel .buttons-panel {
+  display: none;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 40px;
+  a.button.ok {
+    float: right;
+  }
+  a.button.cancel {
+  }
+}
+
+.editor-panel.active .buttons-panel {
+  display: block;
+}
+
+.breeze-editing .editor-panel {
+  display: block;
+}
+
+.breeze-editing .website-panel {
+  margin-left: 400px;
+}
+
+.scrollable {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 40px;
+  overflow: auto;
+  padding: 8px;
+}
+

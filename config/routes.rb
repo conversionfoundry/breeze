@@ -18,6 +18,7 @@ Breeze::Engine.routes.draw do
         post :duplicate
         post :insert
         get  :instances
+        get  :live
       end
       collection do
         put  :reorder

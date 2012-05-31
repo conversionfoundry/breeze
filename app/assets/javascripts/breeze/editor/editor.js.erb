@@ -15,6 +15,24 @@
       this._buildToolbar();
       this._augmentRegions();
       this.editing(this.editing());
+
+      $('.editor-panel .buttons-panel a.ok.button').click(function() {
+        $editor = $(this).closest('.editor-panel');
+        $('form:visible', $editor).trigger('submit');
+      });
+
+      $('.editor-panel .buttons-panel a.cancel.button').click(function() {
+        var $form = $(this).closest('.editor-panel').find('form:visible');
+        var href = $form.attr('action').replace('.js', '/live.js');
+        var id = $form.attr('action').replace('/admin/contents/', '').replace('.js', '');
+        $.ajax({
+          url: href,
+          success: function(data) {
+            $('body').breeze('addContentControls', '#content_' + id);
+          }
+        });
+        $('.editor-panel').removeClass('active').find('.scrollable').empty();
+      });
       
       $('body.breeze-editing .breeze-region-label>a.breeze-add-content').live('click', function() {
         var url = '/admin/contents/new?content[container_id]=' + breeze.options.page_id + '&content[region]=' + $(this).closest('.breeze-editable-region').attr('data-region') + '&content[view]=' + breeze.options.view;
@@ -215,7 +233,7 @@
       breeze.addContentControls('.breeze-editable-region[id] > .breeze-content');
       
       $('.breeze-content-controls .edit').live('click', function() {
-        breeze._openDialog($(this).attr('href'), {
+        breeze._openEditorPanel($(this).attr('href'), {
           title: 'Edit content',
           open: function() {
             breeze._prepareEditorDialog(this);
@@ -250,6 +268,15 @@
         // $('button.ui-button:contains("OK"):not(.green)').addClass('green');
       });
     },
+    _openEditorPanel: function(path, options) {
+      var breeze = this;
+      $.get(path, function(data) {
+        $dialog = $('.editor-panel .scrollable');
+        $dialog.html(data);
+        breeze._prepareEditorDialog($dialog);
+        $('.editor-panel').addClass('active');
+      });
+    },
     _spinner: function(bool) {
       if (typeof(bool) == 'undefined') { bool = true; }
       if ($('#breeze-spinner').length == 0) { $('<div id="breeze-spinner" style="display: none;"></div>').appendTo('body'); }
@@ -261,9 +288,22 @@
     },
     _prepareEditorDialog: function(dialog) {
       var breeze = this;
+      console.log(breeze);
       $('textarea.markup', dialog).marquess({
         preview: false
       });
+      // for live editing
+      $(':input:visible', dialog).blur(function(e) {
+        var $form = $(this).closest('form');
+        var href = $form.attr('action').replace('.js', '/live.js');
+        $.ajax({
+          url: href,
+          data: $form.serialize(),
+          success: function(data) {
+          }
+        });
+      });
+
       $(':input:visible', dialog).eq(0).each(function() { this.focus(); });
     },
     new_content_dialog_open: function(dialog, url) {

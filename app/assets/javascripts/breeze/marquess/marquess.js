@@ -6,8 +6,8 @@
       preview: false,
       toolbar: [
         [ 'bold', 'italic', '|', 'heading', 'bulleted_list', 'numbered_list', 'blockquote', '|', 'link', 'image' ],
-        [ 'undo', 'redo' ],
-        [ 'preview', [ 'update', { title:true } ] ]
+        [ 'undo', 'redo' ] //,
+        //[ 'preview', [ 'update', { title:true } ] ]
       ]
     },
     

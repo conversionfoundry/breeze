@@ -5,7 +5,6 @@ module Breeze
     attr_accessor :view
     
     def show
-      binding.pry
       @path = "/" + Array(params[:path]).join("/")
       if @path != "/" && file_path = Breeze::Theming::Theme.file(@path)
         request.format = File.extname(file_path)[1..-1]
@@ -32,6 +31,8 @@ module Breeze
         end
       
         if admin_signed_in? && !request.xhr? && view && view.respond_to?(:editor_html)
+          response.body = response.body.sub "<body>", "<body><div class='editor-panel'>&nbsp;<div class='scrollable'></div><div class='buttons-panel'><a class='small awesome green ok button'>OK</a><a class='small awesome black cancel button'>Cancel</a></div></div><div class='website-panel'>"
+          response.body = response.body.sub"</body>", "</div></body>"
           response.body = response.body.sub /(?=<\/body>)/, view.editor_html
         end
       end

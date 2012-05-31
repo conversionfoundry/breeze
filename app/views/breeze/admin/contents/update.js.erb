@@ -1,4 +1,6 @@
 <% if @content.errors.empty? %>
+    $('.editor-panel').removeClass('active');
+    $('.editor-panel .scrollable').empty()
   $('#edit_content').closest('.ui-dialog-content').dialog('close');
   <%# TODO: render using correct view %>
   <%# TODO: update other instances of the same content (different placement IDs) %>

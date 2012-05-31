@@ -1,9 +1,11 @@
 module Breeze
   module Admin
     class ContentsController < AdminController
-      before_filter :load_container_and_placement, :only => [ :edit, :update, :duplicate, :destroy ]
+      before_filter :load_container_and_placement, :only => [ :edit, :update, :duplicate, :destroy, :live ]
       
       def new
+        preview = PreviewHelper.new
+        preview.screenshot(self, request)
         @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
       end
       
@@ -31,6 +33,12 @@ module Breeze
         @content = @placement.content
         @content.update_attributes params[:content]
         @container.save
+        @view = @container.views.by_name(@placement.view).populate(@container, self, request)
+      end
+
+      def live
+        @content = @placement.content
+        @content.attributes = params[:content]
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
       
