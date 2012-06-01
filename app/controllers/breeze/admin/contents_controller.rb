@@ -4,8 +4,8 @@ module Breeze
       before_filter :load_container_and_placement, :only => [ :edit, :update, :duplicate, :destroy, :live ]
       
       def new
-        preview = PreviewHelper.new
-        preview.screenshot(self, request)
+        #preview = PreviewHelper.new
+        #preview.screenshot(self, request)
         @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
       end
       

@@ -36,10 +36,10 @@
       
       $('body.breeze-editing .breeze-region-label>a.breeze-add-content').live('click', function() {
         var url = '/admin/contents/new?content[container_id]=' + breeze.options.page_id + '&content[region]=' + $(this).closest('.breeze-editable-region').attr('data-region') + '&content[view]=' + breeze.options.view;
-        breeze._openDialog(url, {
+        breeze._openEditorPanel(url, {
           title: 'Add content',
           open: function() {
-            breeze.new_content_dialog_open(this, url);
+            breeze.new_content_panel_open(this, url);
           }
         });
         return false;
@@ -91,7 +91,7 @@
           .hide()
           .append('<a class="edit" href="' + path + '/edit">Edit</a>')
           .append('<a class="duplicate" href="' + path + '/duplicate.js" data-method="post" data-remote="' + path + '/duplicate.js">Duplicate</a>')
-          .append('<a class="delete" href="' + path + '.js" data-method="delete" data-remote="' + path + '.js">Delete</a>');
+          .append('<a class="delete" href="' + path + '.js" data-method="delete" data-confirm="Are you sure you want to delete this content?" data-remote="' + path + '.js">Delete</a>');
         $(this).hover(
           function() { if (breeze.editing()) $(this).addClass('hover').find('>.breeze-content-controls').fadeIn(125); },
           function() { if (breeze.editing()) $(this).removeClass('hover').find('>.breeze-content-controls').fadeOut(250); }
@@ -242,32 +242,32 @@
         return false;
       });
     },
-    _openDialog: function(path, options) {
-      var breeze = this;
-      breeze._spinner();
+    <%#_openDialog: function(path, options) {%>
+      <%#var breeze = this;%>
+      <%#breeze._spinner();%>
       
-      $.get(path, function(data) {
-        breeze._spinner(false);
-        options = $.extend({
-          modal: true,
-          resizable: false,
-          width: 640,
-          buttons: {
-            Cancel: function() {
-              $(this).dialog('close');
-            },
-            OK: function() {
-              $('form:visible', $(this).closest('.ui-dialog')).trigger('submit');
-            }
-          },
-          close: function() {
-            $(this).remove();
-          }
-        }, options || {});
-        $('<div></div>').html(data).appendTo('body').dialog(options);
-        // $('button.ui-button:contains("OK"):not(.green)').addClass('green');
-      });
-    },
+      <%#$.get(path, function(data) {%>
+        <%#breeze._spinner(false);%>
+        <%#options = $.extend({%>
+          <%#modal: true,%>
+          <%#resizable: false,%>
+          <%#width: 640,%>
+          <%#buttons: {%>
+            <%#Cancel: function() {%>
+              <%#$(this).dialog('close');%>
+            <%#},%>
+            <%#OK: function() {%>
+              <%#$('form:visible', $(this).closest('.ui-dialog')).trigger('submit');%>
+            <%#}%>
+          <%#},%>
+          <%#close: function() {%>
+            <%#$(this).remove();%>
+          <%#}%>
+        <%#}, options || {});%>
+        <%#$('<div></div>').html(data).appendTo('body').dialog(options);%>
+        <%#// $('button.ui-button:contains("OK"):not(.green)').addClass('green');%>
+      <%#});%>
+    <%#},%>
     _openEditorPanel: function(path, options) {
       var breeze = this;
       $.get(path, function(data) {
@@ -275,6 +275,10 @@
         $dialog.html(data);
         breeze._prepareEditorDialog($dialog);
         $('.editor-panel').addClass('active');
+        
+        if (options.open) { 
+          options.open.apply($dialog);
+        }
       });
     },
     _spinner: function(bool) {
@@ -288,7 +292,6 @@
     },
     _prepareEditorDialog: function(dialog) {
       var breeze = this;
-      console.log(breeze);
       $('textarea.markup', dialog).marquess({
         preview: false
       });
@@ -306,25 +309,25 @@
 
       $(':input:visible', dialog).eq(0).each(function() { this.focus(); });
     },
-    new_content_dialog_open: function(dialog, url) {
+    new_content_panel_open: function(panel, url) {
       var breeze = this;
-      $('.add-content-tabs', dialog).tabs({
+      $('.add-content-tabs', panel).tabs({
         selected: 1,
         select: function(e, ui) {
           $('textarea, input[type=search]', ui.panel).eq(0).each(function() { this.focus(); });
         }
       });
-      $('#content__type', dialog).change(function() {
-        $(dialog).load(url + '&content[_type]=' + escape($(this).val()), function() {
-          breeze.new_content_dialog_open(dialog, url);
+      $('#content__type', panel).change(function() {
+        $(panel).load(url + '&content[_type]=' + escape($(this).val()), function() {
+          breeze.new_content_panel_open(panel, url);
         });
       });
-      $('form.search-contents', dialog).bind('ajax:success', function(e, data, status, xhr) {
-        $('.breeze-search-results', dialog)
+      $('form.search-contents', panel).bind('ajax:success', function(e, data, status, xhr) {
+        $('.breeze-search-results', panel)
           .html(data)
           .find('.insert-content-button').button().click(function() {
-            var container_id = $('#content_container_id', dialog).val();
-            var region = $('#content_region', dialog).val();
+            var container_id = $('#content_container_id', panel).val();
+            var region = $('#content_region', panel).val();
             var view = $('#breeze_view').val();
             $.ajax({
               url: $(this).attr('href'),
@@ -335,8 +338,8 @@
             return false;
           });
       });
-      breeze._prepareEditorDialog(dialog);
-      $('textarea, input[type=search]', dialog).eq(0).each(function() { this.focus(); });
+      breeze._prepareEditorDialog(panel);
+      $('textarea, input[type=search]', panel).eq(0).each(function() { this.focus(); });
     }
   });
   

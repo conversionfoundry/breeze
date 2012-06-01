@@ -4,7 +4,7 @@ module Breeze
       include Mongoid::Document
       identity :type => String
       
-      field :region
+      field :region, :type => String
       field :view
       field :position, :type => Integer, :default => 0
       belongs_to_related :content, :class_name => "Breeze::Content::Item"

@@ -1,5 +1,6 @@
 <% if @content.errors.empty? %>
-  $('#new_content').closest('.ui-dialog-content').dialog('close');
+    $('.editor-panel').removeClass('active');
+    $('.editor-panel .scrollable').empty()
   $('#<%= @placement.region %>_region').append('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
   $('body').breeze('addContentControls', '#content_<%= @placement.id %>');
 <% else %>
@@ -8,3 +9,4 @@
   var url = '/admin/contents/new?content[container_id]=<%= @content.container_id %>&content[region]=<%= @content.region %>&content[view]=<% @content.view %>';
   $('body').breeze('new_content_dialog_open', dialog[0], url);
 <% end %>
+
