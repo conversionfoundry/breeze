@@ -3,4 +3,6 @@
  *= require ./cookies
  *= require ./hotkeys
  *= require ./admin
+ *= require ./jstree/jstree
+ *= require ./pages
 */

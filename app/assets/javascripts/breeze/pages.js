@@ -1,7 +1,7 @@
 $(function() {
   $('#left #pages').tree({
     ui: {
-      theme_path: '/breeze/javascripts/jstree/themes/breeze/style.css',
+      theme_path: '/cached/breeze/jstree/themes/breeze/style.css',
       theme_name: 'breeze',
       dots: false,
       selected_parent_close: false
