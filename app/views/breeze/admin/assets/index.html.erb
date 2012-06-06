@@ -1,8 +1,8 @@
 <% content_for :title, "Assets" %>
 
 <% content_for :head do %>
-  <%= stylesheet_link_tag "/breeze/javascripts/jcrop/css/jquery.Jcrop.css", "/breeze/javascripts/uploadify/uploadify.css" %>
-  <%= javascript_include_tag "/breeze/javascripts/assets", "/breeze/javascripts/jcrop/js/jquery.Jcrop.min.js", "/breeze/javascripts/uploadify/swfobject.js", "/breeze/javascripts/uploadify/uploadify.js" %>
+  <%#= stylesheet_link_tag "/breeze/javascripts/jcrop/css/jquery.Jcrop.css", "/breeze/javascripts/uploadify/uploadify.css" %>
+  <%#= javascript_include_tag "/breeze/javascripts/assets", "/breeze/javascripts/jcrop/js/jquery.Jcrop.min.js", "/breeze/javascripts/uploadify/swfobject.js", "/breeze/javascripts/uploadify/uploadify.js" %>
 <% end %>
 
 <%= pane_layout do |main| %>
@@ -49,9 +49,9 @@
       script_data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
       script_data[$(this).attr('data-session-key')] = $(this).attr('data-session-id');
       $(this).uploadify({
-        uploader:     '/breeze/javascripts/uploadify/uploadify.swf',
-        cancelImg:    '/breeze/images/icons/delete.png',
-        buttonImg:    '/breeze/images/buttons/upload.png',
+        uploader:     '/cached/breeze/uploadify/uploadify.swf',
+        cancelImg:    '<%= image_path "icons/delete.png" %>',
+        buttonImg:    '<%= image_path "buttons/upload.png" %>',
         width:        215,
         height:       40,
         multi:        true,
@@ -80,7 +80,7 @@
     show_or_hide_asset_section_headings();
     $('#left #folders').tree({
       ui: {
-        theme_path: '/breeze/javascripts/jstree/themes/breeze/style.css',
+        theme_path: '/cached/breeze/jstree/themes/breeze/style.css',
         theme_name: 'breeze',
         dots: false,
         selected_delete: false

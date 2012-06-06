@@ -350,7 +350,7 @@
 
 .ui-button {
   font-weight: bold !important;
-	background: #222 url(../images/button-overlay.png) repeat-x !important;
+	background: #222 url(../button-overlay.png) repeat-x !important;
 	display: inline-block; 
 	padding: 5px 10px 6px; 
 	color: #fff !important; 

@@ -45,7 +45,7 @@ module Breeze
         menu = menu.sort_by { |item| ordering.index(item[:name]) || 999999 }
         
         items = menu.collect do |item|
-          content_tag :li, link_to(item[:name], item[:path]), :class => "#{:active if (item[:regexp] || /^#{item[:path]}/) === request.path}"
+          content_tag :li, link_to(item[:name], item[:path]), :class => "#{:active if (item[:regexp] || /^#{item[:path]}/) === request.path.reverse.chomp('/').reverse}"
         end.join.html_safe
         
         content_tag :ul, items, :class => "menu"

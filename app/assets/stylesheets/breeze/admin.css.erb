@@ -66,7 +66,7 @@ p { margin: 0px 0px 8px; }
   left: 0px;
   right: 0px;
   height: 40px;
-  background: #bbb url(../images/header.png) repeat-x 0px -40px;
+  background: #bbb url(<%= image_path "header.png" %>) repeat-x 0px -40px;
 }
 
 #main .header { left: -1px; }
@@ -170,7 +170,7 @@ p { margin: 0px 0px 8px; }
 #main-tabs-tabs .tabs li.loading a.tab {
   padding-left: 18px;
   margin-left: -18px;
-  background: url(../images/tab-loading.gif) no-repeat 0px 50%;
+  background: url(<%= image_path "tab-loading.gif" %>) no-repeat 0px 50%;
 }
 
 #main-tabs-tabs .tabs li a.close {
@@ -290,7 +290,7 @@ p { margin: 0px 0px 8px; }
   left: -8px;
   right: -8px;
   height: 36px;
-  background: #666 url(../images/header.png) repeat-x 0px -4px;
+  background: #666 url(<%= image_path "header.png" %>) repeat-x 0px -4px;
   color: white;
   border-top: 4px solid #8dc63f;
 }
@@ -408,7 +408,7 @@ p { margin: 0px 0px 8px; }
   width: 24px;
   text-indent: -4em;
   overflow: hidden;
-  background: url(../images/menu-tick.png) no-repeat 50% 0px;
+  background: url(<%= image_path "menu-tick.png" %>) no-repeat 50% 0px;
 }
 
 /*}}}*/
@@ -497,7 +497,7 @@ p { margin: 0px 0px 8px; }
 /* Forms {{{ */
 
 .button, .button:visited {
-	background: #222 url(../images/button-overlay.png) repeat-x; 
+  background: #222 url(<%= image_path "button-overlay.png" %>) repeat-x; 
 	display: inline-block; 
 	padding: 5px 10px 6px; 
 	color: #fff; 
@@ -603,13 +603,13 @@ p { margin: 0px 0px 8px; }
 }
 
 #left #themes .theme a.loading {
-  background-image: url(../images/loading-small-666-ccc.gif);
+  background-image: url(<%= image_path "loading-small-666-ccc.gif" %>);
   background-position: 184px 50%;
   background-repeat: no-repeat;
 }
 
 #left #themes .enabled a.loading {
-  background-image: url(../images/loading-small-222-8dc63f.gif);
+  background-image: url(<%= image_path "loading-small-222-8dc63f.gif" %>);
 }
 
 #left .theme-status {
@@ -975,7 +975,7 @@ fieldset.custom-field a.delete {
   top: 8px;
   width: 16px;
   height: 16px;
-  background: url(/breeze/images/icons/delete.png) no-repeat 0px 0px;
+  background: url(<%= image_path "icons/delete.png" %>) no-repeat 0px 0px;
   text-indent: -100em;
   overflow: hidden;
   opacity: 0.5;

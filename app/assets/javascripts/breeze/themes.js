@@ -67,7 +67,7 @@ function open_theme_folder(theme_link, options) {
     });
     $('#left #theme_files').tree({
       ui: {
-        theme_path: '/breeze/javascripts/jstree/themes/breeze/style.css',
+        theme_path: '/cached/breeze/jstree/themes/breeze/style.css',
         theme_name: 'breeze',
         dots: false,
         selected_delete: false
@@ -140,8 +140,8 @@ function open_theme_folder(theme_link, options) {
                 $('textarea', pane).each(function() {
                   var options = {
                     height: $(this).height(),
-                    path: "/breeze/javascripts/codemirror/js/",
-                    stylesheet: ["/breeze/javascripts/codemirror/css/xmlcolors.css", "/breeze/javascripts/codemirror/css/jscolors.css", "/breeze/javascripts/codemirror/css/csscolors.css"]
+                    path: "/cached/breeze/codemirror/js/",
+                    stylesheet: ["/cached/breeze/codemirror/css/xmlcolors.css", "/cached/breeze/codemirror/css/jscolors.css", "/cached/breeze/codemirror/css/csscolors.css"]
                   };
                   if (/\.js$/.test(url)) {
                     options.parserfile = ["tokenizejavascript.js", "parsejavascript.js"];
