@@ -2,6 +2,26 @@
 @import url(/cached/breeze/ui-theme.css);
 @import url(/cached/breeze/forms.css);
 
+/* Override Twitter Bootstrap Styles */
+#breeze-toolbar .breeze-toolbar-item label {
+  float: none;
+  width: auto;
+  text-align: left;
+  padding: 0;
+}
+#breeze-toolbar input,
+#breeze-toolbar select {
+  height: inherit;
+  line-height: inherit;
+  padding: 0;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+
+
 /* Toolbar {{{ */
 
 #breeze-toolbar {
