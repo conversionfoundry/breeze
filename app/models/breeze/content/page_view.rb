@@ -16,7 +16,7 @@ module Breeze
         <<-HTML
           <script type="text/javascript">
             // Breeze content editing
-            if (typeof(jQuery) == 'undefined') { document.write('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></s' + 'cript>'); }
+            if (typeof(jQuery) == 'undefined') { document.write('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></s' + 'cript>'); }
             if (typeof(jQuery) == 'undefined' || typeof(jQuery.ui) == 'undefined') { document.write('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></s' + 'cript>'); }
 
             document.write('<script type="text/javascript" src="#{ActionController::Base.helpers.asset_path 'breeze/front.js'}"></s' + 'cript>');

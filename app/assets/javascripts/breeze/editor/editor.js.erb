@@ -11,7 +11,7 @@
       this._loadOptions();
       this._loadStylesheet();
       this._loadStylesheet('<%= asset_path "breeze/marquess/marquess.css" %>'); // TODO: incorporate into main stylesheet
-      this._loadStylesheet('/breeze/javascripts/jcrop/css/jquery.Jcrop.css');
+      this._loadStylesheet('<%= asset_path "breeze/jcrop/css/jquery.Jcrop.css" %>');
       this._buildToolbar();
       this._augmentRegions();
       this.editing(this.editing());
