@@ -23,6 +23,7 @@ Breeze::Engine.routes.draw do
       collection do
         put  :reorder
         get  :search
+        get  :add
       end
     end
     

@@ -41,6 +41,16 @@ module Breeze
         @content.attributes = params[:content]
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
+
+      def add
+        binding.pry
+        @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
+        @placement = @content.add_to_container
+        @container = Breeze::Content::Item.find @content.container_id
+        @view = @container.views.by_name(@placement.view).populate(@container, self, request)
+
+        binding.pry
+      end
       
       def duplicate
         @old_placement, @placement = @placement, @placement.duplicate.unlink!

@@ -21,6 +21,7 @@ module Breeze
             placements.for(:view => view).group_by(&:region).each do |region, placements|
               str << "<%= content_for_region :#{region.to_sym} do %>\n"
               placements.each do |placement|
+                binding.pry
                 str << placement.to_erb(view)
               end
               str << "<% end %>\n"
