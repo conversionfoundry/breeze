@@ -171,7 +171,7 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 /* Buttons {{{ */
 
 .breeze-form .button, .breeze-form .button:visited {
-	background: #222 url(../images/button-overlay.png) repeat-x; 
+	background: #222 url(../button-overlay.png) repeat-x; 
 	display: inline-block; 
 	padding: 5px 10px 6px; 
 	color: #fff; 

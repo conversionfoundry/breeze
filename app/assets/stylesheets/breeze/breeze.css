@@ -2,4 +2,5 @@
  *= require ./ui-theme
  *= require ./forms
  *= require ./admin
+ *= require /javascripts/uploadify/uploadify
 */

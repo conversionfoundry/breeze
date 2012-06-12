@@ -11,7 +11,7 @@
       this._loadOptions();
       this._loadStylesheet();
       this._loadStylesheet('<%= asset_path "breeze/marquess/marquess.css" %>'); // TODO: incorporate into main stylesheet
-      this._loadStylesheet('/breeze/javascripts/jcrop/css/jquery.Jcrop.css');
+      this._loadStylesheet('<%= asset_path "breeze/jcrop/css/jquery.Jcrop.css" %>');
       this._buildToolbar();
       this._augmentRegions();
       this.editing(this.editing());
@@ -485,9 +485,9 @@
             script_data[$('meta[name=csrf-param]').attr('content')] = $('#edit_content [name=authenticity_token]').val();
             script_data[$('meta[name=session-key]').attr('content')] = $('meta[name=session-id]').attr('content');
             $(this).uploadify({
-              uploader:     '/breeze/javascripts/uploadify/uploadify.swf',
-              cancelImg:    '/breeze/images/icons/delete.png',
-              buttonImg:    '/breeze/images/buttons/upload-small.png',
+              uploader:     '/cached/breeze/uploadify/uploadify.swf',
+              cancelImg:    '<%= image_path "icons/delete.png" %>',
+              buttonImg:    '<%= image_path "buttons/upload-small.png" %>',
               width:        166,
               height:       34,
               multi:        true,
