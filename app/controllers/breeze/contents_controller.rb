@@ -4,6 +4,7 @@ module Breeze
     
     attr_accessor :view
     
+    # Main method for serving content
     def show
       @path = "/" + Array(params[:path]).join("/")
       if @path != "/" && file_path = Breeze::Theming::Theme.file(@path)

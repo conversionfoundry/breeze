@@ -27,30 +27,6 @@ module Breeze
           permalink.count("/")
         end
         
-        # This is a temporary hack until I've discussed with Blair whether we should unprotect regenerate_permalink!
-        # TODO: Remove regnerate_permalink from protected?
-        def regenerate_permalink_foo
-          self.regenerate_permalink!
-        end
-        
-        # When a permalink changes, permalinks for child pages also need to be updated
-        def update_child_permalinks
-          self.children.each do |child|
-            child.regenerate_permalink_foo
-            child.save!
-          end
-        end
-        
-      protected
-        def fill_in_slug_and_permalink
-          self.slug = self.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if self.slug.blank? && respond_to?(:title) && !self.title.blank?
-          regenerate_permalink
-        end
-        
-        def regenerate_permalink
-          regenerate_permalink! if permalink.blank? || slug_changed? || (respond_to?(:parent_id) && parent_id_changed?)
-        end
-        
         def regenerate_permalink!
           
           self.permalink = if respond_to?(:parent)
@@ -64,6 +40,27 @@ module Breeze
           end
                     
         end
+        
+        # When a permalink changes, permalinks for child pages also need to be updated
+        def update_child_permalinks
+          if respond_to?(:children)
+            self.children.each do |child|
+              child.regenerate_permalink!
+              child.save!
+            end
+          end
+        end
+        
+      protected
+        def fill_in_slug_and_permalink
+          self.slug = self.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if self.slug.blank? && respond_to?(:title) && !self.title.blank?
+          regenerate_permalink
+        end
+        
+        def regenerate_permalink
+          regenerate_permalink! if permalink.blank? || slug_changed? || (respond_to?(:parent_id) && parent_id_changed?)
+        end
+        
       end
     end
   end

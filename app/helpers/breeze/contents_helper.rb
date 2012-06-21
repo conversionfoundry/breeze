@@ -101,7 +101,7 @@ module Breeze
     end
         
     # First stab at a Twitter Bootstrap compatible navigation menu
-    # TODO: Decide whether to do this sort of thing.
+    # TODO: Abstract out code shared with normal navigation
     # Arguments:
     # :level => [1,2,3] (level one appears on all pages, 2 only on level a pages, 3 on level 2 pages, etc.)
     # :recurse => [true/false,:active,numeric] (level one appears on all pages, 2 only on level a pages, 3 on level 2 pages, etc.)
@@ -196,9 +196,9 @@ module Breeze
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
                 classes << "dropdown" if p.children.length > 0
+                classes << 'level-' + level.to_s
               end.join(" ")
             end
-            
             
             str << content_tag(:li, link.html_safe, li_options)
           end
@@ -213,6 +213,27 @@ module Breeze
       
     end
     
+    def breadcrumb
+      str = '<ul class="breadcrumb"'            
+      ancestry = page.self_and_ancestors
+      ancestry.each do |ancestor|
+        
+        str << '<span class="divider">/</span>' unless ancestor == ancestry.first
+        
+        link = link_to(ancestor.title, ancestor.permalink, html_options = {})
+        
+        if ancestor == page
+          li_options = {:class => 'active'}
+        else
+          li_options = {}
+        end
+        
+        str << content_tag(:li, link.html_safe, li_options)
+      end
+      
+      str << '</ul>'
+      str.html_safe
+    end
     
   end
 end

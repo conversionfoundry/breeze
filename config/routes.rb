@@ -81,7 +81,7 @@ Breeze::Engine.routes.draw do
     root :to => "dashboards#show"
   end
   
-  match "stylesheets/*path", :to => "stylesheets#show", :format => false
+  # match "stylesheets/*path", :to => "stylesheets#show", :format => false
   root :to => "contents#show"
   #match "breeze/*path", :to => "static_files#serve"
   match "*path" => "contents#show", :format => false

@@ -21,6 +21,7 @@ module Breeze
       
       def populate(content, controller, request)
         #binding.pry
+        # TODO: dup breaks in some combination of recent ruby, rails and Mongoid
         dup.tap do |view|
           view.content, view.controller, view.request = content, controller, request
         end
