@@ -855,8 +855,8 @@ form.folder {
   -webkit-transition: background-color 0.15s ease-in;
 }
 
-#assets .image .links a.edit { background-image: url(../images/icons/picture-edit.png); }
-#assets .image .links a.delete { background-image: url(../images/icons/delete.png); }
+#assets .image .links a.edit { background-image: url(<%= image_path "icons/picture-edit.png" %>); }
+#assets .image .links a.delete { background-image: url(<%= image_path "icons/delete.png" %>); }
 
 #assets .image .links a:hover { background-color: white; }
 
@@ -885,17 +885,17 @@ form.folder {
   height: 48px;
   padding-left: 48px;
   width: 152px;
-  background: url(../images/icons/mime/any.png) no-repeat 0px 50%;
+  background: url(<%= image_path "icons/mime/any.png" %>) no-repeat 0px 50%;
 }
 
-#assets .asset-assets .pdf .icon { background-image: url(../images/icons/mime/pdf.png); }
+#assets .asset-assets .pdf .icon { background-image: url(<%= image_path "icons/mime/pdf.png" %>); }
 #assets .asset-assets .doc .icon,
-#assets .asset-assets .txt .icon { background-image: url(../images/icons/mime/text.png); }
-#assets .asset-assets .xls .icon { background-image: url(../images/icons/mime/spreadsheet.png); }
+#assets .asset-assets .txt .icon { background-image: url(<%= image_path "icons/mime/text.png" %>); }
+#assets .asset-assets .xls .icon { background-image: url(<%= image_path "icons/mime/spreadsheet.png" %>); }
 #assets .asset-assets .mov .icon,
 #assets .asset-assets .flv .icon,
 #assets .asset-assets .wmv .icon,
-#assets .asset-assets .m4v .icon { background-image: url(../images/icons/mime/video.png); }
+#assets .asset-assets .m4v .icon { background-image: url(<%= image_path "icons/mime/video.png" %>); }
 
 #assets .asset-assets .asset .links {
   top: 64px;
@@ -917,9 +917,9 @@ form.folder {
   background-position: 0px 0px;
 }
 
-#assets .asset-assets .asset .links a.view { background-image: url(../images/icons/download.png); }
-#assets .asset-assets .asset .links a.edit { background-image: url(../images/icons/asset-edit.png); }
-#assets .asset-assets .asset .links a.delete { background-image: url(../images/icons/delete.png); }
+#assets .asset-assets .asset .links a.view { background-image: url(<%= image_path "icons/download.png" %>); }
+#assets .asset-assets .asset .links a.edit { background-image: url(<%= image_path "icons/asset-edit.png" %>); }
+#assets .asset-assets .asset .links a.delete { background-image: url(<%= image_path "icons/delete.png" %>); }
 
 #uploaderUploader {
   margin: 5px 0px 0px 5px;
@@ -1123,12 +1123,12 @@ ul.log-messages li .message {
   background-repeat: no-repeat;
 }
 
-ul.log-messages li.create.page .message { background-image: url(/breeze/images/log/page_add.png); }
-ul.log-messages li.delete.page .message { background-image: url(/breeze/images/log/page_delete.png); }
-ul.log-messages li.update.page .message { background-image: url(<%= asset_path '/assets/breeze/log/page_edit.png' %>); }
-ul.log-messages li.create.navigation_item .message { background-image: url(/breeze/images/log/page_add.png); }
-ul.log-messages li.delete.navigation_item .message { background-image: url(/breeze/images/log/page_delete.png); }
-ul.log-messages li.update.navigation_item .message { background-image: url(<%= asset_path '/assets/breeze/log/page_edit.png' %>); }
+ul.log-messages li.create.page .message { background-image: url(<%= image_path "log/page_add.png" %>); }
+ul.log-messages li.delete.page .message { background-image: url(<%= image_path "log/page_delete.png" %>); }
+ul.log-messages li.update.page .message { background-image: url(<%= image_path "log/page_edit.png" %>); }
+ul.log-messages li.create.navigation_item .message { background-image: url(<%= image_path "log/page_add.png" %>); }
+ul.log-messages li.delete.navigation_item .message { background-image: url(<%= image_path "log/page_delete.png" %>); }
+ul.log-messages li.update.navigation_item .message { background-image: url(<%= image_path "log/page_edit.png" %>); }
 
 #recent-activity {
   position: relative;
