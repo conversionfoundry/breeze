@@ -29,7 +29,7 @@ module Breeze
       
       def to_erb(view)
         unless content.nil?
-          "<div class=\"breeze-content #{content.html_class} content_#{content.id}#{" shared" if shared?}\" id=\"content_#{id}\">#{content.to_erb(view)}</div>"
+          "<div class=\"breeze-content #{content.html_class} content_#{content.new? ? "new" : content.id}#{" shared" if shared?}\" id=\"content_#{content.new? ? "new" : id}\">#{content.to_erb(view)}</div>"
         end
       end
       
