@@ -1,4 +1,4 @@
-<div class="add-content-tabs">
+<div class="add-content-tabs scrollable">
   <ul>
     <li><a href="#add-existing-content">Existing content</a></li>
     <li><a href="#add-new-content">New content</a></li>
@@ -18,6 +18,7 @@
   </div>
   <div id="add-new-content">
     <%= breeze_form_for @content, :as => :content, :url => admin_contents_path(:format => :js), :remote => true do |form| %>
+      <div class="scrollable">
       <%= form.hidden_field :container_id %>
       <%= form.hidden_field :region %>
       <%= form.hidden_field :view %>
@@ -30,6 +31,8 @@
       <%= content_tag :div, :class => "content-form" do %>
         <%= edit_form_for form %>
       <% end %>
+    </div>
+    <div class="buttons-panel"><a class="small green ok button">OK</a><a class="small black cancel button">Cancel</a></div>
     <% end %>
   </div>
 </div>

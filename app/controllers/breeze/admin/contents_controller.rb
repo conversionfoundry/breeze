@@ -45,7 +45,6 @@ module Breeze
       def add
         @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
         @container ||= Breeze::Content::Item.find(@content.container_id) if @content.container_id
-        binding.pry
         @placement = @container.placements.new(:region => @content.region, :view => @content.view || "default", :position => nil, :content => @content)
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end

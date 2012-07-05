@@ -1,6 +1,6 @@
 <% if @content.errors.empty? %>
     $('.editor-panel').removeClass('active');
-    $('.editor-panel .scrollable').empty()
+    $('.editor-panel').empty()
   $('#<%= @placement.region %>_region').append('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
   $('body').breeze('addContentControls', '#content_<%= @placement.id %>');
 <% else %>

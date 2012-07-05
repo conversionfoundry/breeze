@@ -1,4 +1,5 @@
   <%# TODO: render using correct view %>
   <%# TODO: update other instances of the same content (different placement IDs) %>
+  $('#content_new.breeze-content').remove();
   $('#content_<%= @placement.id %>').replaceWith('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
 

@@ -571,9 +571,11 @@ font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   bottom: 0px;
   height: 40px;
   a.button.ok {
+    margin: 8px;
     float: right;
   }
   a.button.cancel {
+    margin: 8px;
   }
 }
 
@@ -583,6 +585,10 @@ font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 
 .breeze-editing .editor-panel {
   display: block;
+}
+
+.website-panel {
+  -webkit-transition: margin-left 0.25s ease-in;
 }
 
 .breeze-editing .website-panel {

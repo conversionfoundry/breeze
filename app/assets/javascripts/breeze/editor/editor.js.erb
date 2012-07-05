@@ -16,22 +16,27 @@
       this._augmentRegions();
       this.editing(this.editing());
 
-      $('.editor-panel .buttons-panel a.ok.button').click(function() {
+      $('.editor-panel .buttons-panel a.ok.button').live('click', function() {
         $editor = $(this).closest('.editor-panel');
         $('form:visible', $editor).trigger('submit');
       });
 
-      $('.editor-panel .buttons-panel a.cancel.button').click(function() {
+      $('.editor-panel .buttons-panel a.cancel.button').live('click', function() {
         var $form = $(this).closest('.editor-panel').find('form:visible');
-        var href = $form.attr('action').replace('.js', '/live.js');
-        var id = $form.attr('action').replace('/admin/contents/', '').replace('.js', '');
-        $.ajax({
-          url: href,
-          success: function(data) {
-            $('body').breeze('addContentControls', '#content_' + id);
-          }
-        });
-        $('.editor-panel').removeClass('active').find('.scrollable').empty();
+        var isNew = $form.is('#new_content');
+        if (isNew) {
+          $('#content_new.breeze-content').remove();
+        } else {
+          var href = $form.attr('action').replace('.js', '/live.js');
+          var id = $form.attr('action').replace('/admin/contents/', '').replace('.js', '');
+          $.ajax({
+            url: href,
+            success: function(data) {
+              $('body').breeze('addContentControls', '#content_' + id);
+            }
+          });
+        }
+        $('.editor-panel').removeClass('active').empty();
       });
       
       $('body.breeze-editing .breeze-region-label>a.breeze-add-content').live('click', function() {
@@ -281,7 +286,7 @@
     _openEditorPanel: function(path, options) {
       var breeze = this;
       $.get(path, function(data) {
-        $dialog = $('.editor-panel .scrollable');
+        $dialog = $('.editor-panel');
         $dialog.html(data);
         $('.editor-panel').addClass('active');
         
@@ -304,22 +309,39 @@
       $('textarea.markup', dialog).marquess({
         preview: false
       });
+
       // for live editing
-      $(':input:visible', dialog).blur(function(e) {
-        var $form = $(this).closest('form');
-        var href = $form.attr('action').replace('.js', '/live.js');
+
+      var typingTimer;                //timer identifier
+      var doneTypingInterval = 1000;  //time in ms, 5 second for example
+      var $form = $('form.content', dialog);
+      var isNew = $form.is('#new_content');
+
+      //on keyup, start the countdown
+      $(':input:visible').keyup(function(){
+        clearTimeout(typingTimer);
+        if ($(this).val) {
+          typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        }
+      });
+
+      //user is "finished typing," do something
+      function doneTyping () {
+        //var $form = $(this).closest('form');
+        var href = $form.attr('action').replace('.js', isNew ? '/add.js' : '/live.js');
         $.ajax({
           url: href,
           data: $form.serialize(),
           success: function(data) {
           }
         });
-      });
+      }
 
       $(':input:visible', dialog).eq(0).each(function() { this.focus(); });
     },
     new_content_panel_open: function(panel, url) {
       var breeze = this;
+      $('#content_new.breeze-content').remove();
       $('.add-content-tabs', panel).tabs({
         selected: 1,
         select: function(e, ui) {
