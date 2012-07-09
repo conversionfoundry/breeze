@@ -50,7 +50,8 @@ module Breeze
       end
       
       def duplicate
-        @old_placement, @placement = @placement, @placement.duplicate.unlink!
+        pry
+        @old_placement, @placement = @placement, @placement.duplicate(@container).unlink!
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
       
