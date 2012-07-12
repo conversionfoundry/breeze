@@ -32,8 +32,8 @@ module Breeze
         end
       
         if admin_signed_in? && !request.xhr? && view && view.respond_to?(:editor_html)
-          response.body = response.body.sub "<body>", "<body><div class='editor-panel'>&nbsp;</div><div class='website-panel'>"
-          response.body = response.body.sub"</body>", "</div></body>"
+          response.body = response.body.sub /(<body[^>]*>)/, "#{$1}<div class='editor-panel'>&nbsp;</div><div class='website-panel'>"
+          response.body = response.body.sub /(?=<\/body>)/, "</div>"
           response.body = response.body.sub /(?=<\/body>)/, view.editor_html
         end
       end
