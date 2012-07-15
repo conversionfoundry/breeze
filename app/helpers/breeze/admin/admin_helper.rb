@@ -40,7 +40,7 @@ module Breeze
         menu << { :name => "Settings",  :path => admin_settings_path } if current_user.admin?
         
         menu = Breeze.run_hook :admin_menu, menu, current_user
-        
+                        
         ordering = current_user.menu_order || []
         menu = menu.sort_by { |item| ordering.index(item[:name]) || 999999 }
         
@@ -51,6 +51,7 @@ module Breeze
         content_tag :ul, items, :class => "menu"
       end
     
+      # Absurd code by Matt. This produces two methods: breeze_form_for and breeze_field_for
       [:form_for, :fields_for].each do |meth|
         src = <<-END_SRC
           def breeze_#{meth}(record_or_name_or_array, *args, &proc)
