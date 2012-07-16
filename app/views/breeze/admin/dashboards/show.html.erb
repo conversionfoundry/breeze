@@ -4,9 +4,12 @@
   <% tabs.activity :title => "Recent activity" do %>
     <%= scrollable_layout do %>
       <h1>Recent activity</h1>
-      <div id="recent-activity">
-        
-      </div>
+      <div id="recent-activity"></div>
+      <h1>Site Status</h1>
+      <ul class="version_numbers"
+        <li>Breeze Version <%= Breeze::VERSION %></li>
+      </ul>
+      <%# TODO: Add hook for Breeze module versions %>
     <% end %>
   <% end %>
 <% end %>
