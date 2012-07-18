@@ -560,7 +560,41 @@ font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background-color: #f2f2f2;
+  color: #f2f2f2;
+  background-color: #404040;
+  border-right: solid 2px black;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 13px;
+}
+.editor-help {
+  padding: 5em;
+}
+.add-content-tabs,
+.edit-content-tabs {
+  margin: 1em;
+  min-height: 100px;
+  position: relative;
+}
+.add-content-tabs h2,
+.edit-content-tabs h2 {
+  margin: 0 10px 0 10px;
+  line-height: 40px;
+  vertical-align: middle;
+  color: #404040;
+  text-transform: uppercase;
+  text-shadow: rgba(0, 0, 0, 0.25) 0px -1px;
+  font-size: 150%;
+}
+.add-content-tabs .breeze-form,
+.edit-content-tabs .breeze-form {
+  padding-bottom: 40px;
+}
+.edit-content-tabs ol.form {
+  margin: 0;
+}
+.editor-panel  .ui-tabs-panel {
+  display: block;
+  position: relative;
 }
 
 .editor-panel .buttons-panel {
