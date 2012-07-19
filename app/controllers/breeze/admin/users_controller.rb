@@ -19,6 +19,10 @@ module Breeze
       
       def edit
       end
+
+      def destroy
+        @user.destroy
+      end
       
       def update
         params[:user] ||= {}
