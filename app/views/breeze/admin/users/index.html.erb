@@ -15,9 +15,30 @@
     <% end %>
     <% left.inner do %>
       <%= content_tag :div, :id => :users do %>
-        <%= content_tag :ul do %>
-          <%= render :partial => "breeze/admin/users/user", :collection => @users %>
+        <% unless @admins and @admins.empty? %>
+          <h3>Admins</h3>
+          <%= content_tag :ul, :id => :admins do %>
+            <%= render :partial => "breeze/admin/users/user", :collection => @admins %>
+          <% end %>
         <% end %>
+
+        <% unless @designers and @designers.empty? %>
+          <h3>Designers</h3>
+          <%= content_tag :ul, :id => :designers do %>
+            <%= render :partial => "breeze/admin/users/user", :collection => @designers %>
+          <% end %>
+        <% end %>
+
+        <% unless @editors and @editors.empty? %>
+          <h3>Editors</h3>
+          <%= content_tag :ul, :id => :editors do %>
+            <%= render :partial => "breeze/admin/users/user", :collection => @editors %>
+          <% end %>
+        <% end %>
+
+        <%# content_tag :ul do %>
+          <%# render :partial => "breeze/admin/users/user", :collection => @users %>
+        <%# end %>
       <% end %>
     <% end %>
   <% end %>
