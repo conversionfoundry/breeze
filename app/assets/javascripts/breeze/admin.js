@@ -36,6 +36,9 @@ $(function() {
     return false;
   });
   
+
+  
+  // Show a brief message at the top of the screen.
   $.flashMessage = function(message, options) {
     options = options || {}
     $('#flash .flash .close').click();
@@ -49,6 +52,8 @@ $(function() {
     $(this).closest('.flash').slideUp('fast', function() { $(this).remove(); });
     return false;
   });
+
+
   
   $('#left .sliding .pages').each(function() {
     var pages = $(this).find('.page');

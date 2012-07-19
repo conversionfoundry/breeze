@@ -27,7 +27,9 @@
         <%= admin_menu %>
       </div>
     </div>
-    <%= content_tag :div, flash_messages, :id => "flash" %>
+    <%# content_tag :div, flash_messages, :id => "flash" %>
+    <div id="flash"></div>
+    <%= flash_messages %>
     <%= content_tag :div, :id => :main, :class => "#{'no-sidebar' unless content_for?(:right)}" do %>
       <%= yield %>
       <%= content_tag :div, :class => "fake-right-sidebar" if content_for?(:fake_right_sidebar) %>

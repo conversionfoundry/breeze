@@ -1,11 +1,18 @@
 module Breeze
   module Admin
     module AdminHelper
+      
+      # Send flash messages to the JavaScript function $.flashMessage(), defined in admin.js
+      # TODO: depending on flash message type, leave some messages ons creen to be dismissed, let others disappear afer a few seconds
       def flash_messages
         if flash.any?
-          flash.to_a.map { |key, message|
-            content_tag :div, (message + '<a href="#" class="close">&times;</a>').html_safe, :class => "flash #{key}"
+          
+          message_content = flash.to_a.map { |key, message|
+            message.html_safe
           }.join.html_safe
+
+          javascript_tag "$(document).ready(function() { $.flashMessage('" + message_content + "', { auto: true }); });"
+
         end
       end
   

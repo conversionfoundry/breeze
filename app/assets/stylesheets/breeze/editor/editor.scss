@@ -1,0 +1,641 @@
+/* TODO: scope this so it only applies to our stuff */
+@import url(/cached/breeze/ui-theme.css);
+@import url(/cached/breeze/forms.css);
+
+/* Override Twitter Bootstrap Styles */
+#breeze-toolbar .breeze-toolbar-item label {
+  float: none;
+  width: auto;
+  text-align: left;
+  padding: 0;
+}
+#breeze-toolbar input,
+#breeze-toolbar select {
+  height: inherit;
+  line-height: inherit;
+  padding: 0;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* Toolbar {{{ */
+
+#breeze-toolbar {
+  text-align: left;
+  position: fixed;
+  left: 50%;
+  width: 512px;
+  margin-left: -256px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 2px solid #eee;
+  z-index: 50;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 4px;
+}
+
+#breeze-toolbar.top {
+  border-top: none;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
+}
+
+#breeze-toolbar.bottom {
+  border-bottom: none;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
+}
+
+#breeze-toolbar * {
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 13px !important;
+  color: white !important;
+}
+
+#breeze-toolbar input,
+#breeze-toolbar select {
+  color: black !important;
+}
+
+.breeze-toolbar-item {
+  float: left;
+  margin: 8px 0px 4px 0px;
+  padding: 0px 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.breeze-toolbar-item:last-child {
+  border: none;
+}
+
+#breeze-toolbar .breeze-toolbar-item label {
+  display: block;
+  font-size: 11px !important;
+  line-height: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 2px;
+  text-shadow: black 0px 1px;
+}
+
+#breeze_template,
+#breeze_view {
+  width: 128px;
+}
+
+#breeze-toolbar .breeze-toolbar-buttons a {
+  float: left;
+  width: 30px;
+  height: 30px;
+  background: url(editor-icons.png) no-repeat 32px -1px;
+  border: 1px solid transparent;
+  opacity: 0.25;
+  text-decoration: none;
+  text-indent: -100em;
+  overflow: hidden;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-transition: opacity 0.12s ease-in;
+}
+
+#breeze-toolbar a.breeze-toolbar-edit-button { background-position: -1px -1px; }
+#breeze-toolbar a.breeze-toolbar-position-button { background-position: -33px -1px; }
+#breeze-toolbar.bottom a.breeze-toolbar-position-button { background-position: -65px -1px; }
+#breeze-toolbar a.breeze-admin-button { background-position: -97px -1px; }
+
+#breeze-toolbar .breeze-toolbar-buttons a:hover {
+  opacity: 0.75;
+}
+
+#breeze-toolbar .breeze-toolbar-buttons a.active {
+  border-color: #666;
+  opacity: 1.0;
+  background-color: rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: inset black 0px 1px 2px;
+}
+
+/* }}} */
+
+/* Editable regions {{{ */
+
+.breeze-editable-region {
+  position: relative;
+  -webkit-transition-property: background, margin, padding, min-height, -webkit-box-shadow;
+  -webkit-transition-duration: 0.25s;
+  -webkit-transition-timing-function: ease-in;
+}
+
+body.breeze-editing .breeze-editable-region {
+  min-height: 64px;
+  margin: -8px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 8px;
+  -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-border-radius: 8px;
+  -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
+body.breeze-editing .breeze-editable-region.hover {
+  -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 4px, #8dc63f 0px 0px 6px;
+  -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 4px, #8dc63f 0px 0px 6px;
+}
+
+body.breeze-editing .breeze-editable-region>:last-child:after {
+  display: block;
+  content: '.';
+  height: 0px;
+  overflow: hidden;
+  clear: both;
+}
+
+.breeze-editable-region .breeze-region-label {
+  display: none;
+  opacity: 0.0;
+  position: absolute;
+  left: 0px;
+  top: -24px;
+  font: normal 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  line-height: 20px;
+  height: 20px;
+  vertical-align: top !important;
+  padding: 0px 0px 0px 8px;
+  z-index: 50;
+  text-shadow: black 0px 1px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+body.breeze-editing .breeze-editable-region .breeze-region-label {
+  display: block;
+  opacity: 1.0;
+}
+
+.breeze-editable-region .breeze-region-label:after {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+  border-top: 8px solid rgba(0, 0, 0, 0.5);
+  border-right: 8px solid transparent;
+  content: ".";
+}
+
+.breeze-editable-region.hover .breeze-region-label { background: rgba(0, 0, 0, 0.75); }
+.breeze-editable-region.hover .breeze-region-label:after { border-top-color: rgba(0, 0, 0, 0.75); }
+
+.breeze-editable-region .breeze-region-label strong {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.breeze-editable-region .breeze-region-label a {
+  display: inline-block;
+  font-weight: bold;
+  line-height: 20px;
+  height: 20px;
+  width: 18px;
+  padding-left: 4px;
+  margin-left: 4px;
+  text-decoration: none;
+  text-indent: -100em;
+  overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  background: url(editor-icons.png) no-repeat 0px -32px;
+  cursor: pointer;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.12s ease-in;
+}
+
+body.breeze-editing .breeze-editable-region .breeze-region-label a:hover {
+  opacity: 1.0;
+}
+
+/* }}} */
+
+/* Editable content {{{ */
+
+body.breeze-editing .breeze-content {
+  position: relative;
+  cursor: move;
+  /* min-height: ; */
+}
+
+body.breeze-editing .ui-sortable-helper {
+}
+
+body.breeze-editing .breeze-content-placeholder {
+  background: rgba(0, 0, 0, 0.25);
+  margin: 0px -4px;
+  padding: 4px;
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: inset rgba(0, 0, 0, 0.25) 0px 1px 4px;
+}
+
+body.breeze-editing .breeze-content .breeze-content-controls {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 60px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.75);
+  -webkit-transition: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+body.breeze-editing .breeze-content .breeze-content-controls a {
+  display: block;
+  float: left;
+  width: 20px;
+  height: 20px;
+  background: url(editor-icons.png) no-repeat 20px 20px;
+  text-decoration: none;
+  text-indent: -100em;
+  overflow: hidden;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.25s ease-in;
+}
+
+body.breeze-editing .breeze-content .breeze-content-controls a:hover { opacity: 1.0; }
+
+body.breeze-editing .breeze-content .breeze-content-controls a.edit      { background-position: -20px -32px; }
+body.breeze-editing .breeze-content .breeze-content-controls a.duplicate { background-position: -40px -32px; }
+body.breeze-editing .breeze-content .breeze-content-controls a.delete    { background-position: -60px -32px; }
+
+body.breeze-editing .breeze-content.hover {
+  background: rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+body.breeze-editing .breeze-content>* {
+  opacity: 1.0;
+  min-height: 20px;
+  -webkit-transition: opacity 0.25s ease-in;
+}
+
+body.breeze-editing .breeze-content.hover>* {
+  opacity: 0.75;
+}
+
+.rendering-error {
+  font-family: Monaco, monospace;
+	background-color: rgba(237, 28, 36, 0.25);
+	border: 2px solid #ed1c24;
+	padding: 6px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
+.rendering-error h3 {
+  font-size: 125%;
+}
+/*}}}*/
+
+/* Dialogs {{{ */
+
+#breeze-spinner {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin: -64px 0px 0px -64px;
+  width: 128px;
+  height: 128px;
+  background: black image-url('loading-huge-fff-000.gif') no-repeat 50% 50%;
+  opacity: 0.75;
+  -webkit-border-radius: 24px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px;
+}
+
+.ui-dialog-content * {
+  color: #222;
+}
+
+.ui-dialog-content .ui-tabs {
+  margin-top: -39px;
+  background: none;
+}
+
+.ui-dialog-content .ui-tabs .ui-tabs-nav {
+  padding-right: 4px;
+  background: none;
+}
+
+.ui-dialog-content .ui-tabs .ui-tabs-nav li {
+  float: right;
+}
+
+.ui-dialog .breeze-form fieldset.content-types,
+.ui-dialog .breeze-form fieldset.search {
+  background: #ccc;
+  margin: 8px 0px;
+  padding: 8px 8px 0px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
+.ui-dialog .breeze-form fieldset.search {
+  padding-bottom: 8px;
+}
+
+.ui-dialog .breeze-search-results {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.ui-dialog .breeze-search-results>ol>li {
+  list-style: none;
+  display: block;
+  position: relative;
+  border-top: 1px solid #aaa;
+  padding: 8px 96px 8px 0px;
+  min-height: 48px;
+}
+
+.ui-dialog .breeze-search-results>ol>li .insert-content-button {
+  position: absolute;
+  right: 0px;
+  top: 8px;
+}
+
+.ui-dialog .breeze-search-results p.empty {
+  line-height: 5em;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.ui-dialog .update-all {
+  margin: 8px 0px;
+  padding: 7px 7px 0px;
+  background: rgba(255, 255, 192, 0.75);
+  text-shadow: #ffc 0px 1px;
+  border: 1px solid #ffc;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+.ui-dialog .update-all label {
+  font-weight: bold;
+}
+
+.ui-dialog .instances ul {
+  margin: 0px 0px 7px;
+}
+
+.ui-dialog .instances ul li {
+  list-style: none;
+  display: block;
+  padding-left: 20px;
+  background: url(images/page.png) no-repeat 0px 0px;
+  line-height: 18px;
+  vertical-align: middle;
+}
+
+.ui-dialog .instances ul li small {
+  
+}
+
+.ui-dialog #uploaderUploader {
+  position: absolute;
+  right: 0px;
+  top: 3px;
+}
+
+.ui-dialog .image_field .browse {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #eee url(/breeze/javascripts/marquess/marquess-toolbar.png) no-repeat 0px -112px;
+  border: 4px solid #eee;
+  text-indent: -100em;
+  overflow: hidden;
+  text-decoration: none;
+  margin-left: 8px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
+.image-editor h3 {
+font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+#marquess_link_select {
+  margin-left: 25%;
+}
+
+#marquess_link_select ul {
+  margin: 0px;
+}
+
+#marquess_link_select li {
+  display: block;
+  margin: 0px;
+  list-style: none;
+  padding: 0px 0px 0px 18px;
+  line-height: 18px;
+  vertical-align: middle;
+  background: url(/breeze/javascripts/jstree/themes/breeze/icons.png) no-repeat 0px 20px;
+}
+
+#marquess_link_select li.open   { background-position: -54px -72px; }
+#marquess_link_select li.closed { background-position: -72px -54px; }
+
+#marquess_link_select li a {
+  display: block;
+  padding-left: 24px;
+  position: relative;
+  line-height: 18px;
+  vertical-align: middle;
+}
+
+#marquess_link_select li ins {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  background: url(/breeze/javascripts/jstree/themes/breeze/icons.png) no-repeat -18px 0px;
+}
+
+#marquess_link_select li.closed ul { display: none; }
+
+.marquess-image-dialog .folders-container {
+  width: 100%;
+  height: 256px;
+  overflow-x: scroll;
+  margin: -9px 0px 0px 0px;
+  padding: 0px;
+  border: 1px solid #999;
+}
+
+.marquess-image-dialog .folders-container .folders {
+  height: 240px;
+}
+
+.marquess-image-dialog .folders-container .folders ul {
+  float: left;
+  overflow-y: scroll;
+  min-width: 200px;
+  height: 240px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.marquess-image-dialog .folders-container .folders ul li,
+.marquess-image-dialog .folders-container .folders ul li span {
+  margin: 0px;
+  padding: 0px 24px 0px 0px;
+  display: block;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.marquess-image-dialog .folders-container .folders ul li.folder span {
+  font-weight: bold;
+  padding: 0px 0px 0px 24px;
+  background: url(/breeze/editor/images/image-browser.png) no-repeat 0px -40px;
+}
+
+.marquess-image-dialog .folders-container .folders ul li.image span {
+  padding: 0px 0px 0px 24px;
+  background: url(/breeze/editor/images/image-browser.png) no-repeat -20px -20px;
+}
+
+.marquess-image-dialog .folders-container .folders ul li.folder {
+  background: url(/breeze/editor/images/image-browser.png) no-repeat 100% 0px;
+}
+
+.marquess-image-dialog .folders-container .folders ul li.selected {
+  background-color: #ccc;
+}
+
+.marquess-image-dialog .image-info {
+  float: left;
+  width: 200px;
+  position: relative;
+  text-align: center;
+  height: 240px;
+  overflow: auto;
+}
+
+.marquess-image-dialog .image-info img {
+  float: none;
+  display: block;
+  margin: 16px auto 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
+
+.marquess-image-dialog .image-info strong,
+.marquess-image-dialog .image-info small {
+  display: block;
+  text-align: center;
+}
+
+/* }}} */
+
+.editor-panel {
+  display: none;
+  float: left;
+  width: 400px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  color: #f2f2f2;
+  background-color: #404040;
+  border-right: solid 2px black;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 13px;
+}
+.editor-help {
+  padding: 5em;
+}
+.add-content-tabs,
+.edit-content-tabs {
+  margin: 1em;
+  min-height: 100px;
+  position: relative;
+}
+.add-content-tabs h2,
+.edit-content-tabs h2 {
+  margin: 0 10px 0 10px;
+  line-height: 40px;
+  vertical-align: middle;
+  color: #404040;
+  text-transform: uppercase;
+  text-shadow: rgba(0, 0, 0, 0.25) 0px -1px;
+  font-size: 150%;
+}
+.add-content-tabs .breeze-form,
+.edit-content-tabs .breeze-form {
+  padding-bottom: 40px;
+}
+.edit-content-tabs ol.form {
+  margin: 0;
+}
+.editor-panel  .ui-tabs-panel {
+  display: block;
+  position: relative;
+}
+
+.editor-panel .buttons-panel {
+  display: none;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 40px;
+  a.button.ok {
+    margin: 8px;
+    float: right;
+  }
+  a.button.cancel {
+    margin: 8px;
+  }
+}
+
+.editor-panel.active .buttons-panel {
+  display: block;
+}
+
+.breeze-editing .editor-panel {
+  display: block;
+}
+
+.website-panel {
+  -webkit-transition: margin-left 0.25s ease-in;
+}
+
+.breeze-editing .website-panel {
+  margin-left: 400px;
+}
+
+.scrollable {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 40px;
+  overflow: auto;
+  padding: 8px;
+}
+
