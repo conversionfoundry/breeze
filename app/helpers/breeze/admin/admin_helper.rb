@@ -57,6 +57,12 @@ module Breeze
         
         content_tag :ul, items, :class => "menu"
       end
+
+      def component_info
+        component_info = []
+        component_info << {:name => 'Breeze', :version => Breeze::VERSION }
+        component_info = Breeze.run_hook :component_info, component_info
+      end
     
       # Absurd code by Matt. This produces two methods: breeze_form_for and breeze_field_for
       [:form_for, :fields_for].each do |meth|

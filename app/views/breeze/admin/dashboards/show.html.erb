@@ -5,9 +5,11 @@
     <%= scrollable_layout do %>
       <h1>Recent activity</h1>
       <div id="recent-activity"></div>
-      <h1>Site Status</h1>
-      <ul class="version_numbers"
-        <li>Breeze Version <%= Breeze::VERSION %></li>
+      <h1>Breeze Components</h1>
+      <ul class="components">
+        <% component_info.each do |component| %>
+          <li><%= component[:name] %>: <%= component[:version] %></li>
+        <% end %>
       </ul>
       <%# TODO: Add hook for Breeze module versions %>
     <% end %>
