@@ -20,7 +20,7 @@ module Breeze
           "".tap do |str|
             placements.for(:view => view).group_by(&:region).each do |region, placements|
               str << "<%= content_for_region :#{region.to_sym} do %>\n"
-              logger.debug(self).red
+              logger.debug(self)
               placements.each do |placement|
                 str << placement.to_erb(view)
               end

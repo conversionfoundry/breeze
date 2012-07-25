@@ -1,6 +1,6 @@
 <%= content_tag :tr, :id => dom_id(redirect) do %>
-  <td><%= redirect.permalink %></td>
-  <td><%= redirect.target %></td>
+  <td><%= link_to redirect.permalink, redirect.permalink %></td>
+  <td><%= link_to redirect.targetlink, redirect.targetlink %></td>
   <td><%= Breeze::Content::Redirect::KINDS[redirect.kind] %></td>
   <td><%= link_to "&times;".html_safe, admin_redirect_path(redirect, :js), :method => :delete, :remote => true %></td>
 <% end %>

@@ -50,6 +50,11 @@ module Breeze
             end
           end
         end
+
+        def redirects
+          Breeze::Content::Redirect.where(:targetlink => permalink)
+        end
+
         
       protected
         def fill_in_slug_and_permalink

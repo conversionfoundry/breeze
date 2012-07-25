@@ -1,5 +1,5 @@
 <% if @redirect.errors.empty? %>
-  $('table.redirects tbody').append('<%= escape_javascript render("redirect", :redirect => @redirect) %>');
+  $('table.redirects tbody').append('<%= escape_javascript render("/breeze/admin/redirects/redirect", :redirect => @redirect) %>');
   $('#redirect_permalink, #redirect_target').val('').siblings('.inline-errors').remove();
   $('#redirect_permalink')[0].focus();
 <% else %>

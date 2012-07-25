@@ -5,3 +5,13 @@
   <%= form.text_area :seo_meta_description, :rows => 3 %>
   <%= form.text_area :seo_meta_keywords, :rows => 3 %>
 <% end %>
+
+<%# TODO: Edit redirects here. %>
+<%= form.fieldset :legend => "Redirects" do %>
+  <p>These URLs will also link to this page <p>
+  <ul>
+	  <% form.object.redirects.each do |redirect| %>
+      <li><%= link_to redirect.permalink, redirect.permalink %></li>
+	  <% end %>
+	</ul>
+<% end %>
