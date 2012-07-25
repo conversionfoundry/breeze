@@ -20,8 +20,9 @@ module Breeze
       has_many_related :log_messages, :class_name => "Breeze::Admin::Activity::LogMessage"
     
       include Mixins::Login
+      
         
-      ROLES = [ :admin, :editor, :designer ]
+      ROLES = [ :editor, :designer, :admin ]
       
       def name
         @name ||= display_name.blank? ? [ first_name, last_name ].compact.join(" ") : display_name

@@ -20,6 +20,17 @@ module Breeze
         # Check engines for additional abilities
         Breeze.run_hook :define_abilities, user, self
       end
+
+      def self.role_description(role)
+        case role
+        when :admin
+          "can do all a designer can do, plus manage other users"
+        when :designer
+          "can do all an editor can do, plus work on themes and custom types"
+        else
+          "can work on content, pages and assets"
+        end
+      end
     end
   end
 end

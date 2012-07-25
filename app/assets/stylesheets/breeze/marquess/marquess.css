@@ -24,6 +24,7 @@
   padding: 4px;
   background: white;
   font: 13px Monaco, Courier, monospace;
+  resize: vertical;
 }
 
 .marquess-preview-pane {

@@ -15,7 +15,10 @@
   
   <%= form.fieldset :legend => "Roles" do %>
     <% Breeze::Admin::User.roles.each do |role, label| %>
-      <li class="checkbox"><%= check_box_tag "user[roles][]", role, @user.role?(role), :id => "user_roles_#{role}", :disabled => (@user == current_user && role == :admin) || cannot?(:assign_roles, @user) %> <%= label_tag "user_roles_#{role}", label %></li>
+      <li class="checkbox">
+        <%= check_box_tag "user[roles][]", role, @user.role?(role), :id => "user_roles_#{role}", :disabled => (@user == current_user && role == :admin) || cannot?(:assign_roles, @user) %> <%= label_tag "user_roles_#{role}", label %>
+        <%= Breeze::Admin::Ability.role_description(role) %>
+      </li>
     <% end %>
   <% end %>
 <% end %>
