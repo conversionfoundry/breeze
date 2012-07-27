@@ -28,6 +28,7 @@ module Breeze
         if (ssl? ^ request.ssl?) && !Rails.env.development?
           controller.send :redirect_to, "#{protocol}#{request.host}#{request.request_uri}"
         else
+          # This is where I'm getting the stack level too deep error: 26 July 2012
           super
         end
       end

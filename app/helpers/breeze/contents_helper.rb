@@ -28,6 +28,24 @@ module Breeze
     
     # Navigation Tag
     # Generates a simple ul structure of pages on the site
+    # Usage:
+    #    Standard one level navigation
+    # <%= navigation %>
+    #
+    # Embed second level within the first (good for hover menus)
+    # <%= navigation :recurse => true %>
+    #
+    # Embed second level within the first, only for active page
+    # <%= navigation :recurse => :active %>
+    #
+    # Duplicate the parent item at the front of the submenu, with a new name
+    # <%= navigation :recurse => :active, :home => "Overview" %>
+    #
+    # Splitting navigation into separate containers
+    # <%= navigation :level => 2 %>
+    # <%= navigation :level => 2, :home => "Overview" %>
+    # <%= navigation :level => 3 %> 
+    #    3rd level if need an so on…….
     def navigation(*args, &block)
       levels = { :primary => 1, :secondary => 2, :tertiary => 3 }
       options = args.extract_options!
@@ -82,10 +100,10 @@ module Breeze
             end
             
             recurse = case options[:recurse]
-            when true             then 1
-            when :active          then ancestry.include?(p) ? 1 : 0
-            when Numeric, /^\d+$/ then options[:recurse].to_i
-            else 0
+              when true             then 1
+              when :active          then ancestry.include?(p) ? 1 : 0
+              when Numeric, /^\d+$/ then options[:recurse].to_i
+              else 0
             end
             
             if recurse > 0 && p.level == level && !p.root?

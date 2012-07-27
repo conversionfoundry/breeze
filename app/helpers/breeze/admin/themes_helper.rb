@@ -21,6 +21,7 @@ module Breeze
                 str << content_tag(:ul, file_tree(child_files, options.merge(:folder => child_folder))) unless child_files.empty?
                 str << "</li>"
               else
+
                 str << "<li class=\"file #{File.extname(filename)[1..-1]}\" rel=\"file\"><a href=\"#{options[:href].call(path)}\"><ins class=\"icon\"></ins>#{basename}</a></li>"
               end
             end
