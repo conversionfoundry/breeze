@@ -125,7 +125,8 @@
             $('#right #uploader').uploadifySettings('folder', folder);
             $('#assets')
               .fadeTo('normal', 0.5)
-              .load('/breeze/admin/assets/folders/' + folder.replace(/\//g, '%2f'), function() {
+              // .load('/breeze/admin/assets/folders/' + folder.replace(/\//g, '%2f'), function() {
+              .load('/admin/assets/folders/' + folder.replace(/\//g, '%2f'), function() {
                 show_or_hide_asset_section_headings();
                 $(this).fadeTo('normal', 1.0);
                 $('.asset', this).makeDraggable();

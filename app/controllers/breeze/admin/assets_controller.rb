@@ -12,6 +12,7 @@ module Breeze
         else
           @asset ||= Breeze::Content::Asset.from_upload params
         end
+        binding.pry
         @asset.save
         respond_to do |format|
           format.html { render :partial => "breeze/admin/assets/#{@asset.class.name.demodulize.underscore}", :object => @asset, :layout => false }

@@ -35,14 +35,14 @@ Breeze::Engine.routes.draw do
 
     get "assets/images(.:format)" => "assets#images"
 
-    get "assets/folders" => "assets/folders#show"
-    post "assets/folders" => "assets/folders#create"
     
     resources :assets
     
     namespace :assets do
       resources :folders
     end
+    get "assets/folders" => "assets/folders#show"
+    post "assets/folders" => "assets/folders#create"
     get "assets/folders/*path" => "assets/folders#show"
     
     match "themes/:theme_id/raw/*id" => "themes/files#show", :as => :raw_admin_theme_file

@@ -8,6 +8,7 @@ module Breeze
         end
         
         def show
+          # binding.pry
           path = if params[:path].present?
             Array(params[:path]).reject(&:blank?).join("/")
           elsif params[:id].present?
