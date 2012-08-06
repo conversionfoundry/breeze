@@ -56,7 +56,7 @@
         height:       40,
         multi:        true,
         auto:         true,
-        script:       '/breeze/admin/assets.html',
+        script:       '/admin/assets.html',
         scriptData:   script_data,
         fileDataName: 'file',
         wmode:        'transparent',
@@ -164,7 +164,7 @@
               type: 'post',
               success: function() {
                 $(node).attr('data-folder', new_path).attr('rel', 'folder')
-                  .find('>a').attr('href', '/breeze/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();
+                  .find('>a').attr('href', '/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();
                 $('#right #uploader').uploadifySettings('folder', new_path);
               }
             });
@@ -178,7 +178,7 @@
               data: data,
               success: function() {
                 $(node).attr('data-folder', new_path).attr('rel', 'folder')
-                  .find('>a').attr('href', '/breeze/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();
+                  .find('>a').attr('href', '/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();
                 $('#right #uploader').uploadifySettings('folder', new_path);
               }
             });
@@ -215,7 +215,7 @@
         ui.draggable.fadeOut(function() {
           $(this).remove();
           $.ajax({
-            url: '/breeze/admin/assets/' + id + '.js',
+            url: '/admin/assets/' + id + '.js',
             type: 'post',
             dataType: 'script',
             data: '_method=put&asset[folder]=' + folder
