@@ -6,6 +6,7 @@ module Breeze
       end
       
       def new
+        binding.pry
         @custom_type = Breeze::Content::Custom::Type.new
         @custom_type.custom_fields.build({ :position => 0 }, Breeze::Content::Custom::StringField)
       end

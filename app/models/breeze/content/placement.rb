@@ -34,6 +34,7 @@ module Breeze
       end
       
       def duplicate(container)
+        binding.pry
         content.add_to_container container, region, view, position + 1
       end
       

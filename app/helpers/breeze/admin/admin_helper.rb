@@ -62,6 +62,7 @@ module Breeze
         component_info = []
         component_info << {:name => 'Breeze', :version => Breeze::VERSION }
         component_info = Breeze.run_hook :component_info, component_info
+        component_info.sort { |a, b| a[:name] <=> b[:name] }
       end
     
       # Absurd code by Matt. This produces two methods: breeze_form_for and breeze_field_for
