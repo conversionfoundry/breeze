@@ -30,9 +30,11 @@ $(function() {
     return false;
   });
   
+  // Delete a field
   $('.custom-field a.delete').live('click', function() {
     var field = $(this).closest('.custom-field')
-    if ((hidden_id_field = $('input[name$=[id]]', field)).length > 0) {
+    if ((hidden_id_field = $('input[name$="[id]"]', field)).length > 0) {
+      // Store deleted field – deletion will be committed when custom type is saved.
       i = $('input.deleted-field').length + 1;
       $(field).after('<input type="hidden" class="deleted-field" name="custom_type[custom_fields_attributes][-' + i + '][id]" value="' + hidden_id_field.val() + '" /><input type="hidden" name="custom_type[custom_fields_attributes][-' + i + '][_destroy]" value="1" />');
     }
