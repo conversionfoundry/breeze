@@ -8,6 +8,9 @@
         <%= form.fieldset :legend => "Time zone" do %>
           <%= form.time_zone_select :time_zone, nil, :label => "Zone", :hint => render("breeze/admin/settings/current_time") %>
         <% end %>
+        <%= form.fieldset :legend => "Notification Email from address" do %>
+          <%= form.text_field :notification_from_email, :label => "Email", :hint => render("breeze/admin/settings/notification_from_email") %>
+        <% end %>
       <% end %>
       <%= fake_right_sidebar do %>
         <%= form.submit "Save settings", :class => "large green save button" %>

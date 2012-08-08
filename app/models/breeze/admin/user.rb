@@ -19,6 +19,9 @@ module Breeze
 
       has_many_related :log_messages, :class_name => "Breeze::Admin::Activity::LogMessage"
     
+      after_create :schedule_new_user_email
+
+
       include Mixins::Login
       
         
@@ -66,6 +69,16 @@ module Breeze
       
       def self.current
         @_user
+      end
+    
+      def deliver_new_user_email!
+        Breeze::Admin::UserAccountMailer.new_user_account_notification(self).deliver
+      end
+      
+
+    protected
+      def schedule_new_user_email
+        Breeze.queue self, :deliver_new_user_email!
       end
     end
   end

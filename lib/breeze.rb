@@ -28,6 +28,9 @@
 require "breeze/engine"
 require "breeze/hooks"
 require "breeze/queueing"
+require "breeze/queueing/strategy"
+require "breeze/queueing/synchronous"
+require "breeze/queueing/resque"
 
 module Breeze
   extend self
