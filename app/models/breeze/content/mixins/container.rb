@@ -22,7 +22,7 @@ module Breeze
               str << "<%= content_for_region :#{region.to_sym} do %>\n"
               logger.debug(self)
               placements.each do |placement|
-                str << placement.to_erb(view).to_s # Temporary fix for issues with SmartMoves
+                str << placement.to_erb(view)
               end
               str << "<% end %>\n"
             end
