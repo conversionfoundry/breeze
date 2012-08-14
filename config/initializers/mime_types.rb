@@ -1,5 +1,5 @@
-Mime::Type.register "image/jpeg", :jpg, [], %w(jpeg)
-Mime::Type.register "image/png", :png
-Mime::Type.register "image/gif", :gif
-Mime::Type.register "application/pdf", :pdf
-Mime::Type.register "application/x-shockwave-flash", :swf
+Mime::Type.register "image/jpeg", :jpg, [], %w(jpeg) unless Mime::Type.lookup_by_extension(:jpg)
+Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
+Mime::Type.register "image/gif", :gif unless Mime::Type.lookup_by_extension(:gif)
+Mime::Type.register "application/pdf", :pdf unless Mime::Type.lookup_by_extension(:pdf)
+Mime::Type.register "application/x-shockwave-flash", :swf unless Mime::Type.lookup_by_extension(:swf)

@@ -28,13 +28,19 @@ module Breeze
       end
       
       def to_erb(view)
-        unless content.nil?
-          "<div class=\"breeze-content #{content.html_class} content_#{content.new? ? "new" : content.id}#{" shared" if shared?}\" id=\"content_#{content.new? ? "new" : id}\">#{content.to_erb(view)}</div>"
+        # TODO: We've beeng getting weird errors on smartmoves.leftclick.co.nz, where placements can't find their related content items. This begin..rescue block is a workaround, not a solution.
+        begin
+          unless content.nil?
+            content_block = "<div class=\"breeze-content #{content.html_class} content_#{content.new? ? "new" : content.id}#{" shared" if shared?}\" id=\"content_#{content.new? ? "new" : id}\">#{content.to_erb(view)}</div>"
+          end
+        rescue
+          # TODO: Why isn't this Unknown Content text showing up on the site?
+          content_block = "<div class=\"breeze-content unknown_class content_unknown_id\">Error: Unknown content</div>"
         end
+        content_block
       end
       
       def duplicate(container)
-        binding.pry
         content.add_to_container container, region, view, position + 1
       end
       
