@@ -78,10 +78,14 @@ module Breeze
         end
       end
 
+      # Return a string suitable for use as a class name in HTML markup
       def self.html_class
-        @html_class ||= name.demodulize.parameterize
+        @html_class ||= 'breeze-' + name.demodulize.underscore
       end
-      def html_class; self.class.html_class; end
+      
+      def html_class
+        self.class.html_class
+      end
 
       def self.base_class
         if self.to_s == "Breeze::Content::Item" || superclass.to_s == "Breeze::Content::Item" || superclass == Object
