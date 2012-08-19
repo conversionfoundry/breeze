@@ -34,8 +34,7 @@ module Breeze
             content_block = "<div class=\"breeze-content #{content.html_class} content_#{content.new? ? "new" : content.id}#{" shared" if shared?}\" id=\"content_#{content.new? ? "new" : id}\">#{content.to_erb(view)}</div>"
           end
         rescue
-          # TODO: Why isn't this Unknown Content text showing up on the site?
-          content_block = "<div class=\"breeze-content unknown_class content_unknown_id\">Error: Unknown content</div>"
+          content_block = "<div class=\"breeze-content breeze-unknown_content_type content_unknown_id\">Error: Unknown content</div>"
         end
         content_block
       end
