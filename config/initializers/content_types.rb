@@ -1,5 +1,5 @@
 Rails.application.class.configure do
-  Breeze::Content.register_class(*%w(Item NavigationItem Page Snippet Asset Image Sitemap Redirect).map { |s| "Breeze::Content::#{s}" })
+  Breeze::Content.register_class(*%w(Item NavigationItem Page Snippet Asset Image Sitemap Redirect Placeholder).map { |s| "Breeze::Content::#{s}" })
 end
 
 Rails.configuration.to_prepare do

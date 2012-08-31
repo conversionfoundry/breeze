@@ -14,11 +14,20 @@ module Breeze
       
       validates_presence_of :title
       
+      # Some NavigationItems aren't managed in the normal Pages admin area
+      # e.g. Breeze::Commerce::Product is a NavigationItem, but it's managed under the Store admin area
+      # If this is true, the NavigationItem won't appear in the Pages admin tree
+      def has_special_admin?
+        false
+      end
+
       def editable?
         false
       end
       
-      def to_s; title; end
+      def to_s
+        title
+      end
       
       def protocol
         "http#{:s if ssl?}://"

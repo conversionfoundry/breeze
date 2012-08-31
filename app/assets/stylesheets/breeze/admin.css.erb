@@ -473,6 +473,26 @@ p { margin: 0px 0px 8px; }
   padding: 8px 0px 9px;
   text-align: center;
 }
+.fake-right-sidebar fieldset.upload {
+  border: none;
+  margin: 0;
+  padding: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  -webkit-padding-before: 0;
+  -webkit-padding-start: 0;
+  -webkit-padding-end: 0;
+  -webkit-padding-after: 0;
+}
+.fake-right-sidebar fieldset.upload ol {
+  margin: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  -webkit-padding-before: 0;
+  -webkit-padding-start: 0;
+  -webkit-padding-end: 0;
+  -webkit-padding-after: 0;  
+}
 
 #right .help,
 .fake-right-sidebar .help {
@@ -922,7 +942,7 @@ form.folder {
 #assets .asset-assets .asset .links a.delete { background-image: url(<%= image_path "icons/delete.png" %>); }
 
 #uploaderUploader {
-  margin: 5px 0px 0px 5px;
+  margin: 0 0 0 -2px;
 }
 
 #left #folders a {

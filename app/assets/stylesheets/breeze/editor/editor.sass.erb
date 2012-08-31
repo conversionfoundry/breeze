@@ -286,6 +286,47 @@ body.breeze-editing
       li
         float: right
 
+.breeze-search-results
+  max-height: 400px
+  overflow: auto
+  > ol 
+    float: left
+    margin: 0
+    padding: 0
+    width: 358px
+    > li
+      list-style: none
+      display: block
+      position: relative
+      border-top: 1px solid #aaa
+      padding: 8px 96px 8px 0px
+      padding: 0
+      min-height: 48px
+      float: left
+      clear: both
+      width: 100%
+      .insert-content-button
+        position: absolute
+        right: 0px
+        top: 8px
+  p.empty
+    line-height: 5em
+    vertical-align: middle
+    text-align: center
+  .instances
+    float: left
+    clear: both
+    ul
+      margin: 0px 0px 7px
+      li
+        list-style: none
+        display: block
+        padding-left: 20px
+        background: url(<%= asset_path 'icons/page.png' %>) no-repeat 0 0
+        line-height: 18px
+        vertical-align: middle
+
+
 .ui-dialog
   .breeze-form fieldset
     &.content-types
@@ -301,24 +342,6 @@ body.breeze-editing
       -webkit-border-radius: 8px
       -moz-border-radius: 8px
       padding-bottom: 8px
-  .breeze-search-results
-    max-height: 400px
-    overflow: auto
-    > ol > li
-      list-style: none
-      display: block
-      position: relative
-      border-top: 1px solid #aaa
-      padding: 8px 96px 8px 0px
-      min-height: 48px
-      .insert-content-button
-        position: absolute
-        right: 0px
-        top: 8px
-    p.empty
-      line-height: 5em
-      vertical-align: middle
-      text-align: center
   .update-all
     margin: 8px 0px
     padding: 7px 7px 0px
@@ -330,15 +353,6 @@ body.breeze-editing
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
     label
       font-weight: bold
-  .instances ul
-    margin: 0px 0px 7px
-    li
-      list-style: none
-      display: block
-      padding-left: 20px
-      background: url(images/page.png) no-repeat 0px 0px
-      line-height: 18px
-      vertical-align: middle
   #uploaderUploader
     position: absolute
     right: 0px
@@ -484,6 +498,9 @@ body.breeze-editing
     text-transform: uppercase
     text-shadow: rgba(0, 0, 0, 0.25) 0px -1px
     font-size: 150%
+  .breeze-form input 
+    height: 2em
+
 
 .add-content-tabs
   margin: 1em

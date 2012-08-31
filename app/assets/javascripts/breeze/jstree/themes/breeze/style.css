@@ -30,6 +30,7 @@
 .tree-breeze .stylesheets > a > ins { background-position: -1px -36px; }
 .tree-breeze .layouts     > a > ins { background-position: -1px -54px; }
 .tree-breeze .javascripts > a > ins { background-position: -1px -72px; }
+.tree-breeze .placeholder > a > ins { background: none;}
 
 .tree-breeze .clicked {
   position: relative;

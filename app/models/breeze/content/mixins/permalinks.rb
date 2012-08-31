@@ -8,7 +8,7 @@ module Breeze
 
           base.before_validation :fill_in_slug_and_permalink
           base.after_save :update_child_permalinks
-          base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
+          base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes", :unless => Proc.new {|item| item.class == "Breeze::Content::Permalink"}
           base.validates_uniqueness_of :permalink
           base.index :permalink
           
@@ -23,9 +23,10 @@ module Breeze
           end
         end
         
-        def level
-          permalink.count("/")
-        end
+        # TODO: This should be in TreeStructure
+        # def level
+        #   permalink.count("/")
+        # end
         
         def regenerate_permalink!
           

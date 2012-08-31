@@ -1,6 +1,6 @@
 <%= breeze_form_for @page, :as => :page, :url => admin_page_path(@page), :remote => true do |form| %>
   <%= scrollable_layout do %>
-    <h1>Edit page</h1>
+    <h1>Edit <%= @page.class.name.demodulize %></h1>
     <%= render "/breeze/admin/shared/error_messages", :target => @page, :object_name => :page %>
     <%= edit_form_for form %>
   <% end %>

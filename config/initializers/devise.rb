@@ -123,8 +123,6 @@ Devise.setup do |config|
 end
 
 Rails.configuration.to_prepare do
-  #config.to_prepare do
-    Devise::SessionsController.layout "sessions"
-    Devise::PasswordsController.layout false
-  #end
+  Devise::SessionsController.layout "sessions"
+  Devise::PasswordsController.layout false
 end

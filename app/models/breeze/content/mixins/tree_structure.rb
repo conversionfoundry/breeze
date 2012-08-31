@@ -5,6 +5,8 @@ module Breeze
         def self.included(base)
           base.belongs_to_related :parent, :class_name => base.name
           base.has_many_related :children, :class_name => base.name, :foreign_key => :parent_id
+          # base.belongs_to_related :parent, :polymorphic => true
+          # base.has_many_related :children, :as => :parent
           base.field :position, :type => Integer
           
           base.before_create :set_position
@@ -47,6 +49,16 @@ module Breeze
         def self_and_ancestors
           [ self ].tap do |list|
             list.insert(0, *parent.self_and_ancestors) unless root?
+          end
+        end
+
+        #  Level in the page hierarchy
+        # We make a special case for the root (i.e. home page), which is at level one, not zero.
+        def level          
+          if root?
+            1
+          else
+            self_and_ancestors.count - 1
           end
         end
         

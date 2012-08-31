@@ -17,6 +17,8 @@
       this.editing(this.editing());
 
       $('.editor-panel .buttons-panel a.ok.button').live('click', function() {
+        $('#content_new.breeze-content').remove();
+
         $editor = $(this).closest('.editor-panel');
         $('form:visible', $editor).trigger('submit');
       });

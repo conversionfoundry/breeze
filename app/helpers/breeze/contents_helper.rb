@@ -91,6 +91,7 @@ module Breeze
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
+                classes << p.class.name.demodulize.downcase
               end.join(" ")
             end
             link = if block_given?
