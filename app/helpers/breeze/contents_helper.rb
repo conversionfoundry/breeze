@@ -94,10 +94,12 @@ module Breeze
                 classes << p.class.name.demodulize.downcase
               end.join(" ")
             end
+
             link = if block_given?
               capture p, link_options, &block
             else
-              link_to content_tag(:span, "#{page_title}#{" <small>#{p.subtitle}</small>" if p.subtitle?}".html_safe), p.permalink, link_options
+              permalink = p.class.name == "Breeze::Content::Placeholder" ? 'javascript:void(0)' : p.permalink
+              link_to content_tag(:span, "#{page_title}#{" <small>#{p.subtitle}</small>" if p.subtitle?}".html_safe), permalink, link_options
             end
             
             recurse = case options[:recurse]
@@ -187,7 +189,8 @@ module Breeze
             link = if block_given?
               capture p, link_options, &block
             else
-              link_to content_tag(:span, "#{page_title}".html_safe), p.permalink, link_options
+              permalink = p.class.name == "Breeze::Content::Placeholder" ? 'javascript:void(0)' : p.permalink
+              link_to content_tag(:span, "#{page_title}".html_safe), permalink, link_options
             end
             
             recurse = case options[:recurse]
