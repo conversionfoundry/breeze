@@ -28,15 +28,6 @@ module Breeze
       # Array of current available roles
       ROLES = [ :editor, :designer, :admin ]
       
-      ##
-      # :method: can?
-      # Check user permission (in a Cancan fashion)
-
-      ##
-      # :method: cannot?
-      # Negation of #can? method 
-      delegate :can?, :cannot?, :to => :ability
-
       ## 
       # Returns a formated user name, this method is aliased by #to_s
       def name
@@ -45,25 +36,45 @@ module Breeze
       alias_method :to_s, :name
       
       ##
+      # Returns an instance of Admin::Ability for self 
+      def ability
+        @ability ||= Ability.new(self)
+      end
+
+      ##
+      # :method: can?
+      # Check user permission (in a Cancan fashion)
+      # example
+      #   user.can? :edit, Post
+
+      ##
+      # :method: cannot?
+      # Negation of #can? method 
+      delegate :can?, :cannot?, :to => :ability
+
+      ##
       # Returns true if the user own the +sym+ role
+      # example 
+      #   user.role? :admin => true # if the user has the admin role
+      #   user.role? "admin" => true 
       def role?(sym)
         roles.include? sym.to_sym
       end
      
       ##
       # Sets roles to the user given an array of symbols
-      #
-      # Current roles available are get_constant(ROLES)
+      # Current roles available are ROLES
+      # example
+      #   user.roles [:admin, :editor] # would assign admin and editor role to the user
       def roles=(values)
         write_attribute :roles, Array(values).flatten.reject(&:blank?).uniq.map(&:to_sym)
       end
       
-
-
       ## 
       # Returns the hash of current available roles 
       #
       # Example
+      #   User.roles
       #   {
       #     :admin => "Administrator",
       #     :designer => "Designer",
@@ -79,6 +90,10 @@ module Breeze
       
       ##
       # Yield the block given switching the context user @_user temporarily
+      # example 
+      #   User.with_user administrator do 
+      #     post.update_critical_information
+      #   end
       def self.with_user(user)
         old_user, @_user = @_user, user
         yield
@@ -107,12 +122,6 @@ module Breeze
         end
       end
       
-      ##
-      # Returns an instance of Admin::Ability for self 
-      def ability
-        @ability ||= Ability.new(self)
-      end
-
       ## 
       # Delivers new user email
       def deliver_new_user_email!
