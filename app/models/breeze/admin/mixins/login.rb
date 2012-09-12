@@ -1,32 +1,32 @@
+require 'active_support/concern'
 # Fields for Devise 2.0
 # Used for Breeze::Admin::User and Breeze::Account::Customer
-
 module Breeze
   module Admin
     module Mixins
       module Login
+        extend ActiveSupport::Concern
 
-        def self.included(base)
-          base.devise :database_authenticatable, :recoverable, :rememberable
-          # devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable #, :validatable
-      
+        included do
+          devise :database_authenticatable, :recoverable, :rememberable
+
           ## Database authenticatable
-          base.field :email,              :type => String, :null => false
-          base.field :encrypted_password, :type => String, :null => false
+          field :email,              :type => String, :null => false
+          field :encrypted_password, :type => String, :null => false
 
           ## Recoverable
-          base.field :reset_password_token,   :type => String
-          base.field :reset_password_sent_at, :type => Time
+          field :reset_password_token,   :type => String
+          field :reset_password_sent_at, :type => Time
 
           ## Rememberable
-          base.field :remember_created_at, :type => Time
+          field :remember_created_at, :type => Time
 
           ## Trackable
-          base.field :sign_in_count,      :type => Integer
-          base.field :current_sign_in_at, :type => Time
-          base.field :last_sign_in_at,    :type => Time
-          base.field :current_sign_in_ip, :type => String
-          base.field :last_sign_in_ip,    :type => String
+          field :sign_in_count,      :type => Integer
+          field :current_sign_in_at, :type => Time
+          field :last_sign_in_at,    :type => Time
+          field :current_sign_in_ip, :type => String
+          field :last_sign_in_ip,    :type => String
 
           ## Encryptable
           # base.field :password_salt, :type => String
@@ -47,14 +47,10 @@ module Breeze
 
           ## Invitable
           # base.field :invitation_token, :type => String
-
-
-
-
-
-
         end
-        
+
+        module ClassMethods
+        end
       end
     end
   end

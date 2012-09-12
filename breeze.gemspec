@@ -7,27 +7,26 @@ require "breeze/version"
 Gem::Specification.new do |s|
   s.name        = "breeze"
   s.version     = Breeze::VERSION
-  s.authors     = ["Matt Powell, Blair Neate, Isaac Freeman"]
+  s.authors     = ["Matt Powell, Blair Neate, Isaac Freeman, Alban Diguer"]
   s.email       = ["isaac@leftclick.com"]
   s.homepage    = ""
   s.summary     = "Breeze is a Content Management System."
   s.description = "Breeze is a Content Management System."
 
-  # Manifest
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
-  # s.files = Dir["{app,config,db,lib}/**/*"] #+ ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  # s.test_files = Dir["test/**/*"]
+  s.files         = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"] 
+  s.require_paths = ['lib']
+  s.requirements << 'none'
+  s.required_ruby_version = '>= 1.9.0'
+  s.required_rubygems_version = '>= 1.3.6'
 
-  # Dependencies
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
-  s.add_dependency "rails", "~> 3.2.3"
-  # s.add_dependency "jquery-rails"
-
-  #s.add_development_dependency "sqlite3"
+  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "pry-rails"
+  
+  s.add_dependency "rails", "~> 3.2.0"
+  s.add_dependency "mongoid", "~> 3.0.5"
+  s.add_dependency "carrierwave", "~> 0.6.2"
+  s.add_dependency "carrierwave-mongoid", "~> 0.1.0"
+  s.add_dependency "cancan", "1.6.8"
+  s.add_dependency "devise", "~> 2.0.4"
 end
 
