@@ -32,7 +32,7 @@ module Breeze
         @placement.unlink! if @placement.shared? && !params[:update_all]
         @content = @placement.content
         @content.update_attributes params[:content]
-        @container.save
+        # @container.save  # TODO: I don't know why this wasn't working, nor what might go wrong now that it's commented out
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
 

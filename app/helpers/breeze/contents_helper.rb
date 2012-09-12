@@ -64,7 +64,12 @@ module Breeze
             end
           end
         end.flatten.compact
-        
+
+        # If page is undefined, there's no active page
+        # This is used for example on the Breeze Commerce Cart and Checkout pages
+        # In the longer term, this should be removed, in favour of making the cart a proper page, with checkout as a view
+        page ||= nil
+
         ancestry = pages.first ? pages.first.self_and_ancestors.to_a : [ page ]
         active = page ? (page.root? ? [page] : ancestry.dup) : []
         ancestry << ancestry.last.children.first
@@ -154,10 +159,16 @@ module Breeze
           end
         end.flatten.compact
                                         
-        ancestry = pages.first ? pages.first.self_and_ancestors.to_a : [ page ]
         
+        ancestry = pages.first ? pages.first.self_and_ancestors.to_a : [ page ]
+
+        # If page is undefined, there's no active page
+        # This is used for example on the Breeze Commerce Cart and Checkout pages
+        # In the longer term, this should be removed, in favour of making the cart a proper page, with checkout as a view
+        page ||= nil
+              
         active = page ? (page.root? ? [page] : ancestry.dup) : []
-        ancestry << ancestry.last.children.first
+        ancestry << ancestry.last.children.first if ancestry.last
         ancestry.compact!
                         
         if level <= ancestry.length && ancestry[level].present?

@@ -1,5 +1,4 @@
-Breeze CMS
-==========
+# Breeze CMS
 
 Copyright (c) 2012 LeftClick Ltc., released under the MIT license
 
@@ -16,7 +15,7 @@ Some key principles for Breeze are:
 
 We're working on a more detailed installation procedure, and the following is incomplete...
 
-Add to your Gemfile
+Add to your app's Gemfile
 
 `gem "breeze", :git => "git@github.com:leftclick/breeze.git", :branch => "master"	`
 

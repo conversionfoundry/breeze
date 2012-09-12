@@ -8,7 +8,7 @@ module Breeze
 
           base.before_validation :fill_in_slug_and_permalink
           base.after_save :update_child_permalinks
-          base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes", :if => :validate_format_of_permalink?
+          base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes", :unless => self.class == "Breeze::Content::Permalink"
           base.validates_uniqueness_of :permalink, :if => :validate_uniqueness_of_permalink?
 
           base.index :permalink
@@ -28,10 +28,6 @@ module Breeze
         # def level
         #   permalink.count("/")
         # end
-        
-        def validate_format_of_permalink?
-          self.class == "Breeze::Content::Permalink" ? false : true
-        end
 
         def validate_uniqueness_of_permalink?
           true
