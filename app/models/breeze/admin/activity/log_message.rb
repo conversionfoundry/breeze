@@ -4,9 +4,9 @@ module Breeze
       class LogMessage
         include Mongoid::Document
         include Mongoid::Timestamps
-        identity :type => String
+        field :identity, :type => String
         
-        belongs_to_related :user, :class_name => "Breeze::Admin::User"
+        belongs_to :user, :class_name => "Breeze::Admin::User"
         field :verb
         embeds_many :objects, :class_name => "Breeze::Admin::Activity::ObjectReference" do
           def <<(objects)

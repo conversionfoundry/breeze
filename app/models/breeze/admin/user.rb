@@ -5,8 +5,7 @@ module Breeze
     # This class represents any user interacting on breeze. It embeds its logic in the model, connectors for roles and email triggering.
     class User
       include Mongoid::Document
-      extend ActiveSupport::Memoizable
-      identity :type => String
+      field :identity, :type => String
     
       field :first_name
       field :last_name
@@ -18,7 +17,7 @@ module Breeze
       validates_presence_of :password, :password_confirmation, :if => :new_record?
       validates_confirmation_of :password
 
-      has_many_related :log_messages, :class_name => "Breeze::Admin::Activity::LogMessage"
+      has_many :log_messages, :class_name => "Breeze::Admin::Activity::LogMessage"
     
       after_create :schedule_new_user_email
 
