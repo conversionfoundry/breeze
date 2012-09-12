@@ -1,8 +1,6 @@
 require 'set'
 module Breeze
   module Admin
-    ##
-    # This class represents any user interacting on breeze. It embeds its logic in the model, connectors for roles and email triggering.
     class User
       include Mongoid::Document
       field :identity, :type => String
@@ -21,6 +19,7 @@ module Breeze
     
       after_create :schedule_new_user_email
 
+      binding.pry
       include Mixins::Login
       
       ##
