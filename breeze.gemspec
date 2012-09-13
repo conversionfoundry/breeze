@@ -28,5 +28,6 @@ Gem::Specification.new do |s|
   s.add_dependency "carrierwave-mongoid", "~> 0.1.0"
   s.add_dependency "cancan", "1.6.8"
   s.add_dependency "devise", "~> 2.0.4"
+  s.add_dependency "rmagick", "~> 2.13.1"
 end
 

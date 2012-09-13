@@ -1,10 +1,16 @@
-require "rails/all"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_resource/railtie"
+require "active_support/railtie"
+require "sprockets/railtie"
 require "carrierwave"
 require "mongoid"
 require "carrierwave/mongoid"
 require "pry-rails"
 require "cancan"
-require "devise"
+require "rmagick"
+
+require File.expand_path("../../../config/initializers/devise.rb", __FILE__)
 
 module Breeze
   class Engine < ::Rails::Engine

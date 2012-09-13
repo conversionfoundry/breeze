@@ -1,3 +1,4 @@
+require "devise"
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
@@ -122,9 +123,9 @@ Devise.setup do |config|
   config.router_name = :breeze
 end
 
-Rails.configuration.to_prepare do
-  #config.to_prepare do
-    Devise::SessionsController.layout "sessions"
-    Devise::PasswordsController.layout false
-  #end
-end
+# Rails.configuration.to_prepare do
+#   #config.to_prepare do
+#     Devise::SessionsController.layout "sessions"
+#     Devise::PasswordsController.layout false
+#   #end
+# end
