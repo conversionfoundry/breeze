@@ -10,4 +10,9 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 # jquery-rails is used by the dummy application
-#gem "jquery-rails"
+#gem "jquery-rail3"
+#
+#
+group :development do 
+  gem 'fuubar'
+end
