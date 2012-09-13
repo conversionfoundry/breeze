@@ -2,7 +2,7 @@ module Breeze
   module Theming
     class Theme
       include Mongoid::Document
-      identity :type => String
+      field :identity, :type => String
 
       embedded_in :configuration, :class_name => "Breeze::Configuration", :inverse_of => :themes
       

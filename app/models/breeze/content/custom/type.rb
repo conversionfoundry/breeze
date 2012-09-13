@@ -3,7 +3,7 @@ module Breeze
     module Custom
       class Type
         include Mongoid::Document
-        identity :type => String
+        field :identity, :type => String
       
         field :name
         field :type_name
@@ -36,7 +36,7 @@ module Breeze
           :reject_if => lambda { |attrs| attrs.values.reject(&:blank?).empty? },
           :allow_destroy => true
       
-        index :type_name, :unique => true
+        index({ :type_name => 1 }, { :unique => true })
       
         before_validation :fill_in_type_name
         after_save :reset_class

@@ -3,8 +3,8 @@ module Breeze
     module Mixins
       module TreeStructure
         def self.included(base)
-          base.belongs_to_related :parent, :class_name => base.name
-          base.has_many_related :children, :class_name => base.name, :foreign_key => :parent_id
+          base.belongs_to :parent, :class_name => base.name
+          base.has_many :children, :class_name => base.name, :foreign_key => :parent_id
           base.field :position, :type => Integer
           
           base.before_create :set_position
@@ -12,7 +12,7 @@ module Breeze
           base.after_destroy :set_sibling_positions
           
           base.class_eval do
-            named_scope :root, where(:parent_id => nil)
+            scope :root, where(:parent_id => nil)
           end
         end
         

@@ -3,11 +3,10 @@ module Breeze
     class Item
       include Mongoid::Document
       include Mongoid::Timestamps
-      identity :type => String
-
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
-      
+
+      field :identity, :type => String
       field :template
       
       embeds_many :views, :class_name => "Breeze::Content::View" do

@@ -2,12 +2,12 @@ module Breeze
   module Content
     class Placement
       include Mongoid::Document
-      identity :type => String
+      field :identity, :type => String
       
       field :region, :type => String
       field :view
       field :position, :type => Integer, :default => 0
-      belongs_to_related :content, :class_name => "Breeze::Content::Item"
+      belongs_to :content, :class_name => "Breeze::Content::Item"
       embedded_in :container, :inverse_of => :placements
       
       before_create :set_position

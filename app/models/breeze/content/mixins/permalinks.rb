@@ -10,7 +10,7 @@ module Breeze
           base.after_save :update_child_permalinks
           base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
           base.validates_uniqueness_of :permalink
-          base.index :permalink
+          base.index({ :permalink => 1 })
           
           base.class_eval do
             def permalink(include_domain = false)

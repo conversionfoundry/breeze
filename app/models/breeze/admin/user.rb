@@ -3,6 +3,8 @@ module Breeze
   module Admin
     class User
       include Mongoid::Document
+      include Mixins::Login
+
       field :identity, :type => String
     
       field :first_name
@@ -19,11 +21,6 @@ module Breeze
     
       after_create :schedule_new_user_email
 
-      binding.pry
-      include Mixins::Login
-      
-      ##
-      # Array of current available roles
       ROLES = [ :editor, :designer, :admin ]
       
       ## 
