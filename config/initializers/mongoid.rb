@@ -23,7 +23,7 @@ module Mongoid #:nodoc:
           conditions[item] = document.attributes[item]
         end
         # binding.pry
-        return if document.collection.find_first(conditions).nil?
+        return if document.collection.where(conditions).nil?
         
         # if document.new_record? || key_changed?(document)
           document.errors.add(attribute, :taken, :default => options[:message], :value => value)
