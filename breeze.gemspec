@@ -7,8 +7,8 @@ require "breeze/version"
 Gem::Specification.new do |s|
   s.name        = "breeze"
   s.version     = Breeze::VERSION
-  s.authors     = ["Matt Powell, Blair Neate, Isaac Freeman, Alban Diguer"]
-  s.email       = ["isaac@leftclick.com"]
+  s.authors     = ["Matt Powell", "Blair Neate", "Isaac Freeman", "Alban Diguer"]
+  s.email       = ["isaac@leftclick.com", "alban@leftclick.com"]
   s.homepage    = ""
   s.summary     = "Breeze is a Content Management System."
   s.description = "Breeze is a Content Management System."
@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "mongoid", "~> 3.0.5"
   s.add_dependency "carrierwave", "~> 0.6.2"
   s.add_dependency "carrierwave-mongoid", "~> 0.1.0"
-  s.add_dependency "cancan", "1.6.8"
+  s.add_dependency "cancan", "~> 1.6.8"
   s.add_dependency "devise", "~> 2.0.4"
   s.add_dependency "rmagick", "~> 2.13.1"
 end
