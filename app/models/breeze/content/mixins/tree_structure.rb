@@ -61,16 +61,17 @@ module Breeze
         end
         
         def destroy_children
-          children.map &:destroy
+          children.map(&:destroy)
         end
         
         def set_sibling_positions
-          update_sibling_positions -1
+          update_sibling_positions(-1)
         end
         
         def update_sibling_positions(by = 1, ref_position = nil)
           ref_position ||= position
-          base_class.collection.update(
+          raise "FIX THIS FUTUR ALBAN - from past alban"
+          base_class.collection.update_all(
             { :parent_id => parent_id, :position => { '$gt' => ref_position } },
             { '$inc' => { :position => by } },
             :multi => true
@@ -78,7 +79,7 @@ module Breeze
         end
         
         def move_before!(ref_id)
-          update_sibling_positions -1
+          update_sibling_positions(-1)
           ref_node = base_class.find ref_id
           self.parent_id = ref_node.parent_id
           self.position = ref_node.position
@@ -87,7 +88,7 @@ module Breeze
         end
         
         def move_after!(ref_id)
-          update_sibling_positions -1
+          update_sibling_positions(-1)
           ref_node = base_class.find ref_id
           self.parent_id = ref_node.parent_id
           self.position = ref_node.position + 1
