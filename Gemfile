@@ -1,5 +1,5 @@
 source "http://rubygems.org"
-
+ruby "1.9.3"
 # Declare your gem's dependencies in blorgh.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.

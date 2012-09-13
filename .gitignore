@@ -2,3 +2,4 @@ rdoc/*
 .rvmrc*
 *.log
 *.pid
+spec/dummy/tmp/**/*
