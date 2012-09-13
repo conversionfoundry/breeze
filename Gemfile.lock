@@ -6,11 +6,11 @@ PATH
       carrierwave (~> 0.6.2)
       carrierwave-mongoid (~> 0.1.0)
       devise (~> 2.0.4)
-      jquery-rails
+      jquery-rails (~> 2.1.2)
       mongoid (~> 3.0.5)
       rails (~> 3.2.0)
       rmagick (~> 2.13.1)
-      will_paginate (~> 3.0.3)
+      will_paginate (= 3.0.pre4)
 
 GEM
   remote: http://rubygems.org/
@@ -141,7 +141,7 @@ GEM
     tzinfo (0.3.33)
     warden (1.1.1)
       rack (>= 1.0)
-    will_paginate (3.0.3)
+    will_paginate (3.0.pre4)
 
 PLATFORMS
   ruby
