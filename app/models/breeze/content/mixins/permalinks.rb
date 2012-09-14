@@ -8,7 +8,8 @@ module Breeze
 
           base.before_validation :fill_in_slug_and_permalink
           base.after_save :update_child_permalinks
-          base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes", :unless => self.class == "Breeze::Content::Permalink"
+          # TODO: I'm not sure why the :unless section was here, and it doesn't make sense to me. Commente dout so that Breeze::Commerce::Product can validate properly
+          base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"#, :unless => self.class == "Breeze::Content::Permalink"
           base.validates_uniqueness_of :permalink, :if => :validate_uniqueness_of_permalink?
 
           base.index :permalink
