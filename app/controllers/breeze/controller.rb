@@ -3,7 +3,7 @@ require 'will_paginate/view_helpers/action_view'
 module Breeze
   class Controller < ApplicationController
     helper ContentsHelper
-    #helper WillPaginate::ViewHelpers::ActionView
+    helper WillPaginate::ViewHelpers::ActionView
 
     around_filter :set_time_zone
     around_filter :set_domain_from_request
