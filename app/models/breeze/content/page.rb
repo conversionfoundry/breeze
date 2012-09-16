@@ -32,7 +32,7 @@ module Breeze
       end
             
       def self.[](permalink)
-        where(:permalink => permalink).first
+        where(permalink: permalink).first
       end
     end
   end

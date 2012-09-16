@@ -3,8 +3,6 @@ module Breeze
     module Custom
       class Type
         include Mongoid::Document
-        field :identity, :type => String
-      
         field :name
         field :type_name
         embeds_many :custom_fields, :class_name => "Breeze::Content::Custom::Field" do

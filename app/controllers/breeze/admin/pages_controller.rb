@@ -9,20 +9,19 @@ module Breeze
       end
       
       def new
-        @page = Breeze::Content::NavigationItem.factory((params[:page] || {}).reverse_merge(:_type => "Breeze::Content::Page"))
+        @page = Breeze::Content::Page.new
       end
       
       def create
-        @page = Breeze::Content::NavigationItem.factory(params[:page])
-        @page.save
+        @page = Breeze::Content::Page.create(params[:page])
       end
       
       def edit
-        @page = Breeze::Content::NavigationItem.find params[:id]
+        @page = Breeze::Content::Page.find params[:id]
       end
       
       def update
-        @page = Breeze::Content::NavigationItem.find params[:id]
+        @page = Breeze::Content::Page.find params[:id]
         @page.update_attributes params[:page]
         respond_to do |format|
           format.js
