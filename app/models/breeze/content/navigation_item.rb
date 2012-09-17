@@ -2,7 +2,6 @@ module Breeze
   module Content
     class NavigationItem < Item
       include Mongoid::Document
-      field :identity, :type => String
       
       field :title
       field :subtitle

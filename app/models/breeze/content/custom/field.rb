@@ -3,7 +3,6 @@ module Breeze
     module Custom
       class Field
         include Mongoid::Document
-        field :identity, :type => String
         
         field :name
         field :label

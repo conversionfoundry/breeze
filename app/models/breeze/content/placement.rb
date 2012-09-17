@@ -2,7 +2,6 @@ module Breeze
   module Content
     class Placement
       include Mongoid::Document
-      field :identity, :type => String
       
       field :region, :type => String
       field :view
@@ -30,11 +29,11 @@ module Breeze
       def to_erb(view)
         # TODO: We've beeng getting weird errors on smartmoves.leftclick.co.nz, where placements can't find their related content items. This begin..rescue block is a workaround, not a solution.
         begin
-          unless content.nil?
-            content_block = "<div class=\"breeze-content #{content.html_class} content_#{content.new? ? "new" : content.id}#{" shared" if shared?}\" id=\"content_#{content.new? ? "new" : id}\">#{content.to_erb(view)}</div>"
-          end
+          binding.pry
+          content_id = content.new? ? "content_new" : "content_" + content.id.to_s
+          content_block = "<div class=\"breeze-content #{content.html_class} #{content_id} #{"shared" if shared?}\" id=\"content_#{content.new? ? "new" : id}\">#{content.to_erb(view)}</div>"
         rescue
-          content_block = "<div class=\"breeze-content breeze-unknown_content_type content_unknown_id\">Error: Unknown content</div>"
+          raise "Error: Unknown content"
         end
         content_block
       end

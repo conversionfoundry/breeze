@@ -6,7 +6,6 @@ module Breeze
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
 
-      field :identity, :type => String
       field :template
       
       embeds_many :views, :class_name => "Breeze::Content::View" do

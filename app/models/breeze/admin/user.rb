@@ -5,8 +5,6 @@ module Breeze
       include Mongoid::Document
       include Mixins::Login
 
-      field :identity, :type => String
-    
       field :first_name
       field :last_name
       field :display_name
