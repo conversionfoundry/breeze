@@ -4,14 +4,14 @@ module Breeze
     class User
       include Mongoid::Document
       include Mixins::Login
-
+      field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :first_name
       field :last_name
       field :display_name
       field :roles, :type => Array, :default => []
       field :menu_order, :type => Array, :default => []
 
-      validates_presence_of :first_name, :last_name, :email
+      validates_presence_of :first_name, :last_name
       validates_presence_of :password, :password_confirmation, :if => :new_record?
       validates_confirmation_of :password
 

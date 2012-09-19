@@ -2,6 +2,7 @@ module Breeze
   module Content
     class Placement
       include Mongoid::Document
+      field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       
       field :region, :type => String
       field :view
@@ -28,13 +29,13 @@ module Breeze
       
       def to_erb(view)
         # TODO: We've beeng getting weird errors on smartmoves.leftclick.co.nz, where placements can't find their related content items. This begin..rescue block is a workaround, not a solution.
-        begin
-          binding.pry
-          content_id = content.new? ? "content_new" : "content_" + content.id.to_s
-          content_block = "<div class=\"breeze-content #{content.html_class} #{content_id} #{"shared" if shared?}\" id=\"content_#{content.new? ? "new" : id}\">#{content.to_erb(view)}</div>"
-        rescue
-          raise "Error: Unknown content"
-        end
+        # begin
+          # binding.pry
+          content_id = !content.new_record? ? "content_new" : "content_" + content.id.to_s
+          content_block = "<div class=\"breeze-content #{content.html_class} #{content_id} #{"shared" if shared?}\" id=\"content_#{content.new_record? ? "new" : id}\">#{content.to_erb(view)}</div>"
+        # rescue
+          # content_block = "<div class=\"breeze-conten\"> data inconsistency </div>"
+        # end
         content_block
       end
       

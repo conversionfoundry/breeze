@@ -19,6 +19,9 @@ module Breeze
 
           ## Rememberable
           field :remember_created_at, :type => Time
+          
+          index({email: 1}, {unique: true})
+          validates :email, uniqueness: true, presence: true
 
           ## Trackable
           # field :sign_in_count,      :type => Integer
