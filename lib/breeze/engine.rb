@@ -28,6 +28,12 @@ module Breeze
     config.generators do |g|
       g.test_framework :rspec, :view_specs => false
     end
+    
+    # Load devise layouts for the engine 
+    config.to_prepare do
+      Devise::SessionsController.layout "sessions"
+      Devise::PasswordsController.layout false
+    end
   end
 end
 
