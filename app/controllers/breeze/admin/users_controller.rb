@@ -5,18 +5,18 @@ module Breeze
       load_and_authorize_resource :class => User, :except => :preferences
       
       def index
-        @users = User.asc(:name).find
+        @users = Breeze::Admin::User.asc(:name).all
         @admins = @users.select{|user| user.roles.include? :admin}
         @designers = @users.select{|user| user.roles.include? :designer and not @admins.include? user}
         @editors = @users.select{|user| not ( @admins.include? user or @designers.include? user) }
       end
       
       def new
-        @user = User.new
+        @user = Breeze::Admin::User.new
       end
       
       def create
-        @user = User.new params[:user]
+        @user = Breeze::Admin::User.new params[:user]
         @user.save
       end
       
