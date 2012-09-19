@@ -9,7 +9,7 @@ PATH
       jquery-rails (~> 2.1.2)
       mongoid (~> 3.0.5)
       rails (~> 3.2.0)
-      rdiscount
+      rdiscount (~> 1.6.8)
       rmagick (~> 2.13.1)
       will_paginate (= 3.0.pre4)
 
