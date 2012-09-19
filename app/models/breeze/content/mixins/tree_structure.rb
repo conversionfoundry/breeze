@@ -3,10 +3,8 @@ module Breeze
     module Mixins
       module TreeStructure
         def self.included(base)
-          base.belongs_to_related :parent, :class_name => base.name
-          base.has_many_related :children, :class_name => base.name, :foreign_key => :parent_id
-          # base.belongs_to_related :parent, :polymorphic => true
-          # base.has_many_related :children, :as => :parent
+          base.belongs_to :parent, :class_name => base.name
+          base.has_many :children, :class_name => base.name, :foreign_key => :parent_id
           base.field :position, :type => Integer
           
           base.before_create :set_position
@@ -14,7 +12,7 @@ module Breeze
           base.after_destroy :set_sibling_positions
           
           base.class_eval do
-            named_scope :root, where(:parent_id => nil)
+            scope :root, where(:parent_id => nil)
           end
         end
         
@@ -73,16 +71,17 @@ module Breeze
         end
         
         def destroy_children
-          children.map &:destroy
+          children.map(&:destroy)
         end
         
         def set_sibling_positions
-          update_sibling_positions -1
+          update_sibling_positions(-1)
         end
         
         def update_sibling_positions(by = 1, ref_position = nil)
           ref_position ||= position
-          base_class.collection.update(
+          raise "FIX THIS FUTUR ALBAN - from past alban"
+          base_class.collection.update_all(
             { :parent_id => parent_id, :position => { '$gt' => ref_position } },
             { '$inc' => { :position => by } },
             :multi => true
@@ -90,7 +89,7 @@ module Breeze
         end
         
         def move_before!(ref_id)
-          update_sibling_positions -1
+          update_sibling_positions(-1)
           ref_node = base_class.find ref_id
           self.parent_id = ref_node.parent_id
           self.position = ref_node.position
@@ -99,7 +98,7 @@ module Breeze
         end
         
         def move_after!(ref_id)
-          update_sibling_positions -1
+          update_sibling_positions(-1)
           ref_node = base_class.find ref_id
           self.parent_id = ref_node.parent_id
           self.position = ref_node.position + 1

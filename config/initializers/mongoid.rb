@@ -22,7 +22,8 @@ module Mongoid #:nodoc:
         Array.wrap(options[:scope]).each do |item|
           conditions[item] = document.attributes[item]
         end
-        return if document.collection.find_one(conditions).nil?
+        # binding.pry
+        return if document.collection.where(conditions).nil?
         
         # if document.new_record? || key_changed?(document)
           document.errors.add(attribute, :taken, :default => options[:message], :value => value)

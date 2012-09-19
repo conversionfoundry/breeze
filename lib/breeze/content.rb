@@ -22,7 +22,7 @@ module Breeze
       # Allow plugins to provide content
       content = Breeze.run_hook(:get_content_by_permalink, permalink)
       # Otherwise, look for page in Breeze Core
-      content = Item.first(:conditions => { :permalink => permalink }) if content.blank? || content.is_a?(String)
+      content = Item.where(permalink: permalink).first if content.blank? || content.is_a?(String)
       content
     end
     
@@ -30,25 +30,4 @@ module Breeze
       #Custom::Type.get(sym) || super
     end
   end
-end
-
-require 'pry'
-
-# TODO:
-#require "breeze/content/custom/type"
-require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/markdown.rb"
-require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/tree_structure.rb"
-require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/permalinks.rb"
-require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/container.rb"
-require "#{Breeze::Engine.root}/app/models/breeze/content/mixins/placeable.rb"
-require "#{Breeze::Engine.root}/app/uploaders/breeze/asset_uploader.rb"
-require "#{Breeze::Engine.root}/app/uploaders/breeze/image_uploader.rb"
-require "#{Breeze::Engine.root}/app/models/breeze/content/item.rb"
-require "#{Breeze::Engine.root}/app/models/breeze/content/view.rb"
-Dir[File.expand_path("../../app/models/breeze/content/*.rb", File.dirname(__FILE__))].each do |f|
-  require f
-end
-
-Dir[File.expand_path("../../app/models/breeze/content/custom/*.rb", File.dirname(__FILE__))].each do |f|
-  require f
 end

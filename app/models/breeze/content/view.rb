@@ -2,7 +2,6 @@ module Breeze
   module Content
     class View
       include Mongoid::Document
-      identity :type => String
 
       embedded_in :content_item, :inverse_of => :views
       field :name

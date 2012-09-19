@@ -1,7 +1,6 @@
 module Breeze
   class Configuration
     include Mongoid::Document
-    identity :type => String
     
     field :time_zone, :default => lambda { Rails.application.config.time_zone }
     field :notification_from_email, :default => "system@example.com"
@@ -18,9 +17,9 @@ module Breeze
 
   end
   
-  def self.configure(&block)
+  def self.configure #(&block)
     Rails::Application.configure do
-      config.to_prepare &block
+      config.to_prepare yield 
     end
   end
 end

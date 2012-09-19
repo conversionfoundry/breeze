@@ -3,7 +3,6 @@ module Breeze
     module Activity
       class ObjectReference
         include Mongoid::Document
-        identity :type => String
         
         field :class_name
         field :oid

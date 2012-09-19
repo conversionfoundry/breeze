@@ -2,7 +2,7 @@ module Breeze
   module Admin
     class CustomTypesController < AdminController
       def index
-        @custom_types = Breeze::Content::Custom::Type.all.order_by :name
+        @custom_types = Breeze::Content::Custom::Type.asc(:name) 
       end
       
       def new

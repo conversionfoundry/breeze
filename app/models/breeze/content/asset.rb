@@ -90,7 +90,7 @@ module Breeze
       def rename_file
         unless @renamed || new_record?
           if folder_changed? && !folder_was.blank?
-            old_path = path(folder_was)
+            # old_path = path(folder_was)
             self.folder = "/" if self.folder.blank?
             b = attributes[:file]
             all_files.each do |dest|
@@ -106,7 +106,7 @@ module Breeze
           if !@basename.blank? && @basename != attributes[:file]
             @basename += "." + extension unless /\.\w+/ === @basename
             all_files.each do |src|
-              dest = src.sub /#{path}$/, "/" + @basename
+              dest = src.sub(/#{path}$/, "/" + @basename)
               FileUtils.mv src, dest if src != dest
             end
             write_attribute :file, @basename
