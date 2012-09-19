@@ -28,15 +28,8 @@ module Breeze
       end
       
       def to_erb(view)
-        # TODO: We've beeng getting weird errors on smartmoves.leftclick.co.nz, where placements can't find their related content items. This begin..rescue block is a workaround, not a solution.
-        # begin
-          # binding.pry
-          content_id = !content.new_record? ? "content_new" : "content_" + content.id.to_s
-          content_block = "<div class=\"breeze-content #{content.html_class} #{content_id} #{"shared" if shared?}\" id=\"content_#{content.new_record? ? "new" : id}\">#{content.to_erb(view)}</div>"
-        # rescue
-          # content_block = "<div class=\"breeze-conten\"> data inconsistency </div>"
-        # end
-        content_block
+        content_id = !content.new_record? ? "content_new" : "content_" + content.id.to_s
+        "<div class=\"breeze-content #{content.html_class} #{content_id} #{"shared" if shared?}\" id=\"content_#{content.new_record? ? "new" : id}\">#{content.to_erb(view)}</div>"
       end
       
       def duplicate(container)

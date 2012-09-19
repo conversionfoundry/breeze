@@ -10,6 +10,7 @@ require "pry-rails"
 require "cancan"
 require "rmagick"
 require "jquery-rails"
+require "rdiscount"
 
 require File.expand_path("../../../config/initializers/devise.rb", __FILE__)
 

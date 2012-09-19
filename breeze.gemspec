@@ -32,4 +32,5 @@ Gem::Specification.new do |s|
   s.add_dependency "rmagick", "~> 2.13.1"
   s.add_dependency "will_paginate", "= 3.0.pre4"
   s.add_dependency "jquery-rails", "~> 2.1.2"
+  s.add_dependency "rdiscount", "~> 1.6.8"
 end
