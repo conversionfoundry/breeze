@@ -5,7 +5,7 @@ module Breeze
       load_and_authorize_resource :class => User, :except => :preferences
       
       def index
-        @users = User.all.sort_by &:to_s
+        @users = User.asc(:name).find
         @admins = @users.select{|user| user.roles.include? :admin}
         @designers = @users.select{|user| user.roles.include? :designer and not @admins.include? user}
         @editors = @users.select{|user| not ( @admins.include? user or @designers.include? user) }
