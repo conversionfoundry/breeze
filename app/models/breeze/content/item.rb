@@ -5,7 +5,7 @@ module Breeze
       include Mongoid::Timestamps
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
-
+      field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :template
       
       embeds_many :views, :class_name => "Breeze::Content::View" do

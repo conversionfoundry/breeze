@@ -10,8 +10,8 @@ end
 
 describe Breeze::Content::Placement do
   before :each do
-    PlacementTestContainer.collection.drop
-    PlacementTestContent.collection.drop
+    # PlacementTestContainer.collection.drop
+    # PlacementTestContent.collection.drop
     
     @container = PlacementTestContainer.create
     @container.should be_valid
