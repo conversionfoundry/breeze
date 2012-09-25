@@ -9,7 +9,7 @@ module Breeze
       end
       
       def new
-        @page = Breeze::Content::Page.new
+        @page = Breeze::Content::Page.new params[:page] # We pass params here to set the parent_id for the new page
       end
       
       def create

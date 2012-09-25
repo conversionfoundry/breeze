@@ -72,10 +72,11 @@ module Breeze
       end
       
       def update_content_placement_count(by = 1)
-        Breeze::Content::Item.collection.update(
-          { :_id => content_id },
-          { '$inc' => { :placements_count => by } }
-        )
+        # Breeze::Content::Item.collection.update(
+        #   { :_id => content_id },
+        #   { '$inc' => { :placements_count => by } }
+        # )
+        Breeze::Content::Item.where(:_id => content_id).inc(:placements_count, 1)
       end
     end
   end

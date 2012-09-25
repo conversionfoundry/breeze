@@ -78,14 +78,17 @@ module Breeze
           update_sibling_positions(-1)
         end
         
+        # Increment the position number for siblings to make room for a new item
         def update_sibling_positions(by = 1, ref_position = nil)
           ref_position ||= position
-          raise "FIX THIS FUTUR ALBAN - from past alban"
-          base_class.collection.update_all(
-            { :parent_id => parent_id, :position => { '$gt' => ref_position } },
-            { '$inc' => { :position => by } },
-            :multi => true
-          )
+          # raise "FIX THIS FUTUR ALBAN - from past alban"
+          # base_class.collection.update_all(
+          #   { :parent_id => parent_id, :position => { '$gt' => ref_position } },
+          #   { '$inc' => { :position => by } },
+          #   :multi => true
+          # )
+
+          Breeze::Content::Item.where(:parent_id => parent_id, :position => { '$gt' => ref_position }).inc(:position, 1)
         end
         
         def move_before!(ref_id)
