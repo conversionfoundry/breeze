@@ -1,0 +1,227 @@
+<% content_for :title, "Assets" %>
+
+<% content_for :head do %>
+  <%#= stylesheet_link_tag "/breeze/javascripts/jcrop/css/jquery.Jcrop.css", "/breeze/javascripts/uploadify/uploadify.css" %>
+  <%#= javascript_include_tag "/breeze/javascripts/assets", "/breeze/javascripts/jcrop/js/jquery.Jcrop.min.js", "/breeze/javascripts/uploadify/swfobject.js", "/breeze/javascripts/uploadify/uploadify.js" %>
+<% end %>
+
+<%= pane_layout do |main| %>
+  <% main.header do %>
+  
+  <% end %>
+  <% main.inner do %>
+    <%= scrollable_layout :id => :assets do %>
+      <h1>Files in <tt><%= File.join("/assets", @folder || "/").sub(/\/$/, "") %></tt></h1>
+      <%= render :partial => "/breeze/admin/assets/assets", :locals => { :assets => @assets, :folder => @folder } %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :left do %>
+  <%= pane_layout do |left| %>
+    <% left.header do %>
+      <h2>Assets</h2>
+    <% end %>
+    <% left.inner do %>
+      <%= content_tag :div, :id => :folders do %>
+        <%= content_tag :ul, :class => "folders" do %>
+          <%= render :partial => "breeze/admin/assets/folder", :object => "/" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :right do %>
+  <%= pane_layout do |right| %>
+    <% right.inner do %>
+      <%= render :partial => "breeze/admin/assets/upload" %>
+    <% end %>
+  <% end %>
+<% end -%>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#right #uploader').each(function() {
+      $('.asset').makeDraggable();
+      
+      script_data = {};
+      script_data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
+      script_data[$(this).attr('data-session-key')] = $(this).attr('data-session-id');
+      $(this).uploadify({
+        uploader:     '/cached/breeze/uploadify/uploadify.swf',
+        cancelImg:    '<%= image_path "icons/delete.png" %>',
+        buttonImg:    '<%= image_path "buttons/upload.png" %>',
+        width:        215,
+        height:       40,
+        multi:        true,
+        auto:         true,
+        script:       '/admin/assets.html',
+        scriptData:   script_data,
+        fileDataName: 'file',
+        wmode:        'transparent',
+        folder:       '<%= @folder || "/" %>',
+        
+        onComplete: function(event, queue_id, file_obj, response, data) {
+          var id = /id="([^"]+)"/.exec(response);
+          if (id && id[1]) {
+            $('#' + id[1]).remove();
+          }
+          
+          var match = /class="(\w+) asset/.exec(response);
+          var group = match ? match[1] : 'asset';
+          $('#assets .' + group + '-assets').prepend(response);
+          show_or_hide_asset_section_headings();
+          return true;
+        }
+      });
+    });
+    
+    show_or_hide_asset_section_headings();
+    $('#left #folders').tree({
+      ui: {
+        theme_path: '/cached/breeze/jstree/themes/breeze/style.css',
+        theme_name: 'breeze',
+        dots: false,
+        selected_delete: false
+      },
+      plugins: {
+        contextmenu: {
+          items: {
+            rename : {
+  						visible	: function (NODE, TREE_OBJ) { if(NODE.length != 1) return false; return TREE_OBJ.check("renameable", NODE) && $(NODE).attr('rel') != 'root'; },
+  					}
+  				}
+        }
+      },
+      types: {
+        'default': {
+          'delete': true,
+          'deletable': true,
+          'rename': true,
+          'renameable': true,
+          'create': true
+        },
+        'root': {
+          'delete': false,
+          'deletable': false,
+          'rename': false,
+          'start_drag': false,
+          'move_node': false
+        },
+        'folder': {
+        }
+      },
+      rules: {
+        multiple: false,
+        drag_copy: false
+      },
+      callback: {
+        onselect: function(node, tree) {
+          a = $(node).children('a');
+          url = $(a).attr('href');
+          if (url != '') {
+            folder = $(node).attr('data-folder');
+            $('#right #uploader').uploadifySettings('folder', folder);
+            $('#assets')
+              .fadeTo('normal', 0.5)
+              // .load('/breeze/admin/assets/folders/' + folder.replace(/\//g, '%2f'), function() {
+              .load('/admin/assets/folders/' + folder.replace(/\//g, '%2f'), function() {
+                show_or_hide_asset_section_headings();
+                $(this).fadeTo('normal', 1.0);
+                $('.asset', this).makeDraggable();
+              });
+          }
+        },
+        onmove: function(node, ref, type, tree, rollback) {
+          // TODO: implement!
+          $.flashMessage('Sorry, dragging and dropping of files and folders is not implemented yet.', { auto: false });
+          $.tree.rollback(rollback);
+        },
+        ondelete: function(node, tree, rollback) {
+          $('#assets').fadeOut(function() { $(this).html('').fadeIn(); });
+          $.ajax({
+            url: $('>a', node).attr('href'),
+            type: 'post',
+            data: '_method=delete'
+          });
+        },
+        onrename: function(node, tree) {
+          var a = $('>a', node), name = get_folder_name(node);
+          var parent_node = $(node).parent().closest('li');
+          var parent_folder = parent_node.attr('data-folder');
+          var parent_href = $('>a', parent_node).attr('data-folder');
+          var new_path = parent_folder == '/' ? '/' + name : parent_folder + '/' + name;
+          var data = {};
+          data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
+          data['_method'] = 'post';
+
+          if (a.attr('href') != '') {
+            data['folder[name]'] = name
+            $.ajax({
+              url: a.attr('href'),
+              data: data,
+              type: 'post',
+              success: function() {
+                $(node).attr('data-folder', new_path).attr('rel', 'folder')
+                  .find('>a').attr('href', '/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();
+                $('#right #uploader').uploadifySettings('folder', new_path);
+              }
+            });
+          } else {
+            // New folder
+            data['parent_folder'] = parent_folder;
+            data['folder_name'] = name;
+            $.ajax({
+              url:'/admin/assets/folders',
+              type:'post',
+              data: data,
+              success: function() {
+                $(node).attr('data-folder', new_path).attr('rel', 'folder')
+                  .find('>a').attr('href', '/admin/assets/folders/' + new_path.replace(/\//g, '%2f')).click();
+                $('#right #uploader').uploadifySettings('folder', new_path);
+              }
+            });
+          }
+        }
+      }
+    });
+
+    $('#left #folders li a').makeDroppable();
+  });
+  
+  function get_folder_name(node) {
+    return $('a', node).contents().filter(function() { return this.nodeType == 3; }).eq(0).text();
+  }
+  
+  $.fn.makeDraggable = function() {
+    $(this).draggable({
+      appendTo: 'body',
+      helper: 'clone',
+      zIndex: 100,
+      opacity: 0.85,
+      cursorAt: { left: -8, top: -8 }
+    });
+  }
+  
+  $.fn.makeDroppable = function() {
+    $(this).droppable({
+      accept: '.asset',
+      tolerance: 'pointer',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var id = ui.draggable.attr('data-id'),
+            folder = $(this).closest('li').attr('data-folder');
+        ui.draggable.fadeOut(function() {
+          $(this).remove();
+          $.ajax({
+            url: '/admin/assets/' + id + '.js',
+            type: 'post',
+            dataType: 'script',
+            data: '_method=put&asset[folder]=' + folder
+          });
+        });
+      }
+    });
+  }
+</script>

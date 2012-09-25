@@ -1,0 +1,42 @@
+<% content_for :title, "Themes" %>
+
+<% content_for :head do %>
+  <%#= javascript_include_tag "/breeze/javascripts/themes", "/breeze/javascripts/codemirror/js/codemirror.js" %>
+<% end %>
+
+<%= tabbed_layout do -%>
+
+<% end %>
+
+<% content_for :left do %>
+  <%= sliding_layout do |left| -%>
+    <% left.all do %>
+      <%= pane_layout do |themes| %>
+        <% themes.header do %>
+          <h2>Themes</h2>
+        <% end %>
+        <% themes.inner do %>
+          <ul id="themes">
+            <%= render :partial => "breeze/admin/themes/theme", :collection => Breeze::Theming::Theme.installed %>
+          </ul>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% left.theme do %>
+      <%= pane_layout do |theme| %>
+        <% theme.header do %>
+          <h2></h2>
+        <% end %>
+        <% theme.inner do %>
+
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :right do -%>
+  <%= pane_layout do |right| %>
+    
+  <% end %>
+<% end -%>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title><%= [ yield(:title), "Breeze" ].compact.join(" | ") %></title>
+    <%= csrf_meta_tag %>
+    <meta name="breeze-user-id" content="<%= current_user.id %>" />
+    <%= stylesheet_link_tag "breeze/breeze" %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js" %>
+    <%= javascript_include_tag "breeze/breeze" %>
+    <%#= javascript_include_tag "/breeze/javascripts/jstree/jstree", "/breeze/javascripts/jstree/plugins/jquery.tree.contextmenu.js" %>
+    <%= yield :head %>
+  </head>
+
+  <body>
+    <div id="header">
+      <div class="top">
+        <%= render :partial => "breeze/logo" %>
+        <%= link_to "Visit site", root_path, :class => "visit-site", :target => :_blank, :title => "Visit site" %>
+        <% if signed_in? %>
+          <div id="signed-in-user">
+            Signed in as <%= link_to current_user, admin_users_path(:anchor => current_user.id), :class => :user %> |
+            <%= link_to "Sign out", destroy_admin_session_path %>
+          </div>
+        <% end -%>
+        
+        <%= admin_menu %>
+      </div>
+    </div>
+    <%# content_tag :div, flash_messages, :id => "flash" %>
+    <div id="flash"></div>
+    <%= flash_messages %>
+    <%= content_tag :div, :id => :main, :class => "#{'no-sidebar' unless content_for?(:right)}" do %>
+      <%= yield %>
+      <%= content_tag :div, :class => "fake-right-sidebar" if content_for?(:fake_right_sidebar) %>
+    <% end %>
+    <%= content_tag :div, content_for?(:left) ? yield(:left) : pane_layout {}, :id => :left %>
+    <%= content_tag :div, yield(:right), :id => :right if content_for?(:right) %>
+  </body>
+</html>

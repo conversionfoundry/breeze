@@ -1,0 +1,137 @@
+.marquess-container {
+  background: #f2f2f2;
+  border: 8px solid #f2f2f2;
+  -webkit-border-radius: 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px;
+  -moz-border-radius: 8px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px;
+}
+
+.marquess-editor-pane,
+.marquess-preview-pane {
+  clear: left;
+  background: white;
+}
+
+.marquess-editor-pane {
+  padding-right: 8px;
+}
+
+.marquess-editor {
+  border: none;
+  display: block;
+  width: 100%;
+  padding: 4px;
+  background: white;
+  font: 13px Monaco, Courier, monospace;
+  resize: vertical;
+}
+
+.marquess-preview-pane {
+  padding: 4px;
+  border-top: 4px solid #f2f2f2;
+}
+
+.marquess-toolbar-row {
+  margin: 0px 4px 4px 0px;
+  padding: 0px 0px 0px 4px;
+  height: 32px;
+  background: #ccc;
+  float: left;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+.marquess-toolbar li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  display: inline;
+}
+
+.marquess-toolbar li.separator {
+  display: block;
+  float: left;
+  width: 8px;
+  height: 24px;
+}
+
+.marquess-toolbar li a {
+  float: left;
+  position: relative;
+  height: 22px;
+  overflow: hidden;
+  margin: 4px 4px 4px 0px;
+  background: #eee;
+  border: 1px solid #eee;
+  text-decoration: none;
+  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+  line-height: 16px;
+  vertical-align: middle;
+  text-indent: -100em;
+  color: #666;
+  outline: none;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
+.marquess-toolbar li a span {
+  display: block;
+  margin: 3px;
+  padding: 0px;
+  line-height: 16px;
+  vertical-align: middle;
+  width: 16px;
+  background: transparent url(marquess-toolbar.png) no-repeat 0px 0px;
+}
+
+.marquess-toolbar li a.with-title span {
+  width: auto;
+  overflow: visible;
+  text-indent: 0px;
+  padding-left: 22px;
+}
+
+.marquess-toolbar li a:hover {
+  border-color: #999;
+  text-shadow: white 0px 1px 1px;
+  -webkit-box-shadow: inset white 0px 1px 4px, inset rgba(0, 0, 0, 0.25) 0px -1px 4px;
+  -moz-box-shadow: inset white 0px 1px 4px, inset rgba(0, 0, 0, 0.25) 0px -1px 4px;
+}
+
+.marquess-toolbar li a:active,
+.marquess-toolbar li a.active {
+  -webkit-box-shadow: inset white 0px -1px 4px, inset rgba(0, 0, 0, 0.25) 0px 1px 4px;
+  -moz-box-shadow: inset white 0px -1px 4px, inset rgba(0, 0, 0, 0.25) 0px 1px 4px;
+}
+
+.marquess-toolbar li a.active {
+  border-color: #999;
+}
+
+.marquess-toolbar li a:active span {
+  margin: 4px 3px 2px;
+}
+
+.marquess-toolbar li a.bold          span { background-position: 0px    0px; }
+.marquess-toolbar li a.italic        span { background-position: 0px  -16px; }
+.marquess-toolbar li a.heading       span { background-position: 0px  -32px; }
+.marquess-toolbar li a.bulleted_list span { background-position: 0px  -48px; }
+.marquess-toolbar li a.numbered_list span { background-position: 0px  -64px; }
+.marquess-toolbar li a.blockquote    span { background-position: 0px  -80px; }
+.marquess-toolbar li a.link          span { background-position: 0px  -96px; }
+.marquess-toolbar li a.image         span { background-position: 0px -112px; }
+.marquess-toolbar li a.cut           span { background-position: 0px -128px; }
+.marquess-toolbar li a.copy          span { background-position: 0px -144px; }
+.marquess-toolbar li a.paste         span { background-position: 0px -160px; }
+.marquess-toolbar li a.undo          span { background-position: 0px -176px; }
+.marquess-toolbar li a.redo          span { background-position: 0px -192px; }
+.marquess-toolbar li a.preview       span { background-position: 0px -208px; }
+.marquess-toolbar li a.update        span { background-position: 0px -224px; }
+
+.marquess-toolbar li a.disabled {
+  opacity: 0.25;
+  border-color: #eee;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}

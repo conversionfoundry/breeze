@@ -1,0 +1,5 @@
+<%= content_tag :li, :id => "theme_#{theme.name}", :class => "theme#{" enabled" if theme.enabled?}#{" active" if @theme == theme}" do %>
+  <%= link_to admin_theme_files_path(theme.name) do %>
+    <%= content_tag :strong, theme.name.humanize %>
+  <% end %>
+<% end %>  

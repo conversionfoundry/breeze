@@ -1,0 +1,4 @@
+$('#left #themes a[href$=<%= theme.name %>/files]').parent().each(function() {
+  $(this).<%= theme.enabled? ? :add : :remove %>Class('enabled');
+  advance_slider($(this).closest('.sliding'), -1);
+});

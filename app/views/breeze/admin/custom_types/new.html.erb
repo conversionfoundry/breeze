@@ -1,0 +1,10 @@
+<%= breeze_form_for @custom_type, :as => :custom_type, :url => admin_custom_types_path(:format => :js), :remote => true do |form| %>
+  <%= scrollable_layout do %>
+    <h1>New custom type</h1>
+    <%= render :partial => "breeze/admin/custom_types/form", :object => form %>
+  <% end %>
+  
+  <%= content_tag :div, :class => "fake-right-sidebar" do %>
+    <%= submit_tag "Save", :class => "large green save button" %>
+  <% end %>
+<% end %>

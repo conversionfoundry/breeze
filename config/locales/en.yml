@@ -1,0 +1,15 @@
+en:
+  activemodel:
+    attributes:
+      breeze/content/item:
+        _type: Content type
+      breeze/content/navigation_item:
+        slug: URL
+        permalink: URL
+      breeze/content/page:
+        title: Page title
+  breeze:
+    users:
+      roles:
+        admin: Administrator
+      

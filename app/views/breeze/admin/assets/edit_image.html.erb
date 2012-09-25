@@ -1,0 +1,41 @@
+<%= content_tag :div, :class => "image-editor" do %>
+  <%= content_tag :div, :class => "image-preview" do %>
+    <%= content_tag :div, :class => "img" do %>
+      <%= image_tag @asset.file.url, :width => @asset.image_width, :height => @asset.image_height %>
+    <% end %>
+  <% end %>
+  <%= form_for @asset, :as => :asset, :url => admin_asset_path(@asset, :format => :js), :remote => true do |form| %>
+    <div class="properties">
+      <h3 class="image-name">Name/description</h3>
+      <div class="image-name">
+        <p><label for="asset_basename">Filename</label> <%= form.text_field :basename %></p>
+        <p><label for="asset_title">Title</label> <%= form.text_field :title %></p>
+        <p><label for="asset_description">Description</label> <%= form.text_area :description, :rows => 3 %></p>
+      </div>
+      <h3 class="image-current-size">Current Size</h3>
+      <div class="image-current-size">
+        <p class="dimensions"><%= form.text_field :image_width, :disabled => true %> &times; <%= form.text_field :image_height, :disabled => true %> pixels</p>
+      </div>
+      <h3 class="image-selection">Selection</h3>
+      <%= hidden_field_tag "asset[crop][selection_x]" %>
+      <%= hidden_field_tag "asset[crop][selection_y]" %>
+      <div class="image-selection">
+        <p class="dimensions"><%= text_field_tag "asset[crop][selection_width]" %> &times; <%= text_field_tag "asset[crop][selection_height]" %> pixels</p>
+      </div>
+      <h3 class="image-crop"><%= check_box_tag "asset[crop][resize]" %> Resize&hellip;</h3>
+      <div class="image-crop" style="display: none">
+        <p class="dimensions"><%= text_field_tag "asset[crop][target_width]", @asset.image_width %> &times; <%= text_field_tag "asset[crop][target_height]", @asset.image_height %> pixels</p>
+        <ul class="radio">
+          <li><%= radio_button_tag "asset[crop][mode]", "crop", true %> Force aspect ratio</li>
+          <li><%= radio_button_tag "asset[crop][mode]", "resize_to_fit" %> Resize to fit</li>
+          <li><%= radio_button_tag "asset[crop][mode]", "resize_to_fill" %> Resize and crop to fit</li>
+        </ul>
+      </div>
+      <h3 class="image-dimensions">Final dimensions</h3>
+      <div class="image-dimensions">
+        <p class="dimensions"><%= text_field_tag "asset[crop][final_width]", @asset.image_width, :disabled => true %> &times; <%= text_field_tag "asset[crop][final_height]", @asset.image_height, :disabled => true %> pixels</p>
+        <p><a href="#" class="large preview button">Preview</a></p>
+      </div>
+    </div>
+  <% end %>
+<% end %>

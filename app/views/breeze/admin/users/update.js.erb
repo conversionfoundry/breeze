@@ -1,0 +1,14 @@
+<% if @user.errors.empty? %>
+  $('#left #users #user_<%= @user.id %>').remove();
+  <% if @user.admin? %>
+  	$('#left #users #admins').append('<%= escape_javascript render(:partial => "breeze/admin/users/user", :object => @user) %>');
+  <% elsif @user.designer? %>
+  	$('#left #users #designers').append('<%= escape_javascript render(:partial => "breeze/admin/users/user", :object => @user) %>');
+  <% elsif @user.editor? %>
+  	$('#left #users #editors').append('<%= escape_javascript render(:partial => "breeze/admin/users/user", :object => @user) %>');
+  <% end %>
+
+  // $('#left #users li a[data-id=<%= @user.id %>] strong, a[href=#tab_<%= @user.id %>]').text('<%= escape_javascript @user.to_s %>');
+  $.flashMessage('Your details have been updated.', { auto: true });
+<% end %>
+$('#tab_<%= @user.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/users/edit") %>');

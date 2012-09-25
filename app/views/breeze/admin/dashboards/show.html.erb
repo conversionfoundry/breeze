@@ -1,0 +1,35 @@
+<% content_for :title, "Dashboard" -%>
+
+<%= tabbed_layout do |tabs| %>
+  <% tabs.activity :title => "Recent activity" do %>
+    <%= scrollable_layout do %>
+      <h1>Recent activity</h1>
+      <div id="recent-activity"></div>
+      <h1>Breeze Components</h1>
+      <ul class="components">
+        <% component_info.each do |component| %>
+          <li><%= component[:name] %>: <%= component[:version] %></li>
+        <% end %>
+      </ul>
+      <%# TODO: Add hook for Breeze module versions %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :left do %>
+  <%= pane_layout do |sidebar| %>
+    <% sidebar.header do %>
+      <h2>Dashboard</h2>
+    <% end %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#recent-activity').load('/admin/activity/log_messages');
+    $('#recent-activity .pagination a').live('click', function() {
+      $('#recent-activity').load($(this).attr('href'));
+      return false;
+    });
+  });
+</script>

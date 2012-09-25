@@ -1,0 +1,3 @@
+$('#new_content').closest('.ui-dialog-content').dialog('close');
+$('#<%= @placement.region %>_region').append('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
+$('body').breeze('addContentControls', '#content_<%= @placement.id %>');

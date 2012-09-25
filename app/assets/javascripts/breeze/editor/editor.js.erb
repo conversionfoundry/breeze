@@ -1,0 +1,691 @@
+(function($) {
+  $.widget("ui.breeze", {
+    options: {
+      preferences: {
+        editing: false,
+        toolbar: 'top'
+      }
+    },
+    _init: function() {
+      var breeze = this;
+      this._loadOptions();
+      this._loadStylesheet();
+      this._loadStylesheet('<%= asset_path "breeze/marquess/marquess.css" %>'); // TODO: incorporate into main stylesheet
+      this._loadStylesheet('<%= asset_path "breeze/jcrop/css/jquery.Jcrop.css" %>');
+      this._buildToolbar();
+      this._augmentRegions();
+      this.editing(this.editing());
+
+      $('.editor-panel .buttons-panel a.ok.button').live('click', function() {
+        $('#content_new.breeze-content').remove();
+
+        $editor = $(this).closest('.editor-panel');
+        $('form:visible', $editor).trigger('submit');
+      });
+
+      $('.editor-panel .buttons-panel a.cancel.button').live('click', function() {
+        var $form = $(this).closest('.editor-panel').find('form:visible');
+        var isNew = $form.is('#new_content');
+        if (isNew) {
+          $('#content_new.breeze-content').remove();
+        } else {
+          var href = $form.attr('action').replace('.js', '/live.js');
+          var id = $form.attr('action').replace('/admin/contents/', '').replace('.js', '');
+          $.ajax({
+            url: href,
+            success: function(data) {
+              $('body').breeze('addContentControls', '#content_' + id);
+            }
+          });
+        }
+        $('.editor-panel').removeClass('active').empty();
+      });
+      
+      $('body.breeze-editing .breeze-region-label>a.breeze-add-content').live('click', function() {
+        var region = $(this).closest('.breeze-editable-region').attr('data-region');
+        var container_id = breeze.options.page_id;
+        var view = breeze.options.view;
+        var url = '/admin/contents/new?content[container_id]=' + breeze.options.page_id + '&content[region]=' + $(this).closest('.breeze-editable-region').attr('data-region') + '&content[view]=' + breeze.options.view;
+        breeze._openEditorPanel(url, {
+          title: 'Add content',
+          open: function() {
+            $.ajax({
+              url: '/admin/contents/add.js',
+              data: 'content[region]=' + region + '&content[container_id]=' + container_id + '&content[view]=' + view,
+              success: function(data) {
+              }
+            });
+
+            breeze.new_content_panel_open(this, url);
+          }
+        });
+        return false;
+      });
+    },
+    option: function(key, value) {
+      if (typeof(value) != 'undefined') {
+        this.options.preferences[key] = value;
+        this._saveOptions();
+      }
+      return this.options.preferences[key];
+    },
+    editing: function(toggle) {
+      if (typeof(toggle) != 'undefined') {
+        $(this.element).toggleClass('breeze-editing', toggle);
+        $(this.toolbar).each(function() {
+          $('.breeze-toolbar-edit-button', this).toggleClass('active', toggle);
+        });
+        $('.breeze-editable-region[id]')
+          .sortable(toggle ? 'enable' : 'disable')
+          .find('>.breeze-region-label').toggle(toggle);
+        return this.option('editing', toggle);
+      } else return this.option('editing');
+    },
+    toggle: function() {
+      this.editing(!this.editing());
+    },
+    toolbarPosition: function(position) {
+      if (typeof(position) != 'undefined') {
+        $('#breeze-toolbar.top').animate({ top: '-48px' }, 'fast', function() {
+          $(this).removeClass('top').addClass('bottom')
+            .css({ bottom: '-48px', top:'auto' }).animate({ bottom: '0px' }, 'normal', 'easeOutCubic');
+        });
+        $('#breeze-toolbar.bottom').animate({ bottom: '-48px' }, 'fast', function() {
+          $(this).removeClass('bottom').addClass('top')
+            .css({ top: '-48px', bottom:'auto' }).animate({ top: '0px' }, 'normal', 'easeOutCubic');
+        });
+
+        return this.option('toolbar', position);
+      } else return this.option('toolbar');
+    },
+    addContentControls: function(selector) {
+      var breeze = this;
+      $(selector).each(function() {
+        var id = this.id.replace(/^content_/, '');
+        var path = '/admin/contents/' + id;        
+        $('<div class="breeze-content-controls" style="display: none"></div>')
+          .appendTo(this)
+          .hide()
+          .append('<a class="edit" href="' + path + '/edit">Edit</a>')
+          .append('<a class="duplicate" href="' + path + '/duplicate.js" data-method="post" data-remote="' + path + '/duplicate.js">Duplicate</a>')
+          .append('<a class="delete" href="' + path + '.js" data-method="delete" data-confirm="Are you sure you want to delete this content?" data-remote="' + path + '.js">Delete</a>');
+        $(this).hover(
+          function() { if (breeze.editing()) $(this).addClass('hover').find('>.breeze-content-controls').fadeIn(125); },
+          function() { if (breeze.editing()) $(this).removeClass('hover').find('>.breeze-content-controls').fadeOut(250); }
+        )
+      });
+    },
+    
+    _loadOptions: function() {
+      var saved_options = $.secureEvalJSON($.cookie('breeze-editor') || '{}');
+      $.extend(this.options.preferences, saved_options);
+    },
+    _saveOptions: function() {
+      var date = new Date();
+      date.setTime(date.getTime() + (10 * 365 * 24 * 60 * 60 * 1000));
+      $.cookie('breeze-editor', $.toJSON(this.options.preferences), { path: '/', expires: date });
+    },
+    _loadStylesheet: function(href) {
+      $('<link rel="stylesheet" type="text/css" href="' + (href || '/cached/breeze/editor/editor.css') + '" />')
+        .appendTo('head');
+    },
+    _buildToolbar: function() {
+      var breeze = this;
+      var toolbar_position = breeze.options.preferences.toolbar || 'bottom';
+      this.toolbar = $('<div id="breeze-toolbar"></div>').appendTo(this.element)
+        .addClass(toolbar_position)
+        .css(toolbar_position, '-40px')
+        .hover(function() {
+          var toolbar_position = breeze.options.preferences.toolbar || 'bottom';
+          if (this.hoverOutTimer) { clearTimeout(this.hoverOutTimer); this.hoverOutTimer = null; }
+          if (parseInt($(this).css(toolbar_position)) == -40) {
+            animation_options = {}; animation_options[toolbar_position] = '0px';
+            $(this).animate(animation_options, 'fast', 'easeOutBounce');
+          }
+        }, function() {
+          var toolbar_position = breeze.options.preferences.toolbar || 'bottom';
+          if (this.hoverOutTimer) { clearTimeout(this.hoverOutTimer); this.hoverOutTimer = null; }
+          var self = this;
+          this.hoverOutTimer = setTimeout(function() {
+            animation_options = {}; animation_options[toolbar_position] = '-40px';
+            $(self).animate(animation_options, 'slow', 'easeOutBack');
+            self.hoverOutTimer = null;
+          }, 1000);
+        });
+        
+      buttons = $('<span class="breeze-toolbar-item breeze-toolbar-buttons"></span>')
+        .appendTo(this.toolbar);
+      
+      $('<a href="#" class="breeze-toolbar-edit-button" title="Toggle editor">Edit</a>')
+        .appendTo(buttons)
+        .click(function() {
+          breeze.editing(!$(this).hasClass('active'));
+          return false;
+        });
+      
+      this.template_selector = $('<div class="breeze-template-chooser breeze-toolbar-item"><label for="breeze_template">Template:</label><select name="page[template]" id="breeze_template"><option value="">(default)</option></select></div>')
+        .appendTo(this.toolbar)
+        .find('select')
+        .each(function() {
+          var select = this;
+          $.each(breeze.options.templates, function() {
+            var label = this.substring(0, 1).toUpperCase() + this.substring(1).replace(/_/g, ' ');
+            $(select).append('<option value="' + this + '">' + label + '</option>');
+          });
+        })
+        .val(breeze.options.template)
+        .change(function() {
+          f = $('<form action="/admin/pages/' + breeze.options.page_id + '" method="post"></form>')
+            .append('<input type="hidden" name="' + $('meta[name=csrf-param]').attr('content') + '" value="' + $('meta[name=csrf-token]').attr('content') + '" />')
+            .append('<input type="hidden" name="_method" value="put" />')
+            .append('<input type="hidden" name="page[template]" value="' + $(this).val() + '" />')
+            .appendTo('body')[0].submit();
+        });
+        
+      this.view_selector = $('<div class="breeze-view-chooser breeze-toolbar-item"><label for="breeze_view">View:</label><select name="page[view]" id="breeze_view"></select></div>')
+        .appendTo(this.toolbar)
+        .find('select')
+        .each(function() {
+          var select = this;
+          $.each(breeze.options.views || [], function() {
+            var label = this.substring(0, 1).toUpperCase() + this.substring(1).replace(/_/g, ' ');
+            $(select).append('<option value="' + this + '">' + label + '</option>');
+          });
+        })
+        .val(breeze.options.view)
+        .change(function() {
+          window.location.search = '?view=' + $(this).val();
+        });
+
+      buttons = $('<span class="breeze-toolbar-item breeze-toolbar-buttons"></span>')
+        .appendTo(this.toolbar);
+
+      $('<a href="#" class="breeze-toolbar-position-button" title="Switch top/bottom">Edit</a>')
+        .appendTo(buttons)
+        .click(function() {
+          breeze.toolbarPosition(breeze.toolbarPosition() == 'top' ? 'bottom' : 'top');
+          
+          return false;
+        });
+
+      $('<a href="/admin/pages" class="breeze-admin-button" title="Back to admin">Back to admin</a>')
+        .appendTo(buttons);
+    },
+    _augmentRegions: function() {
+      var breeze = this;
+      $('.breeze-editable-region[id]').each(function() {
+        $(this).attr('data-region', $(this).attr('id').replace(/_region$/, ''));
+        $('<div class="breeze-region-label" style="display: none;"><strong>' + $(this).attr('data-region') + '</strong> <a href="#" class="breeze-add-content">+</a></div>')
+          .appendTo(this);
+      }).sortable({
+        items: '>.breeze-content',
+        connectWith: '.breeze-editable-region[id]',
+        tolerance: 'pointer',
+        cursor: 'move',
+        placeholder: 'breeze-content-placeholder',
+        forcePlaceholderSize: true,
+        update: function(e, ui) {
+          var orders = new Array();
+          var view = breeze.toolbar.find('#breeze_view').val();
+          $('.breeze-editable-region[id]').each(function() {
+            orders.push($(this).sortable('serialize', { key:'page[order][' + this.id.replace(/_region$/, '') + '][]' }));
+          });
+          var order_string = orders.join('&');
+          if (breeze.last_ordering != order_string) {
+            breeze.last_ordering = order_string;
+            breeze._spinner();
+            $.ajax({
+              url:'/admin/pages/' + breeze.options.page_id + '/sort.js',
+              type:'post',
+              dataType:'javascript',
+              data: $('meta[name=csrf-param]').attr('content') + "=" + $('meta[name=csrf-token]').attr('content') + '&_method=put&page[view]=' + view + '&' + order_string,
+              complete: function() { breeze._spinner(false); }
+            });
+          }
+        },
+        over: function() { $(this).addClass('hover'); },
+        out:  function() { $(this).removeClass('hover'); }
+      });
+      
+      breeze.addContentControls('.breeze-editable-region[id] > .breeze-content');
+      
+      $('.breeze-content-controls .edit').live('click', function() {
+        breeze._openEditorPanel($(this).attr('href'), {
+          title: 'Edit content',
+          open: function() {
+            breeze._prepareEditorDialog(this);
+          }
+        });
+        return false;
+      });
+    },
+    <%#_openDialog: function(path, options) {%>
+      <%#var breeze = this;%>
+      <%#breeze._spinner();%>
+      
+      <%#$.get(path, function(data) {%>
+        <%#breeze._spinner(false);%>
+        <%#options = $.extend({%>
+          <%#modal: true,%>
+          <%#resizable: false,%>
+          <%#width: 640,%>
+          <%#buttons: {%>
+            <%#Cancel: function() {%>
+              <%#$(this).dialog('close');%>
+            <%#},%>
+            <%#OK: function() {%>
+              <%#$('form:visible', $(this).closest('.ui-dialog')).trigger('submit');%>
+            <%#}%>
+          <%#},%>
+          <%#close: function() {%>
+            <%#$(this).remove();%>
+          <%#}%>
+        <%#}, options || {});%>
+        <%#$('<div></div>').html(data).appendTo('body').dialog(options);%>
+        <%#// $('button.ui-button:contains("OK"):not(.green)').addClass('green');%>
+      <%#});%>
+    <%#},%>
+    _openEditorPanel: function(path, options) {
+      var breeze = this;
+      $.get(path, function(data) {
+        $dialog = $('.editor-panel');
+        $dialog.html(data);
+        $('.editor-panel').addClass('active');
+        
+        if (options.open) { 
+          options.open.apply($dialog);
+        }
+      });
+    },
+    _spinner: function(bool) {
+      if (typeof(bool) == 'undefined') { bool = true; }
+      if ($('#breeze-spinner').length == 0) { $('<div id="breeze-spinner" style="display: none;"></div>').appendTo('body'); }
+      if (bool) {
+        $('#breeze-spinner').fadeIn();
+      } else {
+        $('#breeze-spinner').fadeOut();
+      }
+    },
+    _prepareEditorDialog: function(dialog) {
+      var breeze = this;
+      $('textarea.markup', dialog).marquess({
+        preview: false
+      });
+
+      // for live editing
+
+      var typingTimer;                //timer identifier
+      var doneTypingInterval = 1000;  //time in ms, 5 second for example
+      var $form = $('form.content', dialog);
+      var isNew = $form.is('#new_content');
+
+      //on keyup, start the countdown
+      $(':input:visible').keyup(function(){
+        clearTimeout(typingTimer);
+        if ($(this).val) {
+          typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        }
+      });
+
+      //user is "finished typing," do something
+      function doneTyping () {
+        //var $form = $(this).closest('form');
+        var href = $form.attr('action').replace('.js', isNew ? '/add.js' : '/live.js');
+        $.ajax({
+          url: href,
+          data: $form.serialize(),
+          success: function(data) {
+          }
+        });
+      }
+
+      $(':input:visible', dialog).eq(0).each(function() { this.focus(); });
+    },
+    new_content_panel_open: function(panel, url) {
+      var breeze = this;
+      $('#content_new.breeze-content').remove();
+      $('.add-content-tabs', panel).tabs({
+        selected: 2,
+        select: function(e, ui) {
+          $('textarea, input[type=search]', ui.panel).eq(0).each(function() { this.focus(); });
+        }
+      });
+      $('#content__type', panel).change(function() {
+        $(panel).load(url + '&content[_type]=' + escape($(this).val()), function() {
+          breeze.new_content_panel_open(panel, url);
+        });
+      });
+      $('form.search-contents', panel).bind('ajax:success', function(e, data, status, xhr) {
+        $('.breeze-search-results', panel)
+          .html(data)
+          .find('.insert-content-button').button().click(function() {
+            var container_id = $('#content_container_id', panel).val();
+            var region = $('#content_region', panel).val();
+            var view = $('#breeze_view').val();
+            $.ajax({
+              url: $(this).attr('href'),
+              type: 'post',
+              dataType: 'script',
+              data: 'container_id=' + container_id + '&region=' + region + '&view=' + view
+            });
+            return false;
+          });
+      });
+      breeze._prepareEditorDialog(panel);
+
+      $('textarea, input[type=search]', panel).eq(0).each(function() { this.focus(); });
+    }
+  });
+  
+  $('.breeze-form a[rel*=error]').live('click', function() {
+    $((this.hash == '#page_permalink') ? '#page_slug' : this.hash, $(this).closest('form')).each(function() { this.focus(); });
+    return false;
+  });
+  
+  $.ui.marquess.commands['link'].fn = function(editor) {
+    $.ui.marquess.current = editor;
+    html = $('<div class="marquess-dialog breeze-form"><fieldset><ol class="form"><li class="text_field"><label for="marquess_link_text">Link text<abbr title="required">*</abbr></label><input class="text_field" name="link_text" id="marquess_link_text" /></li><li class="text_field"><label for="marquess_link_url">URL<abbr title="required">*</abbr></label><input class="text_field" name="link_url" id="marquess_link_url" /></li><ul id="marquess_link_select"></ul></div>');
+    $(html).dialog({
+      title:     'Insert a link',
+      width:     480,
+      modal:     true,
+      resizable: false,
+      buttons:   {
+        'OK': function() {
+          url = $('#marquess_link_url').val();
+          if (url[0] != '/' && !(/^https?:\/\//.test(url))) {
+            url = 'http://' + url;
+          }
+          editor.transform({
+            defaultText: 'link text',
+            text: $('#marquess_link_text').val(),
+            before: '[',
+            after: '](' + url + ')',
+            inline: true
+          });
+          $(this).dialog("close");
+        },
+        'Cancel': function() {
+          $(this).dialog("close");
+        }
+      },
+      open: function() {
+        $('#marquess_link_text', this).val(editor.editor.selectedText()).each(function() { this.focus(); });
+        $('#marquess_link_select', this).load('/admin/pages/list', function() {
+          $('a', this).click(function() {
+            if ($('#marquess_link_text').val() == '') { $('#marquess_link_text').val($(this).text()); }
+            $('#marquess_link_url').val($(this).attr('href'));
+            return false;
+          });
+          $('li.open, li.closed').click(function() {
+            $(this).toggleClass('open').toggleClass('closed');
+            return false;
+          }).filter('.open').click();
+        });
+        $('#marquess_link_text, #marquess_link_url', this).keypress(function(e) {
+          if (e.which == 13) {
+            $('button:contains(OK)', $(this).closest('.ui-dialog')).click();
+            return false;
+          }
+        });
+      },
+      close: function() {
+        $(this).remove();
+      }
+    });
+  };
+  
+  $.ui.marquess.commands['image'].fn = function(editor) {
+    $.ui.marquess.current = editor;
+    
+    $.breeze.image_dialog(function(url, title) {
+      editor.transform({
+        defaultText: 'image title',
+        text: title,
+        before: '![',
+        after: '](' + url + ')',
+        inline: true
+      });
+    }, { upload: true });
+    
+  };
+  
+  $('.ui-dialog .image_field .browse').live('click', function() {
+    var button = this, options = { upload: true }, wrapper = $(this).closest('li');
+    if ((w = wrapper.attr('data-width')) && (h = wrapper.attr('data-width'))) {
+      options.size = { width:parseInt(w), height:parseInt(h) };
+    }
+    $.breeze.image_dialog(function(url, title) {
+      $('input', wrapper).eq(0).val(url);
+    }, options);
+    return false;
+  });
+  
+  $.breeze = $.extend({}, {
+    image_dialog: function(action, options) {
+      options = options || {};
+      uploader = options.upload ? '<div id="uploader"></div>' : '';
+      html = $('<div class="marquess-dialog marquess-image-dialog breeze-form">' + uploader + '<div class="folders-container"><div class="folders"></div></div><fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
+      $(html).dialog({
+        title:     'Insert an image' + (options.size ? '<small>(' + options.size.width + '&times;' + options.size.height + ')</small>' : ''),
+        width:     512,
+        modal:     true,
+        resizable: false,
+        buttons:   {
+          'OK': function() {
+            var dialog = this;
+            ok_clicked = function() {
+              url = $('#marquess_image_url').val();
+              if (!(/^(\/|https?:\/\/)/.test(url))) {
+                url = 'http://' + url;
+              }
+              title = $('#marquess_image_title').val();
+              (action)(url, title);
+              $(dialog).dialog("close");
+            }
+            if (options.size && options.selected && (options.size.width != options.selected.width || options.size.height != options.selected.height)) {
+              $('<div><p><strong>This image isn\'t the right size: your page might look funny if you use it.</strong></p><p>To use it anyway, click \'<strong>OK</strong>\'.</p><p>Otherwise, click \'<strong>Cancel</strong>\', and then use the \'<strong>Edit</strong>\' button to resize your image.</p></div>').dialog({
+                title: 'Warning',
+                modal: true,
+                resizable: false,
+                close: function() { $(this).remove(); },
+                buttons: {
+                  OK: function() { $(this).dialog('close'); ok_clicked(); },
+                  Cancel: function() { $(this).dialog('close'); }
+                }
+              });
+            } else {
+              ok_clicked();
+            }
+          },
+          'Cancel': function() {
+            $(this).dialog("close");
+          }
+        },
+        open: function() {
+          var dialog = this;
+          $('#uploader', this).each(function() {
+            script_data = {};
+            script_data[$('meta[name=csrf-param]').attr('content')] = $('#edit_content [name=authenticity_token]').val();
+            script_data[$('meta[name=session-key]').attr('content')] = $('meta[name=session-id]').attr('content');
+            $(this).uploadify({
+              uploader:     '/cached/breeze/uploadify/uploadify.swf',
+              cancelImg:    '<%= image_path "icons/delete.png" %>',
+              buttonImg:    '<%= image_path "buttons/upload-small.png" %>',
+              width:        166,
+              height:       34,
+              multi:        true,
+              auto:         true,
+              script:       '/admin/assets.html',
+              scriptData:   script_data,
+              fileDataName: 'file',
+              wmode:        'transparent',
+              folder:       '/',
+
+              onComplete: function(event, queue_id, file_obj, response, data) {
+                d = $(response);
+                id = d.attr('data-id');
+                $('.folders ul', dialog).last().find('[data-id=' + id + ']').remove();
+                $('.folders ul', dialog).last().append('<li class="image" data-file="' + d.attr('data-filename') + '" data-title="' + escape($('img', d).attr('title') || '') + '" data-width="' + d.attr('data-width') + '" data-height="' + d.attr('data-height') + '" data-id="' + id + '"><span>' + d.attr('data-filename') + ' <small>(' + d.attr('data-width') + '&times;' + d.attr('data-height') + ')</small></span></li>');
+                $('.folders ul li', dialog).last().click();
+                return true;
+              }
+            });
+          });
+          $.ajax({
+            url: '/admin/assets/images.json',
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+              add_image_folder = function(dialog, name, data) {
+                h = $('<ul data-folder="' + name + '"></ul>');
+                h.appendTo($('.folders', dialog));
+                for (f in data.folders) {
+                  h.append('<li class="folder" data-folder="' + f + '"><span>' + f + '</span></li>');
+                }
+                for (f in data.files) {
+                  file = data.files[f];
+                  h.append('<li class="image" data-file="' + file.filename + '" data-title="' + escape(file.title || '') + '" data-width="' + (file.width || '') + '" data-height="' + (file.height || '') + '" data-id="' + file.id + '"><span>' + file.filename + ' <small>(' + file.width + '&times;' + file.height + ')</small></span></li>');
+                }
+                folder_count = $('.folders ul', dialog).length;
+
+                $('.folders', dialog).width(Math.max(folder_count * 200, $('.folders', dialog).parent().width()));
+                $('.folders ul', dialog).width(Math.floor($('.folders', dialog).width() / folder_count));
+                $('.folders-container', dialog).scrollTo('.folders ul:last-child', dialog);
+              };
+
+              dialog.files = data;
+              add_image_folder(dialog, '', dialog.files);
+              $('.folders li.folder', dialog).live('click', function() {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                path = '';
+                data = dialog.files;
+                $(this).closest('ul').nextAll('ul, .image-info').remove();
+                $(this).closest('ul').prevAll('ul').each(function() {
+                  f = $(this).attr('data-folder');
+                  path += f + '/';
+                  if (f && f != '') data = data.folders[f];
+                });
+                f = $(this).closest('ul').attr('data-folder');
+                path += f + '/';
+                if (f && f != '') data = data.folders[f];
+                f = $(this).attr('data-folder');
+                path += f + '/';
+                if (f && f != '') data = data.folders[f];
+                $('#uploader', dialog).each(function() {
+                  $(this).uploadifySettings('folder', path.replace(/^\/(.*)\/$/, '/$1'));
+                });
+                add_image_folder(dialog, f, data);
+              });
+
+              $('.folders li.image', dialog).live('click', function() {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                $(this).closest('ul').nextAll('ul, .image-info').remove();
+                var info = $('<div class="image-info"></div>').appendTo('.folders', dialog);
+                $('.folders', dialog).width(Math.max(folder_count * 200 + 200, $('.folders', dialog).parent().width()));
+                $('.folders ul', dialog).width(Math.floor(($('.folders', dialog).width() - 200) / folder_count));
+                var path = $.map($('.folders ul', dialog), function(f) { return $(f).attr('data-folder'); }).join('/') + '/' + $(this).attr('data-file');
+                $('#marquess_image_url', dialog).val('/assets' + path);
+                $('#marquess_image_title', dialog).val($(this).attr('data-title'));
+                info.append('<img src="/images/thumbnails/thumbnail/' + path + '" />')
+                info.append('<strong>' + $(this).attr('data-file') + '</strong>');
+                info.append('<small>' + ($(this).attr('data-width') || '??') + '&times;' + ($(this).attr('data-height') || '??') + '</small>');
+                info.append('<a href="/admin/assets/' + $(this).attr('data-id') + '/edit" class="edit button">Edit</a>');
+                options.selected = { width:parseInt($(this).attr('data-width')), height:parseInt($(this).attr('data-height')) };
+                $('.button', info).button();
+                $('.folders-container', dialog).scrollTo('.image-info', dialog);
+              });
+              
+              $('.image-info .edit', dialog).live('click', function() {
+                var button = this;
+                image_editor({
+                  url: this.href,
+                  size: options.size,
+                  ok: function(dialog) {
+                    $.ajax({
+                      url: $(button).attr('href').replace(/\/edit$/, '.json'),
+                      type: 'post',
+                      dataType: 'json',
+                      data: $('form:visible', dialog).serialize(),
+                      success: function(data) {
+                        $('.folders li.image[data-id=' + data.id + ']')
+                          .attr('data-width', data.width)
+                          .attr('data-height', data.height)
+                          .attr('data-title', data.title)
+                          .click()
+                          .find('small').html('(' + (data.width || '??') + '&times;' + (data.height || '??') + ')');
+                        $(dialog).dialog('close');
+                      }
+                    });
+                  }
+                });
+                return false;
+              });
+            }
+          })
+        },
+        close: function() {
+          $(this).remove();
+        }
+      });
+    }
+  });
+
+})(jQuery);
+
+// Cookies: http://stilbuero.de/jquery/cookie/
+jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options=options||{};if(value===null){value='';options=$.extend({},options);options.expires=-1}var expires='';if(options.expires&&(typeof options.expires=='number'||options.expires.toUTCString)){var date;if(typeof options.expires=='number'){date=new Date();date.setTime(date.getTime()+(options.expires*24*60*60*1000))}else{date=options.expires}expires='; expires='+date.toUTCString()}var path=options.path?'; path='+(options.path):'';var domain=options.domain?'; domain='+(options.domain):'';var secure=options.secure?'; secure':'';document.cookie=[name,'=',encodeURIComponent(value),expires,path,domain,secure].join('')}else{var cookieValue=null;if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';');for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i]);if(cookie.substring(0,name.length+1)==(name+'=')){cookieValue=decodeURIComponent(cookie.substring(name.length+1));break}}}return cookieValue}};
+
+// JSON
+(function($){$.toJSON=function(o)
+{if(typeof(JSON)=='object'&&JSON.stringify)
+return JSON.stringify(o);var type=typeof(o);if(o===null)
+return"null";if(type=="undefined")
+return undefined;if(type=="number"||type=="boolean")
+return o+"";if(type=="string")
+return $.quoteString(o);if(type=='object')
+{if(typeof o.toJSON=="function")
+return $.toJSON(o.toJSON());if(o.constructor===Date)
+{var month=o.getUTCMonth()+1;if(month<10)month='0'+month;var day=o.getUTCDate();if(day<10)day='0'+day;var year=o.getUTCFullYear();var hours=o.getUTCHours();if(hours<10)hours='0'+hours;var minutes=o.getUTCMinutes();if(minutes<10)minutes='0'+minutes;var seconds=o.getUTCSeconds();if(seconds<10)seconds='0'+seconds;var milli=o.getUTCMilliseconds();if(milli<100)milli='0'+milli;if(milli<10)milli='0'+milli;return'"'+year+'-'+month+'-'+day+'T'+
+hours+':'+minutes+':'+seconds+'.'+milli+'Z"';}
+if(o.constructor===Array)
+{var ret=[];for(var i=0;i<o.length;i++)
+ret.push($.toJSON(o[i])||"null");return"["+ret.join(",")+"]";}
+var pairs=[];for(var k in o){var name;var type=typeof k;if(type=="number")
+name='"'+k+'"';else if(type=="string")
+name=$.quoteString(k);else
+continue;if(typeof o[k]=="function")
+continue;var val=$.toJSON(o[k]);pairs.push(name+":"+val);}
+return"{"+pairs.join(", ")+"}";}};$.evalJSON=function(src)
+{if(typeof(JSON)=='object'&&JSON.parse)
+return JSON.parse(src);return eval("("+src+")");};$.secureEvalJSON=function(src)
+{if(typeof(JSON)=='object'&&JSON.parse)
+return JSON.parse(src);var filtered=src;filtered=filtered.replace(/\\["\\\/bfnrtu]/g,'@');filtered=filtered.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,']');filtered=filtered.replace(/(?:^|:|,)(?:\s*\[)+/g,'');if(/^[\],:{}\s]*$/.test(filtered))
+return eval("("+src+")");else
+throw new SyntaxError("Error parsing JSON, source is not valid.");};$.quoteString=function(string)
+{if(string.match(_escapeable))
+{return'"'+string.replace(_escapeable,function(a)
+{var c=_meta[a];if(typeof c==='string')return c;c=a.charCodeAt();return'\\u00'+Math.floor(c/16).toString(16)+(c%16).toString(16);})+'"';}
+return'"'+string+'"';};var _escapeable=/["\\\x00-\x1f\x7f-\x9f]/g;var _meta={'\b':'\\b','\t':'\\t','\n':'\\n','\f':'\\f','\r':'\\r','"':'\\"','\\':'\\\\'};})(jQuery);
+
+/**
+* hoverIntent r5 // 2007.03.27 // jQuery 1.1.2+
+* <http://cherne.net/brian/resources/jquery.hoverIntent.html>
+* 
+* @param  f  onMouseOver function || An object with configuration options
+* @param  g  onMouseOut function  || Nothing (use configuration options object)
+* @author    Brian Cherne <brian@cherne.net>
+*/
+(function($){$.fn.hoverIntent=function(f,g){var cfg={sensitivity:7,interval:100,timeout:0};cfg=$.extend(cfg,g?{over:f,out:g}:f);var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY;};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if((Math.abs(pX-cX)+Math.abs(pY-cY))<cfg.sensitivity){$(ob).unbind("mousemove",track);ob.hoverIntent_s=1;return cfg.over.apply(ob,[ev]);}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=0;return cfg.out.apply(ob,[ev]);};var handleHover=function(e){var p=(e.type=="mouseover"?e.fromElement:e.toElement)||e.relatedTarget;while(p&&p!=this){try{p=p.parentNode;}catch(e){p=this;}}if(p==this){return false;}var ev=jQuery.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);}if(e.type=="mouseover"){pX=ev.pageX;pY=ev.pageY;$(ob).bind("mousemove",track);if(ob.hoverIntent_s!=1){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}}else{$(ob).unbind("mousemove",track);if(ob.hoverIntent_s==1){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob);},cfg.timeout);}}};return this.mouseover(handleHover).mouseout(handleHover);};})(jQuery);
+
+/**
+ * jQuery.ScrollTo - Easy element scrolling using jQuery.
+ * Copyright (c) 2007-2009 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
+ * Dual licensed under MIT and GPL.
+ * Date: 5/25/2009
+ * @author Ariel Flesler
+ * @version 1.4.2
+ *
+ * http://flesler.blogspot.com/2007/10/jqueryscrollto.html
+ */
+;(function(d){var k=d.scrollTo=function(a,i,e){d(window).scrollTo(a,i,e)};k.defaults={axis:'xy',duration:parseFloat(d.fn.jquery)>=1.3?0:1};k.window=function(a){return d(window)._scrollable()};d.fn._scrollable=function(){return this.map(function(){var a=this,i=!a.nodeName||d.inArray(a.nodeName.toLowerCase(),['iframe','#document','html','body'])!=-1;if(!i)return a;var e=(a.contentWindow||a).document||a.ownerDocument||a;return d.browser.safari||e.compatMode=='BackCompat'?e.body:e.documentElement})};d.fn.scrollTo=function(n,j,b){if(typeof j=='object'){b=j;j=0}if(typeof b=='function')b={onAfter:b};if(n=='max')n=9e9;b=d.extend({},k.defaults,b);j=j||b.speed||b.duration;b.queue=b.queue&&b.axis.length>1;if(b.queue)j/=2;b.offset=p(b.offset);b.over=p(b.over);return this._scrollable().each(function(){var q=this,r=d(q),f=n,s,g={},u=r.is('html,body');switch(typeof f){case'number':case'string':if(/^([+-]=)?\d+(\.\d+)?(px|%)?$/.test(f)){f=p(f);break}f=d(f,this);case'object':if(f.is||f.style)s=(f=d(f)).offset()}d.each(b.axis.split(''),function(a,i){var e=i=='x'?'Left':'Top',h=e.toLowerCase(),c='scroll'+e,l=q[c],m=k.max(q,i);if(s){g[c]=s[h]+(u?0:l-r.offset()[h]);if(b.margin){g[c]-=parseInt(f.css('margin'+e))||0;g[c]-=parseInt(f.css('border'+e+'Width'))||0}g[c]+=b.offset[h]||0;if(b.over[h])g[c]+=f[i=='x'?'width':'height']()*b.over[h]}else{var o=f[h];g[c]=o.slice&&o.slice(-1)=='%'?parseFloat(o)/100*m:o}if(/^\d+$/.test(g[c]))g[c]=g[c]<=0?0:Math.min(g[c],m);if(!a&&b.queue){if(l!=g[c])t(b.onAfterFirst);delete g[c]}});t(b.onAfter);function t(a){r.animate(g,j,b.easing,a&&function(){a.call(this,n,b)})}}).end()};k.max=function(a,i){var e=i=='x'?'Width':'Height',h='scroll'+e;if(!d(a).is('html,body'))return a[h]-d(a)[e.toLowerCase()]();var c='client'+e,l=a.ownerDocument.documentElement,m=a.ownerDocument.body;return Math.max(l[h],m[h])-Math.min(l[c],m[c])};function p(a){return typeof a=='object'?a:{top:a,left:a}}})(jQuery);

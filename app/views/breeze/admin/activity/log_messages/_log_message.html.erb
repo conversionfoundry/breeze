@@ -1,0 +1,7 @@
+<%= content_tag :li, :class => "#{log_message.verb} #{log_message.kind}" do %>
+  <%= content_tag :span, :class => "datetime" do %>
+    <%= content_tag :span, (@log_date = log_message.created_at.to_date).to_time.to_formatted_s(:breeze_date), :class => "date" unless log_message.created_at.to_date == @log_date %>
+    <%= content_tag :span, log_message.created_at.to_formatted_s(:breeze_time), :class => "time" %>
+  <% end %>
+  <%= content_tag :span, log_message.to_html.html_safe, :class => :message %>
+<% end %>

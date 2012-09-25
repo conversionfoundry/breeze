@@ -1,0 +1,53 @@
+<% content_for :title, "Users" -%>
+
+<% content_for :head do %>
+  <%#= javascript_include_tag "/breeze/javascripts/users" %>
+<% end %>
+
+<%= tabbed_layout do -%>
+
+<% end %>
+
+<% content_for :left do %>
+  <%= pane_layout do |left| %>
+    <% left.header do %>
+      <h2>Users</h2>
+    <% end %>
+    <% left.inner do %>
+      <%= content_tag :div, :id => :users do %>
+        <% unless @admins and @admins.empty? %>
+          <h3>Admins</h3>
+          <%= content_tag :ul, :id => :admins do %>
+            <%= render :partial => "breeze/admin/users/user", :collection => @admins %>
+          <% end %>
+        <% end %>
+
+        <% unless @designers and @designers.empty? %>
+          <h3>Designers</h3>
+          <%= content_tag :ul, :id => :designers do %>
+            <%= render :partial => "breeze/admin/users/user", :collection => @designers %>
+          <% end %>
+        <% end %>
+
+        <% unless @editors and @editors.empty? %>
+          <h3>Editors</h3>
+          <%= content_tag :ul, :id => :editors do %>
+            <%= render :partial => "breeze/admin/users/user", :collection => @editors %>
+          <% end %>
+        <% end %>
+
+        <%# content_tag :ul do %>
+          <%# render :partial => "breeze/admin/users/user", :collection => @users %>
+        <%# end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :right do -%>
+  <%= pane_layout do |right| %>
+    <% right.header do %>
+      <%= link_to "New user", new_admin_user_path, :class => "large new user button" if can? :create, Breeze::Admin::User %>
+    <% end %>
+  <% end %>
+<% end -%>

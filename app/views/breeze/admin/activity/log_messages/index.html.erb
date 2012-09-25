@@ -1,0 +1,4 @@
+<%= will_paginate @log_messages %>
+<%= content_tag :ul, :class => "log-messages" do %>
+  <%= render :partial => "breeze/admin/activity/log_messages/log_message", :collection => @log_messages %>
+<% end %>

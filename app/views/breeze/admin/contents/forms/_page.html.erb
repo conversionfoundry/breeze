@@ -1,0 +1,30 @@
+<%= edit_form_for form, Breeze::Content::NavigationItem %>
+
+<%= form.fieldset :legend => "SEO" do %>
+  <%= form.text_field :seo_title %>
+  <%= form.text_area :seo_meta_description, :rows => 3 %>
+  <%= form.text_area :seo_meta_keywords, :rows => 3 %>
+<% end %>
+
+<%# TODO: Edit redirects here. %>
+<%= form.fieldset :legend => "Redirects" do %>
+  <p>These URLs will also link to this page <p>
+  <ul>
+	  <% form.object.redirects.each do |redirect| %>
+      <li><%= link_to redirect.permalink, redirect.permalink %></li>
+	  <% end %>
+	</ul>
+<% end %>
+
+<%# TODO: Change template here, in case the front end is borked. Provide useful info about views %>
+<% if current_user.can? :manage, Breeze::Content::Item %>
+	<%= form.fieldset :legend => "Developer Info" do %>
+		<h3>Template</h3>
+	  <%= form.object.template or "none" %>
+	  <h3>Views</h3>
+	  <% form.object.views.each do |view| %>
+	  	<%= view.name %>
+	  <% end %>
+	<% end %>
+
+<% end %>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Log in to continue | Breeze</title>
+    <%= stylesheet_link_tag "breeze/login" %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
+    <script type="text/javascript" charset="utf-8">
+      $(function() {
+        $('#forgot a.forgot').click(function() {
+          $('#forgot input[type=text]').val($('#<%= resource_name %>_email').val());
+          $('#forgot_form').slideToggle();
+          $('#forgot').toggleClass('active');
+          return false;
+        });
+        
+        $('#forgot form').submit(function() {
+          $.ajax({
+            url:  $(this).attr('action'),
+            type: 'post',
+            data: $(this).serializeArray(),
+            success: function(data, status, xhr) {
+              $('#forgot_form').html(data);
+            }
+          });
+          return false;
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="login">
+      <h1>Breeze </h1>
+      <%= yield %>
+    </div>
+  </body>
+</html>

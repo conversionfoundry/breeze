@@ -1,0 +1,23 @@
+<div class="edit-content-tabs ui-widget-content ui-corner-all">
+  <h2>Edit <%= @content.class.label %></h2>
+
+  <div id="edit-existing-content">
+    <%= breeze_form_for @content, :as => :content, :url => admin_content_path(@placement.id, :format => :js), :remote => true do |form| %>
+      <%= render "/breeze/admin/shared/error_messages", :target => @content, :object_name => :content %>
+
+      <% if form.object.shared? -%>
+        <div class="update-all">
+          <p><%= check_box_tag :update_all, "1", true %> <label for="update_all">Update other instances?</label></p>
+          <p class="inline-hints">This piece of content is used elsewhere on the site. (<%= link_to_function "Show me where else this content appears", "$('.instances', $(this).closest('div')).show().load('/admin/contents/#{@content.id}/instances', function() { $('a[href=' + window.location.pathname + ']', this).closest('li').hide(); })" %>)</p>
+          <div class="instances" style="display: none;">Loading...</div>
+        </div>
+      <% end -%>
+
+      <%= content_tag :div, :class => "content-form" do %>
+        <%= edit_form_for form %>
+      <% end %>
+
+      <div class="buttons-panel"><a class="small green ok button">OK</a><a class="small black cancel button">Cancel</a></div>
+    <% end %>
+  </div>
+</div>

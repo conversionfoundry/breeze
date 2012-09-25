@@ -1,0 +1,5 @@
+<% children = folders.select { |f| /^#{folder unless folder == "/"}\/[^\/]+$/ === f } %>
+<%= content_tag :li, :class => "folder#{folder == "/" ? ' open' : children.empty? ? nil : ' closed'}", :rel => folder == "/" ? :root : :folder, :"data-folder" => folder do %>
+  <%= link_to "<ins class=\"icon\"></ins>#{folder == "/" ? "assets" : File.basename(folder)}".html_safe, "/admin/assets/folders/#{folder[1..-1].gsub("/", "%2f")}" %>
+  <%= content_tag :ul, render(:partial => "breeze/admin/assets/folder", :collection => children) unless children.empty? %>
+<% end %>

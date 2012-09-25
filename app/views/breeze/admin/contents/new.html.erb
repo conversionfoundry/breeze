@@ -1,0 +1,38 @@
+<div class="add-content-tabs">
+  <h2>Add Content</h2>
+  <ul>
+    <li><a href="#add-new-content">New content</a></li>
+    <li><a href="#add-existing-content">Existing content</a></li>
+  </ul>
+  <div id="add-existing-content">
+    <%= form_tag search_admin_contents_path(:format => :html), :method => :get, :remote => true, :class => "search-contents breeze-form" do %>
+      <%= hidden_field_tag :container_id, @content.container_id %>
+      <%= hidden_field_tag :region, @content.region %>
+      <%= hidden_field_tag :view, @content.view %>
+      <fieldset class="search">
+        <label for="new_content_query">Search for content:</label>
+        <input type="search" class="search" name="q" id="new_content_query" />
+        <%= submit_tag "Search", :class => "medium search button" %>
+      </fieldset>
+    <% end %>
+    <%= content_tag :div, "", :class => "breeze-search-results" %>
+  </div>
+  <div id="add-new-content">
+    <%= breeze_form_for @content, :as => :content, :url => admin_contents_path(:format => :js), :remote => true do |form| %>
+      <%= form.hidden_field :container_id %>
+      <%= form.hidden_field :region %>
+      <%= form.hidden_field :view %>
+      
+      <%= form.fieldset :class => "content-types" do %>
+        <%= form.content_type_select :_type, :label =>'Content Type' %>
+      <% end %>
+      
+      <%= render "/breeze/admin/shared/error_messages", :target => @content, :object_name => :content %>
+      <%= content_tag :div, :class => "content-form" do %>
+        <%= edit_form_for form %>
+      <% end %>
+      <div class="buttons-panel"><a class="small green ok button">OK</a><a class="small black cancel button">Cancel</a></div>
+    <% end %>
+  </div>
+  
+</div>

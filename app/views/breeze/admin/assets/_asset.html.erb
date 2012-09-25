@@ -1,0 +1,10 @@
+<%= content_tag :div, :class => "asset #{asset.extension}", :id => "asset_#{asset.id}", :"data-filename" => asset.basename do %>
+  <%= content_tag :div, :class => "icon #{asset.extension}" do %>
+    <span class="filename"><%= asset.basename %></span>
+  <% end %>
+  <%= content_tag :div, :class => :links do %>
+    <%= link_to "View", asset.file.url, :class => :view, :rel => :view, :target => :_blank %>
+    <%= link_to "Edit", edit_admin_asset_path(asset), :class => :edit, :rel => :edit %>
+    <%= link_to "Delete", admin_asset_path(asset), :method => :delete, :remote => true, :class => :delete, :rel => :delete %>
+  <% end %>
+<% end %>

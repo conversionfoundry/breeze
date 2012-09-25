@@ -1,0 +1,17 @@
+<% if target.errors.any? %>
+  <div class="errors">
+    <h2>Oops! Please check the following <%= target.errors.count == 1 ? "error" : "errors" %>:</h2>  
+    <ul>
+      <% target.errors.each do |attribute, message| %>
+        <%= content_tag :li, :class => attribute do %>
+          <% if attribute == :base %>
+            <%= message %>
+          <% else %>
+            <% attr_name = attribute.to_s.gsub('.', '_').humanize %>
+            <%= link_to target.class.human_attribute_name(attribute, :default => attr_name), "##{object_name || target.class.name.demodulize.underscore}_#{attribute}", :rel => :error %> <%= message %>
+          <% end %>
+        <% end %>
+      <% end %>  
+    </ul>  
+  </div>  
+<% end %>

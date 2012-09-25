@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module Breeze::Content::Mixins::TreeStructure - EngineName</title>
+
+<link type="text/css" media="screen" href="../../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../../index.html">Home</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/breeze/content/mixins/tree_structure.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-included">::included</a>
+    
+    <li><a href="#method-i-destroy_children">#destroy_children</a>
+    
+    <li><a href="#method-i-move-21">#move!</a>
+    
+    <li><a href="#method-i-move_after-21">#move_after!</a>
+    
+    <li><a href="#method-i-move_before-21">#move_before!</a>
+    
+    <li><a href="#method-i-move_inside-21">#move_inside!</a>
+    
+    <li><a href="#method-i-next">#next</a>
+    
+    <li><a href="#method-i-previous">#previous</a>
+    
+    <li><a href="#method-i-root-3F">#root?</a>
+    
+    <li><a href="#method-i-scope">#scope</a>
+    
+    <li><a href="#method-i-self_and_ancestors">#self_and_ancestors</a>
+    
+    <li><a href="#method-i-self_and_siblings">#self_and_siblings</a>
+    
+    <li><a href="#method-i-set_position">#set_position</a>
+    
+    <li><a href="#method-i-set_sibling_positions">#set_sibling_positions</a>
+    
+    <li><a href="#method-i-siblings">#siblings</a>
+    
+    <li><a href="#method-i-update_sibling_positions">#update_sibling_positions</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../../README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../Breeze.html">Breeze</a>
+  
+    <li><a href="../../../Breeze/Admin.html">Breeze::Admin</a>
+  
+    <li><a href="../../../Breeze/Admin/Ability.html">Breeze::Admin::Ability</a>
+  
+    <li><a href="../../../Breeze/Admin/Activity.html">Breeze::Admin::Activity</a>
+  
+    <li><a href="../../../Breeze/Admin/Activity/LogMessage.html">Breeze::Admin::Activity::LogMessage</a>
+  
+    <li><a href="../../../Breeze/Admin/Activity/ObjectReference.html">Breeze::Admin::Activity::ObjectReference</a>
+  
+    <li><a href="../../../Breeze/Admin/FormBuilder.html">Breeze::Admin::FormBuilder</a>
+  
+    <li><a href="../../../Breeze/Admin/Mixins.html">Breeze::Admin::Mixins</a>
+  
+    <li><a href="../../../Breeze/Admin/Mixins/Login.html">Breeze::Admin::Mixins::Login</a>
+  
+    <li><a href="../../../Breeze/Admin/User.html">Breeze::Admin::User</a>
+  
+    <li><a href="../../../Breeze/Configuration.html">Breeze::Configuration</a>
+  
+    <li><a href="../../../Breeze/Content.html">Breeze::Content</a>
+  
+    <li><a href="../../../Breeze/Content/Asset.html">Breeze::Content::Asset</a>
+  
+    <li><a href="../../../Breeze/Content/Custom.html">Breeze::Content::Custom</a>
+  
+    <li><a href="../../../Breeze/Content/Custom/Field.html">Breeze::Content::Custom::Field</a>
+  
+    <li><a href="../../../Breeze/Content/Custom/ImageField.html">Breeze::Content::Custom::ImageField</a>
+  
+    <li><a href="../../../Breeze/Content/Custom/Instance.html">Breeze::Content::Custom::Instance</a>
+  
+    <li><a href="../../../Breeze/Content/Custom/StringField.html">Breeze::Content::Custom::StringField</a>
+  
+    <li><a href="../../../Breeze/Content/Custom/TextField.html">Breeze::Content::Custom::TextField</a>
+  
+    <li><a href="../../../Breeze/Content/Custom/Type.html">Breeze::Content::Custom::Type</a>
+  
+    <li><a href="../../../Breeze/Content/Image.html">Breeze::Content::Image</a>
+  
+    <li><a href="../../../Breeze/Content/Item.html">Breeze::Content::Item</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins.html">Breeze::Content::Mixins</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/Container.html">Breeze::Content::Mixins::Container</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/Container/ClassMethods.html">Breeze::Content::Mixins::Container::ClassMethods</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/Markdown.html">Breeze::Content::Mixins::Markdown</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/Markdown/ClassMethods.html">Breeze::Content::Mixins::Markdown::ClassMethods</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/Markdown/InstanceMethods.html">Breeze::Content::Mixins::Markdown::InstanceMethods</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/Permalinks.html">Breeze::Content::Mixins::Permalinks</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/Placeable.html">Breeze::Content::Mixins::Placeable</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/Placeable/ClassMethods.html">Breeze::Content::Mixins::Placeable::ClassMethods</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/TreeStructure.html">Breeze::Content::Mixins::TreeStructure</a>
+  
+    <li><a href="../../../Breeze/Content/Mixins/TreeStructure/ClassMethods.html">Breeze::Content::Mixins::TreeStructure::ClassMethods</a>
+  
+    <li><a href="../../../Breeze/Content/NavigationItem.html">Breeze::Content::NavigationItem</a>
+  
+    <li><a href="../../../Breeze/Content/Page.html">Breeze::Content::Page</a>
+  
+    <li><a href="../../../Breeze/Content/PageView.html">Breeze::Content::PageView</a>
+  
+    <li><a href="../../../Breeze/Content/Placement.html">Breeze::Content::Placement</a>
+  
+    <li><a href="../../../Breeze/Content/Redirect.html">Breeze::Content::Redirect</a>
+  
+    <li><a href="../../../Breeze/Content/Sitemap.html">Breeze::Content::Sitemap</a>
+  
+    <li><a href="../../../Breeze/Content/SitemapView.html">Breeze::Content::SitemapView</a>
+  
+    <li><a href="../../../Breeze/Content/Snippet.html">Breeze::Content::Snippet</a>
+  
+    <li><a href="../../../Breeze/Content/View.html">Breeze::Content::View</a>
+  
+    <li><a href="../../../Breeze/Engine.html">Breeze::Engine</a>
+  
+    <li><a href="../../../Breeze/Errors.html">Breeze::Errors</a>
+  
+    <li><a href="../../../Breeze/Errors/NotAcceptable.html">Breeze::Errors::NotAcceptable</a>
+  
+    <li><a href="../../../Breeze/Errors/NotFound.html">Breeze::Errors::NotFound</a>
+  
+    <li><a href="../../../Breeze/Errors/RequestError.html">Breeze::Errors::RequestError</a>
+  
+    <li><a href="../../../Breeze/Generators.html">Breeze::Generators</a>
+  
+    <li><a href="../../../Breeze/Generators/InstallGenerator.html">Breeze::Generators::InstallGenerator</a>
+  
+    <li><a href="../../../Breeze/Generators/ThemeGenerator.html">Breeze::Generators::ThemeGenerator</a>
+  
+    <li><a href="../../../Breeze/Hooks.html">Breeze::Hooks</a>
+  
+    <li><a href="../../../Breeze/Queueing.html">Breeze::Queueing</a>
+  
+    <li><a href="../../../Breeze/Queueing/Resque.html">Breeze::Queueing::Resque</a>
+  
+    <li><a href="../../../Breeze/Queueing/ResqueJob.html">Breeze::Queueing::ResqueJob</a>
+  
+    <li><a href="../../../Breeze/Queueing/Strategy.html">Breeze::Queueing::Strategy</a>
+  
+    <li><a href="../../../Breeze/Queueing/Synchronous.html">Breeze::Queueing::Synchronous</a>
+  
+    <li><a href="../../../Breeze/Theming.html">Breeze::Theming</a>
+  
+    <li><a href="../../../Breeze/Theming/Theme.html">Breeze::Theming::Theme</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module Breeze::Content::Mixins::TreeStructure</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-included" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">included</span><span
+            class="method-args">(base)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="included-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">belongs_to_related</span> <span class="ruby-value">:parent</span>, <span class="ruby-value">:class_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">base</span>.<span class="ruby-identifier">name</span>
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">has_many_related</span> <span class="ruby-value">:children</span>, <span class="ruby-value">:class_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">base</span>.<span class="ruby-identifier">name</span>, <span class="ruby-value">:foreign_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:parent_id</span>
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">field</span> <span class="ruby-value">:position</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>
+  
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">before_create</span> <span class="ruby-value">:set_position</span>
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">before_destroy</span> <span class="ruby-value">:destroy_children</span>
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">after_destroy</span> <span class="ruby-value">:set_sibling_positions</span>
+  
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">named_scope</span> <span class="ruby-value">:root</span>, <span class="ruby-identifier">where</span>(<span class="ruby-value">:parent_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- included-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- included-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-move-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">move!</span><span
+            class="method-args">(move_type, ref_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="move-21-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">move!</span>(<span class="ruby-identifier">move_type</span>, <span class="ruby-identifier">ref_id</span>)
+  <span class="ruby-identifier">send</span> <span class="ruby-value">:&quot;move_#{move_type}!&quot;</span>, <span class="ruby-identifier">ref_id</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- move-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- move-21-method -->
+
+    
+      <div id="method-i-next" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">next</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="next-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">next</span>
+  <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:position</span>.<span class="ruby-identifier">gt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">position</span>).<span class="ruby-identifier">order_by</span>([[ <span class="ruby-value">:position</span>, <span class="ruby-value">:asc</span> ]]).<span class="ruby-identifier">first</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- next-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- next-method -->
+
+    
+      <div id="method-i-previous" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">previous</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="previous-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">previous</span>
+  <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:position</span>.<span class="ruby-identifier">lt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">position</span>).<span class="ruby-identifier">order_by</span>([[ <span class="ruby-value">:position</span>, <span class="ruby-value">:desc</span> ]]).<span class="ruby-identifier">first</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- previous-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- previous-method -->
+
+    
+      <div id="method-i-root-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">root?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="root-3F-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">root?</span>
+  <span class="ruby-identifier">parent_id</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- root-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- root-3F-method -->
+
+    
+      <div id="method-i-scope" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">scope</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="scope-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">scope</span>
+  <span class="ruby-identifier">base_class</span>.<span class="ruby-identifier">criteria</span>.<span class="ruby-identifier">where</span> <span class="ruby-value">:parent_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">parent_id</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- scope-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- scope-method -->
+
+    
+      <div id="method-i-self_and_ancestors" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">self_and_ancestors</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="self_and_ancestors-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">self_and_ancestors</span>
+  [ <span class="ruby-keyword">self</span> ].<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">list</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">list</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, *<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">self_and_ancestors</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">root?</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- self_and_ancestors-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- self_and_ancestors-method -->
+
+    
+      <div id="method-i-self_and_siblings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">self_and_siblings</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="self_and_siblings-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">self_and_siblings</span>
+  <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">order_by</span>([[ <span class="ruby-value">:position</span>, <span class="ruby-value">:asc</span> ]])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- self_and_siblings-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- self_and_siblings-method -->
+
+    
+      <div id="method-i-siblings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">siblings</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="siblings-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">siblings</span>
+  <span class="ruby-identifier">self_and_siblings</span>.<span class="ruby-identifier">where</span> <span class="ruby-value">:id</span>.<span class="ruby-identifier">ne</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- siblings-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- siblings-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Protected Instance Methods</h3>
+
+    
+      <div id="method-i-destroy_children" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy_children</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy_children-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy_children</span>
+  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">map</span> &amp;<span class="ruby-value">:destroy</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy_children-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy_children-method -->
+
+    
+      <div id="method-i-move_after-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">move_after!</span><span
+            class="method-args">(ref_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="move_after-21-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">move_after!</span>(<span class="ruby-identifier">ref_id</span>)
+  <span class="ruby-identifier">update_sibling_positions</span> <span class="ruby-value">-1</span>
+  <span class="ruby-identifier">ref_node</span> = <span class="ruby-identifier">base_class</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">ref_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">parent_id</span> = <span class="ruby-identifier">ref_node</span>.<span class="ruby-identifier">parent_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">position</span> = <span class="ruby-identifier">ref_node</span>.<span class="ruby-identifier">position</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">update_sibling_positions</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">ref_node</span>.<span class="ruby-identifier">position</span>
+  <span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- move_after-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- move_after-21-method -->
+
+    
+      <div id="method-i-move_before-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">move_before!</span><span
+            class="method-args">(ref_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="move_before-21-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">move_before!</span>(<span class="ruby-identifier">ref_id</span>)
+  <span class="ruby-identifier">update_sibling_positions</span> <span class="ruby-value">-1</span>
+  <span class="ruby-identifier">ref_node</span> = <span class="ruby-identifier">base_class</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">ref_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">parent_id</span> = <span class="ruby-identifier">ref_node</span>.<span class="ruby-identifier">parent_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">position</span> = <span class="ruby-identifier">ref_node</span>.<span class="ruby-identifier">position</span>
+  <span class="ruby-identifier">update_sibling_positions</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">ref_node</span>.<span class="ruby-identifier">position</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- move_before-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- move_before-21-method -->
+
+    
+      <div id="method-i-move_inside-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">move_inside!</span><span
+            class="method-args">(ref_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="move_inside-21-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">move_inside!</span>(<span class="ruby-identifier">ref_id</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">parent_id</span> = <span class="ruby-identifier">ref_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">position</span> = <span class="ruby-identifier">base_class</span>.<span class="ruby-identifier">criteria</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:parent_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ref_id</span>).<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- move_inside-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- move_inside-21-method -->
+
+    
+      <div id="method-i-set_position" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_position</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_position-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_position</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">position</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">update_sibling_positions</span> <span class="ruby-value">1</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">position</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_position-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_position-method -->
+
+    
+      <div id="method-i-set_sibling_positions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_sibling_positions</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_sibling_positions-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_sibling_positions</span>
+  <span class="ruby-identifier">update_sibling_positions</span> <span class="ruby-value">-1</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_sibling_positions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_sibling_positions-method -->
+
+    
+      <div id="method-i-update_sibling_positions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_sibling_positions</span><span
+            class="method-args">(by = 1, ref_position = nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_sibling_positions-source">
+            <pre><span class="ruby-comment"># File app/models/breeze/content/mixins/tree_structure.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_sibling_positions</span>(<span class="ruby-identifier">by</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">ref_position</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">ref_position</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">position</span>
+  <span class="ruby-identifier">base_class</span>.<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">update</span>(
+    { <span class="ruby-value">:parent_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">parent_id</span>, <span class="ruby-value">:position</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-string">'$gt'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ref_position</span> } },
+    { <span class="ruby-string">'$inc'</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-value">:position</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">by</span> } },
+    <span class="ruby-value">:multi</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_sibling_positions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_sibling_positions-method -->
+
+    
+    </section><!-- protected-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

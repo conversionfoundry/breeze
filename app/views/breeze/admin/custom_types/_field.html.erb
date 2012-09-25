@@ -1,0 +1,21 @@
+<fieldset class="custom-field">
+  <%= hidden_field_tag "custom_type[custom_fields_attributes][0][id]", field.id unless field.new_record? %>
+  <a href="#" class="delete" rel="delete">Delete</a>
+  <ol class="form">
+    <li class="text_field">
+      <%= label_tag "custom_type[custom_fields_attributes][0][label]", "Label" %>
+      <%= text_field_tag "custom_type[custom_fields_attributes][0][label]", field.label %>
+    </li>
+    <li class="text_field">
+      <%= label_tag "custom_type[custom_fields_attributes][0][name]", "Name" %>
+      <%= text_field_tag "custom_type[custom_fields_attributes][0][name]", field.name, :class => "custom-field-name" %>
+    </li>
+    <li class="select">
+      <%= label_tag "custom_type[custom_fields_attributes][0][_type]", "Field type" %>
+      <%= select_tag "custom_type[custom_fields_attributes][0][_type]", options_for_select(Breeze::Content::Custom::Field.types.map { |t| [ t.label, t.name ] }, field._type), :class => "custom-field-type", :disabled => !field.new_record? %>
+    </li>
+  </ol>
+  <ol class="field-options">
+    <%= render :partial => "breeze/admin/custom_types/#{field.class.name.demodulize.underscore}", :object => field unless field.class == Breeze::Content::Custom::Field %>
+  </ol>
+</fieldset>

@@ -1,0 +1,15 @@
+<%= breeze_form_for @page, :as => :page, :url => admin_pages_path, :remote => true do |form| %>
+  <%= render "/breeze/admin/shared/error_messages", :target => @page, :object_name => :page %>
+  <%= form.hidden_field :parent_id %>
+  <%= form.fieldset do %>
+    <%= form.text_field :title, :required => true %>
+    <%= form.select :_type, (Breeze::Content.classes(Breeze::Content::NavigationItem) - [Breeze::Content::NavigationItem]).collect { |t| [ t.label, t.name ] }.sort_by(&:first), :required => true, :label => "Content type" %>
+    <% unless form.object.root? %>
+      <li>
+        <%= form.label :slug, nil, :required => true %>
+        <span class="field">http://<%= "#{request.host_with_port}#{form.object.parent.permalink}#{'/' unless form.object.parent.root?}" %><%= form.text_field :slug, :wrap => false, :size => 16 %></span>
+        <%= form.errors_for :slug %>
+      </li>
+    <% end %>
+  <% end %>
+<% end %>

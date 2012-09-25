@@ -1,0 +1,15 @@
+<% if @user.errors.empty? %>
+  close_tab('new_user');
+  <% if @user.admin? %>
+  	$('#left #users #admins').append('<%= escape_javascript render(:partial => "breeze/admin/users/user", :object => @user) %>');
+  <% elsif @user.designer? %>
+  	$('#left #users #designers').append('<%= escape_javascript render(:partial => "breeze/admin/users/user", :object => @user) %>');
+  <% elsif @user.editor? %>
+  	$('#left #users #editors').append('<%= escape_javascript render(:partial => "breeze/admin/users/user", :object => @user) %>');
+  <% end %>
+  $('#left #users a[data-id=<%= @user.id %>]').click();
+  $.flashMessage('User created.', { auto: true });
+  $('#tab_<%= @user.id%>').html('<%= escape_javascript render(:template => "breeze/admin/users/edit") %>');
+<% else %>
+  $('#new_user').replaceWith('<%= escape_javascript render(:template => "breeze/admin/users/new") %>');
+<% end %>

@@ -1,0 +1,3 @@
+$('#content_new.breeze-content').remove();
+$('#<%= @placement.region %>_region').append('<%= escape_javascript render(:inline => @placement.to_erb(@view)) %>');
+

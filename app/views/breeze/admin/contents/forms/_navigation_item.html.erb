@@ -1,0 +1,23 @@
+<%= form.fieldset :legend => "Navigation" do %>
+  <%= form.text_field :title, :required => true %>
+  <%= form.text_field :subtitle, :hint => "In case you need more text in your navigation" %>
+    <% unless form.object.root? %>
+      <li class="url <%= form.object.ssl? ? :https : :http %>">
+        <%= form.label :slug, nil, :required => true %>
+        <span class="field"><%= content_tag :span, "http://", :class => "protocol http" %><%= content_tag :span, "https://", :class => "protocol https" %><%= "#{request.host_with_port}#{form.object.parent.permalink}#{'/' unless form.object.parent.root?}" %><%= form.text_field :slug, :wrap => false, :size => 16 %></span>
+        <%= form.errors_for :slug %>
+      </li>
+    <% end %>
+    <% unless form.object.class == Breeze::Content::Placeholder %>
+      <%= form.check_box :show_in_navigation, :label => "Show this page in navigation menus?" %>
+      <%= form.check_box :ssl, :label => "Use SSL (secure pages)?", :hint => "<strong>Note:</strong> this option requires a correctly-configured SSL certificate on your server#{', and is disabled in development mode' if Rails.env.development?}.".html_safe %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#<%= form.object_name %>_ssl').change(function() {
+      $('li.url', $(this).closest('form')).toggleClass('http', !this.checked).toggleClass('https', this.checked);
+    });
+  });
+</script>

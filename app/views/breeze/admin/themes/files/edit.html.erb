@@ -1,0 +1,20 @@
+<%= form_tag "/admin/themes/#{theme.name}/files#{@path}", :method => :put, :remote => true, :class => :editor do -%>
+  <% if image_file?(@path) %>
+    <%= image_tag "/admin/themes/#{theme.name}/raw#{@path}" %>
+  <% else %>
+    <%= text_area_tag "file[contents]", @contents %>
+  <% end %>
+  
+  <%= content_tag :div, :class => "fake-right-sidebar" do %>
+    <%= submit_tag "Save", :class => "large green save button" %>
+    <%= link_to "Delete", "/admin/themes/#{theme.name}/files#{@path}", :method => :delete, :remote => true, :confirm => 'Are you sure you want to delete this file?', :class => "large red delete button" %>
+
+    <% if @editing_help_type %>
+	    <div class="help">
+	    	<h3><%= @editing_help_type %> Editing Help</h3>
+	    	<%= @editing_help.html_safe %>
+	    </div>
+    <% end %>
+
+  <% end %>
+<% end -%>

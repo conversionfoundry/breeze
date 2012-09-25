@@ -1,0 +1,3 @@
+<%= breeze_form_for @user, :as => :user, :url => admin_user_path(@user, :format => :js), :remote => true do |form| %>
+  <%= render "breeze/admin/users/form", :form => form %>
+<% end %>

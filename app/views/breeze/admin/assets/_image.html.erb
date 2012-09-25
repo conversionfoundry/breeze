@@ -1,0 +1,13 @@
+<%= content_tag :div, :class => "image asset", :id => "asset_#{image.id}", :"data-filename" => image.basename, :"data-width" => image.image_width, :"data-height" => image.image_height, :"data-id" => image.id do %>
+  <%= content_tag :div, :class => "icon #{image.extension}" do %>
+    <%= image_tag image.file.url(:thumbnail) %>
+  <% end %>
+  <%= content_tag :div, :class => :meta do %>
+    <span class="filename" title="<%= image.basename %>"><%= truncate image.basename, :length => 22 %></span>
+    <small class="dimensions"><%= image.image_width || "??" %> &times; <%= image.image_height || "??" %>, <abbr><%= image.extension %></abbr></small>
+  <% end %>
+  <%= content_tag :div, :class => :links do %>
+    <%= link_to "Edit", edit_admin_asset_path(image), :class => :edit, :rel => :edit %>
+    <%= link_to "Delete", admin_asset_path(image), :method => :delete, :remote => true, :class => :delete, :rel => :delete %>
+  <% end %>
+<% end %>

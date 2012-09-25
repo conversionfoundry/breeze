@@ -1,0 +1,12 @@
+<% if @redirect.errors.empty? %>
+  $('table.redirects tbody').append('<%= escape_javascript render("/breeze/admin/redirects/redirect", :redirect => @redirect) %>');
+  $('#redirect_permalink, #redirect_target').val('').siblings('.inline-errors').remove();
+  $('#redirect_permalink')[0].focus();
+<% else %>
+  $('table.redirects .inline-errors').remove();
+  <% @redirect.errors.each_pair do |attr, messages| %>
+    <% messages.each do |msg| %>
+      $('#redirect_<%= attr %>').after('<p class="inline-errors"><%= escape_javascript msg %></p>');
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<h3>Images</h3>
+<%= content_tag :div, :class => "assets image-assets" do %>
+  <%= render :partial => "breeze/admin/assets/image", :collection => @assets.select(&:image?) %>
+<% end %>
+<h3>Other stuff</h3>
+<%= content_tag :div, :class => "assets asset-assets" do %>
+  <%= render :partial => "breeze/admin/assets/asset", :collection => @assets.reject(&:image?) %>
+<% end %>

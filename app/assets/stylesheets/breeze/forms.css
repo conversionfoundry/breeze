@@ -1,0 +1,380 @@
+/* SEMANTIC ERRORS
+--------------------------------------------------------------------------------------------------*/
+.breeze-form ul.errors { color:#cc0000; margin:0.5em 0 1.5em 25%; list-style:square; }
+.breeze-form ul.errors li { padding:0; border:none; display:list-item; }
+
+/* FIELDSETS & LISTS
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset { }
+.breeze-form fieldset.inputs { }
+.breeze-form fieldset.buttons { padding-left:25%; }
+.breeze-form fieldset ol { padding: 0px; }
+.breeze-form fieldset.buttons li { float:left; padding-right:0.5em; }
+
+/* clearfixing the fieldsets */
+.breeze-form fieldset { display: inline-block; }
+.breeze-form fieldset:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+html[xmlns] .breeze-form fieldset { display: block; }
+* html .breeze-form fieldset { height: 1%; }
+
+/* INPUT LIs
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li { margin-bottom: 8px; }
+
+/* clearfixing the li's */
+.breeze-form fieldset > ol > li { display: inline-block; }
+.breeze-form fieldset > ol > li:after { content: " "; display: block; height: 0; clear: both; visibility: hidden; overflow: hidden; text-indent: -100em; }
+html[xmlns] .breeze-form fieldset > ol > li { display: block; }
+* html .breeze-form fieldset > ol > li { height: 1%; }
+
+.breeze-form fieldset > ol > li.required { }
+.breeze-form fieldset > ol > li.optional { }
+.breeze-form fieldset > ol > li.error { }
+
+/* LABELS
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li label { display:block; width:25%; float:left; padding-top:.2em; }
+.breeze-form fieldset > ol > li > li label { line-height:100%; padding-top:0; }
+.breeze-form fieldset > ol > li > li label input { line-height:100%; vertical-align:middle; margin-top:-0.1em;}
+
+/* NESTED FIELDSETS AND LEGENDS (radio, check boxes and date/time inputs use nested fieldsets)
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li fieldset { position:relative; }
+.breeze-form fieldset > ol > li fieldset legend { position:absolute; width:95%; padding-top:0.1em; left: 0px; }
+.breeze-form fieldset > ol > li fieldset legend span { position:absolute; }
+.breeze-form fieldset > ol > li fieldset legend.label label { position:absolute; }
+.breeze-form fieldset > ol > li fieldset ol { float:left; width:74%; margin:0; padding:0 0 0 25%; }
+.breeze-form fieldset > ol > li fieldset ol li { padding:0; border:0; }
+
+/* INLINE HINTS
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li p.inline-hints { color:#666; margin:0.5em 0 0 25%; }
+
+/* INLINE ERRORS
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li p.inline-errors { color:#e33100; margin:0.5em 0 0 25%; }
+.breeze-form fieldset > ol > li ul.errors { color:#cc0000; margin:0.5em 0 0 25%; list-style:square; }
+.breeze-form fieldset > ol > li ul.errors li { padding:0; border:none; display:list-item; }
+
+/* STRING & NUMERIC OVERRIDES
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li.text_field input { max-width:74%; }
+.breeze-form fieldset > ol > li.password input { max-width: 13em; }
+.breeze-form fieldset > ol > li.numeric input { max-width:74%; }
+
+/* TEXTAREA OVERRIDES
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li.text textarea { width:74%; }
+
+/* HIDDEN OVERRIDES
+The dual declarations are required because of our clearfix display hack on the LIs, which is more
+specific than the more general rule below. TODO: Revist the clearing hack and this rule.
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset ol li.hidden,
+html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
+
+/* BOOLEAN OVERRIDES
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li.boolean label { padding-left:25%; width:auto; }
+.breeze-form fieldset > ol > li.boolean label input { margin:0 0.5em 0 0.2em; }
+
+/* RADIO OVERRIDES
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li.radio { }
+.breeze-form fieldset > ol > li.radio fieldset ol { margin-bottom:-0.6em; }
+.breeze-form fieldset > ol > li.radio fieldset ol li { margin:0.1em 0 0.5em 0; }
+.breeze-form fieldset > ol > li.radio fieldset ol li label { float:none; width:100%; }
+.breeze-form fieldset > ol > li.radio fieldset ol li label input { margin-right:0.2em; }
+
+
+/* CHECK BOXES (COLLECTION) OVERRIDES
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li.check_boxes { }
+.breeze-form fieldset > ol > li.check_boxes fieldset ol { margin-bottom:-0.6em; }
+.breeze-form fieldset > ol > li.check_boxes fieldset ol li { margin:0.1em 0 0.5em 0; }
+.breeze-form fieldset > ol > li.check_boxes fieldset ol li label { float:none; width:100%; }
+.breeze-form fieldset > ol > li.check_boxes fieldset ol li label input { margin-right:0.2em; }
+
+/* DATE & TIME OVERRIDES
+--------------------------------------------------------------------------------------------------*/
+.breeze-form fieldset > ol > li.date fieldset ol li,
+.breeze-form fieldset > ol > li.time fieldset ol li,
+.breeze-form fieldset > ol > li.datetime fieldset ol li { float:left; width:auto; margin:0 .3em 0 0; }
+
+.breeze-form fieldset > ol > li.date fieldset ol li label,
+.breeze-form fieldset > ol > li.time fieldset ol li label,
+.breeze-form fieldset > ol > li.datetime fieldset ol li label { display:none; }
+
+.breeze-form fieldset > ol > li.date fieldset ol li label input, 
+.breeze-form fieldset > ol > li.time fieldset ol li label input, 
+.breeze-form fieldset > ol > li.datetime fieldset ol li label input { display:inline; margin:0; padding:0;  }
+
+/*}}}*/
+
+/* Overrides {{{ */
+
+.breeze-form fieldset { display: block; }
+
+.breeze-form abbr {
+  color: #e33100;
+  font-size: 200%;
+  line-height: 0.3em;
+  font-weight: bold;
+  vertical-align: bottom;
+  margin-left: 0.25em;
+  border: none;
+}
+
+.breeze-form fieldset > ol > li { display: block; clear: left; }
+.breeze-form fieldset > ol > li label { line-height: 125%; }
+.breeze-form input, 
+.breeze-form textarea, 
+.breeze-form select { font-size: 125%; }
+.breeze-form fieldset > ol > li.text_field input { width:74%; }
+.breeze-form fieldset > ol > li.text_field input.numeric { width: 6em; }
+
+.breeze-form fieldset > ol > li.check_box { padding-left: 25%; }
+.breeze-form fieldset > ol > li.check_box label { float: none; display: inline; }
+.breeze-form fieldset > ol > li.check_box p.inline-hints { margin-left: 2em; }
+
+.breeze-form fieldset {
+  border: none;
+  padding-top: 8px;
+}
+
+.breeze-form fieldset legend {
+  font-size: 125%;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.breeze-form fieldset legend small {
+  text-transform: none;
+  letter-spacing: normal;
+  color: #666;
+}
+
+.breeze-form .field_with_errors {
+  display: inline;
+}
+
+.breeze-form fieldset > ol > li.text_area label {
+  display: block;
+  float: none;
+  width:100%;
+}
+
+.breeze-form fieldset > ol > li.text_area textarea {
+  font-family: Monaco, monospace !important;
+}
+
+/*}}}*/
+
+/* Buttons {{{ */
+
+.breeze-form .button, .breeze-form .button:visited {
+	background: #222 url(../button-overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	border: none;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+}
+
+.ui-dialog-content .ui-button-text { color: #fff !important; }
+
+.breeze-form .button:hover	{ background-color: #111; color: #fff; }
+.breeze-form .button:active { top: 1px; }
+.breeze-form .small.button, .breeze-form .small.button:visited { font-size: 11px; }
+.breeze-form .button, .button:visited,
+.breeze-form .medium.button, .breeze-form .medium.button:visited { font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
+.breeze-form .large.button, .breeze-form .large.button:visited { font-size: 14px; font-weight: bold; padding: 8px 14px 9px; text-transform: uppercase; }
+
+.breeze-form .green.button, .breeze-form .green.button:visited      { background-color: #8dc63f; }
+.breeze-form .green.button:hover                                    { background-color: #6a952f; }
+.breeze-form .blue.button, .breeze-form .blue.button:visited        { background-color: #2daebf; }
+.breeze-form .blue.button:hover                                     { background-color: #007d9a; }
+.breeze-form .red.button, .breeze-form .red.button:visited          { background-color: #e33100; }
+.breeze-form .red.button:hover                                      { background-color: #872300; }
+.breeze-form .magenta.button, .breeze-form .magenta.button:visited	{ background-color: #a9014b; }
+.breeze-form .magenta.button:hover	        					            	{ background-color: #630030; }
+.breeze-form .orange.button, .breeze-form .orange.button:visited		{ background-color: #ff5c00; }
+.breeze-form .orange.button:hover					        		              { background-color: #d45500; }
+.breeze-form .yellow.button, .breeze-form .yellow.button:visited		{ background-color: #ffb515; }
+.breeze-form .yellow.button:hover							                      { background-color: #fc9200; }
+
+/*}}}*/
+
+/* Errors {{{ */
+
+.breeze-form .errors {
+  margin: 8px 0px;
+  padding: 7px;
+  background: rgba(255, 255, 192, 0.75);
+  text-shadow: #ffc 0px 1px;
+  border: 1px solid #ffc;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+#main .breeze-form .errors { margin: 8px 8px; }
+
+.breeze-form .errors h2 {
+  margin: 0px 0px 8px;
+}
+
+.breeze-form .errors a {
+  color: #e33100;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.breeze-form .errors ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.breeze-form .errors ul li {
+  display: block;
+  margin: 0px 0px 8px;
+  padding-left: 20px;
+  background: url(../images/icons/error.png) no-repeat 0px 0px;
+}
+
+/*}}}*/
+
+/* Image editor {{{ */
+
+.ui-dialog .image-editor {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: -8px;
+}
+
+.ui-dialog .image-editor .image-preview {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  right: 232px;
+  bottom: 8px;
+  overflow: hidden;
+}
+
+.ui-dialog .image-editor .image-preview .img {
+  position: absolute;
+}
+
+.ui-dialog .image-editor .image-preview .img img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+}
+
+.ui-dialog .image-editor form {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  padding: 0px;
+  width: 224px;
+  overflow: auto;
+  background: #ddd;
+}
+
+.ui-dialog .image-editor form h3 {
+  margin: 0px 0px 1px;
+  background: #aaa;
+  color: #222;
+  padding: 0px 8px;
+  text-transform: uppercase;
+  font-weight: normal;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.ui-dialog .image-editor form p {
+  padding: 8px;
+  margin: 0px;
+}
+
+.ui-dialog .image-editor form ul {
+  margin: 0px 8px 8px;
+  padding: 0px;
+}
+
+.ui-dialog .image-editor form ul li {
+  display: block;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.ui-dialog .image-editor form div.image-name {
+  padding-top: 6px;
+}
+
+.ui-dialog .image-editor form .image-name input,
+.ui-dialog .image-editor form .image-name textarea {
+  width: 188px;
+}
+
+.ui-dialog .image-editor form .image-name label {
+  display: block;
+  margin-top: -8px;
+  font-size: 85%;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.ui-dialog .image-editor form .image-name p {
+  padding: 4px 8px;
+}
+
+.ui-dialog .image-editor form p.dimensions input {
+  width: 3em;
+  text-align: right;
+}
+
+.ui-dialog .image-editor form .button.preview {
+  width: 160px;
+  color: white;
+  text-align: center;
+}
+
+.image-crop-container {
+  position: absolute;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
+.image-crop-container:after {
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+  border-top: 12px solid rgba(0, 0, 0, 0.75);
+  border-right: 12px solid transparent;
+  content: ".";
+  text-indent: -100em;
+  overflow: hidden;
+}
+
+/*}}}*/
