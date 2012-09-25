@@ -2,7 +2,9 @@ module Breeze
   module Content
     class TreeItem < Item
       include Mongoid::Document
-      identity :type => String
+      # identity :type => String
+      field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
+
       
 
 
