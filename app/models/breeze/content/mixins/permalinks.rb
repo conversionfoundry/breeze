@@ -9,7 +9,7 @@ module Breeze
           base.before_validation :fill_in_slug_and_permalink
           base.after_save :update_child_permalinks
           base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
-          base.validates_uniqueness_of :permalink
+          # base.validates_uniqueness_of :permalink # TODO: This should be present, but it seems to prevent creating a first page
           base.index({ :permalink => 1 })
           
           base.class_eval do
@@ -28,9 +28,9 @@ module Breeze
         #   permalink.count("/")
         # end
 
-        def validate_uniqueness_of_permalink?
-          true
-        end
+        # def validate_uniqueness_of_permalink?
+        #   true
+        # end
 
         def regenerate_permalink!
           
@@ -60,8 +60,7 @@ module Breeze
           Breeze::Content::Redirect.where(:targetlink => permalink)
         end
 
-        
-      protected
+        protected
         def fill_in_slug_and_permalink
           self.slug = self.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if self.slug.blank? && respond_to?(:title) && !self.title.blank?
           regenerate_permalink
