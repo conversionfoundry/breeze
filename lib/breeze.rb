@@ -1,3 +1,4 @@
+# We dont use the following as  loading order matters
 # Here is the loading of files in order
 require "breeze/engine"
 require "breeze/queueing/strategy"
@@ -19,6 +20,9 @@ Dir[File.expand_path("./../app/uploaders/**/*.rb", File.dirname(__FILE__))].each
 Dir[File.expand_path("./../app/models/breeze/content/mixins/*.rb", File.dirname(__FILE__))].each { |f| require f }
 require File.expand_path("./../app/models/breeze/content/item.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/content/view.rb", File.dirname(__FILE__))
+require File.expand_path("./../app/models/breeze/admin/mixins/login.rb", File.dirname(__FILE__))
+require File.expand_path("./../app/models/breeze/content/page_view.rb", File.dirname(__FILE__))
+
 Dir[File.expand_path("./../app/models/breeze/**/*.rb", File.dirname(__FILE__))].each { |f| require f }
 require "breeze/content"
 

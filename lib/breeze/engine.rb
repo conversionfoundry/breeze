@@ -11,17 +11,22 @@ require "cancan"
 require "RMagick"
 require "jquery-rails"
 require "rdiscount"
+require "execjs"
+require "therubyracer"
 
 require File.expand_path("../../../config/initializers/devise.rb", __FILE__)
 
 module Breeze
-  class Engine < ::Rails::Engine
+  class Engine < Rails::Engine
     isolate_namespace Breeze
 
     initializer "breeze.assets.precompile" do |app|
       app.config.assets.prefix = "/cached"
       app.config.assets.precompile += [ "breeze/*", "breeze/icons/*", "breeze/log/*", "breeze/marquess/*" ]
     end
+
+    # config.autoload_paths += ["app/models/breeze/", "app/models/breeze/admin", "app/models/breeze/admin/activity", "/app/models/breeze/admin/mixins",
+    #   "app/models/breeze/content/custom", "app/models/breeze/content/mixins", "app/models/breeze/theming"]
 
     #For the generators. I add a config.generators block to my engine.rb file like so.
     #With that, I'm able to get rspec tests when running a generator like the model generator.
