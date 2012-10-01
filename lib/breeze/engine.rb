@@ -12,7 +12,6 @@ require "RMagick"
 require "jquery-rails"
 require "rdiscount"
 require "execjs"
-require "therubyracer"
 
 require File.expand_path("../../../config/initializers/devise.rb", __FILE__)
 
