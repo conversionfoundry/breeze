@@ -8,7 +8,7 @@ require "mongoid"
 require "carrierwave/mongoid"
 require "pry-rails"
 require "cancan"
-require "rmagick"
+require "RMagick"
 require "jquery-rails"
 require "rdiscount"
 
