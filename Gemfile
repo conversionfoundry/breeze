@@ -16,3 +16,16 @@ gemspec
 group :development do 
   gem 'fuubar'
 end
+
+group :development, :test do
+  gem 'fabricator'
+  gem 'growl'
+end
+
+group :test do
+  gem 'guard-spork'
+  gem 'guard-rspec'
+  gem 'capybara'
+  gem 'rb-fsevent'
+end
+

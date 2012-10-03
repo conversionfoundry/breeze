@@ -5,6 +5,8 @@ module Breeze
         include Mongoid::Document
         field :name
         field :type_name
+        attr_accessible :_type, :name, :custom_fields_attributes
+
         embeds_many :custom_fields, :class_name => "Breeze::Content::Custom::Field" do
           def build(attrs = {}, type = nil)
             attrs ||= {}
@@ -41,8 +43,8 @@ module Breeze
         before_destroy :destroy_instances
         after_destroy :reset_class
 
-        validates_presence_of :name
-        validates_uniqueness_of :name
+        validates :name, uniqueness: true, presence: true
+
         validates_format_of :type_name, :with => /^[A-Z]\w*$/, :message => "must be a CamelCasedName"
         validates_uniqueness_of :type_name
       
@@ -91,7 +93,7 @@ module Breeze
         end
       
         def self.reset(type_name)
-          @classes.delete type_name
+          @classes.delete type_name if @classes
           @all_classes = []
           Breeze::Content.send :remove_const, type_name if Breeze::Content.const_defined?(type_name)
           Breeze::Content.unregister_class "Breeze::Content::#{type_name}"

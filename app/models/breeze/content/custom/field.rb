@@ -8,6 +8,7 @@ module Breeze
         field :label
         field :position, :type => Integer
         embedded_in :custom_type, :inverse_of => :fields
+        attr_accessible :_type, :label, :name
         
         before_validation :fill_in_name
         validates_presence_of :name
@@ -34,7 +35,7 @@ module Breeze
         end
         
         def self.types
-          @_field_types ||= subclasses.map(&:to_s).sort.map &:constantize
+          @_field_types ||= subclasses.map(&:to_s).sort.map(&:constantize)
         end
         
       protected
