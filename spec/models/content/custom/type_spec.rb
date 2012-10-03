@@ -1,11 +1,12 @@
-require File.expand_path(File.dirname(__FILE__) + "/../../../spec_helper")
+require 'spec_helper'
 
 describe Breeze::Content::Custom::Type do
-  before :each do
-    Breeze::Content::Custom::Type.collection.drop
-  end
+  subject { Fabricate.build :breeze_content_custom_type }
+
+  it { should be_valid }
   
   it "should validate the type name" do
+    binding.pry
     Breeze::Content::Custom::Type.new(:name => "fancy box", :type_name => "fancy box").should_not be_valid
   end
   
