@@ -8,6 +8,8 @@ module Breeze
       field :show_in_navigation, :type => Boolean, :default => true
       field :ssl, :type => Boolean, :default => false
       
+      attr_accessible :_type
+
       include Mixins::TreeStructure
       include Mixins::Permalinks
       

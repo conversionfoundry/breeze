@@ -8,6 +8,8 @@ module Breeze
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :template
       
+      index({parent_id: 1, _type: 1})
+      
       embeds_many :views, :class_name => "Breeze::Content::View" do
         def default
           @target.first || @base.view_class.new(:name => "default")
