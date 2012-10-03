@@ -16,8 +16,7 @@ module Breeze
       end
       
       def create
-        @custom_type = Breeze::Content::Custom::Type.new params[:custom_type]
-        @custom_type.save
+        @custom_type = Breeze::Content::Custom::Type.create params[:custom_type]
       end
       
       def edit
