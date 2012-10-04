@@ -107,7 +107,7 @@ module Breeze
         before, after = [:before, :after].collect do |k|
           options[k] ? template.content_tag(:span, options[k].html_safe, :class => "#{k}-field") : ""
         end
-        template.content_tag :span, [ before, input, after ].reject(&:blank?).join(" ").html_safe, :class => :field
+        template.content_tag :span, [ before, input, after ].reject(&:blank?).join("").html_safe, :class => :field
       end
       
       def filter_options(options)
