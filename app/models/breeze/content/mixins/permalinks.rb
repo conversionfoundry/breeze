@@ -3,6 +3,7 @@ module Breeze
     module Mixins
       module Permalinks
         def self.included(base)
+          base.attr_accessible :permalink, :slug
           base.field :permalink
           base.field :slug
 

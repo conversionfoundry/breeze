@@ -5,6 +5,8 @@ module Breeze
       include Mongoid::Timestamps
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
+
+      attr_accessible :template
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :template
       
