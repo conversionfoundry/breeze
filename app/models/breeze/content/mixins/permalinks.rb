@@ -10,7 +10,7 @@ module Breeze
           base.before_validation :fill_in_slug_and_permalink
           base.after_save :update_child_permalinks
           base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
-          # base.validates_uniqueness_of :permalink # TODO: This should be present, but it seems to prevent creating a first page
+          base.validates_uniqueness_of :permalink
           base.index({ :permalink => 1 })
           
           base.class_eval do
