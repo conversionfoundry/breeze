@@ -19,13 +19,18 @@ module Breeze
         def to_erb(view)
           "".tap do |str|
             placements.for(:view => view).group_by(&:region).each do |region, placements|
-              str << "<%= content_for_region :#{region.to_sym} do %>\n"
-              logger.debug(self)
-              placements.each do |placement|
-                # binding.pry
-                str << placement.to_erb(view)
+              unless region.nil?
+                str << "<%= content_for_region :#{region.to_sym} do %>\n"
+                logger.debug(self)
+                placements.each do |placement|
+                  begin
+                    str << placement.to_erb(view)
+                  rescue
+                    "shut"
+                  end
+                end
+                str << "<% end %>\n"
               end
-              str << "<% end %>\n"
             end
           end
         end
