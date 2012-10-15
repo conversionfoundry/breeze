@@ -246,24 +246,19 @@ module Breeze
       
     end
     
-    def breadcrumb
-      str = '<ul class="breadcrumb"'            
+    def breadcrumb(divider = "/")
+      str = '<ul class="breadcrumb">'
       ancestry = page.self_and_ancestors
       ancestry.each do |ancestor|
-        
-        str << '<span class="divider">/</span>' unless ancestor == ancestry.first
-        
+        str << "<span class='divider'>#{divider}</span>" unless ancestor == ancestry.first
         link = link_to(ancestor.title, ancestor.permalink, html_options = {})
-        
         if ancestor == page
           li_options = {:class => 'active'}
         else
           li_options = {}
         end
-        
         str << content_tag(:li, link.html_safe, li_options)
       end
-      
       str << '</ul>'
       str.html_safe
     end
