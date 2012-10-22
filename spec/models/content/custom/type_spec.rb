@@ -1,12 +1,11 @@
 require 'spec_helper'
 
 describe Breeze::Content::Custom::Type do
-  subject { Fabricate.build :breeze_content_custom_type }
+  subject { Fabricate.build :custom_type }
 
   it { should be_valid }
   
   it "should validate the type name" do
-    binding.pry
     Breeze::Content::Custom::Type.new(:name => "fancy box", :type_name => "fancy box").should_not be_valid
   end
   
