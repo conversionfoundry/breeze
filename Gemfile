@@ -18,8 +18,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'fabricator'
   gem 'growl'
+  gem 'fabrication'
 end
 
 group :test do
