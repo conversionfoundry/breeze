@@ -5,7 +5,15 @@ module Breeze
         include Mongoid::Document
         field :name
         field :type_name
-        attr_accessible :_type, :name, :custom_fields_attributes
+        attr_accessible :_type, :name, :type_name, :custom_fields_attributes
+
+        validates :name, uniqueness: true, presence: true
+        index({ name: 1 }, { unique: true })
+
+        validates :type_name, presence: true,
+          format: { with: /^[A-Z]\w*$/, message: "must be a CamelCasedName" }, 
+          uniqueness: true
+        index({ type_name: 1 }, { unique: true })
 
         embeds_many :custom_fields, :class_name => "Breeze::Content::Custom::Field" do
           def build(attrs = {}, type = nil)
@@ -36,17 +44,12 @@ module Breeze
           :reject_if => lambda { |attrs| attrs.values.reject(&:blank?).empty? },
           :allow_destroy => true
       
-        index({ :type_name => 1 }, { :unique => true })
       
-        before_validation :fill_in_type_name
+        after_initialize :fill_in_type_name
         after_save :reset_class
         before_destroy :destroy_instances
         after_destroy :reset_class
 
-        validates :name, uniqueness: true, presence: true
-
-        validates_format_of :type_name, :with => /^[A-Z]\w*$/, :message => "must be a CamelCasedName"
-        validates_uniqueness_of :type_name
       
         def to_class
           self.class.get(type_name)
@@ -95,7 +98,7 @@ module Breeze
         def self.reset(type_name)
           @classes.delete type_name if @classes
           @all_classes = []
-          Breeze::Content.send :remove_const, type_name if Breeze::Content.const_defined?(type_name)
+          Breeze::Content.send(:remove_const, type_name) if Breeze::Content.const_defined?(type_name)
           Breeze::Content.unregister_class "Breeze::Content::#{type_name}"
         end
       end
