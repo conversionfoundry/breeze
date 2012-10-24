@@ -19,5 +19,6 @@ group :test do
   gem 'capybara'
   gem 'rb-fsevent'
   gem 'shoulda'
+  gem 'jasmine'
 end
 

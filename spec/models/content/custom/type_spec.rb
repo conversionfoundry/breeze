@@ -13,6 +13,10 @@ describe Breeze::Content::Custom::Type do
     # it { should validate_uniqueness_of :name }
     # it { should_not allow_value('notcamelcased').for(:type_name)}
   end
+  # 
+  # it "should validate the type name" do
+  #   Breeze::Content::Custom::Type.new(:name => "fancy box", :type_name => "fancy box").should_not be_valid
+  # end
 
   # 
   # describe "when defined" do
