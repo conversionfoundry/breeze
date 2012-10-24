@@ -137,10 +137,16 @@ module Breeze
       options = args.extract_options!
       level = levels[options[:level]] || (options[:level] || 1).to_i
 
+
       # If there are no arguments, use the current page
       args.unshift page if args.empty? && !page.nil?
+ 
+      current_page = page
       
       contents = "".tap do |str|
+
+        page = current_page # TODO: Can't call page within tap, so we've passed it as a variable. Can we do this better?
+
         # Opening HTML for Twitter Bootstrap Navigation
         if level == 1
           str << '<ul class="nav">'
@@ -158,8 +164,7 @@ module Breeze
             end
           end
         end.flatten.compact
-                                        
-        
+                                                
         ancestry = pages.first ? pages.first.self_and_ancestors.to_a : [ page ]
 
         # If page is undefined, there's no active page
@@ -222,7 +227,7 @@ module Breeze
             #      link << navigation_bootstrap(child, options.merge(:full => true), &block)
             #    end
             #  end
-             
+
             li_options = ({}).tap do |o|
               o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)

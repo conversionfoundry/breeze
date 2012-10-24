@@ -11,7 +11,7 @@ module Breeze
       mount_uploader :file, AssetUploader, :mount_on => :file
       
       before_update :rename_file
-      after_save :log_shit
+      # after_save :log_shit
       
       def image?
         false
@@ -80,7 +80,7 @@ module Breeze
       
     protected
       def log_shit
-        Rails.logger.info self.inspect.red
+        Rails.logger.info self.inspect
       end
     
       def all_files
