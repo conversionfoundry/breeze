@@ -19,7 +19,7 @@ module Breeze
         end
         
         def self.classes
-          Breeze::Content::Custom::Type.all.map &:to_class
+          Breeze::Content::Custom::Type.all.map(&:to_class)
           Content.classes(self)
         end
 

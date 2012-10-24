@@ -11,6 +11,8 @@ module Breeze
       after_update  { |page| Breeze::Admin::Activity.log :update, page }
       before_destroy { |page| Breeze::Admin::Activity.log :delete, page }
       
+      attr_accessible :template
+      
       def variables_for_render
         super.merge :page => self
       end

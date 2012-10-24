@@ -1,4 +1,6 @@
 /*
+ *= require jquery
+ *= require jquery-ui
  *= require jquery_ujs
  *= require ./cookies
  *= require ./hotkeys

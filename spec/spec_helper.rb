@@ -12,17 +12,24 @@ Spork.prefork do
   require File.expand_path("../dummy/config/environment", __FILE__) 
   require 'rspec/rails'
   require 'capybara/rspec'
+  require 'fabrication'
+  require 'shoulda'
+  require 'ffaker'
 
   # ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
-  # Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
+  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
 
   RSpec.configure do |config|
     # config.use_transactional_fixtures = true
+    #
+    # Clean the database between tests
+    # Mongoid.default_session.collections.select {|c| c.name !~ /system/ }.each(&:drop)
     config.mock_with :rspec
   end
+
 end
 
 Spork.each_run do
