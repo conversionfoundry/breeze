@@ -13,6 +13,8 @@ module Breeze
       before_create :set_position
       after_create  :increment_content_placement_count
       after_destroy :decrement_content_placement_count
+
+      validates :position, numericality: { greater_than_or_equal_to: 0 }, presence: true
       
       def <=>(another)
         position <=> another.position
@@ -33,7 +35,8 @@ module Breeze
       end
       
       def duplicate(container)
-        content.add_to_container container, region, view, position + 1
+        # temporary to_i on position as we have corrupted data
+        content.add_to_container(container, region, view, position.to_i + 1)
       end
       
       def unlink!
