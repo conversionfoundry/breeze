@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
-class SearchTestItem < Breeze::Content::Item
-  field :title
-  field :content
-  field :extra
-end
+# class SearchTestItem < Breeze::Content::Item
+#   field :title
+#   field :content
+#   field :extra
+# end
 
 describe Breeze::Content::Item do
   it "should be its own base class" do
