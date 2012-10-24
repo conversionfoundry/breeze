@@ -29,7 +29,7 @@ describe Breeze::Content::Item do
       end
     end
     context "query = 'foo labories'" do
-      before { @results = Breeze::Content::Item.search_for_text("foo labories"), :class => Breeze::Content::Mixins::Placeable }
+      before { @results = Breeze::Content::Item.search_for_text("foo labories", :class => Breeze::Content::Mixins::Placeable) }
 
       it "finds related items" do 
         @results.should include(item_1, item_3)
