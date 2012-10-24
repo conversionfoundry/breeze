@@ -107,12 +107,9 @@ module Breeze
       end
       
       def self.view_class
-        @view_class ||= begin
-          (self.name + "View").constantize
-        rescue
-          View
-        end
+        @view_class = self.nil? ? View : [self.name, "View"].join.constantize
       end
+
       def view_class; self.class.view_class; end
       
       def self.label
