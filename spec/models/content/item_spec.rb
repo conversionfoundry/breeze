@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
-# class SearchTestItem < Breeze::Content::Item
-#   field :title
-#   field :content
-#   field :extra
-# end
+class SearchTestItem < Breeze::Content::Item
+  field :title
+  field :content
+  field :extra
+end
 
 describe Breeze::Content::Item do
   it "should be its own base class" do
@@ -18,13 +18,13 @@ describe Breeze::Content::Item do
   describe "#contains_text" do
     context "found" do
       it "returns true" do
-        expect(item_1.contains_text('foo')).to be_true
+        expect(item_1.contains_text('Foo')).to be_true
       end
     end
 
     context "not found" do
       it "returns false" do
-        expect(item_2.contains_text('foo')).to be_false
+        expect(item_2.contains_text('Foo')).to be_false
       end
     end
   end
