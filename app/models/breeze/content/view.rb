@@ -12,15 +12,13 @@ module Breeze
       
       delegate :to_xml, :to_json, :to => :content
 
-      def to_s; name; end
-            
+      alias :to_s :name
+
       def content
         @content || content_item
       end      
       
       def populate(content, controller, request)
-        #binding.pry
-        # TODO: dup breaks in some combination of recent ruby, rails and Mongoid
         dup.tap do |view|
           view.content, view.controller, view.request = content, controller, request
         end
