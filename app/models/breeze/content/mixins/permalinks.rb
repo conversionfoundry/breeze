@@ -3,7 +3,6 @@ module Breeze
     module Mixins
       module Permalinks
         def self.included(base)
-          base.attr_accessible :permalink, :slug
           base.field :permalink
           base.field :slug
 
@@ -23,15 +22,6 @@ module Breeze
             end
           end
         end
-        
-        # TODO: This should be in TreeStructure
-        # def level
-        #   permalink.count("/")
-        # end
-
-        # def validate_uniqueness_of_permalink?
-        #   true
-        # end
 
         def regenerate_permalink!
           

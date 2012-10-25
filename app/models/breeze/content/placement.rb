@@ -4,7 +4,7 @@ module Breeze
       include Mongoid::Document
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       
-      attr_accessible :region, :view, :content_id, :container_id
+      attr_accessible :region, :view, :content, :content_id, :container_id
 
       belongs_to :content, :class_name => "Breeze::Content::Item"
       embedded_in :container, :inverse_of => :placements
