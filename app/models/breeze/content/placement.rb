@@ -35,16 +35,14 @@ module Breeze
       end
       
       def duplicate(container)
-        # temporary to_i on position as we have corrupted data
         content.add_to_container(container, region, view, position.to_i + 1)
       end
       
       def unlink!
-        decrement_content_placement_count
-        self.content_id = self.content.duplicate({ :placements_count => 1 }).id
-        self.content = Breeze::Content::Item.find self.content_id
-        save
-        self
+        self.tap do
+          self.content = self.content.duplicate({ :placements_count => 1 })
+          save
+        end
       end
       
     protected
@@ -61,16 +59,13 @@ module Breeze
       end
       
       def decrement_content_placement_count
-        begin
-          if content
-            content.placements_count -= 1
-            if content.placements_count.zero?
-              content.destroy
-            elsif content.placements_count > 0
-              content.save
-            end
+        if content
+          content.placements_count -= 1
+          if content.placements_count.zero?
+            content.destroy
+          elsif content.placements_count > 0
+            content.save
           end
-        rescue Mongoid::Errors::DocumentNotFound
         end
       end
       
