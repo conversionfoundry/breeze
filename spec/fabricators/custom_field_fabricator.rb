@@ -1,2 +1,2 @@
-Fabricator(:custom_field, from: Breeze::Content::Custom::Field) do
+Fabricator(:custom_field, class_name: Breeze::Content::Custom::Field) do
 end

@@ -32,7 +32,7 @@ module Breeze
         @placement.unlink! if @placement.shared? && !params[:update_all]
         @content = @placement.content
         @content.update_attributes params[:content]
-        # @container.save  # TODO: I don't know why this wasn't working, nor what might go wrong now that it's commented out
+        @container.save 
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
 
@@ -51,6 +51,8 @@ module Breeze
       end
       
       def duplicate
+        # @placement.class
+        # => class Breeze::Content::Placement < Object { :_id => :string, :_type => :string, :content_id => :object, :position => :integer, :region => :string, :view => :object }
         @old_placement, @placement = @placement, @placement.duplicate(@container).unlink!
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end

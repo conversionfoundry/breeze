@@ -1,4 +1,4 @@
-Fabricator(:custom_type, from: Breeze::Content::Custom::Type) do
+Fabricator(:custom_type, class_name: Breeze::Content::Custom::Type) do
   type_name 'slider'.camelcase
   name 'slider'
 end

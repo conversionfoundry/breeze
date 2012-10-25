@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
+
+
 # class PlacementTestContainer < Breeze::Content::Item
 #   include Breeze::Content::Mixins::Container
 # end
@@ -8,7 +10,12 @@ require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 #   include Breeze::Content::Mixins::Placeable
 # end
 # 
-# describe Breeze::Content::Placement do
+describe Breeze::Content::Placement do
+
+  describe 'validations' do
+    it { should validate_presence_of :position }
+  end
+end
 #   before :each do
 #     # PlacementTestContainer.collection.drop
 #     # PlacementTestContent.collection.drop
