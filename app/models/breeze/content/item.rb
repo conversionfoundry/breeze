@@ -46,11 +46,8 @@ module Breeze
       end
 
       def duplicate(attrs = {})
-        self.class.new.tap do |duplicate|
-          duplicate.attributes = @attributes.except(*%w(_id id versions placements)).dup
-          duplicate.attributes = attrs
-          duplicate.save
-        end
+        attributes = @attributes.except(*%w(_id _type created_at updated_at versions placements)).dup
+        self.class.create(attributes)
       end
       
       def contains_text(*strings)

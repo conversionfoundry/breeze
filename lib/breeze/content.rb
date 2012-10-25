@@ -27,7 +27,7 @@ module Breeze
     end
     
     def self.const_missing(sym)
-      #Custom::Type.get(sym) || super
+      Custom::Type.get(sym) || super
     end
   end
 end
