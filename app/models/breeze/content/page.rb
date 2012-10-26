@@ -11,7 +11,7 @@ module Breeze
       after_update  { |page| Breeze::Admin::Activity.log :update, page }
       before_destroy { |page| Breeze::Admin::Activity.log :delete, page }
       
-      attr_accessible :template
+      attr_accessible :seo_title, :seo_meta_description, :seo_meta_keywords
       
       def variables_for_render
         super.merge :page => self
