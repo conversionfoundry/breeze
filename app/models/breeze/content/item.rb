@@ -8,6 +8,8 @@ module Breeze
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :template
       
+      attr_accessible :template
+      
       index({parent_id: 1, _type: 1})
       
       embeds_many :views, :class_name => "Breeze::Content::View" do
@@ -46,8 +48,9 @@ module Breeze
       end
 
       def duplicate(attrs = {})
-        attributes = @attributes.except(*%w(_id _type created_at updated_at versions placements)).dup
-        self.class.create(attributes)
+        # reject placement inside navigationimte#duplicate instead of here 
+        att = attributes.merge(attrs).with_indifferent_access.except(*%w(_id _type created_at updated_at versions placements))
+        self.class.create(att)
       end
       
       def contains_text(*strings)

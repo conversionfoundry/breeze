@@ -6,11 +6,14 @@ module Breeze
           base.field :permalink
           base.field :slug
 
+          base.attr_accessible :permalink, :slug
+
           base.before_validation :fill_in_slug_and_permalink
           base.after_save :update_child_permalinks
           base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
-          # base.validates_uniqueness_of :permalink # TODO: This should be present, but it seems to prevent creating a first page
-          base.index({ :permalink => 1 })
+          base.validates_uniqueness_of :permalink 
+          base.validates :slug, uniqueness: {scope: :parent_id}
+          base.index({ permalink: 1 }, { unique: true })
           
           base.class_eval do
             def permalink(include_domain = false)
@@ -23,17 +26,7 @@ module Breeze
           end
         end
         
-        # TODO: This should be in TreeStructure
-        # def level
-        #   permalink.count("/")
-        # end
-
-        # def validate_uniqueness_of_permalink?
-        #   true
-        # end
-
         def regenerate_permalink!
-          
           self.permalink = if respond_to?(:parent)
             if parent.nil?
               "/"
@@ -43,7 +36,6 @@ module Breeze
           else
             "/#{slug}"
           end
-                    
         end
         
         # When a permalink changes, permalinks for child pages also need to be updated
