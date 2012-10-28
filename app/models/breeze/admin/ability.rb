@@ -27,8 +27,10 @@ module Breeze
           "can do all a designer can do, plus manage other users"
         when :designer
           "can do all an editor can do, plus work on themes and custom types"
-        else
+        when :editor
           "can work on content, pages and assets"
+        else
+          ""
         end
       end
     end
