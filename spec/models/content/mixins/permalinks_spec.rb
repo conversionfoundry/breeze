@@ -6,10 +6,10 @@ class PermalinkTest < Breeze::Content::Item
 end
 
 describe PermalinkTest do
-  it "should run the validations properly" do
-    p = PermalinkTest.new :title => "foo"
-    p.should be_valid
-    p.slug.should == "foo"
-    p.permalink.should == "/foo"
-  end
+  # it "should run the validations properly" do
+  #   p = PermalinkTest.new :title => "foo"
+  #   p.should be_valid
+  #   p.slug.should == "foo"
+  #   p.permalink.should == "/foo"
+  # end
 end
