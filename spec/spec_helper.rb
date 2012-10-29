@@ -15,6 +15,7 @@ Spork.prefork do
   require 'fabrication'
   require 'shoulda'
   require 'ffaker'
+  require 'database_cleaner'
 
   # ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
@@ -28,6 +29,19 @@ Spork.prefork do
     # Clean the database between tests
     # Mongoid.default_session.collections.select {|c| c.name !~ /system/ }.each(&:drop)
     config.mock_with :rspec
+    
+    config.before :suite do
+      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.before :each do
+      DatabaseCleaner.start
+    end
+
+    config.after :each do
+      DatabaseCleaner.clean
+    end
   end
 
 end

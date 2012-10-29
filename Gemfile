@@ -20,5 +20,6 @@ group :test do
   gem 'rb-fsevent'
   gem 'shoulda'
   gem 'jasmine'
+  gem 'database_cleaner'
 end
 

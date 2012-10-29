@@ -44,11 +44,10 @@ module Breeze
       end
       
       def to_erb(view)
-        
       end
 
       def duplicate(attrs = {})
-        # reject placement inside navigationimte#duplicate instead of here 
+        binding.pry
         att = attributes.merge(attrs).with_indifferent_access.except(*%w(_id _type created_at updated_at versions placements))
         self.class.create(att)
       end
@@ -68,9 +67,9 @@ module Breeze
         end
       end
       
-      def self._types
-        @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
-      end
+      # def self._types
+      #   @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
+      # end
       
       def self.recurse_subclasses
         [self].tap do |result|

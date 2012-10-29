@@ -50,8 +50,8 @@ module Breeze
         while Breeze::Content::Item.where(slug: new_slug, parent_id: (attrs[:parent_id] || parent_id)).count > 0
           new_slug, i = "#{slug}-#{i}", i + 1
         end
-        # At this point I had to add a (position || 1) because of corrupted data on nil position
-        super(attributes.symbolize_keys!.merge(attrs).merge(slug: new_slug, position: (position || 1) + 1)).tap do |new_item|
+
+        super(attributes.symbolize_keys!.merge(attrs).merge(slug: new_slug, position: (position || 0) + 1)).tap do |new_item|
           children.each { |child| child.duplicate(parent_id: new_item.id) }
         end
       end
