@@ -12,7 +12,7 @@ module Breeze
           base.after_save :update_child_permalinks
           base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
           base.validates_uniqueness_of :permalink 
-          base.validates :slug, uniqueness: {scope: :parent_id}
+          base.validates :slug, uniqueness: { scope: :parent_id }
           base.index({ permalink: 1 }, { unique: true })
           
           base.class_eval do
@@ -54,7 +54,7 @@ module Breeze
 
         protected
         def fill_in_slug_and_permalink
-          self.slug = self.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if self.slug.blank? && respond_to?(:title) && !self.title.blank?
+          self.slug ||= self.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if respond_to?(:title) && !self.title.blank?
           regenerate_permalink
         end
         

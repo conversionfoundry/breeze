@@ -17,7 +17,6 @@ module Breeze
       validates :title, presence: true
       
       # Some NavigationItems aren't managed in the normal Pages admin area
-      # e.g. Breeze::Commerce::Product is a NavigationItem, but it's managed under the Store admin area
       # If this is true, the NavigationItem won't appear in the Pages admin tree
       def has_special_admin?
         false
@@ -51,7 +50,7 @@ module Breeze
           new_slug, i = "#{slug}-#{i}", i + 1
         end
         # At this point I had to add a (position || 1) because of corrupted data on nil position
-        super(attributes.symbolize_keys!.merge(attrs).merge(slug: new_slug, position: (position || 1) + 1)).tap do |new_item|
+        super(attributes.symbolize_keys!.merge(attrs).merge(slug: new_slug, position: (position || 1) + 1).except(*%w(placements))).tap do |new_item|
           children.each { |child| child.duplicate(parent_id: new_item.id) }
         end
       end
