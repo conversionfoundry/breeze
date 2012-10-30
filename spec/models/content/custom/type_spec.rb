@@ -7,10 +7,10 @@ describe Breeze::Content::Custom::Type do
 
   describe 'validations' do
     it { should be_valid }
-    it { should validate_presence_of :type_name }
+    # it { should validate_presence_of :type_name }
     it { should validate_uniqueness_of :type_name }
-    # it { should validate_presence_of :name }
-    # it { should validate_uniqueness_of :name }
+    it { should validate_presence_of :name }
+    it { should validate_uniqueness_of :name }
     # it { should_not allow_value('notcamelcased').for(:type_name)}
   end
   # 

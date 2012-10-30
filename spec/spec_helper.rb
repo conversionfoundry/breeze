@@ -15,6 +15,7 @@ Spork.prefork do
   require 'fabrication'
   require 'shoulda'
   require 'ffaker'
+  require 'database_cleaner'
 
   # ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
@@ -26,15 +27,27 @@ Spork.prefork do
     # config.use_transactional_fixtures = true
     #
     # Clean the database between tests
-    # Mongoid.default_session.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+    config.before :suite do
+      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.clean_with :truncation
+    end
+
+    config.before :each do
+      DatabaseCleaner.start
+    end
+
+    config.after do
+      DatabaseCleaner.clean
+    end
+
     config.mock_with :rspec
+    config.include Devise::TestHelpers, type: :controller
   end
 
 end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
 end
 
 # --- Instructions ---

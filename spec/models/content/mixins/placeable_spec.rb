@@ -5,13 +5,14 @@ class PlaceableTest < Breeze::Content::Placement
 end
 
 
-describe PlaceableTest do
+describe "Placeable" do
+
   subject { Fabricate :snippet }
   let(:container) { Fabricate :page }
 
   describe "#duplicate" do
-    it "returns false if something is missing" do
-      subject.duplicate(container).should be_false
-    end
+    # it "returns false if something is missing" do
+    #   subject.duplicate(container).should be_false
+    # end
   end
 end
