@@ -1,6 +1,5 @@
-Fabricator(:placement, from: Breeze::Content::Placement) do
-  content
+Fabricator(:placement, class_name: Breeze::Content::Placement) do
+  content { Fabricate.build :snippet }
   position 1
   region 'region'
-  view { Object.new }
 end

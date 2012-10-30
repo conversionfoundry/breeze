@@ -12,6 +12,7 @@ require "RMagick"
 require "jquery-rails"
 require "rdiscount"
 require "execjs"
+require "mongoid_fulltext"
 
 require File.expand_path("../../../config/initializers/devise.rb", __FILE__)
 

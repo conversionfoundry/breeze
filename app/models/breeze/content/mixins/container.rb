@@ -46,8 +46,9 @@ module Breeze
           end
         end
         
-        def duplicate(attrs = {})
-          super.tap do |new_item|
+        def duplicate
+          new_record = self.dup
+          super { new_record }.tap do |new_item|
             placements.each { |p| p.content.add_to_container new_item, p.region, p.view, p.position }
           end
         end

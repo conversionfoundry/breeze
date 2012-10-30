@@ -450,7 +450,7 @@
     
   };
   
-  $('.ui-dialog .image_field .browse').live('click', function() {
+  $('.image_field .browse').live('click', function() {
     var button = this, options = { upload: true }, wrapper = $(this).closest('li');
     if ((w = wrapper.attr('data-width')) && (h = wrapper.attr('data-width'))) {
       options.size = { width:parseInt(w), height:parseInt(h) };

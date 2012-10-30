@@ -10,6 +10,8 @@ module Breeze
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :template
       
+      attr_accessible :template
+      
       index({parent_id: 1, _type: 1})
       
       embeds_many :views, :class_name => "Breeze::Content::View" do
@@ -44,15 +46,14 @@ module Breeze
       end
       
       def to_erb(view)
-        
       end
 
       def duplicate(attrs = {})
-        self.class.new.tap do |duplicate|
-          duplicate.attributes = @attributes.except(*%w(_id id versions placements)).dup
-          duplicate.attributes = attrs
-          duplicate.save
-        end
+        new_record = yield if block_given?
+        new_record ||= self.dup
+        new_record.touch
+        new_record.save
+        new_record
       end
       
       def contains_text(*strings)
@@ -70,9 +71,9 @@ module Breeze
         end
       end
       
-      def self._types
-        @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
-      end
+      # def self._types
+      #   @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
+      # end
       
       def self.recurse_subclasses
         [self].tap do |result|
@@ -109,12 +110,9 @@ module Breeze
       end
       
       def self.view_class
-        @view_class ||= begin
-          (self.name + "View").constantize
-        rescue
-          View
-        end
+        @view_class = self.nil? ? View : [self.name, "View"].join.constantize
       end
+
       def view_class; self.class.view_class; end
       
       def self.label
