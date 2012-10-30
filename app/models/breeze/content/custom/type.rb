@@ -8,12 +8,11 @@ module Breeze
         attr_accessible :_type, :name, :type_name, :custom_fields_attributes
 
         validates :name, uniqueness: true, presence: true
-        index({ name: 1 }, { unique: true })
-
-        validates :type_name, presence: true,
-          format: { with: /^[A-Z]\w*$/, message: "must be a CamelCasedName" }, 
-          uniqueness: true
+        validates :type_name, presence: true, uniqueness: true,
+          format: { with: /^[A-Z]\w*$/, message: "must be a CamelCasedName" }
+        
         index({ type_name: 1 }, { unique: true })
+        index({ name: 1 }, { unique: true })
 
         embeds_many :custom_fields, :class_name => "Breeze::Content::Custom::Field" do
           def build(attrs = {}, type = nil)
@@ -45,7 +44,7 @@ module Breeze
           :allow_destroy => true
       
       
-        after_initialize :fill_in_type_name
+        before_validation :fill_in_type_name
         after_save :reset_class
         before_destroy :destroy_instances
         after_destroy :reset_class
@@ -63,6 +62,7 @@ module Breeze
         end
         
         def self.classes(type = nil)
+          binding.pry
           @all_classes ||= all.map(&:to_class)
           if type
             @all_classes.select { |c| c.ancestors.include?(type) }
@@ -84,7 +84,7 @@ module Breeze
         end
       
         def fill_in_type_name
-          self.type_name = name.underscore.gsub(/\s+/, "_").camelize if type_name.blank? && !name.blank?
+          self.type_name ||= name.underscore.gsub(/\s+/, "_").camelize
         end
         
         def destroy_instances
