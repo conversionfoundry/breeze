@@ -18,7 +18,8 @@ module Breeze
         end
         
         # Check engines for additional abilities
-        Breeze.run_hook :define_abilities, user, self
+        # Breeze.run_hook :define_abilities, user, self
+        Breeze.run_hook :define_abilities, self, user, self
       end
 
       def self.role_description(role)
