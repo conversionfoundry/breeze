@@ -11,6 +11,8 @@ module Breeze
       field :template
       
       attr_accessible :template
+
+      fulltext_search_in :fts_index
       
       index({parent_id: 1, _type: 1})
       
@@ -56,20 +58,24 @@ module Breeze
         new_record
       end
       
-      def contains_text(*strings)
-        options = strings.extract_options!
-        if options[:all]
-          strings.each do |string|
-            return false unless @attributes.any? { |_, value| String === value && value.index(string) }
-          end
-          true
-        else
-          strings.each do |string|
-            return true if @attributes.any? { |_, value| String === value && value.index(string) }
-          end
-          false
-        end
+      def self.search_for_text(query, options={})
+        self.fulltext_search(query)
       end
+
+      # def contains_text(*strings)
+      #   options = strings.extract_options!
+      #   if options[:all]
+      #     strings.each do |string|
+      #       return false unless @attributes.any? { |_, value| String === value && value.index(string) }
+      #     end
+      #     true
+      #   else
+      #     strings.each do |string|
+      #       return true if @attributes.any? { |_, value| String === value && value.index(string) }
+      #     end
+      #     false
+      #   end
+      # end
       
       # def self._types
       #   @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
@@ -134,23 +140,28 @@ module Breeze
         klass.new params
       end
       
-      def self.search(&block)
-        [].tap do |results|
-          collection.find do |cursor|
-            cursor.each do |document|
-              score = block.call document
-              results << [ document, score == true ? 1.0 : score ] unless score == false
-            end
-          end
-        end.sort_by(&:last).map(&:first).reverse
-      end
+      # def self.search(&block)
+      #   [].tap do |results|
+      #     collection.find do |cursor|
+      #       cursor.each do |document|
+      #         score = block.call document
+      #         results << [ document, score == true ? 1.0 : score ] unless score == false
+      #       end
+      #     end
+      #   end.sort_by(&:last).map(&:first).reverse
+      # end
+      # 
+      # def self.search_for_text(query, options = {})
+      #   query = query.split(/\s+/).reject(&:blank?).map { |s| Regexp.new s.strip, Regexp::IGNORECASE }
+      #   query << options.reverse_merge(:all => true)
+      #   search do |item|
+      #     (!options[:class] || item.is_a?(options[:class])) && item.contains_text(*query)
+      #   end
+      # end
+    protected
       
-      def self.search_for_text(query, options = {})
-        query = query.split(/\s+/).reject(&:blank?).map { |s| Regexp.new s.strip, Regexp::IGNORECASE }
-        query << options.reverse_merge(:all => true)
-        search do |item|
-          (!options[:class] || item.is_a?(options[:class])) && item.contains_text(*query)
-        end
+      def fts_index
+        '%s %s %s' % [try(:name), try(:content), try(:extra)]
       end
     end
   end
