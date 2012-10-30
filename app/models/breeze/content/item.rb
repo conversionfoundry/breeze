@@ -5,6 +5,8 @@ module Breeze
       include Mongoid::Timestamps
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
+
+      # attr_accessible :template
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :template
       
@@ -44,13 +46,14 @@ module Breeze
       end
       
       def to_erb(view)
-        
       end
 
       def duplicate(attrs = {})
-        # reject placement inside navigationimte#duplicate instead of here 
-        att = attributes.merge(attrs).with_indifferent_access.except(*%w(_id _type created_at updated_at versions placements))
-        self.class.create(att)
+        new_record = yield if block_given?
+        new_record ||= self.dup
+        new_record.touch
+        new_record.save
+        new_record
       end
       
       def contains_text(*strings)
@@ -68,9 +71,9 @@ module Breeze
         end
       end
       
-      def self._types
-        @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
-      end
+      # def self._types
+      #   @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
+      # end
       
       def self.recurse_subclasses
         [self].tap do |result|

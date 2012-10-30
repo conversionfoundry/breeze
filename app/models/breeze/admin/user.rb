@@ -19,7 +19,7 @@ module Breeze
     
       after_create :schedule_new_user_email
 
-      ROLES = [ :editor, :designer, :admin ]
+      CORE_ROLES = [ :editor, :designer, :admin ]
       
       ## 
       # Returns a formated user name, this method is aliased by #to_s
@@ -75,9 +75,14 @@ module Breeze
       #   }
       def self.roles
         @_roles ||= ({}).tap do |hash|
-          ROLES.each do |role|
+
+          # Let engines add any further roles they need to the core array
+          roles = Breeze.run_hook :user_roles, CORE_ROLES
+
+          roles.each do |role|
             hash[role] = I18n::t role, :scope => [ :breeze, :users, :roles ], :default => role.to_s.humanize
           end
+
         end
       end
       
@@ -108,7 +113,7 @@ module Breeze
 
     private
       def method_missing(sym, *args)
-        if sym.to_s =~ /^(\w+)\?$/ && ROLES.include?($1.to_sym)
+        if sym.to_s =~ /^(\w+)\?$/ && CORE_ROLES.include?($1.to_sym)
           roles.include? $1.to_sym
         else
           super

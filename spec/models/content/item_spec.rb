@@ -52,7 +52,7 @@ describe Breeze::Content::Item do
   end
 
 
-  describe '#duplicate(attrs = {})' do
-
+  describe '#duplicate' do
+    it "duplicate object with the content"
   end
 end
