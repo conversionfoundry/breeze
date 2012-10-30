@@ -27,7 +27,6 @@ module Breeze
             end
           end
         end
-        
         def regenerate_permalink!
           self.permalink =  "/" + slug.to_s
           self.permalink.prepend(parent_permalink) if parent_permalink_prependable?

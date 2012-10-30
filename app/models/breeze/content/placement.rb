@@ -4,11 +4,14 @@ module Breeze
       include Mongoid::Document
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       
+      attr_accessible :region, :view, :content, :content_id, :container_id
+
+      belongs_to :content, :class_name => "Breeze::Content::Item"
+      embedded_in :container, :inverse_of => :placements
+
       field :region, :type => String
       field :view
       field :position, :type => Integer, :default => 0
-      belongs_to :content, :class_name => "Breeze::Content::Item"
-      embedded_in :container, :inverse_of => :placements
       
       before_create :set_position
       after_create  :increment_content_placement_count
