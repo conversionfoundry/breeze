@@ -1,6 +1,18 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
 describe Breeze::Content::Page do
+
+  subject { Fabricate.build :page }
+
+  before do
+  end
+
+  describe 'validations' do
+  end
+
+  
+
+
   # before :each do
   #   Breeze::Content::Item.collection.drop
   #   
