@@ -66,7 +66,7 @@ module Breeze
         def update_child_permalinks
           if respond_to?(:children)
             self.children.each do |child|
-              child.regenerate_permalink!
+              child.permalink = Generator.new(child).regenerate_permalink!
               child.save!
             end
           end
