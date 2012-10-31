@@ -27,7 +27,6 @@ module Breeze
         @placement.unlink! if @placement.shared? && !params[:update_all]
         @content = @placement.content
         @content.update_attributes params[:content]
-        @container.save 
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
 
