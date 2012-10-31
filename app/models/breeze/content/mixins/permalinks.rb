@@ -81,6 +81,7 @@ module Breeze
         def fill_in_slug
           default_slug = title.parameterize.gsub(/(^[\-]+|[-]+$)/, "")
           taken_slugs = Breeze::Content::Item.where(slug: /.*#{default_slug}.*/i, parent_id: parent_id).map(&:slug)
+          # binding.pry
           if taken_slugs.any? && taken_slugs.include?(default_slug) && self.slug_changed?
             self.slug = generate_slug(default_slug, *taken_slugs)
           else
