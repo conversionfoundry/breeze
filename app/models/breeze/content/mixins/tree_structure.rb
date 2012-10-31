@@ -3,13 +3,12 @@ module Breeze
     module Mixins
       module TreeStructure
         def self.included(base)
-          # base.attr_accessible :parent_id, :position
           base.belongs_to :parent, :class_name => base.name
           base.has_many :children, :class_name => base.name, :foreign_key => :parent_id
           base.field :position, :type => Integer, default: 0
           base.validates :position, presence: true, numericality: { greater_or_equal_than: 0 }
           
-          base.attr_accessible :position, :parent_id
+          base.attr_protected :_id
           
           base.before_create :set_position
           base.before_destroy :destroy_children

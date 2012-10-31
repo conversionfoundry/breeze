@@ -3,13 +3,12 @@ module Breeze
     class NavigationItem < Item
       include Mongoid::Document
       
-      # attr_accessible :_type, :title, :subtitle, :show_in_navigation, :ssl
       field :title
       field :subtitle
       field :show_in_navigation, :type => Boolean, :default => true
       field :ssl, :type => Boolean, :default => false
 
-      attr_accessible :_type, :title, :subtitle, :show_in_navigation, :ssl
+      attr_protected :_id
       
       include Mixins::TreeStructure
       include Mixins::Permalinks

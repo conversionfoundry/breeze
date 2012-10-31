@@ -6,7 +6,7 @@ module Breeze
           base.field :permalink
           base.field :slug
 
-          base.attr_accessible :permalink, :slug
+          base.attr_protected :_id
           base.after_save :update_child_permalinks
 
           base.before_validation :fill_in_slug

@@ -1,38 +1,28 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
 class SearchTestItem < Breeze::Content::Item
+  include Breeze::Content::Mixins::Placeable
   field :title
   field :content
   field :extra
+  attr_accessible :title, :content, :extra
 end
 
 describe Breeze::Content::Item do
-  it "should be its own base class" do
-    Breeze::Content::Item.base_class.should == Breeze::Content::Item
-  end
-
   let(:item_1) { SearchTestItem.create(:title => "Foo", :content => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.") } 
   let(:item_2) { SearchTestItem.create(:title => "Lorem", :content => "(Empty)") }
   let(:item_3) { SearchTestItem.create(:content => "laboris", :extra => "Foo") }
-
-  describe "#contains_text" do
-    context "found" do
-      it "returns true" do
-        expect(item_1.contains_text('Foo')).to be_true
-      end
-    end
-
-    context "not found" do
-      it "returns false" do
-        expect(item_2.contains_text('Foo')).to be_false
-      end
-    end
-  end
   
-  # Test failing please inspect https://github.com/artsy/mongoid_fulltext/blob/master/lib/mongoid_fulltext.rb#L107
   describe ".search_for_text('lorem')" do
+    before do
+      item_1.reload
+      item_2.reload
+      item_3.reload
+    end
     context "query = 'lorem'" do
-      before { @results = Breeze::Content::Item.search_for_text("Lorem", :class => Breeze::Content::Mixins::Placeable) }
+      before do
+        @results = Breeze::Content::Item.search_for_text("Lorem") 
+      end
 
       it "finds related items" do
         @results.should include(item_1, item_2)
@@ -43,7 +33,7 @@ describe Breeze::Content::Item do
       end
     end
     context "query = 'foo labories'" do
-      before { @results = Breeze::Content::Item.search_for_text("Foo labories", :class => Breeze::Content::Mixins::Placeable) }
+      before { @results = Breeze::Content::Item.search_for_text("Foo laboris") }
 
       it "finds related items" do 
         @results.should include(item_1, item_3)
@@ -51,8 +41,4 @@ describe Breeze::Content::Item do
     end
   end
 
-
-  describe '#duplicate' do
-    it "duplicate object with the content"
-  end
 end

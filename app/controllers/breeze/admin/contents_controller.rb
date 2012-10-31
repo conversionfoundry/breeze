@@ -4,8 +4,6 @@ module Breeze
       before_filter :load_container_and_placement, :only => [ :edit, :update, :duplicate, :destroy, :live ]
       
       def new
-        #preview = PreviewHelper.new
-        #preview.screenshot(self, request)
         @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
       end
       
@@ -13,9 +11,6 @@ module Breeze
         @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
         if @content.save
           @placement = @content.placement
-          #todo
-          #@container = @placement.container
-          #@container.save
           @container = Breeze::Content::Item.find @content.container_id
           @view = @container.views.by_name(@placement.view).populate(@container, self, request)
         end
@@ -44,9 +39,8 @@ module Breeze
 
       def add
         @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
-        @container ||= Breeze::Content::Item.find(@content.container_id) if @content.container_id
-
-        @placement = @container.placements.new(:region => @content.region, :view => @content.view || "default", :position => nil, :content => @content)
+        @container ||= Breeze::Content::Item.find(params[:content][:container_id]) if params[:content][:container_id]
+        @placement = @container.placements.new(:region => params[:content][:region], :view => params[:content][:view] || "default", :position => nil, :content => @content)
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
       end
       
@@ -76,7 +70,7 @@ module Breeze
         @container = Breeze::Content::Item.find params[:container_id]
         @view = @container.views.by_name(params[:view]).populate(@container, self, request)
         @results = if params[:q]
-          Breeze::Content::Item.search_for_text params[:q], :class => Breeze::Content::Mixins::Placeable
+          Breeze::Content::Item.search_for_text params[:q] 
         else
           []
         end
