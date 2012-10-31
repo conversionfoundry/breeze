@@ -58,11 +58,9 @@ module Breeze
       end
       
       def destroy
-        if @container && @placement
-          if @placement = @container.placements.by_id(params[:id])
-            @placement.destroy
-            @container.save
-          end
+        if @placement.present?
+          @id = @placement.id
+          @placement.destroy
         end
       end
       
