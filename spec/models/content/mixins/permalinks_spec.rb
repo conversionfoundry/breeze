@@ -8,6 +8,8 @@ end
 
 describe "Permalink" do
   subject { PermalinkTest.new }
+  # let(:parent) { PermalinkTest.new(parent: grand_parent) }
+  # let(:grand_parent) { PermalinkTest.new }
   let(:taken_slugs) { %w(home home-2 home-3) }
 
   describe "#generate_slug(default_slug, *taken_slugs)" do
@@ -28,17 +30,29 @@ describe "Permalink" do
     before { subject.slug = 'slug' }
 
     context 'with no parents' do
-      it "should returns /slug" do
-        subject.regenerate_permalink!
-        subject.permalink.should eq('/slug')
+      it "returns /slug" do
+        subject.regenerate_permalink
+        subject.permalink.should eq('/')
       end
     end
 
     context "with parents" do
-      it "should give a well formed slug" do
+      before do
         subject.stub_chain(:parent, :permalink) { '/parent' }
-        subject.regenerate_permalink!
+        subject.stub(:parent_id) { 12 }
+        # subject.stub(:slug_changed?) { false }
+      end
+
+      it "supports one parent" do
+        subject.regenerate_permalink
         subject.permalink.should eq('/parent/slug')
+      end
+
+      it "supports two parents" do
+        # parent.stub_chain(:parent, :permalink) { '/grand_parent' }
+        # parent.stub(:parent_id) { 42 }
+        subject.regenerate_permalink
+        subject.permalink.should eq('/grandparent/parent/slug')
       end
     end
   end

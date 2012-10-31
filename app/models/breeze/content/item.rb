@@ -50,7 +50,7 @@ module Breeze
       def to_erb(view)
       end
 
-      def duplicate(attrs = {})
+      def duplicate(attrs = {}) #here we can have attrs = {placement_counts:1} as a parameter
         new_record = yield if block_given?
         new_record ||= self.dup
         new_record.touch

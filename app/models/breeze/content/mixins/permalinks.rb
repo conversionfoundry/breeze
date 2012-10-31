@@ -2,6 +2,35 @@ module Breeze
   module Content
     module Mixins
       module Permalinks
+
+        class Generator < Struct.new(:tree_node)
+          def generate_permalink
+            c1 = tree_node.permalink.blank?
+            c2 = tree_node.slug_changed?
+            c3 = tree_node.respond_to?(:parent_id) && tree_node.parent_id_changed?
+            if c1 || c2 || c3
+              regenerate_permalink!
+            else
+              tree_node.permalink
+            end
+          end
+
+          def regenerate_permalink!
+            "/".tap do |permalink|
+              if tree_node.parent_id.present?
+                permalink.concat(tree_node.slug.to_s) 
+                permalink.prepend(Generator.new(tree_node.parent).regenerate_permalink!) if parent_permalink_prependable?
+              end
+            end
+          end
+          
+        private
+          def parent_permalink_prependable?
+            tree_node.respond_to?(:parent) && tree_node.parent.present? && tree_node.parent.permalink.to_s != "/"
+          end
+        end
+
+
         def self.included(base)
           base.field :permalink
           base.field :slug
@@ -27,10 +56,11 @@ module Breeze
             end
           end
         end
-        def regenerate_permalink!
-          self.permalink =  "/" + slug.to_s
-          self.permalink.prepend(parent_permalink) if parent_permalink_prependable?
+
+        def regenerate_permalink
+          self.permalink = Generator.new(self).generate_permalink
         end
+
         
         # When a permalink changes, permalinks for child pages also need to be updated
         def update_child_permalinks
@@ -51,16 +81,12 @@ module Breeze
         def fill_in_slug
           default_slug = title.parameterize.gsub(/(^[\-]+|[-]+$)/, "")
           taken_slugs = Breeze::Content::Item.where(slug: /.*#{default_slug}.*/i, parent_id: parent_id).map(&:slug)
-          if taken_slugs.any? && taken_slugs.include?(default_slug)
+          if taken_slugs.any? && taken_slugs.include?(default_slug) && self.slug_changed?
             self.slug = generate_slug(default_slug, *taken_slugs)
           else
-            self.slug = default_slug
+            self.slug ||= default_slug
           end
           self
-        end
-        
-        def regenerate_permalink
-          regenerate_permalink! if permalink.blank? || slug_changed? || (respond_to?(:parent_id) && parent_id_changed?)
         end
 
         def generate_slug(default_slug, *taken_slugs)
@@ -71,19 +97,6 @@ module Breeze
           end
           result ||= '%s-%s' % [default_slug, taken_slugs.count + 2] # if it is still not filled
         end
-
-        def parent_permalink
-          if parent_permalink_prependable?
-            parent.permalink
-          end
-        end
-
-      private
-
-        def parent_permalink_prependable?
-          respond_to?(:parent) && parent.present? && parent.permalink.to_s != "/"
-        end
-
       end
     end
   end
