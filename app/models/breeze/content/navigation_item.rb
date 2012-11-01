@@ -47,8 +47,6 @@ module Breeze
       def duplicate(attrs = {})
         new_record = yield if block_given?
         new_record ||= self.dup
-        new_record.slug = fill_in_slug
-        new_record.permalink = regenerate_permalink
         new_record.position = new_record.position.to_i + 1
         super { new_record }.tap do |new_item|
           children.each { |child| child.duplicate(parent_id: new_item.id) }
