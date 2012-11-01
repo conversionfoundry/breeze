@@ -12,7 +12,7 @@ module Breeze
           def generate
             "".tap do |permalink|
               permalink.prepend("/#{tree_node.slug}")
-              permalink.prepend(PermalinkGenerator.new(tree_node.parent).generate) unless tree_node.try(:root?)
+              permalink.prepend(PermalinkGenerator.new(tree_node.parent).generate) unless tree_node.parent.try(:root?)
             end
           end
 
@@ -59,7 +59,7 @@ module Breeze
         
         # When a permalink changes, permalinks for child pages also need to be updated
         def update_child_permalinks
-          if respond_to?(:children)
+          if respond_to?(:children) && permalink_changed?
             self.children.each do |child|
               child.permalink = PermalinkGenerator.new(child).allocate
               child.save!
@@ -76,7 +76,7 @@ module Breeze
         def fill_in_slug
           default_slug = title.parameterize.gsub(/(^[\-]+|[-]+$)/, "")
           taken_slugs = Breeze::Content::Item.where(slug: /.*#{default_slug}.*/i, parent_id: parent_id).map(&:slug)
-          if taken_slugs.any? && taken_slugs.include?(default_slug) && self.slug_changed?
+          if taken_slugs.any? && taken_slugs.include?(default_slug) && ( self.slug_changed? || self.new_record? )
             self.slug = generate_slug(default_slug, *taken_slugs)
           else
             self.slug ||= default_slug
