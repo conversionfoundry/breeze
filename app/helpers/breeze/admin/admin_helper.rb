@@ -36,6 +36,20 @@ module Breeze
         end
       end
       
+      def at_a_glance(count, label, link = nil, options = {})
+        content_tag :tr do |html|
+          html = content_tag :td, class: 'item-count' do
+            content_tag :span, class: 'badge' do
+              count.to_s
+            end
+          end
+          html += content_tag :td, class: 'text' do
+            link_to_unless(link.blank?, label.gsub(/(\w+)\(s\)/) { count == 1 ? $1 : $1.pluralize }, link, options)
+          end
+        end.html_safe
+
+      end
+
       def admin_menu
         menu = []
         menu << { :name => "Dashboard", :path => admin_root_path, :regexp => /^\/admin\/?$/ }

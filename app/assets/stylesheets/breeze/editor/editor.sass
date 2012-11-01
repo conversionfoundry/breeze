@@ -3,6 +3,9 @@
 
 @import url(/cached/breeze/forms.css)
 
+
+
+
 /* Override Twitter Bootstrap Styles
 
 #breeze-toolbar
@@ -322,7 +325,7 @@ body.breeze-editing
         list-style: none
         display: block
         padding-left: 20px
-        background: url(<%= asset_path 'icons/page.png' %>) no-repeat 0 0
+        background: url( image_path('icons/page.png') ) no-repeat 0 0
         line-height: 18px
         vertical-align: middle
 
@@ -489,6 +492,9 @@ body.breeze-editing
     padding: 0
   .ui-tabs-panel
     background: #f2f2f2
+  h1, h2, h3, h4, h5, h6
+    color: #f2f2f2
+    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important
   h2
     margin: 0
     padding: 0 0 0 8px
@@ -498,9 +504,15 @@ body.breeze-editing
     text-transform: uppercase
     text-shadow: rgba(0, 0, 0, 0.25) 0px -1px
     font-size: 150%
-  .breeze-form input 
-    height: 2em
-
+  .breeze-form 
+    input 
+      height: 2em
+    fieldset ol li label
+      clear: both
+      float: left
+      width: 100%
+    .marquess-container
+      float: left
 
 .add-content-tabs
   margin: 1em

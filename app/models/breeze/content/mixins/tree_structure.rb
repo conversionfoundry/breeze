@@ -8,7 +8,7 @@ module Breeze
           base.field :position, :type => Integer, default: 0
           base.validates :position, presence: true, numericality: { greater_or_equal_than: 0 }
           
-          base.attr_accessible :position, :parent_id
+          base.attr_protected :_id
           
           base.before_create :set_position
           base.before_destroy :destroy_children
