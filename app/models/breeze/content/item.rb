@@ -5,12 +5,14 @@ module Breeze
       include Mongoid::Timestamps
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
+      include Mongoid::FullTextSearch
 
-      # attr_accessible :template
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :template
       
-      attr_accessible :template
+      attr_protected :_id
+
+      fulltext_search_in :fts_index, filters: { is_placeable: ->(el) { el.is_a? Breeze::Content::Mixins::Placeable } } 
       
       index({parent_id: 1, _type: 1})
       
@@ -48,27 +50,18 @@ module Breeze
       def to_erb(view)
       end
 
-      def duplicate(attrs = {})
+      def duplicate(attrs = {}) #here we can have attrs = {placement_counts:1} as a parameter
         new_record = yield if block_given?
         new_record ||= self.dup
-        new_record.touch
-        new_record.save
-        new_record
+        new_record.tap do |r|
+          r.created_at = nil
+          r.touch # refresh updated_at
+          r.save
+        end
       end
       
-      def contains_text(*strings)
-        options = strings.extract_options!
-        if options[:all]
-          strings.each do |string|
-            return false unless @attributes.any? { |_, value| String === value && value.index(string) }
-          end
-          true
-        else
-          strings.each do |string|
-            return true if @attributes.any? { |_, value| String === value && value.index(string) }
-          end
-          false
-        end
+      def self.search_for_text(query, options={})
+        self.fulltext_search(query, is_placeable: true)
       end
       
       # def self._types
@@ -130,26 +123,17 @@ module Breeze
         rescue
           self
         end
-        # raise ArgumentError, "#{klass.name} is not a valid content class" unless klass.ancestors.include?(Breeze::Content::Item)
         klass.new params
       end
       
-      def self.search(&block)
-        [].tap do |results|
-          collection.find do |cursor|
-            cursor.each do |document|
-              score = block.call document
-              results << [ document, score == true ? 1.0 : score ] unless score == false
-            end
-          end
-        end.sort_by(&:last).map(&:first).reverse
-      end
+    private
       
-      def self.search_for_text(query, options = {})
-        query = query.split(/\s+/).reject(&:blank?).map { |s| Regexp.new s.strip, Regexp::IGNORECASE }
-        query << options.reverse_merge(:all => true)
-        search do |item|
-          (!options[:class] || item.is_a?(options[:class])) && item.contains_text(*query)
+      def fts_index
+        potential_fields = [:name, :content, :extra, :title].freeze
+        "".tap do |index|
+          potential_fields.each do |field_sym|
+            index << " #{send(field_sym)}" if respond_to?(field_sym) && send(field_sym)
+          end
         end
       end
     end

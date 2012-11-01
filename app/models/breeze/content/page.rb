@@ -3,7 +3,6 @@ module Breeze
     class Page < NavigationItem
       include Mixins::Container
       
-      attr_accessible :seo_title, :seo_meta_description, :seo_meta_keywords
       field :seo_title
       field :seo_meta_description
       field :seo_meta_keywords
@@ -11,6 +10,8 @@ module Breeze
       after_create  { |page| Breeze::Admin::Activity.log :create, page }
       after_update  { |page| Breeze::Admin::Activity.log :update, page }
       before_destroy { |page| Breeze::Admin::Activity.log :delete, page }
+      
+      attr_protected :_id
       
       def variables_for_render
         super.merge :page => self

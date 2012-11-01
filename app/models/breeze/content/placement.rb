@@ -3,17 +3,17 @@ module Breeze
     class Placement
       include Mongoid::Document
       field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
-      
-      attr_accessible :region, :view, :content, :content_id, :container_id
-
-      belongs_to :content, :class_name => "Breeze::Content::Item"
-      embedded_in :container, :inverse_of => :placements
-
       field :region, :type => String
       field :view
       field :position, :type => Integer, :default => 0
       
-      before_create :set_position
+      attr_protected :id
+
+      belongs_to :content, :class_name => "Breeze::Content::Item"
+      embedded_in :container, :inverse_of => :placements
+
+      
+      before_validation :set_position
       after_create  :increment_content_placement_count
       after_destroy :decrement_content_placement_count
 
@@ -54,6 +54,8 @@ module Breeze
           existing = container.placements.for(:view => view, :region => region)
           self.position ||= existing.count - 1 # -1 for self
           existing.each { |p| p.position += 1 if p != self && p.position >= position }
+        else
+          self.position = 0
         end
       end
     

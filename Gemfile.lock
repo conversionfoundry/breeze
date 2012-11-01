@@ -10,7 +10,7 @@ PATH
       jquery-rails
       jquery-rails (~> 2.1.2)
       mongoid (~> 3.0.5)
-      mongoid_fulltext
+      mongoid_fulltext (~> 0.6.0)
       rails (~> 3.2.0)
       rdiscount (~> 1.6.8)
       rmagick (~> 2.13.1)
