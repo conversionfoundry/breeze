@@ -2,6 +2,7 @@ module Breeze
   module Content
     class Snippet < Item
       field :content, :markdown => true
+      attr_protected :_id
 
       include Mixins::Placeable
       

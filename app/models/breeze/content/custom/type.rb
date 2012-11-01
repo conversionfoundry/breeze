@@ -5,7 +5,7 @@ module Breeze
         include Mongoid::Document
         field :name
         field :type_name
-        attr_accessible :_type, :name, :type_name, :custom_fields_attributes
+        attr_protected :_id
 
         validates :name, uniqueness: true, presence: true
         validates :type_name, presence: true, uniqueness: true,
