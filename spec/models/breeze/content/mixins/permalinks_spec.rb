@@ -15,7 +15,7 @@ describe "Permalink" do
 
   describe "#generate_slug(default_slug, *taken_slugs)" do
     it "generates the next available slug" do
-      subject.send(:generate_slug, 'home', *taken_slugs).should eq('home-4')
+      subject.send(:fill_in_slug, 'home', *taken_slugs).should eq('home-4')
       subject.send(:generate_slug, 'home', *[]).should eq('home-2')
     end
   end
@@ -37,16 +37,16 @@ describe "Permalink" do
       end
     end
     context "with one parent" do
-      it "returns /parent/slug" do
+      it "returns the permalink of one level, excluding the root slug" do
         subject.stub(:root?) { false }
         subject.stub(:parent) { parent }
         parent.stub(:slug) { 'parent' }
         subject.regenerate_permalink
-        subject.permalink.should eq('/parent/slug')
+        subject.permalink.should eq('/slug')
       end
     end
     context "with two parents" do
-      it "returns /grandparent/parent/slug" do
+      it "returns the permalink with two levels" do
         subject.stub(:root?) { false }
         subject.stub(:parent) { parent }
         parent.stub(:slug) { 'parent' }
@@ -54,7 +54,7 @@ describe "Permalink" do
         parent.stub(:parent) { grandparent }
         grandparent.stub(:slug) { 'grandparent' }
         subject.regenerate_permalink
-        subject.permalink.should eq('/grandparent/parent/slug')
+        subject.permalink.should eq('/parent/slug')
       end
     end
   end
