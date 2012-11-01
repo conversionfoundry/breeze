@@ -4,13 +4,14 @@ class PermalinkTest < Breeze::Content::Item
   field :title
   belongs_to :parent, class_name: PermalinkTest
   include Breeze::Content::Mixins::Permalinks
+  include Breeze::Content::Mixins::TreeStructure
 end
 
 describe "Permalink" do
   subject { PermalinkTest.new }
-  # let(:parent) { PermalinkTest.new(parent: grand_parent) }
-  # let(:grand_parent) { PermalinkTest.new }
   let(:taken_slugs) { %w(home home-2 home-3) }
+  let(:parent) { PermalinkTest.new }
+  let(:grandparent) { PermalinkTest.new }
 
   describe "#generate_slug(default_slug, *taken_slugs)" do
     it "generates the next available slug" do
@@ -26,31 +27,32 @@ describe "Permalink" do
     end
   end
 
-  describe '#regenerate_permalink!' do
+  describe '#regenerate_permalink' do
     before { subject.slug = 'slug' }
 
-    context 'with no parents' do
-      it "returns /slug" do
+    context 'for root' do
+      it "returns /" do
         subject.regenerate_permalink
         subject.permalink.should eq('/')
       end
     end
-
-    context "with parents" do
-      before do
-        subject.stub_chain(:parent, :permalink) { '/parent' }
-        subject.stub(:parent_id) { 12 }
-        # subject.stub(:slug_changed?) { false }
-      end
-
-      it "supports one parent" do
+    context "with one parent" do
+      it "returns /parent/slug" do
+        subject.stub(:root?) { false }
+        subject.stub(:parent) { parent }
+        parent.stub(:slug) { 'parent' }
         subject.regenerate_permalink
         subject.permalink.should eq('/parent/slug')
       end
-
-      it "supports two parents" do
-        # parent.stub_chain(:parent, :permalink) { '/grand_parent' }
-        # parent.stub(:parent_id) { 42 }
+    end
+    context "with two parents" do
+      it "returns /grandparent/parent/slug" do
+        subject.stub(:root?) { false }
+        subject.stub(:parent) { parent }
+        parent.stub(:slug) { 'parent' }
+        parent.stub(:root?) { false }
+        parent.stub(:parent) { grandparent }
+        grandparent.stub(:slug) { 'grandparent' }
         subject.regenerate_permalink
         subject.permalink.should eq('/grandparent/parent/slug')
       end

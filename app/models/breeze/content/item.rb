@@ -53,10 +53,11 @@ module Breeze
       def duplicate(attrs = {}) #here we can have attrs = {placement_counts:1} as a parameter
         new_record = yield if block_given?
         new_record ||= self.dup
-        new_record.created_at = nil
-        new_record.touch # will refresh updated_at
-        new_record.save
-        new_record
+        new_record.tap do |r|
+          r.created_at = nil
+          r.touch # refresh updated_at
+          r.save
+        end
       end
       
       def self.search_for_text(query, options={})

@@ -3,11 +3,23 @@ require File.expand_path(File.dirname(__FILE__) + "/../../../spec_helper")
 describe Breeze::Content::NavigationItem do
 
   subject { Fabricate :navigation_item }
+  # Fabricator(:navigation_item, class_name: Breeze::Content::NavigationItem) do
+  #   title 'nav_item'
+  #   subtitle 'subtitle'
+  #   ssl  true
+  #   show_in_navigation true
+  # end
+
 
   describe '#duplicate' do
-    it "should create a new navigation item" do
+    it "does a copy" do
       subject.duplicate
-      Breeze::Content::NavigationItem.count.should eq(2)
+      Breeze::Content::NavigationItem.all.should have(2).entries
+    end
+
+    it "sets the proper slug" do
+      new_record = subject.duplicate
+      new_record.slug.should eq('nav_item')
     end
 
     # it "should duplicate its children"
