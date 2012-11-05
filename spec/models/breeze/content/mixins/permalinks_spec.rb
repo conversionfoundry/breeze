@@ -8,22 +8,22 @@ class PermalinkTest < Breeze::Content::Item
 end
 
 describe "Permalink" do
-  subject { PermalinkTest.new }
+  subject { PermalinkTest.new(title: 'home') }
   let(:taken_slugs) { %w(home home-2 home-3) }
-  let(:parent) { PermalinkTest.new }
-  let(:grandparent) { PermalinkTest.new }
+  let(:parent) { PermalinkTest.new(slug: 'parent') }
+  let(:grandparent) { PermalinkTest.new(slug: 'grandparent') }
 
   describe "#generate_slug(default_slug, *taken_slugs)" do
     it "generates the next available slug" do
-      subject.send(:fill_in_slug, 'home', *taken_slugs).should eq('home-4')
-      subject.send(:generate_slug, 'home', *[]).should eq('home-2')
+      Breeze::Content::Item.stub_chain(:where, :map) { taken_slugs }
+      subject.send(:fill_in_slug).should eq('home-4')
     end
   end
 
   describe '#fill_in_slug' do
     it "fills the slug" do
       subject.title = 'home'
-      subject.send(:fill_in_slug).slug.should eq('home')
+      subject.send(:fill_in_slug).should eq('home')
     end
   end
 
@@ -32,7 +32,7 @@ describe "Permalink" do
 
     context 'for root' do
       it "returns /" do
-        subject.regenerate_permalink
+        subject.send(:regenerate_permalink)
         subject.permalink.should eq('/')
       end
     end
@@ -40,8 +40,7 @@ describe "Permalink" do
       it "returns the permalink of one level, excluding the root slug" do
         subject.stub(:root?) { false }
         subject.stub(:parent) { parent }
-        parent.stub(:slug) { 'parent' }
-        subject.regenerate_permalink
+        subject.send(:regenerate_permalink)
         subject.permalink.should eq('/slug')
       end
     end
@@ -49,11 +48,9 @@ describe "Permalink" do
       it "returns the permalink with two levels" do
         subject.stub(:root?) { false }
         subject.stub(:parent) { parent }
-        parent.stub(:slug) { 'parent' }
         parent.stub(:root?) { false }
         parent.stub(:parent) { grandparent }
-        grandparent.stub(:slug) { 'grandparent' }
-        subject.regenerate_permalink
+        subject.send(:regenerate_permalink)
         subject.permalink.should eq('/parent/slug')
       end
     end
