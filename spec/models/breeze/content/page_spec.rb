@@ -4,6 +4,8 @@ describe Breeze::Content::Page do
 
   subject { Fabricate.build :page }
 
+  it { should be_valid }
+
   before do
   end
 
