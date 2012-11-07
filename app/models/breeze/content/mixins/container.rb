@@ -38,9 +38,10 @@ module Breeze
         def order=(values)
           values.each_pair do |region_name, ids|
             ids.each_with_index do |id, i|
-              unless (p = placements.by_id(id)).nil?
+              if (p = placements.by_id(id)).present?
                 p.position = i
-                p.region = region_name.to_sym
+                p.region = region_name
+                p.save
               end
             end
           end
