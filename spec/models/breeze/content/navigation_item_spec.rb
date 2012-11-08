@@ -51,7 +51,7 @@ describe Breeze::Content::NavigationItem do
   end
 
   describe '#destroy' do
-    it "should destroy its contnet"
+    # it "should destroy its contnet"
   end
 
 end

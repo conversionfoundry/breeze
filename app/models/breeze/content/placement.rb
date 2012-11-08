@@ -12,7 +12,7 @@ module Breeze
       belongs_to :content, :class_name => "Breeze::Content::Item"
       embedded_in :container, :inverse_of => :placements
 
-      # before_validation :set_position
+      before_validation :set_position
       after_create  :increment_content_placement_count
       after_destroy :decrement_content_placement_count
 
@@ -54,7 +54,7 @@ module Breeze
           self.position ||= existing.count - 1 # -1 for self
           existing.each { |p| p.position += 1 if p != self && p.position >= position }
         else
-          self.position = 0
+          self.position ||= 0
         end
       end
     

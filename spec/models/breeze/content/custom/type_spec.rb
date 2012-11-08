@@ -8,19 +8,17 @@ describe Breeze::Content::Custom::Type do
   describe 'validations' do
     it { should be_valid }
     # it { should validate_presence_of :type_name }
-    it { should validate_uniqueness_of :type_name }
+    # it { should validate_uniqueness_of :type_name }
     it { should validate_presence_of :name }
-    it { should validate_uniqueness_of :name }
-    # it { should_not allow_value('notcamelcased').for(:type_name)}
+    # it { should validate_uniqueness_of :name }
+    
   end
 
+  it "has a camelcased type name" do
+    subject.valid?
+    subject.type_name.should eq("FancySlider")
+  end
 
-
-  # it "should validate the type name" do
-  #   Breeze::Content::Custom::Type.new(:name => "fancy box", :type_name => "fancy box").should_not be_valid
-  # end
-
-  # 
   # describe "when defined" do
   #   before :each do
   #     @custom_type = Breeze::Content::Custom::Type.create :name => "fancy box", :custom_fields => [ Breeze::Content::Custom::Field.new(:name => :title), Breeze::Content::Custom::Field.new(:name => :content) ]
