@@ -2,6 +2,8 @@ module Breeze
   module Content
     class NavigationItem < Item
       include Mongoid::Document
+      include Mixins::TreeStructure
+      include Mixins::Permalinks
       
       field :title
       field :subtitle
@@ -9,12 +11,10 @@ module Breeze
       field :ssl, :type => Boolean, :default => false
 
       attr_protected :_id
-      
-      include Mixins::TreeStructure
-      include Mixins::Permalinks
-      index({ parent_id: 1, slug: 1 }, { unique: true })
 
       validates :title, presence: true
+
+      index({ parent_id: 1, slug: 1 }, { unique: true })
 
       def editable?
         false
