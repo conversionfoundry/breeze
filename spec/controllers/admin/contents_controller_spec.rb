@@ -21,13 +21,13 @@ describe Breeze::Admin::ContentsController do
     before do
     end
 
-    it "assigns @old_placement" do
-      post :duplicate, id: page.placements.first.id, use_route: :breeze
-      assigns(:old_placement).should eq(page.placements.first)
-    end
+    # it "assigns @old_placement" do
+    #   post :duplicate, id: page.placements.first.id, use_route: :breeze
+    #   assigns(:old_placement).should eq(page.placements.first)
+    # end
 
-    it "assigns @placement"
-    it "assigns @view"
+    # it "assigns @placement"
+    # it "assigns @view"
   end
 
   describe "GET #search" do

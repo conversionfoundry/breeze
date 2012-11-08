@@ -74,7 +74,7 @@ module Breeze
       protected
         def create_class
           Class.new(Breeze::Content::Custom::Instance).tap do |klass|
-            klass.send :include, Breeze::Content::Mixins::Placeable
+            klass.send(:include, Breeze::Content::Mixins::Placeable)
             custom_fields.each do |field|
               field.define_on klass
             end
@@ -84,7 +84,7 @@ module Breeze
         end
       
         def fill_in_type_name
-          self.type_name ||= name.underscore.gsub(/\s+/, "_").camelize
+          self.type_name ||= name.underscore.gsub(/\s+/, "_").camelize if name
         end
         
         def destroy_instances
