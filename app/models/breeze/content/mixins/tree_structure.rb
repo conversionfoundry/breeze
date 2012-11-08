@@ -24,7 +24,11 @@ module Breeze
         def root?
           parent_id.nil?
         end
-        
+
+        def visible_children
+          children.select{ |child| child.show_in_navigation? }
+        end
+
         def scope
           base_class.criteria.where :parent_id => parent_id
         end
