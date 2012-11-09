@@ -12,7 +12,7 @@ module Breeze
           
           base.attr_protected :_id
           
-          base.before_create :set_position
+          base.before_validation :set_position
           base.before_destroy :destroy_children
           base.after_destroy :set_sibling_positions
           
@@ -56,7 +56,7 @@ module Breeze
           end
         end
 
-        #  Level in the page hierarchy
+        # Level in the page hierarchy
         # We make a special case for the root (i.e. home page), which is at level one, not zero.
         def level
           if root?
@@ -71,8 +71,10 @@ module Breeze
         end
         
       protected
+
         def set_position
-          self.position ||= scope.count
+          # self.position ||= scope.count
+          self.position = scope.count if self.position = 0
           update_sibling_positions 1, self.position - 1
         end
         
