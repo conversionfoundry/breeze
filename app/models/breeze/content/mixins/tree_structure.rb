@@ -46,7 +46,8 @@ module Breeze
         end
         
         def move!(move_type, ref_id)
-          node = base_class.criteria.where(:parent_id => ref_id).first
+          # node = base_class.criteria.where(:parent_id => ref_id).first
+          node = base_class.criteria.find(ref_id)
           send :"move_#{move_type}!", node 
         end
         
@@ -74,7 +75,7 @@ module Breeze
 
         def set_position
           # self.position ||= scope.count
-          self.position = scope.count if self.position = 0
+          self.position = scope.count if self.position == 0
           update_sibling_positions 1, self.position - 1
         end
         
