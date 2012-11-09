@@ -85,27 +85,27 @@ module Breeze
         
         # Increment the position number for siblings to make room for a new item
         def update_sibling_positions(by = 1, ref_position)
-          base_class.where(:parent_id => parent_id, :position => { '$gteq' => ref_position }).inc(:position, by)
+          # ref_position = starting_node.position
+          base_class.where(:parent_id => parent_id, :position => { '$gte' => ref_position }).inc(:position, by)
         end
         
         def move_before!(node)
           self.parent_id = node.parent_id
-          self.position = node.position
-          update_sibling_positions(node)
-          save
+          update_sibling_positions(node.position)
+          self.update_attribute(:position, node.position)
         end
         
         def move_after!(node)
           self.parent_id = node.parent_id
-          self.position = node.position + 1
-          update_sibling_positions node.next
-          save
+          update_sibling_positions node.next.position if node.next
+          self.update_attribute(:position, node.position + 1)
         end
         
         def move_inside!(node)
           self.parent_id = node.id 
-          self.position = base_class.criteria.where(:parent_id => node.id).count
-          save
+          new_position = base_class.criteria.where(:parent_id => node.id).count
+          self.update_attribute(:position, new_position)
+
         end
       end
     end
