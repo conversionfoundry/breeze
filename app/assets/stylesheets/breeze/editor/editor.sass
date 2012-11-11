@@ -107,6 +107,7 @@
       -webkit-box-shadow: inset black 0px 1px 2px
 
 /* }}}
+
 /* Editable regions {{{
 
 .breeze-editable-region
@@ -116,11 +117,7 @@
   -webkit-transition-timing-function: ease-in
 
 body.breeze-editing .breeze-editable-region
-  min-height: 64px
-  // margin: -8px
-  // padding: 8px
-  margin: 0
-  padding: 0
+  min-height: 60px
   background: rgba(0, 0, 0, 0.05)
   -webkit-border-radius: 8px
   -webkit-box-shadow: inset rgba(0, 0, 0, 0.125) 0px 1px 4px
@@ -197,6 +194,8 @@ body.breeze-editing .breeze-editable-region .breeze-region-label
       -webkit-transition: opacity 0.12s ease-in
 
 body.breeze-editing
+  padding-top: 60px // Ensure there's space at the top for the first regions label balloon
+
   .breeze-editable-region .breeze-region-label a:hover
     opacity: 1.0
   .breeze-content

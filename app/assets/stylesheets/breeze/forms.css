@@ -170,6 +170,13 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 
 /*}}}*/
 
+/* Before, After */
+.breeze-form fieldset span.before-field {
+  display: inline-block;
+  margin: 0;
+}
+
+
 /* Buttons {{{ */
 
 .breeze-form .button, .breeze-form .button:visited {
