@@ -1,3 +1,3 @@
 $.tree.reference('#pages').save();
-$('#pages>ul').html('<%= escape_javascript render(:partial => "page", :collection => pages.select(&:root?)) %>');
+$('#pages>ul').html('<%= escape_javascript render(:partial => "breeze/admin/pages/page", :collection => pages.select(&:root?)) %>');
 $.tree.reference('#pages').restore();

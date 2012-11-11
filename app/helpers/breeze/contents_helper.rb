@@ -131,7 +131,6 @@ module Breeze
     end
         
     # First stab at a Twitter Bootstrap compatible navigation menu
-    # TODO: Abstract out code shared with normal navigation
     # Arguments:
     # :level => [1,2,3] (level one appears on all pages, 2 only on level a pages, 3 on level 2 pages, etc.)
     # :recurse => [true/false,:active,numeric] (level one appears on all pages, 2 only on level a pages, 3 on level 2 pages, etc.)
@@ -154,7 +153,7 @@ module Breeze
             
         pages = args.map do |arg|
           if arg.root?
-            arg.children.first
+            arg.visible_children.first
           else 
             case arg
             when Breeze::Content::NavigationItem then arg
@@ -172,7 +171,7 @@ module Breeze
         page ||= nil
               
         active = page ? (page.root? ? [page] : ancestry.dup) : []
-        ancestry << ancestry.last.children.first if ancestry.last
+        ancestry << ancestry.last.visible_children.first if ancestry.last
         ancestry.compact!
                         
         if level <= ancestry.length && ancestry[level].present?
@@ -198,14 +197,25 @@ module Breeze
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
+                # classes << "dropdown-toggle" unless p.root? || p.visible_children.count == 0 # Add dropdown-toggle class to link if the page has children
               end.join(" ")
+              # o["data"] = ({}).tap do |data|
+              #   data[:toggle] = :dropdown unless p.root? || p.visible_children.count == 0 # Add dropdown-toggle class to link if the page has children
+              #   data[:target] = '#' unless p.root? || p.visible_children.count == 0 # Add dropdown-toggle class to link if the page has children
+              # end
             end
             
             link = if block_given?
               capture p, link_options, &block
             else
-              permalink = p.class.name == "Breeze::Content::Placeholder" ? 'javascript:void(0)' : p.permalink
-              link_to content_tag(:span, "#{page_title}".html_safe), permalink, link_options
+              if p.class.name == "Breeze::Content::Placeholder"
+                permalink = 'javascript:void(0)'
+              else 
+                permalink = p.permalink
+              end
+              link_text = "#{page_title}"
+              # link_text += content_tag(:b, '', class: :caret) unless p.root? || p.visible_children.count == 0 # Add down-arrow icon to link if the page has children
+              link_to content_tag(:span, link_text.html_safe), permalink, link_options
             end
             
             recurse = case options[:recurse]
@@ -216,27 +226,21 @@ module Breeze
              end
              
              if recurse > 0 && p.level == level && !p.root?
-               unless (child = p.children.first).nil?
+               unless (child = p.visible_children.first).nil?
                  link << bootstrap_nav(child, options.merge(:level => level + 1, :recurse => recurse - 1), &block)
                end
              end
-             
-            # if options[:full] && p.children
-            #    p.children.each do |child|
-            #      link << navigation_bootstrap(child, options.merge(:full => true), &block)
-            #    end
-            #  end
              
             li_options = ({}).tap do |o|
               o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
-                classes << "dropdown" if p.children.length > 0
+                classes << "dropdown" if p.visible_children.length > 0
                 classes << 'level-' + level.to_s
               end.join(" ")
             end
-            
+
             str << content_tag(:li, link.html_safe, li_options)
           end
         end

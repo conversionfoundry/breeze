@@ -15,6 +15,8 @@ module Breeze
           base.after_save :update_child_permalinks
 
           base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/, :message => "must contain only letters, numbers, underscores or dashes"
+
+
           base.validates_uniqueness_of :permalink 
           base.validates :slug, uniqueness: { scope: :parent_id }
           base.index({ permalink: 1 }, { unique: true })
@@ -74,7 +76,7 @@ module Breeze
         
         class SlugGenerator < Struct.new(:tree_node)
           def allocate
-            default_slug = tree_node.slug || tree_node.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "")
+            default_slug = tree_node.slug || tree_node.title.parameterize.gsub(/(^[\-]+|[-]+$)/, "") if tree_node.title
             taken_slugs = Breeze::Content::Item.where(slug: /.*#{default_slug}.*/i, parent_id: tree_node.parent_id).map(&:slug)
             if taken_slugs.any? && taken_slugs.include?(default_slug) && ( tree_node.new_record? || (tree_node.persisted? && tree_node.slug_changed?) )
               generate(default_slug, *taken_slugs)

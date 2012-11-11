@@ -4,22 +4,6 @@ module Breeze
   module Content
     class Placeholder < NavigationItem
 
-      # def validate_format_of_permalink?
-      #   false
-      # end
-
-      # def validate_uniqueness_of_permalink?
-      #   false
-      # end
-
-      # def regenerate_permalink!  
-      #   self.permalink = 'javascript:void(0)'
-      # end
-
-      # def permalink
-      #   'javascript:void(0)'
-      # end
-
       def editable?
         true
       end

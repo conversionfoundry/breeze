@@ -16,12 +16,6 @@ module Breeze
 
       index({ parent_id: 1, slug: 1 }, { unique: true })
 
-      # Some NavigationItems aren't managed in the normal Pages admin area
-      # If this is true, the NavigationItem won't appear in the Pages admin tree
-      def has_special_admin?
-        false
-      end
-
       def editable?
         false
       end

@@ -62,7 +62,6 @@ module Breeze
         end
         
         def self.classes(type = nil)
-          binding.pry
           @all_classes ||= all.map(&:to_class)
           if type
             @all_classes.select { |c| c.ancestors.include?(type) }

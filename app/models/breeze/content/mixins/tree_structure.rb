@@ -12,7 +12,7 @@ module Breeze
           
           base.attr_protected :_id
           
-          base.before_create :set_position
+          base.before_validation :set_position
           base.before_destroy :destroy_children
           base.after_destroy :set_sibling_positions
           
@@ -24,7 +24,11 @@ module Breeze
         def root?
           parent_id.nil?
         end
-        
+
+        def visible_children
+          children.select{ |child| child.show_in_navigation? }
+        end
+
         def scope
           base_class.criteria.where :parent_id => parent_id
         end
@@ -46,7 +50,8 @@ module Breeze
         end
         
         def move!(move_type, ref_id)
-          node = base_class.criteria.where(:parent_id => ref_id).first
+          # node = base_class.criteria.where(:parent_id => ref_id).first
+          node = base_class.criteria.find(ref_id)
           send :"move_#{move_type}!", node 
         end
         
@@ -56,7 +61,7 @@ module Breeze
           end
         end
 
-        #  Level in the page hierarchy
+        # Level in the page hierarchy
         # We make a special case for the root (i.e. home page), which is at level one, not zero.
         def level
           if root?
@@ -71,8 +76,10 @@ module Breeze
         end
         
       protected
+
         def set_position
-          self.position ||= scope.count
+          # self.position ||= scope.count
+          self.position = scope.count if self.position == 0
           update_sibling_positions 1, self.position - 1
         end
         
@@ -82,27 +89,27 @@ module Breeze
         
         # Increment the position number for siblings to make room for a new item
         def update_sibling_positions(by = 1, ref_position)
-          base_class.where(:parent_id => parent_id, :position => { '$gteq' => ref_position }).inc(:position, by)
+          # ref_position = starting_node.position
+          base_class.where(:parent_id => parent_id, :position => { '$gte' => ref_position }).inc(:position, by)
         end
         
         def move_before!(node)
           self.parent_id = node.parent_id
-          self.position = node.position
-          update_sibling_positions(node)
-          save
+          update_sibling_positions(node.position)
+          self.update_attribute(:position, node.position)
         end
         
         def move_after!(node)
           self.parent_id = node.parent_id
-          self.position = node.position + 1
-          update_sibling_positions node.next
-          save
+          update_sibling_positions node.next.position if node.next
+          self.update_attribute(:position, node.position + 1)
         end
         
         def move_inside!(node)
           self.parent_id = node.id 
-          self.position = base_class.criteria.where(:parent_id => node.id).count
-          save
+          new_position = base_class.criteria.where(:parent_id => node.id).count
+          self.update_attribute(:position, new_position)
+
         end
       end
     end

@@ -23,7 +23,6 @@
       #page.driver.render "tmp/screenshot.png"
       
       
-      #binding.pry
 
     #end
     #end
