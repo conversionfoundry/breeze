@@ -11,7 +11,6 @@ module Breeze
       mount_uploader :file, AssetUploader, :mount_on => :file
       
       before_update :rename_file
-      after_save :log_shit
       
       def image?
         false
@@ -79,9 +78,6 @@ module Breeze
       end
       
     protected
-      def log_shit
-        Rails.logger.info self.inspect.red
-      end
     
       def all_files
         [ file.path ] + file.versions.values.map { |f| File.join(Rails.root, "public", f.to_s) }

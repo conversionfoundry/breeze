@@ -24,17 +24,23 @@ module Breeze
         generate 'breeze:theme', theme_name
 
         # Create root page
-        log "", "Creating home page..."
-        home = Breeze::Content::Page.create! :title => "Home"
+        if Breeze::Content::Page.count == 0
+          log "", "Creating home page..."
+          home = Breeze::Content::Page.create! :title => "Home"
 
-        # Create a snippet with a welcome message
-        # TODO: There should be a method for pages to make this simpler.
-        s = Breeze::Content::Snippet.create! :content => "<h1>Welcome to Breeze!</h1>"
-        home.placements << Breeze::Content::Placement.new( :region => 'sidebar', :content => s )
+          # Create a snippet with a welcome message
+          # TODO: There should be a method for pages to make this simpler.
+          s = Breeze::Content::Snippet.create! :content => "<h1>Welcome to Breeze!</h1>"
+          home.placements << Breeze::Content::Placement.new( :region => 'sidebar', :content => s )
+        end
+
+
         
         # Create emergency user
-        log "", "Creating admin user..."
-        Breeze::Admin::User.create! :first_name => "Emergency", :last_name => "User", :email => "emergency@example.com", :password => "logmein", :password_confirmation => "logmein", :roles => [ :admin ]
+        if Breeze::Admin::User.where(:email => 'emergency@example.com').count == 0
+          log "", "Creating admin user..."
+          Breeze::Admin::User.create :first_name => "Emergency", :last_name => "User", :email => "emergency@example.com", :password => "logmein", :password_confirmation => "logmein", :roles => [ :admin ]
+        end
 
         # Print instructions for logging in 
         log "", "Breeze is ready. Log in at [address goes here] with username 'emergency' and password 'logmein'"

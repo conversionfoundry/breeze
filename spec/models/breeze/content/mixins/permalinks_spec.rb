@@ -8,22 +8,23 @@ class PermalinkTest < Breeze::Content::Item
 end
 
 describe "Permalink" do
-  subject { PermalinkTest.new(title: 'home') }
-  let(:taken_slugs) { %w(home home-2 home-3) }
-  let(:parent) { PermalinkTest.new(slug: 'parent') }
-  let(:grandparent) { PermalinkTest.new(slug: 'grandparent') }
+  let(:root) { PermalinkTest.create(slug: 'home') }
+  let(:parent) { PermalinkTest.create(slug: 'parent', parent: root) }
+  subject { PermalinkTest.create(title: 'children', parent: parent) }
 
-  describe "#generate_slug(default_slug, *taken_slugs)" do
-    it "generates the next available slug" do
-      Breeze::Content::Item.stub_chain(:where, :map) { taken_slugs }
-      subject.send(:fill_in_slug).should eq('home-4')
-    end
-  end
+  let(:taken_slugs) { %w(children children-2 children-3) }
+
+  it { should be_valid }
 
   describe '#fill_in_slug' do
     it "fills the slug" do
       subject.title = 'home'
-      subject.send(:fill_in_slug).should eq('home')
+      subject.send(:fill_in_slug).should eq('children')
+    end
+
+    it "generates the next available slug" do
+      Breeze::Content::Mixins::Permalinks::SlugGenerator.any_instance.stub(:taken_slugs) { taken_slugs }
+      subject.send(:fill_in_slug).should eq('children-4')
     end
   end
 
@@ -32,27 +33,29 @@ describe "Permalink" do
 
     context 'for root' do
       it "returns /" do
-        subject.send(:regenerate_permalink)
-        subject.permalink.should eq('/')
+        root.send(:regenerate_permalink)
+        root.permalink.should eq('/')
       end
     end
     context "with one parent" do
       it "returns the permalink of one level, excluding the root slug" do
-        subject.stub(:root?) { false }
-        subject.stub(:parent) { parent }
-        subject.send(:regenerate_permalink)
-        subject.permalink.should eq('/slug')
+        parent.send(:regenerate_permalink)
+        parent.permalink.should eq('/parent')
       end
     end
     context "with two parents" do
       it "returns the permalink with two levels" do
-        subject.stub(:root?) { false }
-        subject.stub(:parent) { parent }
-        parent.stub(:root?) { false }
-        parent.stub(:parent) { grandparent }
         subject.send(:regenerate_permalink)
         subject.permalink.should eq('/parent/slug')
       end
+    end
+  end
+
+  describe "#update_child_permalinks" do
+    it "update children permalinks" do
+      parent.slug = "modifiedparent"
+      parent.save
+      subject.permalink.should eq('/modifiedparent/children')
     end
   end
 end
