@@ -129,7 +129,7 @@ module Breeze
     private
       
       def fts_index
-        potential_fields = [:name, :content, :extra, :title].freeze
+        potential_fields = [:fts, :name, :content, :extra, :title].freeze
         "".tap do |index|
           potential_fields.each do |field_sym|
             index << " #{send(field_sym)}" if respond_to?(field_sym) && send(field_sym)

@@ -18,9 +18,9 @@ module Breeze
 
       # Some NavigationItems aren't managed in the normal Pages admin area
       # If this is true, the NavigationItem won't appear in the Pages admin tree
-      def has_special_admin?
-        false
-      end
+      # def has_special_admin?
+      #   false
+      # end
 
       def editable?
         false
