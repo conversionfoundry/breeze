@@ -28,9 +28,9 @@ module Breeze::Content::Mixins::Permalinks
   # When a permalink changes, permalinks for child pages also need to be updated
   def update_child_permalinks
     if respond_to?(:children) && permalink_changed?
-      self.children.each do |child|
+      children.each do |child|
         child.permalink = PermalinkGenerator.new(child).allocate
-        child.save!
+        child.save
       end
     end
   end
