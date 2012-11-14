@@ -11,9 +11,15 @@ module Breeze
       helper_method :current_user, :signed_in?
       
     protected
-      alias_method :current_user, :current_admin
-      alias_method :signed_in?, :admin_signed_in?
     
+      def current_user
+        current_admin
+      end
+      
+      def signed_in?
+        admin_signed_in?
+      end
+
       def determine_layout
         request.xhr? ? false : "breeze"
       end
@@ -47,6 +53,7 @@ module Breeze
           render :file => "breeze/errors/ie", :layout => false and return false
         end
       end
+
     end
   end
 end
