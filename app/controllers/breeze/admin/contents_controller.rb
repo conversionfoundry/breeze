@@ -34,6 +34,7 @@ module Breeze
         @content = @placement.content
         @content.attributes = params[:content]
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
+        response.headers["Last-Modified"] = Time.now.httpdate
       end
 
       def add
