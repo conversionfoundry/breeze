@@ -2,7 +2,7 @@ begin
   require 'rspec/core'
   require 'rspec/core/rake_task'
 rescue MissingSourceFile 
-  module Rspec
+  module RSpec
     module Core
       class RakeTask
         def initialize(name)
@@ -30,7 +30,7 @@ namespace :breeze do
   task :default => :spec
 
   desc "Run Breeze specs"
-  Rspec::Core::RakeTask.new :spec do |t|
+  RSpec::Core::RakeTask.new :spec do |t|
     t.pattern = File.expand_path("../../spec/**/*_spec.rb", File.dirname(__FILE__))
   end
 end
