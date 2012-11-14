@@ -1,6 +1,6 @@
 # Breeze CMS
 
-Copyright (c) 2012 LeftClick Ltc., released under the MIT license
+Copyright (c) 2011 LeftClick Ltc., released under the MIT license
 
 ## DESCRIPTION
 
