@@ -2,6 +2,7 @@ module Breeze
   module Admin
     class PagesController < AdminController
       def index
+        @roots ||= Breeze::Content::NavigationItem.where(parent_id: nil)
       end
       
       def list

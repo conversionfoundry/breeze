@@ -14,7 +14,7 @@
       <h2>Pages</h2>
     <% end %>
     <% left.inner do %>
-      <%= content_tag :div, :id => :pages do %>
+      <%= content_tag :div, id: "pages" do %>
         <%= content_tag :ul, :class => "pages" do %>
           <%= render :partial => "breeze/admin/pages/page", :collection => pages.select(&:root?) %>
         <% end %>
