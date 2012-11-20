@@ -1,0 +1,190 @@
+body
+  background: #666
+  font: 14px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif
+
+input
+  font: 14px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif
+
+#login
+  position: relative
+  margin: 150px auto
+  padding: 16px 0px 40px
+  width: 440px
+  background: #eee
+  color: #222
+  border-top: 8px solid #8dc63f
+  -webkit-border-bottom-left-radius: 16px
+  -webkit-border-bottom-right-radius: 16px
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px
+  -moz-border-radius-bottomleft: 16px
+  -moz-border-radius-bottomright: 16px
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px
+  h1
+    position: absolute
+    left: -6px
+    top: -1em
+    line-height: 1em
+    margin: -8px 0px 0px
+    vertical-align: middle
+    font-size: 600%
+    letter-spacing: -0.12em
+    color: #999
+    text-shadow: rgba(0, 0, 0, 0.25) 0px -2px 2px
+  h2
+    position: absolute
+    right: 0px
+    top: -1em
+    line-height: 1em
+    margin: -14px 0px 0px
+    vertical-align: middle
+    font-size: 250%
+    font-weight: 300
+    text-transform: uppercase
+    letter-spacing: 0.12em
+    color: #222
+  #flash, #error_explanation
+    position: relative
+    margin: 0px 16px 8px
+    padding: 8px 8px 8px 24px
+    background: rgba(255, 255, 204, 0.75) url(image_path("breeze/icons/error.png")) no-repeat 4px 8px
+    -webkit-border-radius: 4px
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px
+    -moz-border-radius: 4px
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px
+    .flash
+      background: none
+      font-size: 100%
+      padding: 0 0 0 1em
+      text-shadow: none
+      position: relative
+      -webkit-border-radius: 0
+      -webkit-box-shadow: none
+      -moz-border-radius: 0
+      -moz-box-shadow: none
+      z-index: 0   
+  form
+    position: relative
+    display: block
+    padding: 0px 16px 40px
+  ol.form
+    margin: 0px
+    padding: 0px
+    li
+      list-style: none
+      margin: 0px
+      padding: 0px 0px 8px
+      label
+        text-transform: uppercase
+        letter-spacing: 0.12em
+        color: #222
+      input
+        width: 404px
+        color: #222
+        background: #fff
+        font-size: 200%
+        border: none
+        -webkit-border-radius: 4px
+        -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
+        -moz-border-radius: 4px
+        -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
+  .button
+    background: #8dc63f url(../button-overlay.png) repeat-x
+    display: inline-block
+    color: #fff
+    text-decoration: none
+    border: none
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25)
+    position: relative
+    cursor: pointer
+    font-size: 18px
+    font-weight: bold
+    padding: 8px 14px
+    text-transform: uppercase
+    &:visited
+      background: #8dc63f url(../button-overlay.png) repeat-x
+      display: inline-block
+      color: #fff
+      text-decoration: none
+      border: none
+      -moz-border-radius: 5px
+      -webkit-border-radius: 5px
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+      text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+      border-bottom: 1px solid rgba(0, 0, 0, 0.25)
+      position: relative
+      cursor: pointer
+      font-size: 18px
+      font-weight: bold
+      padding: 8px 14px
+      text-transform: uppercase
+    &:hover
+      background-color: #6a952f
+  form .button
+    position: absolute
+    right: 16px
+    bottom: 0px
+  #forgot
+    margin: -24px 16px -20px
+    position: relative
+    z-index: 1
+    -webkit-transition: margin-top 0.25s ease-in
+  .active#forgot
+    margin-top: -16px
+  #forgot a.forgot
+    display: block
+    line-height: 24px
+    padding: 0px 8px
+    float: left
+    background: #ccc
+    color: #222
+    text-decoration: none
+    -webkit-border-radius: 4px
+    -moz-border-radius: 4px
+    -webkit-transition: -webkit-border-radius 0.25s ease-in
+  .active#forgot a.forgot
+    -webkit-border-bottom-left-radius: 0px
+    -webkit-border-bottom-right-radius: 0px
+    -moz-border-radius-bottomleft: 0px
+    -moz-border-radius-bottomright: 0px
+  #forgot #forgot_form
+    clear: left
+    background: #ccc
+    -webkit-border-radius: 8px
+    -webkit-border-top-left-radius: 0px
+    -moz-border-radius: 8px
+    -moz-border-radius-topleft: 0px
+  #forgot_form
+    form
+      padding: 8px 8px 8px
+    li input
+      width: 390px
+    .button!
+    form .button
+      display: block
+      position: static
+      margin: 0px
+      font-size: 14px
+      background-color: #222
+      width: 100%
+      &:hover
+        background-color: #111
+  #forgot #error_explanation
+    margin: 0px 0px 8px
+  #error_explanation
+    h2
+      display: none
+    ul, li
+      margin: 0px
+      padding: 0px
+      list-style: none
+
+.cleaner
+  clear: both
+  height: 0px
+  overflow: hidden
