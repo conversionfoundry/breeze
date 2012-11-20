@@ -3,3 +3,4 @@ rdoc/*
 *.log
 *.pid
 spec/dummy/tmp/**/*
+.DS_Store
