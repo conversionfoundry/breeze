@@ -1,0 +1,69 @@
+.tree li
+  background: url(icons.png) no-repeat -72px -72px
+  &.closed
+    background-position: -72px -54px
+  &.open
+    background-position: -54px -72px
+  a
+    vertical-align: top
+    ins
+      vertical-align: top
+    span
+      position: relative
+      top: -4px
+    input
+      font-family: Gotham, Helvetica Neue, Helvetica, Arial, sans-serif
+
+.tree li span input
+  font-family: Gotham, Helvetica Neue, Helvetica, Arial, sans-serif
+
+.tree li a > ins
+  background: url(image_path("tree_icons.png")) no-repeat -19px -1px
+
+#left #folders li a ins
+  background-position: 0px 0px
+
+.tree
+  .folder > a > ins
+    background-position: 0px 0px
+  .page > a > ins, .file > a > ins
+    background-position: -19px -1px
+  .hidden > a > ins
+    background-position: -37px -19px
+  .png > a > ins, .jpg > a > ins, .gif > a > ins
+    background-position: -19px -19px
+  .css > a > ins
+    background-position: -19px -37px
+  .erb > a > ins
+    background-position: -19px -55px
+  .js > a > ins
+    background-position: -19px -73px
+  .images > a > ins
+    background-position: -1px -18px
+  .stylesheets > a > ins
+    background-position: -1px -36px
+  .layouts > a > ins
+    background-position: -1px -54px
+  .javascripts > a > ins
+    background-position: -1px -72px
+  .placeholder > a > ins
+    background: none
+  .clicked
+    position: relative
+    background-color: rgba(0, 174, 239, 0.25)
+    -webkit-border-radius: 4px
+    -moz-border-radius: 4px
+
+#jstree-marker
+  background-image: url(image_path("tree_icons.png"))
+
+.marker_plus#jstree-marker
+  margin: -1px 0px -1px 2px
+  width: 7px
+  height: 7px
+  background-position: -100px -1px
+
+.marker#jstree-marker
+  margin: -1px 0px
+  height: 7px
+  background-position: -36px -1px
