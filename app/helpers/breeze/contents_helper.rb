@@ -131,7 +131,6 @@ module Breeze
     end
         
     # First stab at a Twitter Bootstrap compatible navigation menu
-    # TODO: Abstract out code shared with normal navigation
     # Arguments:
     # :level => [1,2,3] (level one appears on all pages, 2 only on level a pages, 3 on level 2 pages, etc.)
     # :recurse => [true/false,:active,numeric] (level one appears on all pages, 2 only on level a pages, 3 on level 2 pages, etc.)
@@ -221,23 +220,17 @@ module Breeze
              end
              
              if recurse > 0 && p.level == level && !p.root?
-               unless (child = p.children.first).nil?
+               unless (child = p.children.select(&:show_in_navigation?).first).nil?
                  link << bootstrap_nav(child, options.merge(:level => level + 1, :recurse => recurse - 1), &block)
                end
              end
              
-            # if options[:full] && p.children
-            #    p.children.each do |child|
-            #      link << navigation_bootstrap(child, options.merge(:full => true), &block)
-            #    end
-            #  end
-
             li_options = ({}).tap do |o|
               o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
-                classes << "dropdown" if p.children.length > 0
+                classes << "dropdown" if p.children.select(&:show_in_navigation?).length > 0
                 classes << 'level-' + level.to_s
               end.join(" ")
             end
