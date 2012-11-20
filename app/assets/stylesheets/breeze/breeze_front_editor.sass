@@ -1,11 +1,3 @@
-/* TODO: scope this so it only applies to our stuff
-@import url(/cached/breeze/ui-theme.css)
-
-@import url(/cached/breeze/forms.css)
-
-
-
-
 /* Override Twitter Bootstrap Styles
 
 #breeze-toolbar
@@ -25,7 +17,6 @@
   text-align: left
   position: fixed
   left: 50%
-  width: 512px
   margin-left: -256px
   height: 48px
   background: rgba(0, 0, 0, 0.75)
@@ -56,9 +47,8 @@
 
 .breeze-toolbar-item
   float: left
-  margin: 8px 0px 4px 0px
+  margin: 8px 16px 4px 0px
   padding: 0px 8px
-  border-right: 1px solid rgba(255, 255, 255, 0.25)
   &:last-child
     border: none
 
@@ -79,7 +69,7 @@
     float: left
     width: 30px
     height: 30px
-    background: url(editor-icons.png) no-repeat 32px -1px
+    background: url(image-path("breeze/editor-icons.png")) no-repeat 32px -1px
     border: 1px solid transparent
     opacity: 0.25
     text-decoration: none
@@ -188,7 +178,7 @@ body.breeze-editing .breeze-editable-region .breeze-region-label
       text-indent: -100em
       overflow: hidden
       border-left: 1px solid rgba(255, 255, 255, 0.25)
-      background: url(editor-icons.png) no-repeat 0px -32px
+      background: url(image-path("breeze/editor-icons.png")) no-repeat 0px -32px
       cursor: pointer
       opacity: 0.5
       -webkit-transition: opacity 0.12s ease-in
@@ -224,7 +214,7 @@ body.breeze-editing
         float: left
         width: 20px
         height: 20px
-        background: url(editor-icons.png) no-repeat 20px 20px
+        background: url(image-path("breeze/editor-icons.png")) no-repeat 20px 20px
         text-decoration: none
         text-indent: -100em
         overflow: hidden
@@ -363,7 +353,7 @@ body.breeze-editing
     display: inline-block
     width: 16px
     height: 16px
-    background: #eeeeee url(/breeze/javascripts/marquess/marquess-toolbar.png) no-repeat 0px -112px
+    background: #eeeeee url( image_path('breeze/marquess/marquess-toolbar.png')) no-repeat 0px -112px
     border: 4px solid #eee
     text-indent: -100em
     overflow: hidden
@@ -388,7 +378,7 @@ body.breeze-editing
     padding: 0px 0px 0px 18px
     line-height: 18px
     vertical-align: middle
-    background: url(/breeze/javascripts/jstree/themes/breeze/icons.png) no-repeat 0px 20px
+    background: url(image_path("tree_icons.png")) no-repeat 0px 20px
     &.open
       background-position: -54px -72px
     &.closed
@@ -406,7 +396,7 @@ body.breeze-editing
       width: 18px
       height: 18px
       cursor: pointer
-      background: url(/breeze/javascripts/jstree/themes/breeze/icons.png) no-repeat -18px 0px
+      background: url(image_path("tree_icons.png")) no-repeat -18px 0px
     &.closed ul
       display: none
 
@@ -470,7 +460,6 @@ body.breeze-editing
 /* }}}
 
 .editor-panel
-  // border-right: 4px solid #8dc63f
   background-color: #404040
   border-right: solid 4px black
   bottom: 0px
@@ -488,9 +477,10 @@ body.breeze-editing
   .editor-help
     padding: 5em
   .ui-tabs
+    background: #bbbbbb
     padding: 0
-  .ui-tabs-panel
-    background: #f2f2f2
+    .ui-tabs-panel
+      background: #f2f2f2
   h1, h2, h3, h4, h5, h6
     color: #f2f2f2
     font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important

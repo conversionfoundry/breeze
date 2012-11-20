@@ -1,0 +1,1226 @@
+/* Layout {{{
+
+body
+  margin: 0px
+  padding: 0px
+  background: #ddd
+  font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif
+
+td, input, select, textarea, button
+  font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif
+
+a
+  color: #ec008c
+  outline: none
+  img
+    border: none
+
+p
+  margin: 0px 0px 8px
+
+#main, #left, #right
+  position: fixed
+  top: 40px
+  bottom: 0px
+  padding-top: 39px
+
+#main
+  left: 224px
+  right: 224px
+  background: #f2f2f2
+  z-index: 2
+  border-top: 1px solid white
+
+.no-sidebar#main
+  right: 0px
+
+#left, #right
+  width: 223px
+  background: #ddd
+  z-index: 1
+  border-top: 1px solid #ddd
+
+#left
+  left: 0px
+  border-right: 1px solid #aaa
+
+#right
+  right: 0px
+  border-left: 1px solid #aaa
+
+#main .header, #left .header, #right .header
+  position: absolute
+  top: -1px
+  left: 0px
+  right: 0px
+  height: 40px
+  background: #bbbbbb url(image-path("header.png")) repeat-x 0px -40px
+
+#main .header
+  left: -1px
+
+#left .header
+  right: -1px
+
+#right .header
+  left: -1px
+
+#left .header, #right .header
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75)
+
+#main .inner
+  position: absolute
+  top: 40px
+  left: 0px
+  right: 0px
+  bottom: 0px
+
+#left .inner
+  position: absolute
+  left: 0px
+  right: 0px
+  top: 40px
+  overflow: auto
+
+.sliding
+  position: absolute
+  left: 0px
+  right: 0px
+  top: 0px
+  bottom: 0px
+  overflow: hidden
+
+#left .sliding
+  right: -1px
+
+.sliding
+  .pages
+    position: absolute
+    top: 0px
+    bottom: 0px
+  .page
+    position: absolute
+    top: 0px
+    bottom: 0px
+    width: 100%
+
+.scrollable
+  position: absolute
+  top: 0px
+  left: 0px
+  right: 0px
+  bottom: 0px
+  overflow: auto
+
+/*}}}
+
+/* Tabs {{{
+
+#main-tabs-tabs .tabs
+  margin: 0px 0px 0px
+  padding: 0px 4px
+  overflow: hidden
+  li
+    display: block
+    height: 32px
+    line-height: 32px
+    float: left
+    position: relative
+    margin: 8px 4px 0px
+    padding: 0px 8px
+    background: #d2d2d2
+    text-shadow: #eee 0px 1px
+    -webkit-border-top-left-radius: 6px
+    -webkit-border-top-right-radius: 6px
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px, inset rgba(0, 0, 0, 0.25) 0px -1px 2px
+    -moz-border-radius-topleft: 6px
+    -moz-border-radius-topright: 6px
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px, inset rgba(0, 0, 0, 0.25) 0px -1px 2px
+    a.tab
+      text-decoration: none
+      color: #999
+      display: block
+    &.close
+      padding-left: 24px
+    &.loading a.tab
+      padding-left: 18px
+      margin-left: -18px
+      background: url(image-path("tab-loading.gif")) no-repeat 0px 50%
+    a.close
+      position: absolute
+      left: 8px
+      top: 6px
+      width: 16px
+      height: 16px
+      line-height: 16px
+      vertical-align: middle
+      font-size: 150%
+      font-weight: bold
+      overflow: hidden
+      color: #999
+      text-decoration: none
+      opacity: 0.5
+      -webkit-transition: all 0.25s ease-in
+    .close:hover
+      opacity: 1.0
+    &.loading a.close
+      display: none
+    &.active, &.ui-sortable-helper
+      background-color: #f2f2f2
+      -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px
+      -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px
+    &.active a.tab
+      color: #666
+    &.ui-sortable-helper
+      a.tab
+        color: #666
+      margin-top: 4px
+      -webkit-border-radius: 6px
+      -moz-border-radius: 6px
+
+#main-tabs .tab-pane
+  position: absolute
+  top: 40px
+  left: 0px
+  right: 0px
+  bottom: 0px
+
+#main .inner .scrollable
+  position: absolute
+  left: 0px
+  top: 0px
+  right: 0px
+  bottom: 0px
+  padding: 12px
+  overflow: auto
+
+/*}}}
+
+/* Flash {{{
+
+.flash
+  position: fixed
+  top: 0
+  left: auto
+  right: 8px
+  z-index: 10
+  padding: 12px 32px 12px 16px
+  font-size: 125%
+  background: rgba(255, 255, 192, 0.75)
+  text-shadow: #ffc 0px 1px
+  -webkit-border-bottom-left-radius: 8px
+  -webkit-border-bottom-right-radius: 8px
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
+  -moz-border-radius-bottomleft: 8px
+  -moz-border-radius-bottomright: 8px
+  -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
+  .close
+    position: absolute
+    right: 8px
+    bottom: 8px
+    font-size: 150%
+    line-height: 16px
+    width: 16px
+    text-align: center
+    vertical-align: baseline
+    text-decoration: none
+    color: #666
+    opacity: 0.5
+    -webkit-transition: opacity 0.15s ease-in
+    &:hover
+      opacity: 1.0
+
+/*}}}
+
+/* Header {{{
+
+#header
+  position: fixed
+  top: 0px
+  left: 0px
+  right: 0px
+  height: 40px
+  z-index: 5
+  .top
+    position: absolute
+    top: 0px
+    left: -8px
+    right: -8px
+    height: 36px
+    background: #666666 url(image-path("header.png")) repeat-x 0px -4px
+    color: white
+    border-top: 4px solid #8dc63f
+  .logo
+    position: absolute
+    left: 16px
+    top: 0px
+    height: 36px
+    line-height: 36px
+    font-size: 32px
+    font-weight: bold
+    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif
+    color: #eeefe5
+    text-decoration: none
+    letter-spacing: -0.12em
+    text-shadow: rgba(0, 0, 0, 0.25) 0px -1px 1px
+  .top a
+    color: #eee
+
+#signed-in-user
+  float: right
+  margin-right: 16px
+  line-height: 36px
+  vertical-align: middle
+  text-shadow: rgba(0, 0, 0, 0.25) 0px 1px 1px
+  a.user
+    font-weight: bold
+    font-size: 125%
+
+#header
+  .visit-site
+    position: absolute
+    left: 232px
+    top: 4px
+    width: 40px
+    height: 28px
+    background: rgba(0, 0, 0, 0.5) url(image-path("breeze/buttons/visit-site.png")) no-repeat 50% 50%
+    text-decoration: none
+    text-shadow: none
+    text-indent: -100em
+    overflow: hidden
+    opacity: 0.25
+    -webkit-border-radius: 4px
+    -moz-border-radius: 4px
+    -webkit-transition: all 0.15s ease-in
+    &:hover
+      opacity: 0.75
+  .menu
+    position: absolute
+    left: 276px
+    top: 4px
+    margin: 0px
+    padding: 0px
+    height: 24px
+    li
+      float: left
+      height: 28px
+      display: block
+      margin: 0px
+      padding: 0px
+      list-style: none
+      a
+        display: block
+        height: 28px
+        line-height: 28px
+        vertical-align: middle
+        background: rgba(255, 255, 255, 0.15)
+        margin: 0px 4px 0px 0px
+        padding: 0px 8px
+        position: relative
+        text-decoration: none
+        font-size: 16px
+        color: #eee
+        text-shadow: rgba(0, 0, 0, 0.5) 0px 1px 2px
+        -webkit-border-radius: 4px
+        -moz-border-radius: 4px
+        -webkit-transition: all 0.15s ease-in
+        &:hover
+          background: rgba(255, 255, 255, 0.3)
+          color: white
+      &.active a
+        z-index: 10
+        background: #eee
+        color: #222
+        text-shadow: white 0px 1px
+        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px
+        &:hover
+          z-index: 10
+          background: #eee
+          color: #222
+          text-shadow: white 0px 1px
+          -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px
+        &:after
+          content: "."
+          position: absolute
+          left: 50%
+          bottom: -12px
+          margin: 0px -12px
+          height: 12px
+          width: 24px
+          text-indent: -4em
+          overflow: hidden
+          background: url(image-path("menu-tick.png")) no-repeat 50% 0px
+
+/*}}}
+
+/* Main {{{
+
+#main h1
+  border-bottom: 1px solid #aaa
+  color: #222222
+  font-size: 200%
+  font-weight: normal
+  margin: 8px 12px 16px
+  padding: 8px 0px
+
+/*}}}
+
+/* Left sidebar {{{
+
+#left
+  h2
+    margin: 0px
+    padding: 0px 0px 0px 8px
+    line-height: 40px
+    vertical-align: middle
+    color: white
+    text-transform: uppercase
+    text-shadow: rgba(0, 0, 0, 0.25) 0px -1px
+    font-size: 150%
+  .inner
+    padding: 8px
+
+/* }}}
+
+/* Right sidebar {{{
+
+#right .header .button
+  margin: 3px 8px
+  width: 208px
+  padding: 8px 0px 9px
+  text-align: center
+
+.fake-right-sidebar
+  position: absolute
+  top: 0px
+  bottom: 0px
+  right: -224px
+  width: 208px
+  padding: 8px
+  .large.button
+    box-sizing: border-box
+    display: block
+    width: 208px
+    margin: 0px 0px 8px
+    padding: 8px 0px 9px
+    text-align: center
+  fieldset.upload
+    border: none
+    margin: 0
+    padding: 0
+    -webkit-margin-start: 0
+    -webkit-margin-end: 0
+    -webkit-padding-before: 0
+    -webkit-padding-start: 0
+    -webkit-padding-end: 0
+    -webkit-padding-after: 0
+    ol
+      margin: 0
+      -webkit-margin-start: 0
+      -webkit-margin-end: 0
+      -webkit-padding-before: 0
+      -webkit-padding-start: 0
+      -webkit-padding-end: 0
+      -webkit-padding-after: 0
+
+#right .help, .fake-right-sidebar .help
+  margin: 0px 0px 8px
+  padding: 8px
+  background: rgba(255, 255, 192, 0.75)
+  text-shadow: #ffc 0px 1px
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px
+  -webkit-border-radius: 8px
+
+#right .help h3, .fake-right-sidebar .help h3
+  margin: 0px 0px 8px
+  padding-bottom: 4px
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5)
+  font-weight: bold
+
+/*}}}
+
+/* Forms {{{
+
+.button
+  background: #222222 url(image-path("button-overlay.png")) repeat-x
+  display: inline-block
+  padding: 5px 10px 6px
+  color: #fff
+  text-decoration: none
+  border: none
+  -moz-border-radius: 5px
+  -webkit-border-radius: 5px
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25)
+  position: relative
+  cursor: pointer
+  &:visited
+    background: #222222 url(image-path("button-overlay.png")) repeat-x
+    display: inline-block
+    padding: 5px 10px 6px
+    color: #fff
+    text-decoration: none
+    border: none
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25)
+    position: relative
+    cursor: pointer
+  &:hover
+    background-color: #111
+    color: #fff
+  &:active
+    top: 1px
+
+.small.button
+  font-size: 11px
+  &:visited
+    font-size: 11px
+
+.button, .medium.button
+  font-size: 13px
+  font-weight: bold
+  line-height: 1
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+  &:visited
+    font-size: 13px
+    font-weight: bold
+    line-height: 1
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+
+.large.button
+  font-size: 14px
+  font-weight: bold
+  padding: 8px 14px 9px
+  text-transform: uppercase
+  &:visited
+    font-size: 14px
+    font-weight: bold
+    padding: 8px 14px 9px
+    text-transform: uppercase
+
+.green.button
+  background-color: #8dc63f
+  &:visited
+    background-color: #8dc63f
+  &:hover
+    background-color: #6a952f
+
+.blue.button
+  background-color: #2daebf
+  &:visited
+    background-color: #2daebf
+  &:hover
+    background-color: #007d9a
+
+.red.button
+  background-color: #e33100
+  &:visited
+    background-color: #e33100
+  &:hover
+    background-color: #872300
+
+.magenta.button
+  background-color: #a9014b
+  &:visited
+    background-color: #a9014b
+  &:hover
+    background-color: #630030
+
+.orange.button
+  background-color: #ff5c00
+  &:visited
+    background-color: #ff5c00
+  &:hover
+    background-color: #d45500
+
+.yellow.button
+  background-color: #ffb515
+  &:visited
+    background-color: #ffb515
+  &:hover
+    background-color: #fc9200
+
+/* }}}
+
+/* Page editor {{{
+
+.breeze-form fieldset ol li label
+  &[for=page_seo_meta_description], &[for=page_seo_meta_keywords]
+    float: left
+    width: 25%
+
+#page_seo_meta_description, #page_seo_meta_keywords
+  width: 74%
+
+.breeze-form li.url
+  &.http span.https
+    display: none
+  &.https span
+    &.http
+      display: none
+    &.https
+      background: #ffc
+      -webkit-border-radius: 2px
+      -moz-border-radius: 2px
+
+/*}}}
+
+/* Theme editor {{{
+
+#left
+  #themes
+    margin: 0px
+    padding: 0px
+    .theme
+      li
+        display: block
+        list-style: none
+        margin: 0px
+        padding: 0px
+      a
+        display: block
+        margin: 0px 0px 8px
+        padding: 8px
+        background: #ccc
+        color: #999
+        text-decoration: none
+        -webkit-border-radius: 6px
+        -moz-border-radius: 6px
+      strong
+        text-transform: uppercase
+        text-shadow: rgba(255, 255, 255, 0.5) 0px 1px
+    .enabled
+      a
+        background: #8dc63f
+        color: #222
+        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px
+        -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px
+      strong
+        text-shadow: rgba(255, 255, 255, 0.25) 0px 1px
+    .theme a.loading
+      background-image: url(image-path("loading-small-666-ccc.gif"))
+      background-position: 184px 50%
+      background-repeat: no-repeat
+    .enabled a.loading
+      background-image: url(image-path("loading-small-222-8dc63f.gif"))
+  .theme-status
+    margin: 8px 0px
+    padding: 7px
+    background: rgba(255, 255, 192, 0.75)
+    text-shadow: #ffc 0px 1px
+    border: 1px solid #ffc
+    -webkit-border-radius: 6px
+    -moz-border-radius: 6px
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
+
+form
+  &.editor
+    .pane
+      position: absolute
+      top: 0px
+      left: 0px
+      right: 0px
+      bottom: 8px
+      margin: 0px
+      padding: 0px
+    textarea
+      position: absolute
+      top: 8px
+      margin: 0px
+      left: 0px
+      right: 0px
+      bottom: 0px
+      border: none
+      border-top: 1px solid #aaa
+      font-family: Monaco, Consolas, monospace
+      width: 100%
+      height: 100%
+      padding: 0px
+      resize: none
+    .overlay
+      position: absolute
+      top: 8px
+      left: 0px
+      right: 0px
+      bottom: 0px
+      background: rgba(0, 0, 0, 0.5)
+      h3
+        width: 12em
+        margin: 30% auto 0px
+        padding: 8px 8px 8px 48px
+        background: black url(image-path("loading-large-fff-000.gif")) no-repeat 8px 50%
+        opacity: 0.75
+        font-size: 200%
+        line-height: 32px
+        vertical-align: middle
+        color: white
+        -webkit-border-radius: 8px
+        -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 4px
+        -moz-border-radius: 8px
+        -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 4px
+  &.folder
+    padding: 8px
+
+.folder-description
+  margin: 8px
+  padding: 7px
+  background: rgba(255, 255, 192, 0.75)
+  text-shadow: #ffc 0px 1px
+  border: 1px solid #ffc
+  -webkit-border-radius: 6px
+  -moz-border-radius: 6px
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
+  h1
+    margin: 0px 0px 8px
+
+/* }}}
+
+/* Assets {{{
+
+#assets
+  padding: 8px
+  h1
+    border: none
+    margin: 0px 8px
+    tt
+      background: #ccc
+      padding: 0px 0.25em
+      -webkit-border-radius: 8px
+      -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
+      -moz-border-radius: 8px
+      -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
+  h3
+    clear: left
+    margin: 0px 0px 16px
+    background: #aaa
+    color: #222
+    padding: 0px 8px
+    text-transform: uppercase
+    font-weight: normal
+    line-height: 20px
+    vertical-align: middle
+  .image
+    float: left
+    margin: 0px 8px 8px 0px
+    width: 144px
+    height: 144px
+    position: relative
+    top: -8px
+    -webkit-transition: background 0.25s ease-in
+    -webkit-border-top-left-radius: 8px
+    -webkit-border-top-right-radius: 8px
+    -moz-border-radius-topleft: 8px
+    -moz-border-radius-topright: 8px
+    &:hover
+      background: rgba(0, 0, 0, 0.15)
+    .icon
+      position: absolute
+      left: 8px
+      top: 8px
+      width: 128px
+      height: 128px
+      line-height: 128px
+      text-align: center
+      vertical-align: middle
+      img
+        line-height: 128px
+        vertical-align: middle
+    .meta
+      display: block
+      opacity: 0.0
+      position: absolute
+      z-index: 1
+      left: 0px
+      top: 144px
+      right: 0px
+      padding: 0px 8px
+      height: 0px
+      background: rgba(255, 255, 192, 0.75)
+      font-size: 85%
+      -webkit-transition-property: opacity, padding, height
+      -webkit-transition-duration: 0.15s
+      -webkit-transition-timing-function: ease-in
+      -webkit-border-bottom-left-radius: 8px
+      -webkit-border-bottom-right-radius: 8px
+      -moz-border-radius-bottomleft: 8px
+      -moz-border-radius-bottomright: 8px
+  .asset-assets .asset .links
+    display: block
+    opacity: 0.0
+    position: absolute
+    z-index: 1
+    left: 0px
+    top: 144px
+    right: 0px
+    padding: 0px 8px
+    height: 0px
+    background: rgba(255, 255, 192, 0.75)
+    font-size: 85%
+    -webkit-transition-property: opacity, padding, height
+    -webkit-transition-duration: 0.15s
+    -webkit-transition-timing-function: ease-in
+    -webkit-border-bottom-left-radius: 8px
+    -webkit-border-bottom-right-radius: 8px
+    -moz-border-radius-bottomleft: 8px
+    -moz-border-radius-bottomright: 8px
+  .image .meta:before, .asset-assets .asset .links:before
+    position: absolute
+    left: 16px
+    top: -8px
+    width: 0px
+    height: 0px
+    border-left: 8px solid transparent
+    border-right: 8px solid transparent
+    border-bottom: 8px solid rgba(255, 255, 192, 0.75)
+    content: "."
+    text-indent: -100em
+    overflow: hidden
+  .image:hover .meta, .asset-assets .asset:hover .links
+    opacity: 1.0
+    padding: 8px
+    height: auto
+  .image
+    .meta
+      .filename
+        display: block
+      small
+        font-size: 100%
+        opacity: 0.5
+        display: block
+        abbr
+          text-transform: uppercase
+    .links
+      position: absolute
+      left: 4px
+      top: 4px
+      opacity: 0.0
+      -webkit-transition: opacity 0.25s ease-in
+    &:hover .links
+      opacity: 1.0
+    img
+      -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
+      -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
+    .links a
+      display: block
+      clear: left
+      float: left
+      line-height: 20px
+      vertical-align: middle
+      margin: 0px 0px 2px
+      padding: 0px 4px 0px 24px
+      vertical-align: middle
+      background-color: rgba(255, 255, 255, 0.75)
+      background-repeat: no-repeat
+      background-position: 4px 50%
+      color: #222
+      text-decoration: none
+      -webkit-border-radius: 4px
+      -moz-border-radius: 4px
+      -webkit-transition: background-color 0.15s ease-in
+      &.edit
+        background-image: url(image-path("icons/picture-edit.png"))
+      &.delete
+        background-image: url(image-path("icons/delete.png"))
+      &:hover
+        background-color: white
+  .asset-assets
+    .asset
+      float: left
+      margin: 0px 8px 8px 0px
+      width: 220px
+      height: 64px
+      position: relative
+      top: -8px
+      -webkit-transition: background 0.25s ease-in
+      -webkit-border-top-left-radius: 8px
+      -webkit-border-top-right-radius: 8px
+      -moz-border-radius-topleft: 8px
+      -moz-border-radius-topright: 8px
+      &:hover
+        background: rgba(0, 0, 0, 0.15)
+      .icon
+        position: absolute
+        left: 8px
+        top: 8px
+        height: 48px
+        padding-left: 48px
+        width: 152px
+        background: url(image-path("icons/mime/any.png")) no-repeat 0px 50%
+    .pdf .icon
+      background-image: url(image-path("icons/mime/pdf.png"))
+    .doc .icon, .txt .icon
+      background-image: url(image-path("icons/mime/text.png"))
+    .xls .icon
+      background-image: url(image-path("icons/mime/spreadsheet.png"))
+    .mov .icon, .flv .icon, .wmv .icon, .m4v .icon
+      background-image: url(image-path("icons/mime/video.png"))
+    .asset
+      .links
+        top: 64px
+        font-size: 100%
+        line-height: 18px
+        vertical-align: middle
+      &:hover .links
+        height: 18px
+      .links a
+        color: #222
+        float: left
+        text-decoration: none
+        padding: 0px 8px 0px 18px
+        background-repeat: no-repeat
+        background-position: 0px 0px
+        &.view
+          background-image: url(image-path("icons/download.png"))
+        &.edit
+          background-image: url(image-path("icons/asset-edit.png"))
+        &.delete
+          background-image: url(image-path("icons/delete.png"))
+
+#uploaderUploader
+  margin: 0 0 0 -2px
+
+#left #folders a
+  display: block
+  position: relative
+  z-index: 10
+  &.drop-hover
+    color: #ec008c !important
+
+.asset.ui-draggable-dragging
+  background: #ccc
+  padding: 4px
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
+  img, a, .dimensions
+    display: none
+
+/* }}}
+
+/* Custom types {{{
+
+#custom_type_type_name, .custom-field .custom-field-name
+  font-family: Monaco, monospace
+  font-size: 100%
+
+fieldset.custom-field
+  background: #ddd
+  padding-right: 40px
+  padding-bottom: 0px
+  margin-bottom: 8px
+  position: relative
+  -webkit-border-radius: 8px
+  -moz-border-radius: 8px
+  a.delete
+    z-index: 1
+    position: absolute
+    right: 8px
+    top: 8px
+    width: 16px
+    height: 16px
+    background: url(image-path("icons/delete.png")) no-repeat 0px 0px
+    text-indent: -100em
+    overflow: hidden
+    opacity: 0.5
+    -webkit-transition: opacity 0.25s ease-in
+    &:hover
+      opacity: 1.0
+  ol.form
+    margin: 0px
+
+#left #custom-types
+  margin: 0px
+  padding: 0px
+  li
+    display: inline
+    list-style: none
+    a
+      display: block
+      background: #ccc
+      margin: 0px 0px 8px
+      padding: 8px
+      color: #222
+      text-decoration: none
+      -webkit-border-radius: 4px
+      -moz-border-radius: 4px
+      strong
+        display: block
+        text-transform: uppercase
+      code
+        display: block
+        font-size: 85%
+        color: #666
+      &:hover
+        background: #bbb
+
+#custom_type_new .add-field, #custom_type_edit .add-field
+  margin: 0px 12px 8px
+
+/*}}}
+
+/* Users {{{
+
+#left #users
+  ul
+    margin: 0px
+    padding: 0px
+  li
+    display: inline
+    list-style: none
+    a
+      display: block
+      background: #ccc
+      margin: 0px 0px 8px
+      padding: 8px
+      color: #222
+      text-decoration: none
+      -webkit-border-radius: 4px
+      -moz-border-radius: 4px
+      strong
+        display: block
+        font-size: 125%
+      small
+        display: block
+        font-size: 85%
+        color: #666
+        text-transform: uppercase
+        letter-spacing: 0.12em
+      &:hover
+        background: #bbb
+
+/*}}}
+
+/* Errors (access denied, etc) {{{
+
+#main .error-message p
+  margin: 0px 12px 8px
+
+/*}}}
+
+/* Log messages {{{
+
+ul.log-messages
+  display: block
+  margin: 0px 12px 16px
+  padding: 0px
+  li
+    display: block
+    list-style: none
+    margin: 0px
+    padding: 0px
+    line-height: 1.5em
+    .datetime
+      display: block
+      .date
+        display: block
+        font-size: 125%
+        margin: 1ex 0px 0.5ex
+        color: black
+      .time
+        display: block
+        color: #666
+        width: 5em
+        text-align: right
+    .message
+      background-position: 0px 1px
+      background-repeat: no-repeat
+      color: #666666
+      display: block
+      margin: -1.5em 0px 0.5ex 6em
+      padding-left: 20px
+    &.create.page .message
+      background-image: url(image-path("log/page_add.png"))
+    &.delete.page .message
+      background-image: url(image-path("log/page_delete.png"))
+    &.update.page .message
+      background-image: url(image-path("log/page_edit.png"))
+    &.create.navigation_item .message
+      background-image: url(image-path("log/page_add.png"))
+    &.delete.navigation_item .message
+      background-image: url(image-path("log/page_delete.png"))
+    &.update.navigation_item .message
+      background-image: url(image-path("log/page_edit.png"))
+
+#recent-activity
+  position: relative
+  .pagination
+    position: absolute
+    top: -3.5em
+    right: 12px
+    height: 1.5em
+
+/*}}}
+
+/* Site Status {{{
+
+ul.version_numbers
+  display: block
+  margin: 0px 12px 16px
+  padding: 0px
+
+/* }}}
+
+/* Pagination {{{
+
+.pagination
+  height: 1.5em
+  a, em, span
+    display: block
+    float: left
+    background: white
+    height: 1.5em
+    line-height: 1.5em
+    vertical-align: middle
+    margin-left: 0.5em
+    min-width: 0.5em
+    padding: 0ex 0.5em
+    text-align: center
+    text-decoration: none
+    color: #222
+    border: solid 1px #cacaca
+    -webkit-border-radius: 0.25em
+    -moz-border-radius: 0.25em
+    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px
+    -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px
+  em
+    background: #ccc
+    font-style: normal
+    font-weight: bold
+    -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
+    -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
+  .disabled
+    color: #999
+    -webkit-box-shadow: none
+    -moz-box-shadow: none
+
+/*}}}
+
+/* Tables {{{
+
+table
+  &.fancy
+    border-collapse: collapse
+    border-spacing: 0px
+    width: 100%
+    thead th
+      background: #999
+      border-bottom: 1px solid #999
+      height: 24px
+      line-height: 24px
+      vertical-align: middle
+      padding: 0px 8px
+      text-align: left
+      &:first-child
+        background-position: 0px 0px
+        -webkit-border-top-left-radius: 4px
+        -moz-border-radius-topleft: 4px
+      &:last-child
+        background-position: 100% 0px
+        -webkit-border-top-right-radius: 4px
+        -moz-border-radius-topright: 4px
+    tbody td
+      border-bottom: 1px solid #999
+      padding: 0px 8px
+      vertical-align: top
+    tfoot
+      td
+        background: #ddd
+        padding: 8px
+        &:first-child
+          -webkit-border-bottom-left-radius: 4px
+          -moz-border-radius-bottomleft: 4px
+        &:last-child
+          -webkit-border-bottom-right-radius: 4px
+          -moz-border-radius-bottomright: 4px
+      .pagination
+        a
+          padding: 0em .3em
+        span
+          padding: 0em .3em
+          &.disabled
+            color: #999
+          &.current
+            background: white
+            min-width: 16px
+            -webkit-border-radius: 8px
+            -moz-border-radius: 8px
+        a
+          text-decoration: none
+          color: #333
+        .previous_page
+          margin-left: 0px
+        a
+          &:hover, &:focus
+            text-decoration: underline
+    tbody tr:hover td
+      background-color: #fff
+    td.empty
+      padding: 3em 8px
+      text-align: center
+      vertical-align: middle
+      color: #999
+    tbody tr:hover td.empty
+      background: none
+  td.odd, th.odd
+    background: none
+  tr.odd
+    td, th
+      background: none
+  td.even, th.even
+    background-color: #ddd
+  tr.even
+    td, th
+      background-color: #ddd
+
+.container .with-selected
+  position: absolute
+  left: 0px
+  top: -32px
+  background: #ffc
+  padding: 4px 8px
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
+  -webkit-border-radius: 4px
+  &:after
+    content: "."
+    text-indent: -2em
+    position: absolute
+    left: 16px
+    bottom: -8px
+    width: 0px
+    height: 0px
+    overflow: hidden
+    border-left: 8px solid #ffc
+    border-bottom: 8px solid transparent
+
+/*}}}
+
+/* Settings {{{
+
+#redirect_new
+  margin: 12px
+
+table.redirects
+  tbody td
+    padding: 4px 8px
+    vertical-align: top
+  tfoot td
+    vertical-align: top
+    .inline-errors
+      color: #ed1c24
+  tr
+    a[data-remote]
+      color: #ed1c24
+      font-size: 150%
+      text-decoration: none
+      line-height: 50%
+      opacity: 0
+      -webkit-transition: opacity 0.12s ease-in-out
+    &:hover a[data-remote]
+      opacity: 1
+
+/*}}}
