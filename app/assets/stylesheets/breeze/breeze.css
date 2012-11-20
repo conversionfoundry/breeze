@@ -1,6 +1,10 @@
 /*
  *= require ./ui-theme
- *= require ./forms
- *= require ./admin
+ *= require /javascripts/marquess/marquess
  *= require /javascripts/uploadify/uploadify
+ *= require ./breeze_admin
+ *= require ./breeze_admin_tree
+ *= require ./breeze_forms
+ *= require ./breeze_front_editor
+ *= require ./breeze_login
 */
