@@ -10,9 +10,6 @@ $(document).ready(function(){
     _init: function() {
       var breeze = this;
       this._loadOptions();
-      this._loadStylesheet();
-      this._loadStylesheet('<%= asset_path "breeze/marquess/marquess.css" %>'); // TODO: incorporate into main stylesheet
-      this._loadStylesheet('<%= asset_path "breeze/jcrop/css/jquery.Jcrop.css" %>');
       this._buildToolbar();
       this._augmentRegions();
       this.editing(this.editing());
@@ -125,10 +122,6 @@ $(document).ready(function(){
       var date = new Date();
       date.setTime(date.getTime() + (10 * 365 * 24 * 60 * 60 * 1000));
       $.cookie('breeze-editor', $.toJSON(this.options.preferences), { path: '/', expires: date });
-    },
-    _loadStylesheet: function(href) {
-      $('<link rel="stylesheet" type="text/css" href="' + (href || '/cached/breeze/editor/editor.css') + '" />')
-        .appendTo('head');
     },
     _buildToolbar: function() {
       var breeze = this;
@@ -510,7 +503,7 @@ $(document).ready(function(){
             script_data[$('meta[name=csrf-param]').attr('content')] = $('#edit_content [name=authenticity_token]').val();
             script_data[$('meta[name=session-key]').attr('content')] = $('meta[name=session-id]').attr('content');
             $(this).uploadify({
-              uploader:     '/cached/breeze/uploadify/uploadify.swf',
+              uploader:     '/uploadify/uploadify.swf',
               cancelImg:    '<%= image_path "icons/delete.png" %>',
               buttonImg:    '<%= image_path "buttons/upload-small.png" %>',
               width:        166,

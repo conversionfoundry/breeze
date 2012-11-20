@@ -67,8 +67,6 @@ function open_theme_folder(theme_link, options) {
     });
     $('#left #theme_files').tree({
       ui: {
-        theme_path: '/cached/breeze/jstree/themes/breeze/style.css',
-        theme_name: 'breeze',
         dots: false,
         selected_delete: false
       },
