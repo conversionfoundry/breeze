@@ -3,7 +3,7 @@ module Breeze
     module PagesHelper
       def page_tree_node(page)
         contents = link_to content_tag(:ins, "", :class => 'icon icon-' + page.class.name.demodulize.downcase) + (page.root? ? "Home" : page.title), page.permalink, :title => page.title
-        contents << content_tag(:ul, render(:partial => "breeze/admin/pages/page", :collection => page.children)) unless page.children.empty?
+        contents << content_tag(:ul, render(:partial => "breeze/admin/pages/page", :collection => page.children.order_by([:position, :asc]))) unless page.children.empty?
         content_class = [ page.class.name.demodulize.underscore ]
         if page.root? 
           content_class << 'open'
