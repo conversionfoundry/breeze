@@ -49,6 +49,7 @@ module Breeze
           # node = base_class.criteria.where(:parent_id => ref_id).first
           node = base_class.criteria.find(ref_id)
           send :"move_#{move_type}!", node 
+          node.reload
         end
         
         def self_and_ancestors
@@ -74,9 +75,8 @@ module Breeze
       protected
 
         def set_position
-          # self.position ||= scope.count
-          self.position = scope.count if self.position == 0
-          update_sibling_positions 1, self.position - 1
+          self.position = scope.count if ( self.position == 0 && ( self.position_changed? || self.parent_id_changed? ) )
+          update_sibling_positions 1, self.position
         end
         
         def destroy_children
@@ -85,27 +85,27 @@ module Breeze
         
         # Increment the position number for siblings to make room for a new item
         def update_sibling_positions(by = 1, ref_position)
-          # ref_position = starting_node.position
           base_class.where(:parent_id => parent_id, :position => { '$gte' => ref_position }).inc(:position, by)
         end
         
         def move_before!(node)
           self.parent_id = node.parent_id
-          update_sibling_positions(node.position)
-          self.update_attribute(:position, node.position)
+          self.position = node.position 
+          update_sibling_positions(node.position + 1)
+          save
         end
         
         def move_after!(node)
           self.parent_id = node.parent_id
+          self.position = node.position + 1
           update_sibling_positions node.next.position if node.next
-          self.update_attribute(:position, node.position + 1)
+          save
         end
         
         def move_inside!(node)
-          self.parent_id = node.id 
-          new_position = base_class.criteria.where(:parent_id => node.id).count
-          self.update_attribute(:position, new_position)
-
+          self.parent_id = node.id
+          self.position = base_class.criteria.where(:parent_id => node.id).count
+          save
         end
       end
     end
