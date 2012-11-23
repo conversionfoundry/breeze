@@ -1,14 +1,13 @@
 /*
 
  * Third-party frameworks, used by plugins below
- *= require jquery.min
+ *= require jquery
  *= require jquery-ui
  *= require jquery_ujs
 
  * Third-party feature plugins located in vendor/javascripts
  *= require codemirror/js/codemirror
  *= require cookies
- *= require hotkeys
  *= require jcrop/js/jquery.Jcrop.min
  *= require jstree/jstree
  *= require jstree/plugins/jquery.tree.contextmenu
