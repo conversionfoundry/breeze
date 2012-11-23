@@ -16,12 +16,6 @@ module Breeze
 
       index({ parent_id: 1, slug: 1 }, { unique: true })
 
-      # Some NavigationItems aren't managed in the normal Pages admin area
-      # If this is true, the NavigationItem won't appear in the Pages admin tree
-      # def has_special_admin?
-      #   false
-      # end
-
       def editable?
         false
       end
@@ -38,7 +32,6 @@ module Breeze
         if (ssl? ^ request.ssl?) && !Rails.env.development?
           controller.send :redirect_to, "#{protocol}#{request.host}#{request.request_uri}"
         else
-          # This is where I'm getting the stack level too deep error: 26 July 2012
           super
         end
       end

@@ -30,8 +30,8 @@ module Breeze
         views.default
       end
       
-      def type; _type; end
-      
+      alias_method :type, :_type
+
       def render(controller, request)
         request.format ||= Mime[:html]
         controller.view = view_for(controller, request).populate(self, controller, request)
