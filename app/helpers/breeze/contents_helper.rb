@@ -144,7 +144,7 @@ module Breeze
       # If there are no arguments, use the current page
       args.unshift page if args.empty? && !page.nil?
  
-      current_page = page
+      current_page = (defined? page) ? page : nil
       
       contents = "".tap do |str|
 
