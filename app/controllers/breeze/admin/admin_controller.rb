@@ -19,8 +19,6 @@ module Breeze
       end
 
     protected
-      alias_method :current_user, :current_admin
-      alias_method :signed_in?, :admin_signed_in?
     
       def determine_layout
         request.xhr? ? false : "breeze"
