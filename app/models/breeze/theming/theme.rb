@@ -57,6 +57,12 @@ module Breeze
       def file(filename)
         File.join(path, filename)
       end
+
+      # Does the theme contain the given file?
+      # filepath should be relative to the theme directory e.g. '/mail_templates/breeze/engine_name/mailer_name/mail_template.html'
+      def has_file?(filepath)
+        files.map { |f| f.chomp( File.extname(f) )}.include? path + filepath
+      end
       
       def templates
         files("layouts/*").reject { |f| File.directory?(f) }.map { |f| File.basename(f, ".html.erb") }.reject { |f| f.starts_with?("_") }
