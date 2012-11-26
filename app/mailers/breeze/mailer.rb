@@ -1,5 +1,22 @@
 module Breeze
   class Mailer < ActionMailer::Base
+
+
+    def theme_path(template_name)
+      Breeze.config.themes.each do |theme|
+        if theme.files.map { |f| f.chomp( File.extname(f) )}.include? theme.path + "/mail_templates/" + template_name + ".html"
+          return theme.path + '/mail_templates/'
+        end
+      end
+      '/'
+    end
+
+    # Returns a path to a directory that contains the given mail template, which might be in a theme
+    # If there's no theme, returns '/' to use the default template
+    def template_path(template_name)
+      theme_path(template_name) + template_name
+    end
+
   #   class Premailer < ::Premailer
   #     def initialize(string, options = {})
   #       @options = {:warn_level => Warnings::SAFE, 
