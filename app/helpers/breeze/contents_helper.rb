@@ -58,26 +58,13 @@ module Breeze
       args.unshift page if args.empty? && !page.nil?
       
       contents = "".tap do |str|
-        pages = args.map do |arg|
-          if arg.root?
-            arg.children.first
-          else 
-            case arg
-            when Breeze::Content::NavigationItem then arg
-            else Breeze::Content::NavigationItem.where(:permalink => arg.to_s).first
-            end
-          end
-        end.flatten.compact
 
         # If page is undefined, there's no active page
         # This is used for example on the Breeze Commerce Cart and Checkout pages
         # In the longer term, this should be removed, in favour of making the cart a proper page, with checkout as a view
-        page ||= nil
+        page ||= self.page 
+        ancestry = page.self_and_ancestors
 
-        ancestry = pages.first ? pages.first.self_and_ancestors.to_a : [ page ]
-        active = page ? (page.root? ? [page] : ancestry.dup) : []
-        ancestry << ancestry.last.children.first
-        ancestry.compact!
         if level <= ancestry.length && ancestry[level].present?
           siblings = ancestry[level].self_and_siblings.to_a.select(&:show_in_navigation?)
           siblings.unshift ancestry[level - 1] if options[:home] || (level == 1 && options[:home] != false)
@@ -97,7 +84,7 @@ module Breeze
             
             link_options = ({}).tap do |o|
               o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
-                classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
+                classes << "active" if ancestry.include?(p)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
                 classes << p.class.name.demodulize.downcase
@@ -253,7 +240,7 @@ module Breeze
       ancestry = page.self_and_ancestors
       ancestry.each do |ancestor|
         str << "<span class='divider'>#{divider}</span>" unless ancestor == ancestry.first
-        link = link_to(ancestor.title, ancestor.permalink, html_options = {})
+        link = link_to(ancestor.title, ancestor.permalink)
         if ancestor == page
           li_options = {:class => 'active'}
         else
