@@ -1,3 +1,17 @@
+// Masonry layout for dashboard panels
+$(window).load(function() {
+  $('#dashboard').masonry({
+    itemSelector : '.box',
+    columnWidth : 195,
+    isAnimated: true,
+    animationOptions: {
+      duration: 300,
+      easing: 'linear',
+      queue: false
+    }
+  });
+});
+
 $(function() {
   $('#main-tabs-tabs li').live('click', function() {
     if (!$(this).hasClass('active')) {
