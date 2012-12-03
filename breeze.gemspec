@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   
   s.add_dependency "rails", "~> 3.2.0"
   s.add_dependency "jquery-rails"
+  s.add_dependency "haml"
   s.add_dependency "mongoid", "~> 3.0.5"
   s.add_dependency "carrierwave", "~> 0.6.2"
   s.add_dependency "carrierwave-mongoid", "~> 0.1.0"
