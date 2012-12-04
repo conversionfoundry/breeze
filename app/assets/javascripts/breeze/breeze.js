@@ -12,6 +12,7 @@
 //= require marquess/marquess
 //= require uploadify/swfobject
 //= require uploadify/uploadify
+//= require jquery.masonry.min
 //
 //Breeze JavaScript
 //= require ./breeze_admin

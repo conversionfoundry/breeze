@@ -4,6 +4,7 @@
  *= require /javascripts/uploadify/uploadify
  *= require ./breeze_admin
  *= require ./breeze_admin_tree
+ *= require ./breeze_admin_dashboard
  *= require ./breeze_forms
  *= require ./breeze_front_editor
  *= require ./breeze_login
