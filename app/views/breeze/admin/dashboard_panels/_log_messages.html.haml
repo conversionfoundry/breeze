@@ -1,0 +1,13 @@
+#recent_activity.box.col3
+  %h2 Recent Activity
+  #recent-activity
+
+  %script{:charset => "utf-8", :type => "text/javascript"}
+    $(function() {
+    $('#recent-activity').load('/admin/activity/log_messages',null, function() {     $('#dashboard').masonry( 'reload' ); });
+    $('#dashboard').masonry( 'reload' );
+    $('#recent-activity .pagination a').live('click', function() {
+    $('#recent-activity').load($(this).attr('href'));
+    return false;
+    });
+    });

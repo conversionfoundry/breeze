@@ -39,7 +39,7 @@ describe "TreeStructure" do
 			target.reload
 			subject.position.should eq ( target.position - 1 )
   	end
-  	it "calls update_sibling_position with the correct ref_position"
+  	# it "calls update_sibling_position with the correct ref_position"
   end
   describe "#move_after!" do
   	before :each do
@@ -52,7 +52,7 @@ describe "TreeStructure" do
 			target.reload
 			subject.position.should eq ( target.position + 1 )
   	end
-  	it "calls update_sibling_position with the correct ref_position"
+  	# it "calls update_sibling_position with the correct ref_position"
   end
   describe "#move_inside!" do
   	before :each do
@@ -65,11 +65,11 @@ describe "TreeStructure" do
   	it "has position immediately after target_child" do
 			subject.position.should eq ( target_child.position + 1 )
   	end
-  	it "calls update_sibling_position with the correct ref_position"
+  	# it "calls update_sibling_position with the correct ref_position"
   end
 
 	describe "update sibling positions" do
-  	it "has no sibling with the same position"
+  	# it "has no sibling with the same position"
 	end
 
 end
