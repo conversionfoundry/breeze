@@ -3,12 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <title><%= [ @error.to_s, "Breeze" ].compact.join(" | ") %></title>
-  	<%= stylesheet_link_tag "/admin/stylesheets/error" %>
+    <%= stylesheet_link_tag "breeze/breeze" %>
   </head>
 
   <body>
-    <div id="container">
+    <div id="error">
       <%= yield %>
+
+      <ul class="actions">
+        <li>Go to the <%= link_to "home page", "/" %></li>
+      </ul>
+
+      <div class="breeze_info">
+        Breeze CMS version <%= Breeze::VERSION %>
+      </div>
     </div>
   </body>
 </html>

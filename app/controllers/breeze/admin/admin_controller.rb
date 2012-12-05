@@ -50,7 +50,7 @@ module Breeze
       
       def kick_out_ie
         if request.env['HTTP_USER_AGENT'].downcase =~ /msie/
-          render :file => "breeze/errors/ie", :layout => false and return false
+          render :file => "breeze/errors/ie", :layout => "error" and return false
         end
       end
     end
