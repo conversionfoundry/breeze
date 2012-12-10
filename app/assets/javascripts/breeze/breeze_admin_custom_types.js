@@ -72,6 +72,4 @@ function renumber_fields(container) {
       update: function() { renumber_fields(container); }
     });
   });
-  
-  $('.custom-field .delete', container).toggle($('.custom-field', container).length > 1);
-}
+  }
