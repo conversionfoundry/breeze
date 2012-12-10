@@ -29,7 +29,7 @@ module Breeze
           end
         end
         
-        if form.object.is_a? Breeze::Content::Custom::Instance 
+        if ( form.object.is_a?(Breeze::Content::Custom::Instance) && form.object.custom_type.custom_fields.any? )
           form.object.edit_form(form)
         else
           content_tag :p, "There is no configuration for this content type."
