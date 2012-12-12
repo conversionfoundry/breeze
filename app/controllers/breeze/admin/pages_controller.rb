@@ -1,6 +1,8 @@
 module Breeze
   module Admin
     class PagesController < AdminController
+      after_filter :expire_all_pages, except: [:index, :list]
+
       def index
         @roots ||= Breeze::Content::NavigationItem.where(parent_id: nil)
       end
@@ -56,6 +58,14 @@ module Breeze
         @pages ||= Breeze::Content::NavigationItem.all.order_by([[ :position, :asc ]]).to_a
       end
       helper_method :pages
+
+    private 
+
+      #all_pages fragment is in general used to cache menus
+      def expire_all_pages_fragment
+        expire_fragment 'all_pages'
+      end
+
     end
   end
 end

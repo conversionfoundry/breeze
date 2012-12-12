@@ -16,12 +16,17 @@ require "breeze/theming"
 # The following paragraph contains the loading of our model, looks quite messy but it resolve dependencies
 # note the require function does not require twice file, but identity if it is already in the LOAD_PATH
 # p $: #Dir[File.expand_path("./../app/models/breeze/**/*.rb", File.dirname(__FILE__))]
-Dir[File.expand_path("./../app/uploaders/**/*.rb", File.dirname(__FILE__))].each { |f| require f }
+require File.expand_path("./../app/uploaders/breeze/asset_uploader.rb", File.dirname(__FILE__))
+require File.expand_path("./../app/uploaders/breeze/image_uploader.rb", File.dirname(__FILE__))
+Dir[File.expand_path("./../app/uploaders/breeze/*.rb", File.dirname(__FILE__))].each { |f| require f }
 Dir[File.expand_path("./../app/models/breeze/content/mixins/*.rb", File.dirname(__FILE__))].each { |f| require f }
 require File.expand_path("./../app/models/breeze/content/item.rb", File.dirname(__FILE__))
+require File.expand_path("./../app/models/breeze/content/navigation_item.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/content/view.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/admin/mixins/login.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/content/page_view.rb", File.dirname(__FILE__))
+require File.expand_path("./../app/models/breeze/content/asset.rb", File.dirname(__FILE__))
+require File.expand_path("./../app/models/breeze/content/custom/field.rb", File.dirname(__FILE__))
 
 Dir[File.expand_path("./../app/models/breeze/**/*.rb", File.dirname(__FILE__))].each { |f| require f }
 require "breeze/content"
