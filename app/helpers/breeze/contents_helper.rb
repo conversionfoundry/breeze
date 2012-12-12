@@ -18,11 +18,7 @@ module Breeze
             begin
               str << render(:inline => p.to_erb(view))
             rescue Exception => e
-              begin
-                content_tag :div, e.to_s, :class => "breeze-content #{p.content.html_class} content_#{p.content_id}#{" shared" if p.shared?}", :id => "content_#{p.content_id}"
-              rescue
-                # TODO investigate 
-              end
+              content_tag :div, e.to_s, :class => "breeze-content content_#{p.content_id}#{" shared" if p.shared?}", :id => "content_#{p.content_id}"
             end
           end
         end.html_safe
