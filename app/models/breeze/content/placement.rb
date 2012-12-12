@@ -27,9 +27,7 @@ module Breeze
         (options[:view].blank? || view.nil? || options[:view].to_s == view)
       end
       
-      def shared?
-        content.shared?
-      end
+      delegate :shared?, to: :content
       
       def to_erb(view)
         content_id = !content.new_record? ? "content_new" : "content_" + content.id.to_s
