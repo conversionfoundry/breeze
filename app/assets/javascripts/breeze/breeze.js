@@ -7,8 +7,7 @@
 //= require codemirror/js/codemirror
 //= require cookies
 //= require jcrop/js/jquery.Jcrop.min
-//= require jstree/jstree
-//= require jstree/plugins/jquery.tree.contextmenu
+//= require jstree/jquery.jstree
 //= require marquess/marquess
 //= require uploadify/swfobject
 //= require uploadify/uploadify
