@@ -3,7 +3,7 @@ module Breeze
     module Mixins
       module TreeStructure
         def self.included(base)
-          base.belongs_to :parent, :class_name => base.name
+          base.belongs_to :parent, :class_name => base.name, :index => true
           base.has_many :children, :class_name => base.name, :foreign_key => :parent_id
 
           base.field :position, :type => Integer, default: 0
@@ -19,6 +19,7 @@ module Breeze
           base.class_eval do
             scope :root, where(:parent_id => nil)
           end
+
         end
         
         def root?
@@ -29,6 +30,10 @@ module Breeze
           base_class.criteria.where :parent_id => parent_id
         end
         
+        def first_children
+          base_class.where(parent_id: id).first
+        end
+
         def self_and_siblings
           scope.order_by([[ :position, :asc ]])
         end
@@ -36,6 +41,7 @@ module Breeze
         def siblings
           self_and_siblings.where :id.ne => id
         end
+
         
         def previous
           scope.where(:position.lt => position).order_by([[ :position, :desc ]]).first
@@ -53,8 +59,8 @@ module Breeze
         end
         
         def self_and_ancestors
-          [ self ].tap do |list|
-            list.insert(0, *parent.self_and_ancestors) unless root?
+          ([] << self).tap do |list|
+            list.unshift(*parent.self_and_ancestors) unless root?
           end
         end
 
@@ -69,7 +75,6 @@ module Breeze
         end
         
         module ClassMethods
-          
         end
         
       protected
