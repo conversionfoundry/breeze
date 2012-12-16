@@ -19,7 +19,9 @@ module Breeze
               str << render(:inline => p.to_erb(view))
             rescue Exception => e
               begin
-                content_tag :div, e.to_s, :class => "breeze-content #{p.content.html_class} content_#{p.content_id}#{" shared" if p.shared?}", :id => "content_#{p.content_id}"
+                content_tag :div, e.to_s, 
+                  :class => "breeze-content #{p.content.html_class} content_#{p.content_id}#{" shared" if p.shared?}",
+                  :id => "content_#{p.content_id}"
               rescue
                 # TODO investigate 
               end
@@ -250,27 +252,34 @@ module Breeze
         str << '</ul>'
         
       end
-      # content_tag :div, contents.html_safe, options.except(:level, :recurse).reverse_merge(:class => "#{levels.invert[level] || "level-#{level}"} navigation")
       contents.html_safe
       
     end
     
     def breadcrumb(divider = "/")
-      str = '<ul class="breadcrumb">'
-      ancestry = page.self_and_ancestors
-      ancestry.each do |ancestor|
-        str << "<span class='divider'>#{divider}</span>" unless ancestor == ancestry.first
-        link = link_to(ancestor.title, ancestor.permalink)
-        if ancestor == page
-          li_options = {:class => 'active'}
-        else
-          li_options = {}
-        end
-        str << content_tag(:li, link.html_safe, li_options)
+      ancestry = page.parent.self_and_ancestors
+      content_tag :ul, class: "breadcrumb" do
+        ancestry.collect do |ancestor| 
+          breadcrumb_link(ancestor) +
+          breadcrumb_divider(divider)
+        end.join.html_safe
       end
-      str << '</ul>'
-      str.html_safe
     end
-    
+
+  private
+
+    def breadcrumb_link(node)
+      content_tag :li do
+        link_to(node.title, node.link_to)
+      end.html_safe
+    end
+
+    def breadcrumb_divider(divider)
+      content_tag(:span, class: "divider") do
+        divider
+      end.html_safe
+    end
+
   end
+    
 end

@@ -27,6 +27,8 @@ module Breeze
       def protocol
         "http#{:s if ssl?}://"
       end
+
+      alias_method :permalink, :link_to
       
       def render(controller, request)
         if (ssl? ^ request.ssl?) && !Rails.env.development?
