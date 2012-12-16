@@ -503,7 +503,7 @@ $(document).ready(function(){
             script_data[$('meta[name=csrf-param]').attr('content')] = $('#edit_content [name=authenticity_token]').val();
             script_data[$('meta[name=session-key]').attr('content')] = $('meta[name=session-id]').attr('content');
             $(this).uploadify({
-              uploader:     '/uploadify/uploadify.swf',
+              uploader:     '/cached/uploadify/uploadify.swf',
               cancelImg:    '<%= image_path "icons/delete.png" %>',
               buttonImg:    '<%= image_path "buttons/upload-small.png" %>',
               width:        166,

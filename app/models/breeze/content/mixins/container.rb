@@ -17,22 +17,7 @@ module Breeze
         end
         
         def to_erb(view)
-          "".tap do |str|
-            placements.for(:view => view).group_by(&:region).each do |region, placements|
-              unless region.nil?
-                str << "<%= content_for_region :#{region.to_sym} do %>\n"
-                logger.debug(self)
-                placements.each do |placement|
-                  begin
-                    str << placement.to_erb(view)
-                  rescue
-                    "shut"
-                  end
-                end
-                str << "<% end %>\n"
-              end
-            end
-          end
+          ""
         end
         
         def order=(values)

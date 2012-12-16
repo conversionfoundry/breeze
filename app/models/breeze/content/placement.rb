@@ -27,13 +27,16 @@ module Breeze
         (options[:view].blank? || view.nil? || options[:view].to_s == view)
       end
       
-      def shared?
-        content.shared?
-      end
+      delegate :shared?, to: :content
       
       def to_erb(view)
         content_id = !content.new_record? ? "content_new" : "content_" + content.id.to_s
-        "<div class=\"breeze-content #{content.html_class} #{content_id} #{"shared" if shared?}\" id=\"content_#{content.new_record? ? "new" : id}\">#{content.to_erb(view)}</div>"
+        content_classes = "breeze-content #{content.html_class} #{content_id} #{'shared' if shared?}"
+        if content.is_a? Breeze::Content::Custom::Instance
+          content_classes += " breeze-content-custom"
+          content_classes += " breeze-content-custom-no_fields" if content.custom_type.custom_fields.empty?
+        end
+        "<div class=\"#{content_classes}\" id=\"content_#{content.new_record? ? "new" : id}\">#{content.to_erb(view)}</div>"
       end
       
       def duplicate(container)

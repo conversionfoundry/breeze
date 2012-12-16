@@ -40,8 +40,8 @@ module Breeze
           end
         end
         accepts_nested_attributes_for :custom_fields, 
-          :reject_if => lambda { |attrs| attrs.values.reject(&:blank?).empty? },
           :allow_destroy => true
+          # :reject_if => lambda { |attrs| attrs.values.reject(&:blank?).empty? }
       
       
         before_validation :fill_in_type_name

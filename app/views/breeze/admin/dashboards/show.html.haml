@@ -1,0 +1,11 @@
+- content_for :title, "Dashboard"
+= tabbed_layout do |tabs|
+  - tabs.main :title => "Main Dashboard" do
+    = scrollable_layout do
+      #dashboard
+        - @dashboard_panels.each do |dashboard_panel|
+          = render partial: dashboard_panel[:partial], locals: dashboard_panel[:locals]
+- content_for :left do
+  = pane_layout do |sidebar|
+    - sidebar.header do
+      %h2 Dashboard

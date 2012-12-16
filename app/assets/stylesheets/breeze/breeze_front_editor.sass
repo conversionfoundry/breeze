@@ -238,6 +238,9 @@ body.breeze-editing
       -webkit-transition: opacity 0.25s ease-in
     &.hover > *
       opacity: 0.75
+  .breeze-content-custom-no_fields
+    min-width: 60px
+    min-height: 20px
 
 /* }}}
 /* Editable content {{{
@@ -314,7 +317,7 @@ body.breeze-editing
         list-style: none
         display: block
         padding-left: 20px
-        background: url( image_path('icons/page.png') ) no-repeat 0 0
+        background: url( image_path('page.png') ) no-repeat 0 0
         line-height: 18px
         vertical-align: middle
 
@@ -349,20 +352,27 @@ body.breeze-editing
     position: absolute
     right: 0px
     top: 3px
-  .image_field .browse
-    display: inline-block
-    width: 16px
-    height: 16px
+
+
+/* Content Fields
+.text_field
+.text_area
+.image_field 
+  .browse
+    -moz-border-radius: 4px
+    -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
+    -webkit-border-radius: 4px
+    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
     background: #eeeeee url( image_path('breeze/marquess/marquess-toolbar.png') ) no-repeat 0px -112px
     border: 4px solid #eee
-    text-indent: -100em
+    display: inline-block
+    height: 16px
+    line-height: 21px
+    margin-left: 0.5em
     overflow: hidden
     text-decoration: none
-    margin-left: 8px
-    -webkit-border-radius: 4px
-    -moz-border-radius: 4px
-    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
-    -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
+    text-indent: -100em
+    width: 16px
 
 .image-editor h3
   font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important
@@ -373,16 +383,19 @@ body.breeze-editing
     margin: 0px
   li
     display: block
+    visibility: visible
     margin: 0px
     list-style: none
     padding: 0px 0px 0px 18px
     line-height: 18px
     vertical-align: middle
-    background: url(image_path("tree_icons.png")) no-repeat 0px 20px
+    // background: url(image_path("tree_icons.png")) no-repeat 0px 20px
     &.open
       background-position: -54px -72px
     &.closed
       background-position: -72px -54px
+    &.hidden > a > ins
+      background-position: -36px -19px
     a
       display: block
       padding-left: 24px
@@ -397,8 +410,10 @@ body.breeze-editing
       height: 18px
       cursor: pointer
       background: url(image_path("tree_icons.png")) no-repeat -18px 0px
+      overflow: hidden
     &.closed ul
       display: none
+
 
 .marquess-image-dialog
   .folders-container
@@ -432,12 +447,12 @@ body.breeze-editing
           &.folder span
             font-weight: bold
             padding: 0px 0px 0px 24px
-            background: url(/breeze/editor/images/image-browser.png) no-repeat 0px -40px
+            background: url( image_path('image-browser.png') ) no-repeat 0px -40px
           &.image span
             padding: 0px 0px 0px 24px
-            background: url(/breeze/editor/images/image-browser.png) no-repeat -20px -20px
+            background: url( image_path('image-browser.png') ) no-repeat -20px -20px
           &.folder
-            background: url(/breeze/editor/images/image-browser.png) no-repeat 100% 0px
+            background: url( image_path('image-browser.png') ) no-repeat 100% 0px
           &.selected
             background-color: #ccc
   .image-info

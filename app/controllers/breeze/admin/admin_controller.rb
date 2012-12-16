@@ -9,10 +9,16 @@ module Breeze
       
       helper AdminHelper, LayoutsHelper, ThemesHelper, PagesHelper
       helper_method :current_user, :signed_in?
-      
+    
+      def current_user
+        current_admin
+      end
+
+      def signed_in?
+        admin_signed_in?
+      end
+
     protected
-      alias_method :current_user, :current_admin
-      alias_method :signed_in?, :admin_signed_in?
     
       def determine_layout
         request.xhr? ? false : "breeze"
