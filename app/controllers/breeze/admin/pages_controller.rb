@@ -1,7 +1,7 @@
 module Breeze
   module Admin
     class PagesController < AdminController
-      after_filter :expire_all_pages, except: [:index, :list]
+      after_filter :expire_all_pages_fragment, except: [:index, :list]
 
       def index
         @roots ||= Breeze::Content::NavigationItem.where(parent_id: nil)
