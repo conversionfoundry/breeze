@@ -28,7 +28,7 @@ module Breeze
         "http#{:s if ssl?}://"
       end
 
-      alias_method :permalink, :link_to
+      alias_method :link_to, :permalink
       
       def render(controller, request)
         if (ssl? ^ request.ssl?) && !Rails.env.development?
