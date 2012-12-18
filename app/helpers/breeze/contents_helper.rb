@@ -93,7 +93,7 @@ module Breeze
             
             link_options = ({}).tap do |o|
               o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
-                classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
+                # classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
                 classes << p.class.name.demodulize.downcase
