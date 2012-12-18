@@ -21,3 +21,4 @@
 //= require ./breeze_admin_users
 //= require ./breeze_assets
 //= require ./breeze_front_editor
+//= require ./breeze_activate_elements
