@@ -245,6 +245,7 @@ module Breeze
     end
     
     def breadcrumb(divider = "/")
+      return nil if page.parent.blank?
       ancestry = page.parent.self_and_ancestors
       content_tag :ul, class: "breadcrumb" do
         ancestry.collect do |ancestor| 
