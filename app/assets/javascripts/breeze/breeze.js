@@ -19,6 +19,7 @@
 //= require ./breeze_admin_pages
 //= require ./breeze_admin_themes
 //= require ./breeze_admin_users
+//= require ./breeze_admin_assets
 //= require ./breeze_assets
 //= require ./breeze_front_editor
 //= require ./breeze_activate_elements
