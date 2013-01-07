@@ -294,11 +294,11 @@ Full-Width Styles
 
 #header_wrap {
   background: #212121;
-  background: -moz-linear-gradient(top, #373737, #212121);
-  background: -webkit-linear-gradient(top, #373737, #212121);
-  background: -ms-linear-gradient(top, #373737, #212121);
-  background: -o-linear-gradient(top, #373737, #212121);
-  background: linear-gradient(top, #373737, #212121);
+  background: -moz-linear-gradient(top, #8ac53e, #255300);
+  background: -webkit-linear-gradient(top, #8ac53e, #255300);
+  background: -ms-linear-gradient(top, #8ac53e, #255300);
+  background: -o-linear-gradient(top, #8ac53e, #255300);
+  background: linear-gradient(top, #8ac53e, #255300);
 }
 
 #header_wrap .inner {
@@ -308,17 +308,19 @@ Full-Width Styles
 #project_title {
   margin: 0;
   color: #fff;
-  font-size: 42px;
+  font-size: 84px;
   font-weight: 700;
   text-shadow: #111 0px 0px 10px;
+  line-height: 1;
 }
 
 #project_tagline {
-  color: #fff;
+  color: #cccccc;
   font-size: 24px;
   font-weight: 300;
   background: none;
   text-shadow: #111 0px 0px 10px;
+  margin: 0;
 }
 
 #downloads {
@@ -371,7 +373,7 @@ Full-Width Styles
 }
 
 #footer_wrap {
-  background: #212121;
+  background: #255300;
 }
 
 
@@ -428,4 +430,28 @@ Small Device Styles
     font-size: 11px;
   }
 
+}
+
+
+
+section.feature {
+  float: left;
+  width: 45%;
+  margin-left: 10%;
+}
+section.feature:nth-child(odd)
+{
+  clear: left;
+  margin-left: 0;
+}
+section.feature img {
+  border: solid 1px #aaaaaa;
+  box-sizing:border-box;
+-moz-box-sizing:border-box; /* Firefox */
+-webkit-box-sizing:border-box; /* Safari */
+margin-top: 0;
+}
+
+section.creators {
+  clear: both;
 }
