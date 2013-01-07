@@ -12,6 +12,9 @@
 //= require uploadify/swfobject
 //= require uploadify/uploadify
 //= require jquery.masonry.min
+//= require jQuery-File-Upload-master/js/vendor/jquery.ui.widget
+//= require jQuery-File-Upload-master/js/jquery.iframe-transport
+//= require jQuery-File-Upload-master/js/jquery.fileupload
 //
 //Breeze JavaScript
 //= require ./breeze_admin

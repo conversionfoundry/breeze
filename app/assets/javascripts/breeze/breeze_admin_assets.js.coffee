@@ -1,5 +1,41 @@
+
 $(document).ready ->
-  if $('#left #folders').length > 0 # i.e. if we're on admin/pages
+
+# jQuery File Upload Widget:
+  $("#fileupload").fileupload
+    xhrFields:
+      withCredentials: true
+    dropZone: $("#dropzone")
+    done: (e, data) ->
+      $("div.assets.asset-assets").append data.result
+    progressall: (e, data) ->
+      progress = parseInt(data.loaded / data.total * 100, 10)
+      $("#progress .bar").css "width", progress + "%"
+    fail: (e, data) ->
+      alert "asset upload failed :-("
+
+  # Drag and drop files
+  $(document).bind "dragover", (e) ->
+    dropZone = $("#dropzone")
+    timeout = window.dropZoneTimeout
+    unless timeout
+      dropZone.addClass "in"
+    else
+      clearTimeout timeout
+    if e.target is dropZone[0]
+      dropZone.addClass "hover"
+    else
+      dropZone.removeClass "hover"
+    window.dropZoneTimeout = setTimeout(->
+      window.dropZoneTimeout = null
+      dropZone.removeClass "in hover"
+    , 100)
+
+  $(document).bind "drop dragover", (e) ->
+    e.preventDefault()
+
+  #  File tree
+  if $('#left #folders').length > 0 # i.e. if we're on admin/assets
     show_or_hide_asset_section_headings();
 
     $("#left #folders").jstree
@@ -49,7 +85,7 @@ $(document).ready ->
           valid_children: ["file", "folder"]
       rules:
         multiple: false
-        drag_copy: false
+        # drag_copy: false
     .bind 'rename.jstree', (node, ref) ->
       url = $(">a", ref.rslt.obj[0]).attr("href")
       name = ref.rslt.new_name
@@ -68,7 +104,7 @@ $("#left #folders a").live "click", (e) ->
   url = $(a).attr("href")
   unless url is ""
     folder = $(a).closest('li').attr('data-folder');
-    $('#right #uploader').uploadifySettings('folder', folder)
+    $('.file_upload #content_asset_folder').val(folder) # Tell the upload form which folder to use
     $('#assets')
       .fadeTo('normal', 0.5)
       .load url, ->

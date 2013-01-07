@@ -1,18 +1,19 @@
+require 'carrierwave/mongoid'
+
 module Breeze
   module Admin
     class AssetsController < AdminController
       def index
         @folder = params[:folder] || "/"
         @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
+        @asset = Breeze::Content::Asset.new
       end
     
       def create
-        if (@asset = Breeze::Content::Asset.where(:file => params[:Filename], :folder => params[:folder]).first)
-          @asset.file, @asset.folder = params[:file], params[:folder]
-        else
-          @asset ||= Breeze::Content::Asset.from_upload params
+        params[:content_asset][:file].each do |file_param|
+          @asset = Breeze::Content::Asset.create file: file_param, folder: params[:content_asset][:folder]
+          @asset.save
         end
-        @asset.save
         respond_to do |format|
           format.html { render :partial => "breeze/admin/assets/#{@asset.class.name.demodulize.underscore}", :object => @asset, :layout => false }
           format.js

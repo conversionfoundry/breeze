@@ -1,3 +1,18 @@
-<%= content_tag :div, :id => "uploader", "data-session-key" => Rails.configuration.session_options[:key], "data-session-id" => cookies[Rails.configuration.session_options[:key]] do %>
-  <%= link_to "Upload file(s)...", new_admin_asset_path, :class => "large upload button" %>
-<% end %>
+<div class="actions file_upload">
+	<h3>Add files..<%= folder %></h3>
+	<%= form_for @asset, url: admin_assets_path, :html => { :multipart => true, :id => "fileupload" } do |f| %>
+		<%= f.hidden_field :folder, value: (@folder || "/") %>
+
+		<div id="progress" class="progress">
+		    <div class="bar" style="width: 0%;"></div>
+		</div>
+
+		<div class="large upload button fileinput-button">
+			<i class="icon-plus"></i>
+			<span class="button_text">Upload files...</span>
+			<%= f.file_field :file, :multiple => true %>      
+		</div>
+	<% end %>
+
+	<div id="dropzone" class="drop_zone">Drop files here</div>
+</div>

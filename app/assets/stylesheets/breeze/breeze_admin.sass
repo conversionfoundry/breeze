@@ -1,3 +1,81 @@
+/* Variables
+$colour-highlight: rgba(141, 198, 63, 0.15)
+
+/* Mixins
+@mixin border-radius ($radii) 
+  -webkit-border-radius: $radii
+  -khtml-border-radius: $radii
+  -moz-border-radius: $radii
+  border-radius: $radii
+
+@mixin border-top-left-radius($radii) 
+  -webkit-border-top-left-radius: $radii
+  -khtml-border-radius-topleft: $radii
+  -moz-border-top-left-radius: $radii
+  -moz-border-radius-topleft: $radii
+  border-top-left-radius: $radii
+
+
+@mixin border-top-right-radius($radii) 
+  -webkit-border-top-right-radius: $radii
+  -khtml-border-radius-topright: $radii
+  -moz-border-top-right-radius: $radii
+  -moz-border-radius-topright: $radii
+  border-top-right-radius: $radii
+
+
+@mixin border-bottom-left-radius($radii) 
+  -webkit-border-bottom-left-radius: $radii
+  -khtml-border-radius-bottomleft: $radii
+  -moz-border-bottom-left-radius: $radii
+  -moz-border-radius-bottomleft: $radii
+  border-bottom-left-radius: $radii
+
+
+@mixin border-bottom-right-radius($radii) 
+  -webkit-border-bottom-right-radius: $radii
+  -khtml-border-radius-bottomright: $radii
+  -moz-border-bottom-right-radius: $radii
+  -moz-border-radius-bottomright: $radii
+  border-bottom-right-radius: $radii
+
+
+@mixin border-top-radius($radii) 
+  @include border-top-left-radius($radii)
+  @include border-top-right-radius($radii)
+
+
+@mixin border-right-radius($radii) 
+  @include border-top-right-radius($radii)
+  @include border-bottom-right-radius($radii)
+
+
+@mixin border-bottom-radius($radii) 
+  @include border-bottom-left-radius($radii)
+  @include border-bottom-right-radius($radii)
+
+
+@mixin border-left-radius($radii) 
+  @include border-top-left-radius($radii)
+  @include border-bottom-left-radius($radii)
+
+@mixin box-shadow
+  -webkit-box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.75)
+  -moz-box-shadow:    1px 1px 5px rgba(50, 50, 50, 0.75)
+  box-shadow:         1px 1px 5px rgba(50, 50, 50, 0.75)
+
+@mixin box-shadow-a
+  -webkit-box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.75)
+  -moz-box-shadow:    1px 1px 5px rgba(50, 50, 50, 0.75)
+  box-shadow:         1px 1px 5px rgba(50, 50, 50, 0.75)
+
+@mixin box-sizing($value)
+  box-sizing: $value
+  -moz-box-sizing: $value
+  -webkit-box-sizing: $value
+
+
+
 /* Layout {{{
 
 body
@@ -1103,3 +1181,48 @@ table.redirects
       opacity: 1
 
 /*}}}
+
+.file_upload
+  background: #cccccc
+  border: 1px solid #aaaaaa
+  @include border-radius(4px)
+  margin: 1em
+  padding: 1em
+  .progress
+    width: 100%
+    border: solid 1px #aaaaaa
+    .bar 
+      height: 18px
+      background: green
+  .drop_zone
+    @include border-radius(1em)
+    padding: 3em
+    color: black
+    border: dashed 4px #aaaaaa
+    &.hover
+      background: #bbbbbb
+
+.large.button.fileinput-button
+  padding: 0
+  position: relative
+  width: 100%
+  height: 32px
+  margin-bottom: 1em
+  .button_text
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    text-align: center    
+    padding: 8px 14px 9px
+  input
+    cursor: pointer
+    opacity: 0
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+
+
