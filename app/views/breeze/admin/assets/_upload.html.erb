@@ -1,5 +1,5 @@
 <div class="actions file_upload">
-	<h3>Add files..<%= folder %></h3>
+	<h3>Add files..</h3>
 	<%= form_for @asset, url: admin_assets_path, :html => { :multipart => true, :id => "fileupload" } do |f| %>
 		<%= f.hidden_field :folder, value: (@folder || "/") %>
 

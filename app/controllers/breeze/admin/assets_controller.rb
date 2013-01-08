@@ -9,14 +9,15 @@ module Breeze
         @asset = Breeze::Content::Asset.new
       end
     
-      def create
+      def create  
+        folder = params[:content_asset][:folder].sub(/\/$/, '') # Remove trailing / if present
         params[:content_asset][:file].each do |file_param|
-          @asset = Breeze::Content::Asset.create file: file_param, folder: params[:content_asset][:folder]
+          @asset = Breeze::Content::Asset.create file: file_param, folder: folder
           @asset.save
         end
         respond_to do |format|
           format.html { render :partial => "breeze/admin/assets/#{@asset.class.name.demodulize.underscore}", :object => @asset, :layout => false }
-          format.js
+          format.json { render json: { filename: @asset.file_filename, width: nil, height: nil, title: @asset.basename, id: @asset.id.to_s } }
         end
       end
     

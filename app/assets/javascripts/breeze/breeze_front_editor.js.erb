@@ -458,7 +458,18 @@ $(document).ready(function(){
   $.breeze = $.extend({}, {
     image_dialog: function(action, options) {
       options = options || {};
-      uploader = options.upload ? '<div id="uploader"></div>' : '';
+      uploader =  '<form accept-charset="UTF-8" action="/admin/assets.json" class="new_content_asset" enctype="multipart/form-data" id="fileupload" method="post">' +
+                  '  <input id="content_asset_folder" name="content_asset[folder]" type="hidden" value="/">' + 
+                  // '  <div id="progress" class="progress">' + 
+                  // '    <div class="bar" style="width: 0%;"></div>' + 
+                  // '  </div>' + 
+                  // '  <div class="large upload button fileinput-button">' + 
+                  // '    <i class="icon-plus"></i>' + 
+                  // '    <span class="button_text">Upload files...</span>' +
+                  '    <input id="content_asset_file" multiple="multiple" name="content_asset[file][]" type="file"> ' +
+                  // '  </div>' + 
+                  '</form>' + 
+                  ' <div id="dropzone" class="drop_zone">Drop files here</div>';
       html = $('<div class="marquess-dialog marquess-image-dialog breeze-form">' + uploader + '<div class="folders-container"><div class="folders"></div></div><fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
       $(html).dialog({
         title:     'Insert an image' + (options.size ? '<small>(' + options.size.width + '&times;' + options.size.height + ')</small>' : ''),
@@ -498,34 +509,29 @@ $(document).ready(function(){
         },
         open: function() {
           var dialog = this;
-          $('#uploader', this).each(function() {
-            script_data = {};
-            script_data[$('meta[name=csrf-param]').attr('content')] = $('#edit_content [name=authenticity_token]').val();
-            script_data[$('meta[name=session-key]').attr('content')] = $('meta[name=session-id]').attr('content');
-            $(this).uploadify({
-              uploader:     '/cached/uploadify/uploadify.swf',
-              cancelImg:    '<%= image_path "icons/delete.png" %>',
-              buttonImg:    '<%= image_path "buttons/upload-small.png" %>',
-              width:        166,
-              height:       34,
-              multi:        true,
-              auto:         true,
-              script:       '/admin/assets.html',
-              scriptData:   script_data,
-              fileDataName: 'file',
-              wmode:        'transparent',
-              folder:       '/',
 
-              onComplete: function(event, queue_id, file_obj, response, data) {
-                d = $(response);
-                id = d.attr('data-id');
-                $('.folders ul', dialog).last().find('[data-id=' + id + ']').remove();
-                $('.folders ul', dialog).last().append('<li class="image" data-file="' + d.attr('data-filename') + '" data-title="' + escape($('img', d).attr('title') || '') + '" data-width="' + d.attr('data-width') + '" data-height="' + d.attr('data-height') + '" data-id="' + id + '"><span>' + d.attr('data-filename') + ' <small>(' + d.attr('data-width') + '&times;' + d.attr('data-height') + ')</small></span></li>');
+          $('#fileupload').fileupload({
+              xhrFields: {withCredentials: true},
+              dropZone: $('#dropzone'),
+              done: function(e, data) {
+                // Insert new image into the folder index
+                d = data.result;
+                $('.folders ul', dialog).last().find('[data-id=' + d.id + ']').remove();
+                $('.folders ul', dialog).last().append('<li class="image" data-file="' + d.filename + '" data-title="' + d.title + '" data-width="' + d.width + '" data-height="' + d.height + '" data-id="' + d.id + '"><span>' + d.filename + ' <small>(' + d.width + '&times;' + d.height + ')</small></span></li>');
                 $('.folders ul li', dialog).last().click();
-                return true;
-              }
+              },
+              progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .bar').css(
+                  'width',
+                  progress + '%'
+                );
+              },
+              fail: function(e, data) {
+                alert('asset upload failed :-(');
+              } 
             });
-          });
+
           $.ajax({
             url: '/admin/assets/images.json',
             type: 'get',
@@ -566,9 +572,10 @@ $(document).ready(function(){
                 f = $(this).attr('data-folder');
                 path += f + '/';
                 if (f && f != '') data = data.folders[f];
-                $('#uploader', dialog).each(function() {
-                  $(this).uploadifySettings('folder', path.replace(/^\/(.*)\/$/, '/$1'));
-                });
+
+                // Tell the upload form which folder to use
+                $('#fileupload #content_asset_folder').val(path); 
+
                 add_image_folder(dialog, f, data);
               });
 

@@ -9,8 +9,6 @@
 //= require jcrop/js/jquery.Jcrop.min
 //= require jstree/jquery.jstree
 //= require marquess/marquess
-//= require uploadify/swfobject
-//= require uploadify/uploadify
 //= require jquery.masonry.min
 //= require jQuery-File-Upload-master/js/vendor/jquery.ui.widget
 //= require jQuery-File-Upload-master/js/jquery.iframe-transport
