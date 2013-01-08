@@ -1,25 +1,29 @@
-.jstree 
+@import "variables"
+@import "mixins"
+
+#left .jstree 
   font-family: Gotham, Helvetica Neue, Helvetica, Arial, sans-serif
   li > ins
     background: url(image_path("tree_icons.png")) no-repeat -72px -72px
     cursor: pointer
     vertical-align: top 
+    margin-top: 0.25em
   li.jstree-closed > ins
     background-position: -72px -54px
   li.jstree-open > ins
     background-position: -54px -72px
   a
+    padding: 0.25em 0.25em 0.25em 0.5em
     vertical-align: top
+    width: 100%
+    @include box-sizing(border-box)
+    height: auto
+  a.jstree-clicked
+    @include border-radius(0.75em)
+    background: #f2f2f2
   span
     position: relative
     top: -4px
-
-
-
-#left #folders li a ins
-  background-position: 0px 0px
-
-.jstree
   li a > ins
     background: url(image_path("tree_icons.png")) no-repeat -19px -1px
   .folder > a > ins
@@ -55,6 +59,9 @@
     background-color: rgba(0, 174, 239, 0.25)
     -webkit-border-radius: 4px
     -moz-border-radius: 4px
+
+#left #folders li a ins
+  background-position: 0px 0px
 
 #jstree-marker
   background-image: url(image_path("tree_icons.png"))
