@@ -74,7 +74,7 @@
 
 <p>Breeze was initially created by <a href="http://www.leftclick.com">LeftClick</a> to support its business creating results-focused websites for clients. </p>
 
-<a href="https://github.com/leftclick/breeze/graphs/contributors">Github Contributors page</a>
+You can see who's been working on Breeze recently at our <a href="https://github.com/leftclick/breeze/graphs/contributors">Github Contributors page</a>.
 </section>
 
 <section class="developers">
@@ -83,7 +83,7 @@
 <h3>Getting started</h3>
 <ol>
   <li>
-    Create a standard Ruby on Rails 3.2 application
+    Create a Ruby on Rails 3.2 application:
     <pre><code>rails new my_site</code></pre>
   </li>
   <li>
@@ -92,24 +92,26 @@
     and run <code>bundle install</code>
   </li>
   <li>
-    Create a Mongoid configuration file
+    Create a Mongoid configuration file:
     <pre><code>rails generate mongoid:config</code></pre>
   </li>
   <li>
-    Add the following to the bottom of <em>config/routes.rb</em>
+    Add the following to the bottom of <em>config/routes.rb</em>:
     <pre><code>mount Breeze::Engine, :at => '/'</code></pre>
   </li>
   <li>
-    Run the generator to create an intial page and a user.
+    Run the generator to create an intial page and admin user account:
     <pre><code>rails generate breeze:install</code></pre>
   </li>
   <li>
-    Remove the Rails default static page
+    Remove the Rails default static page:
     <pre><code>rm public/index.html</code></pre>
   </li>
-  <li>Start your server, and visit localhost:3000. You should see the home page.</li>
   <li>
-    Log in to the admin interface at localhost:3000/admin
+    Start your server, and visit localhost:3000. You should see the home page.
+  </li>
+  <li>
+    Log in to the admin interface at localhost:3000/admin:
     <br />
     Username: emergency@example.com
     <br />

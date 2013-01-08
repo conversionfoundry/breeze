@@ -161,7 +161,6 @@ img {
 pre, code {
   width: 100%;
   color: #222;
-  background-color: #fff;
 
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 14px;
@@ -169,22 +168,23 @@ pre, code {
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
-
-
-
 }
 
 pre {
+  background-color: #fff;
   width: 100%;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,.1);
   overflow: auto;
+  margin: 0.5em 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 
 code {
   padding: 3px;
   margin: 0 3px;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
 pre code {
@@ -209,7 +209,7 @@ ul li {
 }
 
 ol li {
-  list-style: decimal inside;
+  list-style: decimal outside;
   padding-left: 20px;
 }
 
@@ -448,12 +448,19 @@ section.feature:nth-child(odd)
 section.feature img {
   border: solid 1px #aaaaaa;
   box-sizing:border-box;
--moz-box-sizing:border-box; /* Firefox */
--webkit-box-sizing:border-box; /* Safari */
-margin-top: 0;
+  -moz-border-radius: 3px;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-border-radius: 3px;
+  -webkit-box-sizing:border-box; /* Safari */
+  border-radius: 3px;
+  margin-top: 0;
 }
 
 section.introduction,
 section.creators {
   clear: both;
+}
+
+ol li {
+  margin-bottom: 1em;
 }
