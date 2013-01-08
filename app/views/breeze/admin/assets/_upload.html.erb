@@ -1,18 +1,21 @@
 <div class="actions file_upload">
-	<h3>Add files..</h3>
+	<h3>Upload files</h3>
 	<%= form_for @asset, url: admin_assets_path, :html => { :multipart => true, :id => "fileupload" } do |f| %>
 		<%= f.hidden_field :folder, value: (@folder || "/") %>
 
-		<div id="progress" class="progress">
+<!-- 		<div id="progress" class="progress">
 		    <div class="bar" style="width: 0%;"></div>
-		</div>
+		</div> -->
 
-		<div class="large upload button fileinput-button">
+		<div class="large button fileinput-button">
 			<i class="icon-plus"></i>
-			<span class="button_text">Upload files...</span>
+			<div class="button_text">Choose&hellip;</div>
 			<%= f.file_field :file, :multiple => true %>      
 		</div>
 	<% end %>
 
-	<div id="dropzone" class="drop_zone">Drop files here</div>
+	<div id="dropzone" class="drop_zone file_drop_zone">
+		<div class="drop_zone_icon"></div>
+		<div class="drop_zone_text">&hellip;or drag files here</div>
+	</div>
 </div>

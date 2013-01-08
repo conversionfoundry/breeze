@@ -1,7 +1,6 @@
-
 $(document).ready ->
 
-# jQuery File Upload Widget:
+  # jQuery File Upload Widget:
   $("#fileupload").fileupload
     xhrFields:
       withCredentials: true
@@ -36,7 +35,8 @@ $(document).ready ->
 
   #  File tree
   if $('#left #folders').length > 0 # i.e. if we're on admin/assets
-    show_or_hide_asset_section_headings();
+    
+    show_or_hide_asset_section_headings()
 
     $("#left #folders").jstree
       core : {  },
@@ -44,13 +44,17 @@ $(document).ready ->
       ui:
         select_limit: 1
         dots: false
+        initially_select : [ "/" ]
+
       contextmenu:
         items:
           ccp: false
           create: false
-          create: false
-            # action: (node) ->
-            #   $("#left #folders").jstree("create",node)
+            # label: "New folder…"
+            # icon: "add_page"
+            # action: (node, tree_obj) ->
+            #   console.log node
+            #   console.log tree_obj
           rename: false
             # action: (node) ->
             #   $("#left #folders").jstree("rename",node)
@@ -102,6 +106,7 @@ $(document).ready ->
 $("#left #folders a").live "click", (e) ->
   a = $(this)
   url = $(a).attr("href")
+
   unless url is ""
     folder = $(a).closest('li').attr('data-folder');
     $('.file_upload #content_asset_folder').val(folder) # Tell the upload form which folder to use
@@ -110,7 +115,7 @@ $("#left #folders a").live "click", (e) ->
       .load url, ->
         show_or_hide_asset_section_headings()
         $(this).fadeTo('normal', 1.0)
-        $('.asset', this).makeDraggable()
+        # $('.asset', this).makeDraggable()
 
 
 # remove_file = (url) ->
@@ -149,3 +154,6 @@ $("#left #folders a").live "click", (e) ->
 #       success: ->
 #         $(">a", node).attr("href", parent_href + "/" + folder_name).click()
 
+show_or_hide_asset_section_headings = ->
+  $("#assets .assets").each ->
+    $(this).prev("h3").toggle $(".asset", this).length > 0

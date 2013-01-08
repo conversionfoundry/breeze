@@ -458,19 +458,22 @@ $(document).ready(function(){
   $.breeze = $.extend({}, {
     image_dialog: function(action, options) {
       options = options || {};
-      uploader =  '<form accept-charset="UTF-8" action="/admin/assets.json" class="new_content_asset" enctype="multipart/form-data" id="fileupload" method="post">' +
-                  '  <input id="content_asset_folder" name="content_asset[folder]" type="hidden" value="/">' + 
+      uploader =  '<div class="file_upload">' + 
+                  '  <div id="dropzone" class="drop_zone"><div class="drop_zone_icon"></div><div class="drop_zone_text">&hellip;or drag files here</div></div>' +
+                  '  <h3>Upload files</h3>' + 
+                  '  <form accept-charset="UTF-8" action="/admin/assets.json" class="new_content_asset" enctype="multipart/form-data" id="fileupload" method="post">' +
+                  '    <input id="content_asset_folder" name="content_asset[folder]" type="hidden" value="/">' + 
                   // '  <div id="progress" class="progress">' + 
                   // '    <div class="bar" style="width: 0%;"></div>' + 
                   // '  </div>' + 
-                  // '  <div class="large upload button fileinput-button">' + 
-                  // '    <i class="icon-plus"></i>' + 
-                  // '    <span class="button_text">Upload files...</span>' +
-                  '    <input id="content_asset_file" multiple="multiple" name="content_asset[file][]" type="file"> ' +
-                  // '  </div>' + 
-                  '</form>' + 
-                  ' <div id="dropzone" class="drop_zone">Drop files here</div>';
-      html = $('<div class="marquess-dialog marquess-image-dialog breeze-form">' + uploader + '<div class="folders-container"><div class="folders"></div></div><fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
+                  '    <div class="large button fileinput-button">' + 
+                  '      <i class="icon-plus"></i>' + 
+                  '      <span class="button_text">Choose...</span>' +
+                  '      <input id="content_asset_file" multiple="multiple" name="content_asset[file][]" type="file"> ' +
+                  '    </div>' + 
+                  '  </form>' + 
+                  '</div>';
+      html = $('<div class="marquess-dialog marquess-image-dialog breeze-form"><div class="folders-container"><div class="folders"></div></div>' + uploader + '<fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');
       $(html).dialog({
         title:     'Insert an image' + (options.size ? '<small>(' + options.size.width + '&times;' + options.size.height + ')</small>' : ''),
         width:     512,
