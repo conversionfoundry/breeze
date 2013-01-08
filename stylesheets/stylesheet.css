@@ -60,7 +60,7 @@ body {
   color:#373737;
   background: #212121;
   font-size: 16px;
-  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -69,19 +69,21 @@ h1, h2, h3, h4, h5, h6 {
   margin: 10px 0;
   font-weight: 700;
   color:#222222;
-  font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   letter-spacing: -1px;
 }
 
 h1 {
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 h2 {
-  padding-bottom: 10px;
+  font-weight: 300;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
   font-size: 32px;
-  background: url('../images/bg_hr.png') repeat-x bottom;
+  border-bottom: solid 3px #8dc63f;
 }
 
 h3 {
@@ -161,10 +163,8 @@ img {
 pre, code {
   width: 100%;
   color: #222;
-
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 14px;
-
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -228,10 +228,10 @@ dl p {
 }
 
 hr {
-  height: 1px;
+  height: 3px;
   margin-bottom: 5px;
   border: none;
-  background: url('../images/bg_hr.png') repeat-x center;
+  background: #8dc63f;
 }
 
 table {
@@ -241,7 +241,6 @@ table {
  }
 
 th {
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   background: #373737;
   color: #fff;
@@ -293,7 +292,7 @@ Full-Width Styles
 }
 
 #header_wrap {
-  background: #212121;
+  background: #8dc63f;
   background: -moz-linear-gradient(top, #8dc63f, #44601e);
   background: -webkit-linear-gradient(top, #8dc63f, #44601e);
   background: -ms-linear-gradient(top, #8dc63f, #44601e);
@@ -322,6 +321,7 @@ Full-Width Styles
   text-shadow: #111 0px 0px 10px;
   margin: 0;
   padding: 0;
+  border-bottom: none;
 }
 
 #downloads {
@@ -374,7 +374,12 @@ Full-Width Styles
 }
 
 #footer_wrap {
-  background: #44601e;
+  background: #8dc63f;
+  background: -moz-linear-gradient(top, #8dc63f, #44601e);
+  background: -webkit-linear-gradient(top, #8dc63f, #44601e);
+  background: -ms-linear-gradient(top, #8dc63f, #44601e);
+  background: -o-linear-gradient(top, #8dc63f, #44601e);
+  background: linear-gradient(top, #8dc63f, #44601e);
 }
 
 
@@ -439,6 +444,7 @@ section.feature {
   float: left;
   width: 45%;
   margin-left: 10%;
+  margin-bottom: 2em;
 }
 section.feature:nth-child(odd)
 {
@@ -457,9 +463,16 @@ section.feature img {
 }
 
 section.introduction,
-section.creators {
+section.creators,
+section.developers {
   clear: both;
+  margin-bottom: 5em;
 }
+section.features {
+  clear: both;
+  margin-bottom: 2em;
+}
+
 
 ol li {
   margin-bottom: 1em;
