@@ -11,12 +11,23 @@ describe Breeze::Content::Custom::Type do
     # it { should validate_uniqueness_of :type_name }
     it { should validate_presence_of :name }
     # it { should validate_uniqueness_of :name }
-    
   end
 
   it "has a camelcased type name" do
     subject.valid?
     subject.type_name.should eq("FancySlider")
+  end
+
+  it "handles underscores followed by digits in the name" do
+    subject.name = 'customtype_1'
+    subject.valid?
+    subject.name.should eq('customtype_1')
+  end
+
+  it "exposes a default template name" do
+    subject.name = 'custom_type_1'
+    subject.save
+    subject.default_template_name.should eq('custom_type1')
   end
 
   # describe "when defined" do

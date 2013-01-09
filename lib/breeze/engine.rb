@@ -14,6 +14,7 @@ require "rdiscount"
 require "execjs"
 require "mongoid_fulltext"
 require "haml"
+require "coffee-script"
 
 require File.expand_path("../../../config/initializers/devise.rb", __FILE__)
 
