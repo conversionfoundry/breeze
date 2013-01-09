@@ -1,6 +1,10 @@
+require 'carrierwave/mongoid'
+
 module Breeze
   module Content
     class Asset < Item
+      include Mongoid::Document
+
       field :title
       field :description
       field :file
@@ -8,7 +12,7 @@ module Breeze
       
       attr_accessor :basename
       
-      mount_uploader :file, AssetUploader, :mount_on => :file
+      mount_uploader :file, AssetUploader#, :mount_on => :file
       
       before_update :rename_file
       
@@ -17,7 +21,7 @@ module Breeze
       end
       
       def basename
-        @basename || attributes[:file]
+        @basename || File.basename(file.path)
       end
       
       def basename=(value)
