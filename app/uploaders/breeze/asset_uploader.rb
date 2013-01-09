@@ -2,7 +2,11 @@ module Breeze
   class AssetUploader < CarrierWave::Uploader::Base
     #include CarrierWave::ConditionalVersions
     include CarrierWave::RMagick
-    
+
+    # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
+    include Sprockets::Helpers::RailsHelper
+    include Sprockets::Helpers::IsolatedHelper
+          
     storage :file
     
     def store_path(for_file = filename)
