@@ -7,11 +7,17 @@ describe Breeze::Content::Custom::Type do
 
   describe 'validations' do
     it { should be_valid }
+
     # it { should validate_presence_of :type_name }
     # it { should validate_uniqueness_of :type_name }
     it { should validate_presence_of :name }
     # it { should validate_uniqueness_of :name }
     
+    it "validates name format" do
+      subject.name = 'custom/type (28%)'
+      subject.valid?
+      subject.should have(1).error_on(:name)
+    end
   end
 
   it "has a camelcased type name" do
@@ -19,53 +25,10 @@ describe Breeze::Content::Custom::Type do
     subject.type_name.should eq("FancySlider")
   end
 
-  # describe "when defined" do
-  #   before :each do
-  #     @custom_type = Breeze::Content::Custom::Type.create :name => "fancy box", :custom_fields => [ Breeze::Content::Custom::Field.new(:name => :title), Breeze::Content::Custom::Field.new(:name => :content) ]
-  #   end
-  #   
-  #   it "should have a proper constant name" do
-  #     @custom_type.type_name.should == "FancyBox"
-  #   end
-  #   
-  #   it "should know how to be a class" do
-  #     @custom_type.to_class.should be_a(Class)
-  #   end
-  #   
-  #   it "should be accessible from the Content module" do
-  #     Breeze::Content::FancyBox.should be_a(Class)
-  #   end
-  #   
-  #   it "should define itself as a constant" do
-  #     Breeze::Content::FancyBox.should be_a(Class)
-  #     Breeze::Content.const_defined?(:FancyBox).should == true
-  #   end
-  #   
-  #   it "should define fields on the class" do
-  #     Breeze::Content::FancyBox.fields.keys.should include(*%w(title content))
-  #   end
-  #   
-  #   it "should be able to create new instances" do
-  #     Breeze::Content::FancyBox.new.should be_a(Breeze::Content::FancyBox)
-  #   end
-  #   
-  #   it "should define fields on the instances" do
-  #     Breeze::Content::FancyBox.new.should respond_to(:content)
-  #   end
-  #   
-  #   describe "and updated" do
-  #     before :each do
-  #       @custom_type.custom_fields << Breeze::Content::Custom::Field.new(:name => :tags)
-  #       @custom_type.save!
-  #     end
+  it "exposes a default template name" do
+    subject.name = 'custom_type_1'
+    subject.save
+    subject.default_template_name.should eq('custom_type1')
+  end
 
-  #     it "should undefine the constant" do
-  #       Breeze::Content.const_defined?(:FancyBox).should == false
-  #     end
-
-  #     it "should update the class" do
-  #       Breeze::Content::FancyBox.fields.keys.should include(*%w(title content tags))
-  #     end
-  #   end
-  # end
 end
