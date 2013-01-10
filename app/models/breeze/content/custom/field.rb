@@ -5,14 +5,19 @@ module Breeze
         include Mongoid::Document
         
         field :name
+
         field :label
         field :position, :type => Integer
+
+        validates :name, 
+          presence: true, 
+          format: { with: /^[\w\d-]*$/, 
+            message: "must consist of lower-case letters, numbers, dashes and underscores." }
+
         embedded_in :custom_type, :inverse_of => :fields
         attr_protected :_id
         
         before_validation :fill_in_name
-        validates_presence_of :name
-        validates_format_of :name, :with => /^[a-z]\w*$/, :message => "must consist of lower-case letters, numbers and underscores"
         
         def define_on(klass)
           klass.field name
