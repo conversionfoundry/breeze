@@ -179,9 +179,3 @@ function image_editor(options) {
   });
   
 }
-
-function show_or_hide_asset_section_headings() {
-  $('#assets .assets').each(function() {
-    $(this).prev('h3').toggle($('.asset', this).length > 0);
-  });
-}

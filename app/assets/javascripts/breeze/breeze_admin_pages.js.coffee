@@ -26,7 +26,7 @@ $(document).ready ->
       dnd:
         copy_modifier: false
         drag_finish: ->
-          alert("DROP")
+          console.log("DROP")
         drag_check: ->
           false if(data.r.attr("rel") == "root")
           false  if data.r.closest("li").is("[rel=root]") and type is "after"

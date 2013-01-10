@@ -25,6 +25,13 @@ module Breeze
           home.placements << Breeze::Content::Placement.new( :region => 'sidebar', :content => s )
         end
 
+        # Create placeholder custom type
+        unless Breeze::Content::Custom::Type.where(name: 'Placeholder').any?
+          log "", "Creating placeholder custom type..."
+          placeholder = Breeze::Content::Custom::Type.create! name: 'Placeholder'
+          placeholder.custom_fields.build({ name: 'placeholder_content', label: 'Content', position: 0, _type: 'Breeze::Content::Custom::TextField'})
+          placeholder.save
+        end
 
         
         # Create emergency user
