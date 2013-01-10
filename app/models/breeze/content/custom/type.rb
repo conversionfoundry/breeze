@@ -7,12 +7,13 @@ module Breeze
         field :type_name
         attr_protected :_id
 
-        validates :name, uniqueness: true, presence: true
+        validates :name, uniqueness: true, presence: true,
+          format: { with: /^[\w\d\s-]*$/, message: "Can contain only digits, letters, space, dashes and underscores." }
+        index({ name: 1 }, { unique: true })
+
         validates :type_name, presence: true, uniqueness: true,
           format: { with: /^[A-Z]\w*$/, message: "must be a CamelCasedName" }
-        
         index({ type_name: 1 }, { unique: true })
-        index({ name: 1 }, { unique: true })
 
         embeds_many :custom_fields, :class_name => "Breeze::Content::Custom::Field" do
           def build(attrs = {}, type = nil)

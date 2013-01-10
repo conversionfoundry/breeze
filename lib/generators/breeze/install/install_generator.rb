@@ -9,15 +9,6 @@ module Breeze
 
       def install_breeze
 
-        in_root do
-          inside "public" do
-            if !File.exists?("breeze")
-              log "", "Creating symlinks..."
-              run extify("ln -s ../vendor/plugins/breeze/public breeze") # TODO: Not sure why we need this link - Isaac
-            end
-          end
-        end
-
         # Create a theme with the same name as the app
         theme_name = File.basename(Rails.root)
         log "", "Creating directories for " + theme_name + " theme..."
