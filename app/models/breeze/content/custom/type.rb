@@ -8,7 +8,7 @@ module Breeze
         attr_protected :_id
 
         validates :name, uniqueness: true, presence: true,
-          format: { with: /^(\w|\d|\s|-)*$/, message: "Can contain only digits, letters, space, dashes and underscores." }
+          format: { with: /^[\w\d\s-]*$/, message: "Can contain only digits, letters, space, dashes and underscores." }
         index({ name: 1 }, { unique: true })
 
         validates :type_name, presence: true, uniqueness: true,
