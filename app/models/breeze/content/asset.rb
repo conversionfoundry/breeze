@@ -21,7 +21,7 @@ module Breeze
       end
       
       def basename
-        @basename || File.basename(file.path)
+        (@basename || File.basename(file.path)).to_s
       end
       
       def basename=(value)
@@ -29,7 +29,7 @@ module Breeze
       end
       
       def extension
-        File.extname(file.path)[1..-1].downcase
+        File.extname(file.path)[1..-1].try(:downcase).to_s
       end
       
       def path(f = folder)
