@@ -28,6 +28,7 @@ module Breeze
         @content = @placement.content
         @content.update_attributes params[:content]
         @view = @container.views.by_name(@placement.view).populate(@container, self, request)
+        @notice = 'Your content has been updated'
       end
 
       def live
