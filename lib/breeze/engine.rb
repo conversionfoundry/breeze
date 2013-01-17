@@ -28,6 +28,7 @@ module Breeze
 
     # config.autoload_paths += ["app/models/breeze/", "app/models/breeze/admin", "app/models/breeze/admin/activity", "/app/models/breeze/admin/mixins",
     #   "app/models/breeze/content/custom", "app/models/breeze/content/mixins", "app/models/breeze/theming"]
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     #For the generators. I add a config.generators block to my engine.rb file like so.
     #With that, I'm able to get rspec tests when running a generator like the model generator.
