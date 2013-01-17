@@ -603,8 +603,8 @@ p
   .image
     float: left
     margin: 0px 8px 8px 0px
-    width: 144px
-    height: 144px
+    // width: 144px
+    // height: 144px
     position: relative
     top: -8px
     -webkit-transition: background 0.25s ease-in
@@ -612,14 +612,17 @@ p
     -webkit-border-top-right-radius: 8px
     -moz-border-radius-topleft: 8px
     -moz-border-radius-topright: 8px
+    @include border-radius(8px)
+    overflow: hidden
     &:hover
       background: rgba(0, 0, 0, 0.15)
     .icon
-      position: absolute
-      left: 8px
-      top: 8px
-      width: 128px
-      height: 128px
+      // position: absolute
+      // left: 8px
+      // top: 8px
+      min-width: 128px
+      min-height: 128px
+      padding: 1em
       line-height: 128px
       text-align: center
       vertical-align: middle
@@ -632,7 +635,9 @@ p
       position: absolute
       z-index: 1
       left: 0px
-      top: 144px
+      // top: 144px
+      top: auto
+      bottom: 0
       right: 0px
       padding: 0px 8px
       height: 0px
@@ -641,10 +646,10 @@ p
       -webkit-transition-property: opacity, padding, height
       -webkit-transition-duration: 0.15s
       -webkit-transition-timing-function: ease-in
-      -webkit-border-bottom-left-radius: 8px
-      -webkit-border-bottom-right-radius: 8px
-      -moz-border-radius-bottomleft: 8px
-      -moz-border-radius-bottomright: 8px
+      // -webkit-border-bottom-left-radius: 8px
+      // -webkit-border-bottom-right-radius: 8px
+      // -moz-border-radius-bottomleft: 8px
+      // -moz-border-radius-bottomright: 8px
   .asset-assets .asset .links
     display: block
     opacity: 0.0
@@ -703,11 +708,10 @@ p
       -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
     .links a
       display: block
-      clear: left
       float: left
       line-height: 20px
       vertical-align: middle
-      margin: 0px 0px 2px
+      margin: 0px 2px 2px 0
       padding: 0px 4px 0px 24px
       vertical-align: middle
       background-color: rgba(255, 255, 255, 0.75)
@@ -1108,24 +1112,22 @@ table.redirects
 /*}}}
 
 .file_upload
-  background: #cccccc
-  border: 1px solid #aaaaaa
-  @include box-sizing(border-box)
-  @include border-radius(4px)
   margin: 1em
-  padding: 1em
   .progress
     width: 100%
     border: solid 1px #aaaaaa
     .bar 
       height: 18px
       background: green
+
 .drop_zone
   @include border-radius(1em)
+  @include box-sizing(border-box)
   color: black
   border: dashed 4px #aaaaaa
   position: relative
   padding: 1em
+  width: 100%
   &.hover
     background-color: #bbbbbb
   .drop_zone_icon
@@ -1134,45 +1136,22 @@ table.redirects
     min-height: 48px
   .drop_zone_text
     text-align: center
+    font-size: 80%
 
-.ui-dialog
-  .file_upload
-    clear: both
-    float: left
-    width: 100%
-    margin: 0 0 1em 0
-    form#fileupload 
-      float: left
-      min-width: 15em
-    .drop_zone
-      float: right
-  .folders-container
-    clear: both
-
-
-.large.button.fileinput-button
+.fileinput-button
   @include box-sizing(border-box)
   position: relative
   width: 100%
-  margin-bottom: 1em
-  .icon-plus
-    display: inline-block
-    width: 14px
-    height: 14px
-    line-height: 14px
-    vertical-align: text-top
-    background-image: url("../img/glyphicons-halflings.png")
-    background-position: 14px 14px
-    background-repeat: no-repeat
-    background-position: -408px -96px
+  margin-top: 1em
+  height: 4.5em
   .button_text
     position: absolute
     top: 0
     right: 0
     bottom: 0
-    left: 24px
+    left: 0
     text-align: center    
-    padding: 8px 14px 9px
+    padding: 0.5em 1em
     color: white
   input
     cursor: pointer
@@ -1182,7 +1161,24 @@ table.redirects
     right: 0
     bottom: 0
     left: 0
-    height: 100%
     width: 100%
+    clear: both
+
+.ui-dialog
+  .file_upload
+    clear: both
+    float: left
+    width: 100%
+    margin: 1em 0 1em 0
+    form#fileupload 
+      float: left
+      min-width: 15em
+      width: 100%
+    .drop_zone
+      float: right
+  .folders-container
+    clear: both
+  .fileinput-button
+    height: 2em
 
 

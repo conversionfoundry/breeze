@@ -51,8 +51,12 @@ module Breeze
               v.cache! file.file
               v.store!
             end
+
           end
         end
+
+        file.recreate_versions!
+
       end
       
       def selection_rect
