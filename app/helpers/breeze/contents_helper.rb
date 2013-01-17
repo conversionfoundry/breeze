@@ -245,28 +245,7 @@ module Breeze
     end
     
     def breadcrumb(divider = "/")
-      return nil if page.parent.blank?
-      ancestry = page.parent.self_and_ancestors
-      content_tag :ul, class: "breadcrumb" do
-        ancestry.collect do |ancestor| 
-          breadcrumb_link(ancestor) +
-          breadcrumb_divider(divider)
-        end.join.html_safe
-      end
-    end
-
-  private
-
-    def breadcrumb_link(node)
-      content_tag :li do
-        link_to(node.title, node.link_to)
-      end.html_safe
-    end
-
-    def breadcrumb_divider(divider)
-      content_tag(:span, class: "divider") do
-        divider
-      end.html_safe
+      Breeze::Breadcrumb.new(for_page: page, divider: divider).generate
     end
 
   end
