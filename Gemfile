@@ -8,7 +8,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'fabrication'
+  gem 'fabrication', '= 2.5.0'
   gem 'growl'
   gem 'ffaker'
 end
