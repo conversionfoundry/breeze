@@ -4,6 +4,7 @@ module Breeze
     
     field :time_zone, :default => lambda { Rails.application.config.time_zone }
     field :notification_from_email, :default => "system@example.com"
+    field :form_result_to_email, :default => "admin@example.com"
     
     def time_zone
       update_attributes :time_zone => Rails.application.config.time_zone if read_attribute(:time_zone).nil?
@@ -15,6 +16,10 @@ module Breeze
       read_attribute :notification_from_email
     end
 
+    def form_result_to_email
+      update_attributes :form_result_to_email => Rails.application.config.form_result_to_email if read_attribute(:form_result_to_email).nil?
+      read_attribute :form_result_to_email
+    end
   end
   
   def self.configure #(&block)

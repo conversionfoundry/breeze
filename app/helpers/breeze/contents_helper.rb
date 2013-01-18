@@ -255,6 +255,17 @@ module Breeze
       end
     end
 
+    def breeze_form( name='Unnamed form', options={}, &block)
+      options.merge!({:remote => true})
+      form_tag form_results_path, options do |form|
+        content = [].tap do |content|
+          content << hidden_field_tag(:form_name, name)
+          content << hidden_field_tag(:success_function, options[:success_function]) if options[:success_function]
+          content << capture( &block )
+        end.join(" ").html_safe
+      end.html_safe
+    end
+
   private
 
     def breadcrumb_link(node)

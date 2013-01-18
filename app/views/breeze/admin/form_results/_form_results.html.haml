@@ -1,0 +1,17 @@
+.form_results-container.container
+  %table.fancy.sortable#form_results
+    %thead
+      %tr
+        %th.date.first{:colspan => "1", :style => ""} Date
+        %th.form_name Form
+        %th.values Values
+        %th.actions.last{:style => ""} Actions
+    %tbody
+      - if @form_results.exists?
+        = render :partial => "breeze/admin/form_results/form_result", :collection => @form_results
+      - else
+        %tr
+          %td.empty{:colspan => "3"}
+            There are no form results yet.
+    %tfoot
+      %tr

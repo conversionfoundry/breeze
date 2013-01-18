@@ -35,7 +35,8 @@ Breeze::Engine.routes.draw do
 
     get "assets/images(.:format)" => "assets#images"
 
-    
+    resources :form_results, except: [:new, :create, :show, :edit]
+
     resources :assets
     
     namespace :assets do
@@ -81,6 +82,8 @@ Breeze::Engine.routes.draw do
     
     root :to => "dashboards#show"
   end
+
+  resources :form_results, only: [:create]
   
   # match "stylesheets/*path", :to => "stylesheets#show", :format => false
   root :to => "contents#show"

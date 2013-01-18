@@ -1,0 +1,25 @@
+<style type="text/css">
+	/* Premailer wants some CSS to work with – this is a dummy to keep it happy in the meantime. */
+	table.form_values td {
+		border: solid 1px black;
+	};
+</style>
+
+Someone submitted an enquiry through the <%= @form_result.form_name %> form at <%= @site %>. Here's what they entered:
+
+<table class="form_values">
+	<% @form_result.serialized_form_values.each do |form_value| %>
+		<tr>
+			<td class="key">
+				<%= form_value[0] %>
+			</td>
+			<td class="value" width="100%">
+				<% if form_value[1].blank? %>
+					<en>empty</em>
+				<% else %>
+					<%= form_value[1] %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+</table>
