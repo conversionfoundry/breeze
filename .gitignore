@@ -4,3 +4,4 @@ rdoc/*
 *.pid
 spec/dummy/
 .DS_Store
+tmp/
