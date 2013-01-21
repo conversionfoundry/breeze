@@ -1,4 +1,4 @@
-class SitemapController < ActionController::Base
+class Breeze::SitemapController < ActionController::Base
   
   def index
     flow = Breeze::Sitemap.new(request.format).evaluate

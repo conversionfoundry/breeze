@@ -1,13 +1,12 @@
 require 'spec_helper'
 
 
-describe Breeze::Content::Sitemap do
-  subject { Breeze::Content::Sitemap.new('text/html') }
+describe Breeze::Sitemap do
+  subject { Breeze::Sitemap.new(Mime[:html]) }
   let(:page) { Fabricate :page }
   
   it "renders links" do
-    # require 'pry'; binding.pry
-    subject.evaluate =~ page.permalink
+    subject.evaluate.should =~ page.permalink
+    binding.pry
   end
-
 end
