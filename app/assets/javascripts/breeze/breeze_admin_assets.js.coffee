@@ -6,12 +6,11 @@ $(document).ready ->
       withCredentials: true
     dropZone: $("#dropzone")
     done: (e, data) ->
-      $("div.assets.asset-assets").append data.result
+      eval data.result
+      show_or_hide_asset_section_headings()
     progressall: (e, data) ->
       progress = parseInt(data.loaded / data.total * 100, 10)
       $("#progress .bar").css "width", progress + "%"
-    fail: (e, data) ->
-      alert "asset upload failed :-("
 
   # Drag and drop files
   $(document).bind "dragover", (e) ->
@@ -106,7 +105,6 @@ $(document).ready ->
 $("#left #folders a").live "click", (e) ->
   a = $(this)
   url = $(a).attr("href")
-
   unless url is ""
     folder = $(a).closest('li').attr('data-folder');
     $('.file_upload #content_asset_folder').val(folder) # Tell the upload form which folder to use

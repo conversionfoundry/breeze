@@ -8,8 +8,11 @@
           = form.time_zone_select :time_zone, nil, :label => "Zone", :hint => render("breeze/admin/settings/current_time")
         = form.fieldset :legend => "Notification Email from address" do
           = form.text_field :notification_from_email, :label => "Email", :hint => render("breeze/admin/settings/notification_from_email")
+        = form.fieldset :legend => "Form Email to address" do
+          = form.text_field :form_result_to_email, :label => "Email", :hint => render("breeze/admin/settings/form_result_to_email")
       = fake_right_sidebar do
         = form.submit "Save settings", :class => "large green save button"
+
   - tabs.redirects do
     - scrollable_layout do
       %h1 Redirects
