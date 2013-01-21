@@ -1,2 +1,2 @@
-$('#asset_<%= @asset.id %>').replaceWith('<%= escape_javascript render(:partial => (@asset.image? ? "image" : "asset"), :object => @asset) %>');
-$('#asset_edit').closest('.ui-dialog-content').dialog('close').remove();
+$('#asset_<%= @asset.id %>').replaceWith('<%= escape_javascript render(:partial => (@asset.image? ? "breeze/admin/assets/image" : "asset"), :object => @asset) %>');
+$('#edit_asset').closest('.ui-dialog-content').dialog('close').remove();

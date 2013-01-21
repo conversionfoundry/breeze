@@ -35,15 +35,16 @@ Breeze::Engine.routes.draw do
 
     get "assets/images(.:format)" => "assets#images"
 
-    
-    resources :assets
-    
+    resources :form_results, except: [:new, :create, :show, :edit]
+
     namespace :assets do
       resources :folders
     end
     get "assets/folders" => "assets/folders#show"
     post "assets/folders" => "assets/folders#create"
     get "assets/folders/*path" => "assets/folders#show"
+    
+    resources :assets
     
     match "themes/:theme_id/raw/*id" => "themes/files#show", :as => :raw_admin_theme_file
     match "themes/:theme_id/files/*id" => "themes/files#edit", :as => :edit_admin_theme_file, :format => false
@@ -81,6 +82,8 @@ Breeze::Engine.routes.draw do
     
     root :to => "dashboards#show"
   end
+
+  resources :form_results, only: [:create]
   
   # match "stylesheets/*path", :to => "stylesheets#show", :format => false
   root :to => "contents#show"

@@ -459,18 +459,18 @@ $(document).ready(function(){
     image_dialog: function(action, options) {
       options = options || {};
       uploader =  '<div class="file_upload">' + 
-                  '  <div id="dropzone" class="drop_zone"><div class="drop_zone_icon"></div><div class="drop_zone_text">&hellip;or drag files here</div></div>' +
-                  '  <h3>Upload files</h3>' + 
                   '  <form accept-charset="UTF-8" action="/admin/assets.json" class="new_content_asset" enctype="multipart/form-data" id="fileupload" method="post">' +
                   '    <input id="content_asset_folder" name="content_asset[folder]" type="hidden" value="/">' + 
-                  // '  <div id="progress" class="progress">' + 
-                  // '    <div class="bar" style="width: 0%;"></div>' + 
-                  // '  </div>' + 
-                  '    <div class="large button fileinput-button">' + 
-                  '      <i class="icon-plus"></i>' + 
-                  '      <span class="button_text">Choose...</span>' +
-                  '      <input id="content_asset_file" multiple="multiple" name="content_asset[file][]" type="file"> ' +
-                  '    </div>' + 
+                  '    <div id="dropzone" class="drop_zone file_drop_zone">' +
+                  '      <div class="drop_zone_icon"></div>' +
+                  '      <div class="drop_zone_text">' +
+                  '        Drag and drop files here to upload or' +
+                  '        <div class="button fileinput-button">' +
+                  '          <div class="button_text">Select files from your computer&hellip;</div>' +
+                  '          <input id="content_asset_file" multiple="multiple" name="content_asset[file][]" type="file"> ' +
+                  '        </div>' +
+                  '      </div>' +
+                  '    </div>' +
                   '  </form>' + 
                   '</div>';
       html = $('<div class="marquess-dialog marquess-image-dialog breeze-form"><div class="folders-container"><div class="folders"></div></div>' + uploader + '<fieldset><ol class="form"><li><label for="marquess_image_url">Image URL:</label><input class="text" type="text" name="image_url" id="marquess_image_url" /></li><li><label for="marquess_image_title">Image title:</label><input class="text" type="text" name="image_title" id="marquess_image_title" /></li></ol></fieldset></div>');

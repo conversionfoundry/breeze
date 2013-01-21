@@ -52,13 +52,14 @@ module Breeze
 
       def admin_menu
         menu = []
-        menu << { :name => "Dashboard", :path => admin_root_path, :regexp => /^\/admin\/?$/ }
-        menu << { :name => "Pages",     :path => admin_pages_path  } if can? :manage, Breeze::Content::Item
-        menu << { :name => "Assets",    :path => admin_assets_path } if can? :manage, Breeze::Content::Item
-        menu << { :name => "Users",     :path => admin_users_path  } if current_user.admin?
-        menu << { :name => "Themes",    :path => admin_themes_path } if can? :manage, Breeze::Theming::Theme
+        menu << { :name => "Dashboard",     :path => admin_root_path, :regexp => /^\/admin\/?$/ }
+        menu << { :name => "Pages",         :path => admin_pages_path  } if can? :manage, Breeze::Content::Item
+        menu << { :name => "Assets",        :path => admin_assets_path } if can? :manage, Breeze::Content::Item
+        menu << { :name => "Forms",         :path => admin_form_results_path } if can? :manage, Breeze::Content::Item
+        menu << { :name => "Users",         :path => admin_users_path  } if current_user.admin?
+        menu << { :name => "Themes",        :path => admin_themes_path } if can? :manage, Breeze::Theming::Theme
         menu << { :name => "Custom types",  :path => admin_custom_types_path } if can? :manage, Breeze::Content::Custom::Type
-        menu << { :name => "Settings",  :path => admin_settings_path } if current_user.admin?
+        menu << { :name => "Settings",      :path => admin_settings_path } if current_user.admin?
         
         menu = Breeze.run_hook :admin_menu, menu, current_user
                         

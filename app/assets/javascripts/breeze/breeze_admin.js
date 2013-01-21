@@ -12,6 +12,16 @@ $(window).load(function() {
   });
 });
 
+// Disclosure button
+$(function() {
+  $('.btn-disclosure').live('click', function() {
+    target = $( '#' + $(this).data('target') );
+    target.toggleClass('open');
+    $(this).toggleClass('open');
+  });
+});
+
+
 $(function() {
   $('#main-tabs-tabs li').live('click', function() {
     if (!$(this).hasClass('active')) {

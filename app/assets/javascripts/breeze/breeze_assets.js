@@ -5,12 +5,12 @@
       if (asset.hasClass('image')) {
         image_editor({
           url: this.href,
-          ok: function(dialog) {
+          OK: function(dialog) {
             $('form:visible', dialog).trigger('submit');
           }
         });
       }
-      
+    
       return false;
     });
   });
