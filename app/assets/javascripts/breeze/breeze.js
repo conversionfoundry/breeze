@@ -1,18 +1,18 @@
-//Third-party frameworks, used by plugins below
+// Third-party frameworks, used by plugins below
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
 //
-//Third-party feature plugins located in vendor/javascripts
+// Other third-party gems
+//= require jquery-fileupload/basic
+//
+//Third-party plugins located in vendor/javascripts
 //= require codemirror/js/codemirror
 //= require cookies
 //= require jcrop/js/jquery.Jcrop.min
 //= require jstree/jquery.jstree
 //= require marquess/marquess
 //= require jquery.masonry.min
-//= require jQuery-File-Upload-master/js/vendor/jquery.ui.widget
-//= require jQuery-File-Upload-master/js/jquery.iframe-transport
-//= require jQuery-File-Upload-master/js/jquery.fileupload
 //
 //Breeze JavaScript
 //= require ./breeze_admin

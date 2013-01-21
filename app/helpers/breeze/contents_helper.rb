@@ -259,10 +259,6 @@ module Breeze
       end.html_safe
     end
 
-  private
-
-    end
-
   end
     
 end

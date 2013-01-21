@@ -7,7 +7,9 @@ module Breeze
       
       def destroy
         @form_result = Breeze::Forms::FormResult.find params[:id]
-        @form_result.try :destroy
+        if @form_result
+          @form_result.destroy
+        end
       end
 
     end

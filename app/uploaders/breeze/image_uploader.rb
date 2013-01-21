@@ -9,7 +9,7 @@ module Breeze
 
   protected
     def capture_size_before_cache(new_file)
-      capture_image_size!(new_file.path || (new_file.file.tempfile.path if defined? new_file.file.tempfile) )
+      capture_image_size!(new_file.path || new_file.file.path )
     end
   
     def capture_size_after_retrieve_from_cache(cache_name)

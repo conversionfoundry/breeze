@@ -12,7 +12,7 @@
               = form_value[0]
             %td.value{width: '100%'}
               - if form_value[1].blank?
-                EMPTY
+                <em>empty</em>
               - else
                 = form_value[1]
   %td.actions
