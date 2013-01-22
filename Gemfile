@@ -3,6 +3,9 @@ ruby "1.9.3"
 
 gemspec
 
+gem 'jquery-rails'
+gem "jquery-fileupload-rails"
+
 group :development do 
   gem 'fuubar'
 end

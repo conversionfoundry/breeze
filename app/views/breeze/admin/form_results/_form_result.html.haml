@@ -1,0 +1,20 @@
+= content_tag :tr, :class => 'form_result btn-disclosure', :id => "form_result_#{form_result.id}", :"data-id" => form_result.id, :"data-target" => 'values-' + form_result.id  do
+  %td.date
+    = form_result.created_at
+  %td.form_name
+    = form_result.form_name
+  %td.values
+    .form_values-container{ id: 'values-' + form_result.id }
+      %table.form_values
+        - form_result.serialized_form_values.each do |form_value|
+          %tr
+            %td.key
+              = form_value[0]
+            %td.value{width: '100%'}
+              - if form_value[1].blank?
+                <em>empty</em>
+              - else
+                = form_value[1]
+  %td.actions
+    =# link_to "Edit", edit_admin_form_result_path(form_result), remote: true, :class => "small black edit button"
+    = link_to "Delete", admin_form_result_path(form_result), :remote => true, :method => :delete, :class => "small red delete button", :confirm => "Are you sure you want to delete this form result?"

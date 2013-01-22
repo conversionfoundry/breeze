@@ -5,17 +5,23 @@ module Breeze
     class AssetsController < AdminController
       def index
         @folder = params[:folder] || "/"
-        @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
+        @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :created_at, :asc ]])
         @asset = Breeze::Content::Asset.new
       end
     
       def create  
-        folder = params[:content_asset][:folder].sub(/\/$/, '') # Remove trailing / if present
+        folder = params[:content_asset][:folder]
+        folder = folder.sub(/\/$/, '') unless folder == "/" # Remove trailing / if present
         params[:content_asset][:file].each do |file_param|
-          @asset = Breeze::Content::Asset.create file: file_param, folder: folder
+          if file_param.content_type.start_with? 'image/'
+            @asset = Breeze::Content::Image.create file: file_param, folder: folder
+          else
+            @asset = Breeze::Content::Asset.create file: file_param, folder: folder
+          end
           @asset.save
         end
         respond_to do |format|
+          format.js
           format.html { render :partial => "breeze/admin/assets/#{@asset.class.name.demodulize.underscore}", :object => @asset, :layout => false }
           format.json { render json: { filename: @asset.file_filename, width: nil, height: nil, title: @asset.basename, id: @asset.id.to_s } }
         end

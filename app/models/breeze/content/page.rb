@@ -36,6 +36,7 @@ module Breeze
       def self.[](permalink)
         where(permalink: permalink).first
       end
+
     end
   end
 end

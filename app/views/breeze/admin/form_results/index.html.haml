@@ -1,0 +1,7 @@
+- content_for :title, "Form Results"
+= pane_layout do |panes|
+  = panes.inner do
+    = scrollable_layout do
+      %h1 Form Results
+      .box
+        = render :partial => "breeze/admin/form_results/form_results", :object => @form_results
