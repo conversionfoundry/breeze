@@ -1,11 +1,12 @@
 class Breeze::SitemapController < ActionController::Base
   
+  helper :sitemap
+
   def index
-    flow = Breeze::Sitemap.new(request.format).evaluate
-    # respond_to do |format|
-    #   format.html
-    #   format.xml { render: flow }
-    # end
+    respond_to do |format|
+      format.html
+      # format.xml { Sitemap.new } # Use Sitemap class for this. 
+    end
   end
 
 end
