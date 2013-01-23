@@ -15,6 +15,11 @@
           <%= render :partial => "breeze/admin/pages/page", :collection => pages.select(&:root?) %>
         <% end %>
       <% end %>
+      
+      <div class="actions">
+        <%= link_to "New page", new_admin_page_path, :class => "large new page button" %>
+      </div>
+
     <% end %>
   <% end %>
 <% end %>

@@ -7,7 +7,7 @@ module Breeze
 
       layout :determine_layout
       
-      helper AdminHelper, LayoutsHelper, ThemesHelper, PagesHelper
+      helper AdminHelper, LayoutsHelper, ThemesHelper, PagesHelper, AssetsHelper
       helper_method :current_user, :signed_in?
     
       def current_user

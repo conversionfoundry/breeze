@@ -1,8 +1,9 @@
 $(document).ready ->
   if $('#left #pages').length > 0 # i.e. if we're on admin/pages
     $("#left #pages").jstree
-      core : {  },
-      plugins : [ "ui", "dnd", "html_data", "contextmenu" ],
+      core : 
+        initially_open : [ $('#left #pages ul:first-child li')[0].id ]
+      plugins : [ "ui", "dnd", "html_data", "contextmenu" ]
       ui:
         select_limit: 1
         dots: false
@@ -45,76 +46,21 @@ $(document).ready ->
             visible: (node, tree_obj) ->
               return 0  unless node.length is 1
               tree_obj.check "creatable", node
-
             action: (node, tree_obj) ->
               parent_id = $(node).attr("id").substring(5)
-              $.get "/admin/pages/new?page[parent_id]=" + parent_id, (data) ->
-                $("<div></div>").html(data).dialog
-                  title: "New page"
-                  modal: true
-                  resizable: false
-                  width: 480
-                  buttons:
-                    Cancel: ->
-                      $(this).dialog "close"
-
-                    OK: ->
-                      $("#new_page:visible").trigger "submit"
-
-                  close: ->
-                    $(this).remove()
+              open_new_page_dialog(parent_id)
           remove:
             action: (node, tree_obj) ->
-              $("<p>Really delete this page (and all its sub-pages)? There is no undo!</p>").dialog
-                title: "Confirm delete"
-                modal: true
-                resizable: false
-                buttons:
-                  Delete: ->
-                    id = $(node).attr("id").substring("5")
-                    $(this).dialog "close"
-                    close_tab id
-                    $.ajax
-                      url: "/admin/pages/" + id + ".js"
-                      type: "post"
-                      dataType: "script"
-                      data: "_method=delete"
-
-                    $.each node, ->
-                      tree_obj.remove this
-
-
-                  Cancel: ->
-                    $(this).dialog "close"
-
-                close: ->
-                  $(this).remove()
-
+              delete_page_dialog()
           duplicate:
             label: "Duplicate"
             icon: "duplicate_page"
             visible: (node, tree_obj) ->
               node.length is 1 and $(node).attr("rel") isnt "root"
-
             action: (node, tree_obj) ->
-              id = $(node).attr("id").substring(5)
-              $.ajax
-                url: "/admin/pages/" + id + "/duplicate.js"
-                type: "post"
-                dataType: "script"
-
-
-    $("#left #pages a").live "click", (e) ->
-      a = $(this)
-      id = $(this).parent('li').attr("id").substring(5)
-      url = "/admin/pages/" + id + "/edit"
-      open_tab id, url,
-        close: true
-        title: $(a).attr("title")
-        success: (tab, pane) ->
+              duplicate_page_dialog()
 
     $("#left #pages").on "move_node.jstree", (e, data) ->
-      console.log data
       moved_node = data.rslt.o
       referenced_node = data.rslt.r
       move_type = data.rslt.p
@@ -123,6 +69,77 @@ $(document).ready ->
         type: "post"
         dataType: "script"
         data: "_method=put&ref=" + referenced_node.attr("id").substring(5) + "&type=" + move_type
+
+    $("#left #pages a").live "click", (e) ->
+      a = $(this)
+      id = $(this).parent('li').attr("id").substring(5)
+      url = "/admin/pages/" + id + "/edit"
+      open_tab id, url,
+        close: true
+        title: $(a).attr("title")
+        success: (tab, pane) ->  
+
+$(".new.page.button").live "click", (e) ->
+  if $('#pages li a.jstree-clicked').length > 0
+    parent_id = $('#pages li a.jstree-clicked').closest('li').attr('id').substring(5)
+  else
+    parent_id = $('#pages ul:first-child li')[0].id.substr(5)
+  open_new_page_dialog(parent_id)
+  false
+
+open_new_page_dialog = (parent_id) ->
+  $.get "/admin/pages/new?page[parent_id]=" + parent_id, (data) ->
+    $("<div></div>").html(data).dialog
+      title: "New page"
+      modal: true
+      resizable: false
+      width: 480
+      show: "fade",
+      buttons:
+        Cancel: ->
+          $(this).dialog "close"
+        OK: ->
+          $("#new_page:visible").trigger "submit"
+      close: ->
+        $(this).remove()
+
+$("#new_page #page_title").live "input", ->
+  slug_field = $("#page_slug", $(this).closest("form"))
+  slug_field.val $(this).val().toLowerCase().replace(/[^a-z0-9\-\_]+/g, "-").replace(/(^\-+|\-+$)/g, "")  if slug_field.length > 0 and not slug_field[0].modified
+
+$("#new_page #page_slug").live "input", ->
+  @modified = true
+
+
+delete_page_dialog = () ->
+  $("<p>Really delete this page (and all its sub-pages)? There is no undo!</p>").dialog
+    title: "Confirm delete"
+    modal: true
+    resizable: false
+    show: "fade",
+    buttons:
+      Delete: ->
+        id = $(node).attr("id").substring("5")
+        $(this).dialog "close"
+        close_tab id
+        $.ajax
+          url: "/admin/pages/" + id + ".js"
+          type: "post"
+          dataType: "script"
+          data: "_method=delete"
+        $.each node, ->
+          tree_obj.remove this
+      Cancel: ->
+        $(this).dialog "close"
+    close: ->
+      $(this).remove()
+
+duplicate_page_dialog = () ->
+  id = $(node).attr("id").substring(5)
+  $.ajax
+    url: "/admin/pages/" + id + "/duplicate.js"
+    type: "post"
+    dataType: "script"
 
     # $("#left #pages").tree
     #   ui:
@@ -248,12 +265,3 @@ $(document).ready ->
 
     #     $.each @__selected_nodes, (i, e) ->
     #       self.select_branch $("#" + e), true
-
-
-    $("#new_page #page_title").live "input", ->
-      slug_field = $("#page_slug", $(this).closest("form"))
-      slug_field.val $(this).val().toLowerCase().replace(/[^a-z0-9\-\_]+/g, "-").replace(/(^\-+|\-+$)/g, "")  if slug_field.length > 0 and not slug_field[0].modified
-
-    $("#new_page #page_slug").live "input", ->
-      @modified = true
-

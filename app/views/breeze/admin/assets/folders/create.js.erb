@@ -1,0 +1,8 @@
+<% if @folder %>
+  $('#new_asset_folder').closest('.ui-dialog-content').dialog('close');
+  $('#new_asset_folder').closest('.ui-dialog').remove();
+  $('#left #folders').jstree("create_node", $('#left #folders li#<%= @parent_escaped %>'), 'inside', {attr: {class: 'folder', id: '<%= @folder_escaped %>', rel: 'folder'}, data: "<%= File.basename(@folder) %>"}, false, false);
+  $('#left #folders li#<%= @folder_escaped %> a').click()
+<% else %>
+  $('#new_asset_folder').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/assets/folders/new") %>');
+<% end %>

@@ -11,6 +11,17 @@ module Breeze
         content_class << 'hidden' unless page.show_in_navigation?
         content_tag :li, contents.html_safe, :class => content_class.compact.join(" "), :id => "page_#{page.id}", :rel => (page.root? ? :root : :page)
       end
+
+      def options_for_page_select
+        page_tree_array(Breeze::Content::NavigationItem.root.first, [])
+      end
+
+      def page_tree_array(page, page_array)
+        page_array << [("&nbsp;&nbsp;&nbsp;&nbsp;" * (page.self_and_ancestors.count - 1) + page.title).html_safe, page.id ]
+        page.children.sort_by{|p| p.position}.each {|p| page_tree_array(p, page_array)}
+        page_array
+      end
+
     end
   end
 end
