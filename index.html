@@ -98,16 +98,9 @@ You can see who's been working on Breeze recently at our <a href="https://github
     <pre><code>rails generate mongoid:config</code></pre>
   </li>
   <li>
-    Add the following to the bottom of <em>config/routes.rb</em>:
-    <pre><code>mount Breeze::Engine, :at => '/'</code></pre>
-  </li>
-  <li>
     Run the generator to create an intial page and admin user account:
     <pre><code>rails generate breeze:install</code></pre>
-  </li>
-  <li>
-    Remove the Rails default static page:
-    <pre><code>rm public/index.html</code></pre>
+    This will set up routes for Breeze, remove the static Rails index.html apge, create an initial admin user, set up a theme, and create a home page with some basic content.
   </li>
   <li>
     Start your server, and visit localhost:3000. You should see the home page.
