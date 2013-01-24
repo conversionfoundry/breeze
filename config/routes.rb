@@ -88,5 +88,6 @@ Breeze::Engine.routes.draw do
   # match "stylesheets/*path", :to => "stylesheets#show", :format => false
   root :to => "contents#show"
   #match "breeze/*path", :to => "static_files#serve"
+  get "/sitemap" => "sitemap#index"
   match "*path" => "contents#show", :format => false
 end
