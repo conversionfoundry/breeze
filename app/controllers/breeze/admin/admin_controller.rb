@@ -21,7 +21,7 @@ module Breeze
     protected
     
       def determine_layout
-        request.xhr? ? false : "breeze"
+        request.xhr? ? false : "admin"
       end
       
       def after_sign_in_path_for(resource)

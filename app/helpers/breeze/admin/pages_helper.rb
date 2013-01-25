@@ -8,7 +8,7 @@ module Breeze
         if page.children.any?
           content_class << page.root? ? 'open' : 'closed'
         end
-        content_class << 'hidden' unless page.show_in_navigation?
+        content_class << 'hidden_from_navigation' unless page.show_in_navigation?
         content_tag :li, contents.html_safe, :class => content_class.compact.join(" "), :id => "page_#{page.id}", :rel => (page.root? ? :root : :page)
       end
 

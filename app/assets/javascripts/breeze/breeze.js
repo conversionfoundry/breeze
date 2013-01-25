@@ -13,6 +13,7 @@
 //= require jstree/jquery.jstree
 //= require marquess/marquess
 //= require jquery.masonry.min
+//= require bootstrap
 //
 //Breeze JavaScript
 //= require ./breeze_admin
