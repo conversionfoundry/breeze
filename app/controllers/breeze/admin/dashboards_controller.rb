@@ -10,7 +10,7 @@ module Breeze
         @dashboard_panels = []
         @dashboard_panels = Breeze.run_hook :dashboard_panels, @dashboard_panels, current_user
         @dashboard_panels << { partial: "breeze/admin/dashboard_panels/log_messages" }
-        @dashboard_panels << { partial: "breeze/admin/dashboard_panels/component_info", locals: {component_info: component_info} }
+        @dashboard_panels << { partial: "breeze/admin/dashboard_panels/system_info", locals: {component_info: component_info} }
 				
 
       end
