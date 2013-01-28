@@ -23,6 +23,11 @@
           <%= render :partial => "breeze/admin/assets/folder", :object => "/" %>
         <% end %>
       <% end %>
+
+      <div class="actions">
+        <%= link_to "New folder", new_admin_assets_folder_path, :class => "large new asset_folder button" %>
+      </div>
+
     <% end %>
   <% end %>
 <% end %>

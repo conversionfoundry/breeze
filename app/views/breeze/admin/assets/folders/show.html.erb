@@ -1,2 +1,9 @@
 <h1>Files in <tt><%= File.join("/assets", @folder).sub(/\/$/, "") %></tt></h1>
-<%= render :partial => "breeze/admin/assets/assets", :locals => { :assets => @assets, :folder => @folder } %>
+<% if @assets.any? %>
+	<%= render :partial => "breeze/admin/assets/assets", :locals => { :assets => @assets, :folder => @folder } %>
+<% else %>
+	This folder is empty.
+	<div class="actions">
+		<%= link_to "Delete folder", admin_assets_folder_path, method: :delete, remote: true, class: "large delete asset_folder button" %>
+	</div>
+<% end %>

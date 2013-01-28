@@ -35,9 +35,9 @@ module Breeze
         end
 
         # Create placeholder custom type
-        unless Breeze::Content::Custom::Type.where(name: 'Placeholder').any?
+        unless Breeze::Content::Custom::Type.where(name: 'Content Placeholder').any?
           log "", "Creating placeholder custom type..."
-          placeholder = Breeze::Content::Custom::Type.create! name: 'Placeholder'
+          placeholder = Breeze::Content::Custom::Type.create! name: 'Content Placeholder'
           placeholder.custom_fields.build({ name: 'placeholder_content', label: 'Content', position: 0, _type: 'Breeze::Content::Custom::TextField'})
           placeholder.save
         end
