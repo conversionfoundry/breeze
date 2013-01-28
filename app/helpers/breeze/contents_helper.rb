@@ -129,8 +129,8 @@ module Breeze
         
     # First stab at a Twitter Bootstrap compatible navigation menu
     # Arguments:
-    # :level => [1,2,3] (level one appears on all pages, 2 only on level a pages, 3 on level 2 pages, etc.)
-    # :recurse => [true/false,:active,numeric] (level one appears on all pages, 2 only on level a pages, 3 on level 2 pages, etc.)
+    # :level => [1,2,3] (level one appears on all pages, 2 only on level 1 pages, 3 on level 2 pages, etc.)
+    # :recurse => [true/false,:active,numeric]
     # :home => [true/false] (include or exclude the home link)
     def bootstrap_nav(*args, &block)
       levels = { :primary => 1, :secondary => 2, :tertiary => 3 }
@@ -147,9 +147,8 @@ module Breeze
 
         page = current_page # TODO: Can't call page within tap, so we've passed it as a variable. Can we do this better?
 
-        # Opening HTML for Twitter Bootstrap Navigation
         if level == 1
-          str << '<ul class="nav">'
+          str << '<ul class="nav ' + options[:class].to_s + '">'
         else
           str << '<ul class="dropdown-menu">'
         end

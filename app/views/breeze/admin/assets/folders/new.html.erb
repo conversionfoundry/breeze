@@ -1,0 +1,6 @@
+<%= form_tag admin_assets_folders_path, id: "new_asset_folder", remote: true do |form| %>
+  <fieldset>
+    <%= select_tag :parent_folder, options_for_asset_folder_select(@parent_folder).html_safe %>
+    <%= text_field_tag :folder_name %>
+  </fieldset>
+<% end %>

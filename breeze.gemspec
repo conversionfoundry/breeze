@@ -41,4 +41,5 @@ Gem::Specification.new do |s|
   s.add_dependency "haml", "3.1.7"
   s.add_dependency "coffee-script"
   s.add_dependency "jquery-fileupload-rails"
+  s.add_dependency "twitter-bootstrap-rails"
 end

@@ -38,7 +38,8 @@ $(document).ready ->
     show_or_hide_asset_section_headings()
 
     $("#left #folders").jstree
-      core : {  },
+      core : 
+        initially_open : [ $('#left #folders ul:first-child li')[0].id ]
       plugins : [ "crrm", "ui", "html_data", "contextmenu" ],
       ui:
         select_limit: 1
@@ -48,29 +49,20 @@ $(document).ready ->
       contextmenu:
         items:
           ccp: false
-          create: false
-            # label: "New folder…"
-            # icon: "add_page"
-            # action: (node, tree_obj) ->
-            #   console.log node
-            #   console.log tree_obj
+          create:
+            label: "New folder…"
+            icon: "add_folder"
+            action: (node, tree_obj) ->
+              parent_folder = $(node).data("folder")
+              open_new_folder_dialog(parent_folder)
           rename: false
             # action: (node) ->
             #   $("#left #folders").jstree("rename",node)
-          remove: false
-            # action: (node) ->
-            #   message = $(this).attr("data-confirm") or "Are you sure you want to delete this?"
-            #   $("<p>" + message + "</p>").dialog
-            #     modal: true
-            #     resizable: false
-            #     buttons:
-            #       Delete: ->
-            #         $(this).dialog "close"
-            #         $.each node, ->
-            #           $("#left #folders").jstree("remove", node)
-            #       Cancel: ->
-            #         $(this).dialog "close"
-            #     title: "Confirm delete"
+          remove:
+            action: (node, tree_obj) ->
+              folder = encodeURIComponent( $(node).data("folder") )
+              delete_asset_folder_dialog(folder)
+              # tree_obj.remove node
       types:
         default:
           deletable: true
@@ -106,7 +98,7 @@ $("#left #folders a").live "click", (e) ->
   a = $(this)
   url = $(a).attr("href")
   unless url is ""
-    folder = $(a).closest('li').attr('data-folder');
+    folder = $(a).closest('li').id;
     $('.file_upload #content_asset_folder').val(folder) # Tell the upload form which folder to use
     $('#assets')
       .fadeTo('normal', 0.5)
@@ -115,6 +107,47 @@ $("#left #folders a").live "click", (e) ->
         $(this).fadeTo('normal', 1.0)
         # $('.asset', this).makeDraggable()
 
+$(".new.asset_folder.button").live "click", (e) ->
+  if $('#folders li a.jstree-clicked').length > 0
+    parent_folder = $('#pages li a.jstree-clicked').closest('li').id
+  else
+    parent_folder = $('#pages ul:first-child li')[0].id
+  open_new_folder_dialog(parent_folder)
+  false
+
+open_new_folder_dialog = (parent_folder) ->
+  $.get "/admin/assets/folders/new?folder[parent_folder]=" + parent_folder, (data) ->
+    $("<div></div>").html(data).dialog
+      title: "New asset folder"
+      modal: true
+      resizable: false
+      width: 480
+      show: "fade",
+      buttons:
+        Cancel: ->
+          $(this).dialog "close"
+        OK: ->
+          $("#new_asset_folder:visible").trigger "submit"
+      close: ->
+        $(this).remove()
+
+delete_asset_folder_dialog = (folder) ->
+  message = $(this).attr("data-confirm") or "Are you sure you want to delete this folder?"
+  $("<p>" + message + "</p>").dialog
+    modal: true
+    resizable: false
+    show: "fade"
+    buttons:
+      Delete: ->
+        $(this).dialog "close"
+        $.ajax
+          url: "/admin/assets/folders/" + folder + ".js"
+          type: "post"
+          dataType: "script"
+          data: "_method=delete"
+      Cancel: ->
+        $(this).dialog "close"
+    title: "Confirm delete"
 
 # remove_file = (url) ->
 #   $.ajax

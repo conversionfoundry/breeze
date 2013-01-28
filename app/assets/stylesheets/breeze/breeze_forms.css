@@ -8,7 +8,7 @@
 .breeze-form fieldset { }
 .breeze-form fieldset.inputs { }
 .breeze-form fieldset.buttons { padding-left:25%; }
-.breeze-form fieldset ol { padding: 0px; }
+.breeze-form fieldset ol { padding: 0px; margin: 0; }
 .breeze-form fieldset.buttons li { float:left; padding-right:0.5em; }
 
 /* clearfixing the fieldsets */
@@ -139,7 +139,7 @@ html[xmlns] .breeze-form fieldset ol li.hidden { display:none; }
 
 .breeze-form fieldset {
   border: none;
-  padding-top: 8px;
+  padding: 1em;
 }
 
 .breeze-form fieldset legend {
