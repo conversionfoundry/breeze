@@ -7,7 +7,7 @@ class Breeze::Breadcrumb < ActionView::Base
   end
 
   def generate
-    return @page.title if @page.parent.nil?
+    return nil if @page.parent.nil?
     ancestry = @page.parent.self_and_ancestors
     ancestor_links(ancestry)
   end
