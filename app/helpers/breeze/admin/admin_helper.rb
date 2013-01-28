@@ -80,7 +80,7 @@ module Breeze
         component_info.sort { |a, b| a[:name] <=> b[:name] }
       end
     
-      # Absurd code by Matt. This produces two methods: breeze_form_for and breeze_field_for
+      # This produces two methods: breeze_form_for and breeze_field_for
       [:form_for, :fields_for].each do |meth|
         src = <<-END_SRC
           def breeze_#{meth}(record_or_name_or_array, *args, &proc)
