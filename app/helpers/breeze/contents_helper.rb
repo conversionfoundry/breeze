@@ -96,6 +96,7 @@ module Breeze
                 # classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
+                classes << "parent"  if p.children.select(&:show_in_navigation?).any?
                 classes << p.class.name.demodulize.downcase
               end.join(" ")
             end
@@ -198,6 +199,7 @@ module Breeze
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
+                classes << "parent"  if p.children.select(&:show_in_navigation?).any?
               end.join(" ")
             end
             
