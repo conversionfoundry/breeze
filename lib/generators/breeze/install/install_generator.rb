@@ -9,6 +9,15 @@ module Breeze
 
       def install_breeze
 
+        # Add to config/routes
+        log "", "Mounting Breeze engine in config/routes"
+        route("mount Breeze::Engine, :at => '/'")
+
+        if File.exist?(Rails.root.to_s + '/public/index.html')
+          log "", "Removing Rails default static index.html file"
+          File.delete(Rails.root.to_s + '/public/index.html')
+        end
+
         # Create a theme with the same name as the app
         theme_name = File.basename(Rails.root)
         log "", "Creating directories for " + theme_name + " theme..."
