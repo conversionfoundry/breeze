@@ -1,0 +1,14 @@
+#system_info.box.col3
+  %h2 System Information
+  %h3 Content Database
+  Using database
+  %em
+    = Mongoid.default_session.options[:database]
+  with
+  = at_a_glance Breeze::Content::Item.count, ' item'.pluralize(Breeze::Content::Item.count)
+
+  %h3 Breeze Components
+  %ul.components
+    - component_info.each do |component|
+      %li
+        = component[:name] + ': ' + component[:version]

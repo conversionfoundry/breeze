@@ -7,7 +7,7 @@ module Breeze
 
       layout :determine_layout
       
-      helper AdminHelper, LayoutsHelper, ThemesHelper, PagesHelper
+      helper AdminHelper, LayoutsHelper, ThemesHelper, PagesHelper, AssetsHelper
       helper_method :current_user, :signed_in?
     
       def current_user
@@ -21,7 +21,7 @@ module Breeze
     protected
     
       def determine_layout
-        request.xhr? ? false : "breeze"
+        request.xhr? ? false : "admin"
       end
       
       def after_sign_in_path_for(resource)

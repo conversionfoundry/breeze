@@ -8,7 +8,6 @@ module Breeze
         end
         
         def show
-          # binding.pry
           path = if params[:path].present?
             Array(params[:path]).reject(&:blank?).join("/")
           elsif params[:id].present?
@@ -19,12 +18,18 @@ module Breeze
           @folder = File.join "/", path
           @assets = Breeze::Content::Asset.where({ :folder => @folder }).order_by([[ :file, :asc ]])
         end
-        
+
+        def new
+          @parent_folder = params[:folder][:parent_folder]
+        end
+
         def create
           @folder = (params[:folder_name] || "new").sub(%r{^/+}, "")
           @parent = params[:parent_folder] || "/"
           @folder = File.join @parent, @folder
           FileUtils.mkdir_p File.join(Breeze::Content::Asset.root, @folder)
+          @folder_escaped = @folder.gsub('/', '\\\/')
+          @parent_escaped = @parent.gsub('/', '\\\\\\/')
         end
         
         def update
@@ -45,9 +50,19 @@ module Breeze
         
         def destroy
           @folder = File.join "/", (params[:id] || "/")
-          Breeze::Content::Asset.where({ :folder => /^#{@folder}(\/.*)?$/ }).each(&:destroy)
-          FileUtils.rm_r File.join(Breeze::Content::Asset.root, @folder)
+          # Breeze::Content::Asset.where({ :folder => /^#{@folder}(\/.*)?$/ }).each(&:destroy)
+          unless Breeze::Content::Asset.where({ :folder => /^#{@folder}(\/.*)?$/ }).any?
+            FileUtils.rm_r File.join(Breeze::Content::Asset.root, @folder)
+          end
+          @folder_escaped = @folder.gsub('/', '\\\\\\/')
         end
+
+      protected
+        def folders
+          @folders ||= Breeze::Content::Asset.folders
+        end
+        helper_method :folders
+
       end
     end
   end
