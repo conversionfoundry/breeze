@@ -32,6 +32,17 @@
               %td= form.text_field :targetlink
               %td= form.select :kind, Breeze::Content::Redirect::KINDS.to_a.map { |k, v| [ "#{v} (#{k})", k ] }
               %td= form.submit "Add", :class => "add button"
+
+  - tabs.robots do
+    = form_tag admin_settings_path, :method => :put, :remote => true, :class => :editor do
+      = scrollable_layout do
+        %h1 Robots.txt
+        .editor_container
+          = text_area_tag "robots_txt[contents]", @robots_txt
+      = fake_right_sidebar do
+        = submit_tag "Save", :class => "large green save button"
+      
+
 - content_for :right do
   = pane_layout do |right|
     - right.header do

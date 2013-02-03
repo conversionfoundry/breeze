@@ -1,0 +1,5 @@
+$('#tab_robots').each(function() {
+  $.flashMessage('File saved.', { auto: true });
+  $(this).find('.overlay').fadeOut(function() { $(this).remove(); });
+  $('textarea', this).eq(0).each(function() { this.focus(); });
+});
