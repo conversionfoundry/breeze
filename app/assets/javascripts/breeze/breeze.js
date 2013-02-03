@@ -6,6 +6,7 @@
 // Other third-party gems
 //= require jquery-fileupload/basic
 //= require twitter/bootstrap
+//= require masonry/jquery.masonry
 //
 //Third-party plugins located in vendor/javascripts
 //= require codemirror/js/codemirror
@@ -13,7 +14,6 @@
 //= require jcrop/js/jquery.Jcrop.min
 //= require jstree/jquery.jstree
 //= require marquess/marquess
-//= require jquery.masonry.min
 //
 //Breeze JavaScript
 //= require ./breeze_admin

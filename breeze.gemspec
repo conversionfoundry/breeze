@@ -42,4 +42,5 @@ Gem::Specification.new do |s|
   s.add_dependency "coffee-script"
   s.add_dependency "jquery-fileupload-rails"
   s.add_dependency "twitter-bootstrap-rails"
+  s.add_dependency "masonry-rails"
 end

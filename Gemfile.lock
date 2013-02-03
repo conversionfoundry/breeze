@@ -12,6 +12,7 @@ PATH
       jquery-fileupload-rails
       jquery-rails
       jquery-rails (~> 2.1.2)
+      masonry-rails
       mongoid (~> 3.0.5)
       mongoid_fulltext (~> 0.6.0)
       rails (~> 3.2.0)
@@ -133,6 +134,8 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    masonry-rails (0.1.8)
+      rails
     metaclass (0.0.1)
     method_source (0.8.1)
     mime-types (1.19)
@@ -185,7 +188,7 @@ GEM
     rdiscount (1.6.8)
     rdoc (3.12)
       json (~> 1.4)
-    rmagick (2.13.1)
+    rmagick (2.13.2)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
