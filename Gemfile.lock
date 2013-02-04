@@ -9,16 +9,17 @@ PATH
       devise (~> 2.0.4)
       execjs (~> 1.4.0)
       haml (= 3.1.7)
-      jquery-fileupload-rails
+      jquery-fileupload-rails (~> 0.4.0)
       jquery-rails
       jquery-rails (~> 2.1.2)
+      masonry-rails (~> 0.1.8)
       mongoid (~> 3.0.5)
       mongoid_fulltext (~> 0.6.0)
       rails (~> 3.2.0)
       rdiscount (~> 1.6.8)
       rmagick (~> 2.13.1)
       therubyracer (~> 0.10.2)
-      twitter-bootstrap-rails
+      twitter-bootstrap-rails (~> 2.2.0)
       will_paginate (= 3.0.pre4)
 
 GEM
@@ -133,12 +134,14 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    masonry-rails (0.1.8)
+      rails
     metaclass (0.0.1)
     method_source (0.8.1)
     mime-types (1.19)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
-    mongoid (3.0.19)
+    mongoid (3.0.20)
       activemodel (~> 3.1)
       moped (~> 1.2)
       origin (~> 1.0)
@@ -185,7 +188,7 @@ GEM
     rdiscount (1.6.8)
     rdoc (3.12)
       json (~> 1.4)
-    rmagick (2.13.1)
+    rmagick (2.13.2)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)

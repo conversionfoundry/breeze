@@ -93,20 +93,8 @@ $("#left #theme_files a").live "click", (e) ->
       title: title
       success: (tab, pane) =>
         $("textarea", pane).each =>
-          options =
-            height: $(this).height()
-            path: '<%= asset_path "codemirror/js/" %>'
-            stylesheet: ["<%= asset_path 'codemirror/css/xmlcolors.css' %>", "<%= asset_path 'codemirror/css/jscolors.css' %>", "<%= asset_path 'codemirror/css/csscolors.css' %>"]
-          if /\.js$/.test(url)
-            options.parserfile = ["tokenizejavascript.js", "parsejavascript.js"]
-            options.autoMatchParens = true
-          else if /\.css$/.test(url)
-            options.parserfile = ["parsecss.js"]
-            options.autoMatchParens = true
-          else
-            options.parserfile = ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js", "parsehtmlmixed.js"]
           textarea = $('#tab_' + name).children('.editor').children('textarea')
-          editor = CodeMirror.fromTextArea( textarea.get(0), options )
+          editor = CodeMirror.fromTextArea( textarea.get(0) )
 
 remove_file = (url) ->
   $.ajax
