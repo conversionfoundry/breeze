@@ -6,9 +6,10 @@
 // Other third-party gems
 //= require jquery-fileupload/basic
 //= require twitter/bootstrap
+//= require codemirror
+//= require codemirror/modes/ruby
 //
 //Third-party plugins located in vendor/javascripts
-//= require codemirror/js/codemirror
 //= require cookies
 //= require jcrop/js/jquery.Jcrop.min
 //= require jstree/jquery.jstree

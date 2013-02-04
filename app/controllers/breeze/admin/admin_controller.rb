@@ -53,6 +53,13 @@ module Breeze
           render :file => "breeze/errors/ie", :layout => "error" and return false
         end
       end
+
+      def write_file(path, content)
+        content = content.force_encoding("utf-8") if content.respond_to?(:force_encoding)
+        File.open(path, "w") do |f|
+          f.write content
+        end
+      end
     end
   end
 end
