@@ -1,5 +1,6 @@
 /*
  *= require twitter-bootstrap-static/bootstrap
+//= require codemirror
  *= require ./ui-theme
  *= require /javascripts/marquess/marquess
  *= require ./breeze_admin

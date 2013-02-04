@@ -43,4 +43,5 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-fileupload-rails", "~> 0.4.0"
   s.add_dependency "twitter-bootstrap-rails", "~> 2.2.0"
   s.add_dependency "masonry-rails", "~> 0.1.8"
+  s.add_dependency "codemirror-rails", "~> 3.0.0"
 end
