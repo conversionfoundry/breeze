@@ -6,6 +6,7 @@
 // Other third-party gems
 //= require jquery-fileupload/basic
 //= require twitter/bootstrap
+//= require masonry/jquery.masonry
 //= require codemirror
 //= require codemirror/modes/ruby
 //
@@ -14,7 +15,6 @@
 //= require jcrop/js/jquery.Jcrop.min
 //= require jstree/jquery.jstree
 //= require marquess/marquess
-//= require jquery.masonry.min
 //
 //Breeze JavaScript
 //= require ./breeze_admin
