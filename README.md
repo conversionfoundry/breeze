@@ -15,7 +15,7 @@ Some key principles for Breeze are:
 
 Add to your Gemfile
 
-`gem "breeze", '1.0.0', :git => "git@github.com:leftclick/breeze.git", :branch => "master"	`
+`gem "breeze", '1.0.0', :git => "git@github.com:leftclick/breeze.git", :branch => "1.0.x"	`
 
 Add to your config/routes.rb
 
