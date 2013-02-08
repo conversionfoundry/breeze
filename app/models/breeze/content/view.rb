@@ -37,7 +37,7 @@ module Breeze
           elsif content.respond_to? converter
             controller.send :render, format => content.send(converter)
           else
-            Rails.logger.info "Could not render as #{format}".red
+            Rails.logger.info "Could not render as #{format}"
             raise Breeze::Errors::NotAcceptable, request
           end
         end

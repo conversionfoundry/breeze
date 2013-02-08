@@ -1,0 +1,506 @@
+/* SEMANTIC ERRORS
+ *--------------------------------------------------------------------------------------------------
+
+.breeze-form
+  ul.errors
+    color: #cc0000
+    margin: 0.5em 0 1.5em 25%
+    list-style: square
+    li
+      padding: 0
+      border: none
+      display: list-item
+  fieldset
+    &.inputs!
+    &.buttons
+      padding-left: 25%
+    ol
+      padding: 0px
+      margin: 0
+    &.buttons li
+      float: left
+      padding-right: 0.5em
+    display: inline-block
+    &:after
+      content: "."
+      display: block
+      height: 0
+      clear: both
+      visibility: hidden
+
+/* FIELDSETS & LISTS
+ *--------------------------------------------------------------------------------------------------
+
+/* clearfixing the fieldsets
+
+html[xmlns] .breeze-form fieldset
+  display: block
+
+* html .breeze-form fieldset
+  height: 1%
+
+/* INPUT LIs
+ *--------------------------------------------------------------------------------------------------
+
+.breeze-form fieldset > ol > li
+  margin-bottom: 8px
+  display: inline-block
+  &:after
+    content: " "
+    display: block
+    height: 0
+    clear: both
+    visibility: hidden
+    overflow: hidden
+    text-indent: -100em
+
+/* clearfixing the li's
+
+html[xmlns] .breeze-form fieldset > ol > li
+  display: block
+
+* html .breeze-form fieldset > ol > li
+  height: 1%
+
+.breeze-form fieldset
+  > ol > li
+    &.required!, &.optional!, &.error!
+    label
+      display: block
+      width: 25%
+      float: left
+      padding-top: .2em
+    > li label
+      line-height: 100%
+      padding-top: 0
+      input
+        line-height: 100%
+        vertical-align: middle
+        margin-top: -0.1em
+    fieldset
+      position: relative
+      legend
+        position: absolute
+        width: 95%
+        padding-top: 0.1em
+        left: 0px
+        span, &.label label
+          position: absolute
+      ol
+        float: left
+        width: 74%
+        margin: 0
+        padding: 0 0 0 25%
+        li
+          padding: 0
+          border: 0
+  &.collapsible
+    legend
+      cursor: pointer
+      i.icon
+        background: url(image-path("tree_icons.png")) no-repeat
+        background-position: -54px -72px
+        width: 20px
+        height: 20px
+        display: inline-block
+        vertical-align: middle
+    &.collapsed legend
+      i.icon
+        background-position: -72px -54px
+  > ol > li
+    p
+      &.inline-hints
+        color: #666
+        margin: 0.5em 0 0 25%
+      &.inline-errors
+        color: #e33100
+        margin: 0.5em 0 0 25%
+    ul.errors
+      color: #cc0000
+      margin: 0.5em 0 0 25%
+      list-style: square
+      li
+        padding: 0
+        border: none
+        display: list-item
+    &.text_field input
+      max-width: 74%
+    &.password input
+      max-width: 13em
+    &.numeric input
+      max-width: 74%
+    &.text textarea
+      width: 74%
+  ol li.hidden
+    display: none
+
+/* LABELS
+ *--------------------------------------------------------------------------------------------------
+
+/* NESTED FIELDSETS AND LEGENDS (radio, check boxes and date/time inputs use nested fieldsets)
+ *--------------------------------------------------------------------------------------------------
+
+/* INLINE HINTS
+ *--------------------------------------------------------------------------------------------------
+
+/* INLINE ERRORS
+ *--------------------------------------------------------------------------------------------------
+
+/* STRING & NUMERIC OVERRIDES
+ *--------------------------------------------------------------------------------------------------
+
+/* TEXTAREA OVERRIDES
+ *--------------------------------------------------------------------------------------------------
+
+/* HIDDEN OVERRIDES
+ *The dual declarations are required because of our clearfix display hack on the LIs, which is more
+ *specific than the more general rule below. TODO: Revist the clearing hack and this rule.
+ *--------------------------------------------------------------------------------------------------
+
+html[xmlns] .breeze-form fieldset ol li.hidden
+  display: none
+
+/* BOOLEAN OVERRIDES
+ *--------------------------------------------------------------------------------------------------
+
+.breeze-form
+  fieldset
+    > ol > li
+      &.boolean label
+        padding-left: 25%
+        width: auto
+        input
+          margin: 0 0.5em 0 0.2em
+      &.radio fieldset ol, &.check_boxes fieldset ol
+        margin-bottom: -0.6em
+        li
+          margin: 0.1em 0 0.5em 0
+          label
+            float: none
+            width: 100%
+            input
+              margin-right: 0.2em
+      &.date fieldset ol li, &.time fieldset ol li, &.datetime fieldset ol li
+        float: left
+        width: auto
+        margin: 0 .3em 0 0
+      &.date fieldset ol li label, &.time fieldset ol li label, &.datetime fieldset ol li label
+        display: none
+      &.date fieldset ol li label input, &.time fieldset ol li label input, &.datetime fieldset ol li label input
+        display: inline
+        margin: 0
+        padding: 0
+    display: block
+  abbr
+    color: #e33100
+    font-size: 200%
+    line-height: 0.3em
+    font-weight: bold
+    vertical-align: bottom
+    margin-left: 0.25em
+    border: none
+  fieldset > ol > li
+    display: block
+    clear: left
+    label
+      line-height: 125%
+  input, textarea, select
+    font-size: 125%
+  fieldset
+    > ol > li
+      &.text_field input
+        width: 74%
+        &.numeric
+          width: 6em
+      &.check_box
+        padding-left: 25%
+        label
+          float: none
+          display: inline
+        p.inline-hints
+          margin-left: 2em
+    border: none
+    padding: 1em
+    legend
+      font-size: 125%
+      text-transform: uppercase
+      letter-spacing: 0.2em
+      small
+        text-transform: none
+        letter-spacing: normal
+        color: #666
+  .field_with_errors
+    display: inline
+  fieldset
+    > ol > li.text_area
+      label
+        display: block
+        float: none
+        width: 100%
+      textarea
+        font-family: Monaco, monospace !important
+    span.before-field
+      display: inline-block
+      margin: 0
+  .button
+    background: #222222 url(../button-overlay.png) repeat-x
+    display: inline-block
+    padding: 5px 10px 6px
+    color: #fff
+    text-decoration: none
+    border: none
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25)
+    position: relative
+    cursor: pointer
+    &:visited
+      background: #222222 url(../button-overlay.png) repeat-x
+      display: inline-block
+      padding: 5px 10px 6px
+      color: #fff
+      text-decoration: none
+      border: none
+      -moz-border-radius: 5px
+      -webkit-border-radius: 5px
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
+      text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+      border-bottom: 1px solid rgba(0, 0, 0, 0.25)
+      position: relative
+      cursor: pointer
+
+/* RADIO OVERRIDES
+ *--------------------------------------------------------------------------------------------------
+
+/* CHECK BOXES (COLLECTION) OVERRIDES
+ *--------------------------------------------------------------------------------------------------
+
+/* DATE & TIME OVERRIDES
+ *--------------------------------------------------------------------------------------------------
+
+/*}}}
+
+/* Overrides {{{
+
+/*}}}
+
+/* Before, After
+
+/* Buttons {{{
+
+.ui-dialog-content .ui-button-text
+  color: #fff !important
+
+.breeze-form
+  .button
+    &:hover
+      background-color: #111
+      color: #fff
+    &:active
+      top: 1px
+  .small.button
+    font-size: 11px
+    &:visited
+      font-size: 11px
+  .button
+    font-size: 13px
+    font-weight: bold
+    line-height: 1
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+
+.button:visited
+  font-size: 13px
+  font-weight: bold
+  line-height: 1
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+
+.breeze-form
+  .medium.button
+    font-size: 13px
+    font-weight: bold
+    line-height: 1
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+    &:visited
+      font-size: 13px
+      font-weight: bold
+      line-height: 1
+      text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
+  .large.button
+    font-size: 14px
+    font-weight: bold
+    padding: 8px 14px 9px
+    text-transform: uppercase
+    &:visited
+      font-size: 14px
+      font-weight: bold
+      padding: 8px 14px 9px
+      text-transform: uppercase
+  .green.button
+    background-color: #8dc63f
+    &:visited
+      background-color: #8dc63f
+    &:hover
+      background-color: #6a952f
+  .blue.button
+    background-color: #2daebf
+    &:visited
+      background-color: #2daebf
+    &:hover
+      background-color: #007d9a
+  .red.button
+    background-color: #e33100
+    &:visited
+      background-color: #e33100
+    &:hover
+      background-color: #872300
+  .magenta.button
+    background-color: #a9014b
+    &:visited
+      background-color: #a9014b
+    &:hover
+      background-color: #630030
+  .orange.button
+    background-color: #ff5c00
+    &:visited
+      background-color: #ff5c00
+    &:hover
+      background-color: #d45500
+  .yellow.button
+    background-color: #ffb515
+    &:visited
+      background-color: #ffb515
+    &:hover
+      background-color: #fc9200
+  .errors
+    margin: 8px 0px
+    padding: 7px
+    background: rgba(255, 255, 192, 0.75)
+    text-shadow: #ffc 0px 1px
+    border: 1px solid #ffc
+    -webkit-border-radius: 6px
+    -moz-border-radius: 6px
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
+
+/*}}}
+
+/* Errors {{{
+
+#main .breeze-form .errors
+  margin: 8px 8px
+
+.breeze-form .errors
+  h2
+    margin: 0px 0px 8px
+  a
+    color: #e33100
+    font-weight: bold
+    text-decoration: none
+  ul
+    margin: 0px
+    padding: 0px
+    li
+      display: block
+      margin: 0px 0px 8px
+      padding-left: 20px
+      background: url(../images/icons/error.png) no-repeat 0px 0px
+
+/*}}}
+
+/* Image editor {{{
+
+.ui-dialog .image-editor
+  position: absolute
+  left: 0px
+  top: 0px
+  right: 0px
+  bottom: -8px
+  .image-preview
+    position: absolute
+    left: 8px
+    top: 8px
+    right: 232px
+    bottom: 8px
+    overflow: hidden
+    .img
+      position: absolute
+      img
+        position: absolute
+        top: 0px
+        left: 0px
+        bottom: 0px
+        right: 0px
+  form
+    position: absolute
+    right: 0px
+    top: 0px
+    bottom: 0px
+    padding: 0px
+    width: 224px
+    overflow: auto
+    background: #ddd
+    h3
+      margin: 0px 0px 1px
+      background: #aaa
+      color: #222
+      padding: 0px 8px
+      text-transform: uppercase
+      font-weight: normal
+      line-height: 20px
+      vertical-align: middle
+    p
+      padding: 8px
+      margin: 0px
+    ul
+      margin: 0px 8px 8px
+      padding: 0px
+      li
+        display: block
+        list-style: none
+        margin: 0px
+        padding: 0px
+    div.image-name
+      padding-top: 6px
+    .image-name
+      input, textarea
+        width: 188px
+      label
+        display: block
+        margin-top: -8px
+        font-size: 85%
+        letter-spacing: 0.2em
+        text-transform: uppercase
+      p
+        padding: 4px 8px
+    p.dimensions input
+      width: 3em
+      text-align: right
+    .button.preview
+      width: 160px
+      color: white
+      text-align: center
+
+.image-crop-container
+  position: absolute
+  z-index: 2000
+  background: rgba(0, 0, 0, 0.75)
+  padding: 8px
+  -webkit-border-radius: 8px
+  -moz-border-radius: 8px
+  &:after
+    position: absolute
+    left: 50%
+    bottom: -12px
+    width: 0px
+    height: 0px
+    overflow: hidden
+    border-top: 12px solid rgba(0, 0, 0, 0.75)
+    border-right: 12px solid transparent
+    content: "."
+    text-indent: -100em
+    overflow: hidden
+
+/*}}}
