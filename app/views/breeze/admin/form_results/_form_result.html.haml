@@ -16,5 +16,4 @@
               - else
                 = form_value[1]
   %td.actions
-    =# link_to "Edit", edit_admin_form_result_path(form_result), remote: true, :class => "small black edit button"
-    = link_to "Delete", admin_form_result_path(form_result), :remote => true, :method => :delete, :class => "small red delete button", :confirm => "Are you sure you want to delete this form result?"
+    = link_to "Delete", admin_form_result_path(form_result), data: {'form_result_id' => form_result.id.to_s}, :class => "small red delete delete-form_result button"

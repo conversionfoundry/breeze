@@ -10,13 +10,13 @@ module Breeze
       end
     
       def create  
-        folder = params[:content_asset][:folder]
-        folder = folder.sub(/\/$/, '') unless folder == "/" # Remove trailing / if present
+        @folder = params[:content_asset][:folder] || "/"
+        @folder = @folder.sub(/\/$/, '') unless @folder == "/" # Remove trailing / if present
         params[:content_asset][:file].each do |file_param|
           if file_param.content_type.start_with? 'image/'
-            @asset = Breeze::Content::Image.create file: file_param, folder: folder
+            @asset = Breeze::Content::Image.create file: file_param, folder: @folder
           else
-            @asset = Breeze::Content::Asset.create file: file_param, folder: folder
+            @asset = Breeze::Content::Asset.create file: file_param, folder: @folder
           end
           @asset.save
         end

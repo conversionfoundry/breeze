@@ -8,6 +8,6 @@
   <% end %>
   <%= content_tag :div, :class => :links do %>
     <%= link_to "Edit", edit_admin_asset_path(image), :class => :edit, :rel => :edit %>
-    <%= link_to "Delete", admin_asset_path(image), :method => :delete, :remote => true, :class => :delete, :rel => :delete %>
+    <%= link_to "Delete", admin_asset_path(image), data: {asset_id: image.id}, :class => 'delete delete-asset', :rel => :delete %>
   <% end %>
 <% end %>

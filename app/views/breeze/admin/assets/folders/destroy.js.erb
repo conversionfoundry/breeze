@@ -1,3 +1,5 @@
-console.log('<%= @folder_escaped %>');
-$('#left #folders li#<%= @folder_escaped %>').remove();
-$('#left #folders ul:first-child li').click();
+$('#left #folders li#<%= @folder_escaped %>').fadeOut(function() {
+  $(this).remove();
+	$('#assets').html('');
+});
+// $('#left #folders ul:first-child > li:first-child > a').click();

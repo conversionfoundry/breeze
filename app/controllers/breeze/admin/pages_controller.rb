@@ -51,6 +51,9 @@ module Breeze
       def destroy
         @page = Breeze::Content::NavigationItem.find params[:id]
         @page.destroy
+        respond_to do |format|
+          format.js
+        end
       end
       
     protected

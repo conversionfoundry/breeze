@@ -6,7 +6,7 @@
   <%= content_tag :div, :class => :links do %>
     <%= link_to "View", asset.file.url, :class => :view, :rel => :view, :target => :_blank %>
     <%= link_to "Edit", edit_admin_asset_path(asset), :class => :edit, :rel => :edit %>
-    <%= link_to "Delete", admin_asset_path(asset), :method => :delete, :remote => true, :class => :delete, :rel => :delete %>
+    <%= link_to "Delete", admin_asset_path(asset), data: {asset_id: asset.id}, :class => 'delete delete-asset', :rel => :delete %>
   <% end %>
 <% end %>
 <% rescue %>
