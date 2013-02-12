@@ -1,0 +1,73 @@
+<h3><%= title %></h3>
+
+<div class="body_before_form"><%= body_before_form %></div>
+
+<%= breeze_form "Contact Us", class: "contact_form form-horizontal", success_function: "form_completed" do %>
+
+  <fieldset>
+
+    <div class="control-group">
+      <label class="control-label" for="message">Message</label>
+      <div class="controls">
+        <textarea id="message" name="message" placeholder="Tell us how we can help&hellip;"></textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="sender_name">Your Name</label>
+      <div class="controls">
+        <input id="sender_name" name="sender_name" type="text" placeholder="Name">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="sender_email">Email</label>
+      <div class="controls">
+        <input id="sender_email" name="sender_email" type="email" placeholder="yourname@example.com">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="sender_phone">Phone</label>
+      <div class="controls">
+        <input id="sender_phone" name="sender_phone" type="text" placeholder="+61 2 1234 5678">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="sender_contact_preference">I prefer contact by&hellip;</label>
+      <div class="controls">
+        <select id="contact_preference" name="sender_contact_preference">
+          <option value="email">email</option>
+          <option value="phone">phone</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+  </fieldset>
+
+<% end %>
+
+<div class="contact_form_confirmation" style="display: none;">
+  <%= confirmation_message || "Thanks for your message. We'll be in touch." %>
+  <div class="form-actions">
+    <button class="btn btn-another">Send another message</button>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  function form_completed() {
+    $('.contact_form').slideUp();
+    $('.contact_form_confirmation').slideDown();
+  }
+  $('.btn-another').live('click', function() {
+    $('.contact_form_confirmation').slideUp(); 
+    $('.contact_form').slideDown();
+  });
+</script>
+
+<div class="body_after_form"><%= body_after_form %></div>

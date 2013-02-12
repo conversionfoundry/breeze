@@ -1,5 +1,5 @@
 <% if system_folder? @path %>
-  <%= render :partial => @path[1..-1] %>
+  <%= render partial: "breeze/admin/themes/folders/" + @path[1..-1] %>
 <% else %>
   <%= folder_description do %>
     <h1><%= content_tag :code, @path %></h1>
