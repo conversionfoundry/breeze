@@ -14,7 +14,9 @@ describe "Permalink" do
 
   let(:taken_slugs) { %w(children children-2 children-3) }
 
-  it { should be_valid }
+  describe "Factory" do
+    it { should be_valid }
+  end
 
   describe '#fill_in_slug' do
     it "fills the slug" do

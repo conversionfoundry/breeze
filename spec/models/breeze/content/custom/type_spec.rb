@@ -6,7 +6,9 @@ describe Breeze::Content::Custom::Type do
   let(:custom_field_2) { Fabricate.build :custom_field }
 
   describe 'validations' do
-    it { should be_valid }
+    context "Factory" do
+      it { should be_valid }
+    end
 
     # it { should validate_presence_of :type_name }
     # it { should validate_uniqueness_of :type_name }
