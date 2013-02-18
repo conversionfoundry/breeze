@@ -5,11 +5,8 @@ module Breeze
     class ThemeGenerator < Rails::Generators::NamedBase
       def create_theme
         in_root do
-          run extify("mkdir -p ./vendor/themes/#{name}/images")
-          run extify("mkdir -p ./vendor/themes/#{name}/javascripts")
-          run extify("mkdir -p ./vendor/themes/#{name}/layouts")
-          run extify("mkdir -p ./vendor/themes/#{name}/partials")
-          run extify("mkdir -p ./vendor/themes/#{name}/stylesheets")
+          FileUtils.cp_r Breeze::Engine.root.to_s + "/vendor/themes/template", Rails.root.to_s + "/vendor/themes/"
+          FileUtils.mv Rails.root.to_s + "/vendor/themes/template", Rails.root.to_s + "/vendor/themes/#{name}"
         end
       end
     end
