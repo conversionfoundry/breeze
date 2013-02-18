@@ -11,7 +11,6 @@ PATH
       execjs (~> 1.4.0)
       haml (= 3.1.7)
       jquery-fileupload-rails (~> 0.4.0)
-      jquery-rails
       jquery-rails (~> 2.1.2)
       masonry-rails (~> 0.1.8)
       mongoid (~> 3.0.5)
@@ -240,7 +239,7 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.2.1)
+    twitter-bootstrap-rails (2.2.3)
       actionpack (>= 3.1)
       execjs
       railties (>= 3.1)
