@@ -16,15 +16,31 @@
 	</ul>
 <% end %>
 
-<%# TODO: Change template here, in case the front end is borked. Provide useful info about views %>
 <% if current_user.can? :manage, Breeze::Content::Item %>
-	<%= form.fieldset :legend => "Developer Info" do %>
-		<h3>Template</h3>
+
+
+	<%= form.fieldset legend: "<i class='icon disclosure'></i>Developer Info".html_safe, class: 'collapsible collapsed', data: {toggle: "collapse", target: "#developer_info"} do %>
+		<div id="developer_info" class="collapse out">
+
+		<h4>Template</h4>
 	  <%= form.object.template or "none" %>
-	  <h3>Views</h3>
-	  <% form.object.views.each do |view| %>
-	  	<%= view.name %>
-	  <% end %>
+	  <h4>Content</h4>
+	  <table class="fancy placements">
+		  <% form.object.placements.each do |placement| %>
+		  	<tr>
+		  		<td>
+		  			<%= placement.region %>
+		  		</td>
+		  		<td>
+		  			<%= placement.content.class.to_s %>
+		  		</td>
+		  	</tr>
+		  <% end %>
+		</table>
+
+		</div>
 	<% end %>
+
+
 
 <% end %>

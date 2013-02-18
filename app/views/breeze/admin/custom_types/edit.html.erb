@@ -6,7 +6,7 @@
   
   <%= content_tag :div, :class => "fake-right-sidebar" do %>
     <%= submit_tag "Save", :class => "large green save button" %>
-    <%= link_to "Delete", admin_custom_type_path(@custom_type, :format => :js), :method => :delete, :remote => true, :class => "large red delete button" %>
+    <%= link_to "Delete", admin_custom_type_path(@custom_type, :format => :js), data: {custom_type_id: @custom_type.id.to_s}, :class => "large red delete delete-custom_type button" %>
     
     <div class="help">
       <h3>Theming this content</h3>

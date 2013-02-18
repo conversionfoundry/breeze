@@ -24,5 +24,7 @@ group :test do
   gem 'shoulda'
   gem 'jasmine'
   gem 'database_cleaner'
+  gem 'fuubar'
+  gem 'launchy'
 end
 
