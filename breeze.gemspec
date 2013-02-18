@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "fabrication"
   
   s.add_dependency "rails", "~> 3.2.0"
-  s.add_dependency "jquery-rails"
   s.add_dependency "mongoid", "~> 3.0.5"
   s.add_dependency "carrierwave", "~> 0.6.2"
   s.add_dependency "carrierwave-mongoid", "~> 0.1.0"
@@ -41,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_dependency "haml", "3.1.7"
   s.add_dependency "coffee-script"
   s.add_dependency "jquery-fileupload-rails", "~> 0.4.0"
-  s.add_dependency "twitter-bootstrap-rails", "~> 2.2.0"
+  s.add_dependency "twitter-bootstrap-rails", "2.2.1"
   s.add_dependency "masonry-rails", "~> 0.1.8"
   s.add_dependency "codemirror-rails", "~> 3.0.0"
 end
