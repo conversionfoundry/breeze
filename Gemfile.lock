@@ -19,7 +19,7 @@ PATH
       rdiscount (~> 1.6.8)
       rmagick (~> 2.13.1)
       therubyracer (~> 0.10.2)
-      twitter-bootstrap-rails (~> 2.2.0)
+      twitter-bootstrap-rails (= 2.2.1)
       will_paginate (= 3.0.pre4)
 
 GEM
