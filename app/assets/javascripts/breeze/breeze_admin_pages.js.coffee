@@ -41,7 +41,7 @@ $(document).ready ->
           ccp: false
           rename: false
           create:
-            label: "New…"
+            label: "New Page…"
             icon: "add_page"
             visible: (node, tree_obj) ->
               return 0  unless node.length is 1
@@ -50,10 +50,11 @@ $(document).ready ->
               parent_id = $(node).attr("id").substring(5)
               open_new_page_dialog(parent_id)
           remove:
+            label: "Delete Page…"
             action: (node, tree_obj) ->
-              delete_page_dialog()
+              delete_page_dialog( $(node).attr("id").substring("5") )
           duplicate:
-            label: "Duplicate"
+            label: "Duplicate Page"
             icon: "duplicate_page"
             visible: (node, tree_obj) ->
               node.length is 1 and $(node).attr("rel") isnt "root"
@@ -110,25 +111,29 @@ $("#new_page #page_title").live "input", ->
 $("#new_page #page_slug").live "input", ->
   @modified = true
 
+$(".delete.page.button").live "click", (e) ->
+  e.preventDefault()
+  delete_page_dialog( $(this).data('page-id') )
 
-delete_page_dialog = () ->
+delete_page_dialog = (id) ->
   $("<p>Really delete this page (and all its sub-pages)? There is no undo!</p>").dialog
-    title: "Confirm delete"
+    title: "Confirm page delete"
     modal: true
     resizable: false
     show: "fade",
     buttons:
       Delete: ->
-        id = $(node).attr("id").substring("5")
         $(this).dialog "close"
         close_tab id
         $.ajax
-          url: "/admin/pages/" + id + ".js"
+          url: "/admin/pages/" + id.toString() + ".js"
           type: "post"
-          dataType: "script"
+          dataType: "html"
           data: "_method=delete"
-        $.each node, ->
-          tree_obj.remove this
+          success: (result) ->
+            eval result
+          error: (result) ->
+            eval result
       Cancel: ->
         $(this).dialog "close"
     close: ->

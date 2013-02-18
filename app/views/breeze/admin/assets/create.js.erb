@@ -1,4 +1,3 @@
 <% if @asset.errors.empty? %>
-  $('div.assets.<%= @asset.class.name.demodulize.underscore %>-assets').append('<%= escape_javascript render(:partial => "/breeze/admin/assets/" + @asset.class.name.demodulize.underscore, :object => @asset) %>');
-  show_or_hide_asset_section_headings()
+  show_asset_folder('<%= @asset.folder %>');
 <% end %>
