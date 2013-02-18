@@ -14,7 +14,7 @@ module Breeze
           
           base.before_validation :set_position
           base.before_destroy :destroy_children
-          base.after_destroy :set_sibling_positions
+          base.after_destroy :update_sibling_positions
           
           base.class_eval do
             scope :root, where(:parent_id => nil)
@@ -89,7 +89,7 @@ module Breeze
         end
         
         # Increment the position number for siblings to make room for a new item
-        def update_sibling_positions(by = 1, ref_position)
+        def update_sibling_positions(by = 1, ref_position=self.position)
           base_class.where(:parent_id => parent_id, :position => { '$gte' => ref_position }).inc(:position, by)
         end
         

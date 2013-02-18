@@ -1044,88 +1044,88 @@ body.breeze-admin
       td, th
         background-color: #ddd
 
-table.fancy 
-  border-collapse: collapse
-  border-spacing: 0px
-  width: 100%  
-  thead
-    th
-      border-bottom: 1px solid #999
-      height: 24px
-      line-height: 24px
-      vertical-align: middle
-      background: #eeeeee
-      padding: 0 1em
-      text-align: left  
-      &:first-child
-        @include border-top-left-radius(0.5em) 
-      &:last-child
-        @include border-top-right-radius(0.5em) 
-  tbody 
-    tr
-      width: 100%
-      .actions .button
-        visibility: hidden
-        opacity: 0
-        -webkit-transition: opacity 0.25s ease-in
-      &:hover
+  table.fancy 
+    border-collapse: collapse
+    border-spacing: 0px
+    width: 100%  
+    thead
+      th
+        border-bottom: 1px solid #999
+        height: 24px
+        line-height: 24px
+        vertical-align: middle
+        background: #eeeeee
+        padding: 0 1em
+        text-align: left  
+        &:first-child
+          @include border-top-left-radius(0.5em) 
+        &:last-child
+          @include border-top-right-radius(0.5em) 
+    tbody 
+      tr
+        width: 100%
+        .actions .button
+          visibility: hidden
+          opacity: 0
+          -webkit-transition: opacity 0.25s ease-in
+        &:hover
+          td
+            background: $colour-highlight
+          .actions .button, td.published .field
+            visibility: visible
+            opacity: 1.0
         td
-          background: $colour-highlight
-        .actions .button, td.published .field
+          vertical-align: top
+        td.published .text
           visibility: visible
           opacity: 1.0
-      td
-        vertical-align: top
-      td.published .text
-        visibility: visible
-        opacity: 1.0
-      &.disabled:hover .actions .button
-        visibility: hidden
-        opacity: 0
-      &.active
+        &.disabled:hover .actions .button
+          visibility: hidden
+          opacity: 0
+        &.active
+          td
+            border-bottom: 0px
+            background-color: #ffffc0
+          &:hover td
+            background-color: #ffffc0
+        &.edit td
+          background-color: #ffffc0
+        .actions
+          text-align: right
+        &.active .actions .button
+          visibility: visible
+          opacity: 1.0
         td
-          border-bottom: 0px
-          background-color: #ffffc0
-        &:hover td
-          background-color: #ffffc0
-      &.edit td
-        background-color: #ffffc0
-      .actions
+          border-bottom: 1px solid #eeeeee
+          padding: 1em
+        &.last
+          td
+            border-bottom: none
+    tfoot
+      td
+        background: transparent
         text-align: right
-      &.active .actions .button
-        visibility: visible
-        opacity: 1.0
-      td
-        border-bottom: 1px solid #eeeeee
         padding: 1em
-      &.last
-        td
-          border-bottom: none
-  tfoot
-    td
-      background: transparent
-      text-align: right
-      padding: 1em
 
-  .container .with-selected
-    position: absolute
-    left: 0px
-    top: -32px
-    background: #ffc
-    padding: 4px 8px
-    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
-    -webkit-border-radius: 4px
-    &:after
-      content: "."
-      text-indent: -2em
+    .container .with-selected
       position: absolute
-      left: 16px
-      bottom: -8px
-      width: 0px
-      height: 0px
-      overflow: hidden
-      border-left: 8px solid #ffc
-      border-bottom: 8px solid transparent
+      left: 0px
+      top: -32px
+      background: #ffc
+      padding: 4px 8px
+      -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px
+      -webkit-border-radius: 4px
+      &:after
+        content: "."
+        text-indent: -2em
+        position: absolute
+        left: 16px
+        bottom: -8px
+        width: 0px
+        height: 0px
+        overflow: hidden
+        border-left: 8px solid #ffc
+        border-bottom: 8px solid transparent
 
   /*}}}
 
