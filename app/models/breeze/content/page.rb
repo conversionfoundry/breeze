@@ -24,14 +24,6 @@ module Breeze
       def page_title
         [ seo_title, attributes[:title] ].reject(&:blank?).first
       end
-      
-      def view_for(controller, request)
-        if controller.admin_signed_in? && request.params[:view]
-          views.by_name request.params[:view]
-        else  
-          views.default
-        end
-      end
             
       def self.[](permalink)
         where(permalink: permalink).first

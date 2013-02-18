@@ -22,9 +22,7 @@ Dir[File.expand_path("./../app/uploaders/breeze/*.rb", File.dirname(__FILE__))].
 Dir[File.expand_path("./../app/models/breeze/content/mixins/*.rb", File.dirname(__FILE__))].each { |f| require f }
 require File.expand_path("./../app/models/breeze/content/item.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/content/navigation_item.rb", File.dirname(__FILE__))
-require File.expand_path("./../app/models/breeze/content/view.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/admin/mixins/login.rb", File.dirname(__FILE__))
-require File.expand_path("./../app/models/breeze/content/page_view.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/content/asset.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/content/custom/field.rb", File.dirname(__FILE__))
 

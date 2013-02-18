@@ -16,28 +16,7 @@ module Breeze
       
       index({parent_id: 1, _type: 1})
       
-      embeds_many :views, :class_name => "Breeze::Content::View" do
-        def default
-          @target.first || @base.view_class.new(:name => "default")
-        end
-        
-        def by_name(name)
-          detect { |v| v.name == name } || default
-        end
-      end
-      
-      def view_for(controller, request)
-        views.default
-      end
-      
       alias_method :type, :_type
-
-      def render(controller, request)
-        request.format ||= Mime[:html]
-        controller.view = view_for(controller, request).populate(self, controller, request)
-        controller.view.render!
-        controller.performed?
-      end
       
       def variables_for_render
         { :content => self }
@@ -47,7 +26,7 @@ module Breeze
         super options.reverse_merge(:except => [ :_id, :_type ], :methods => [ :id, :type ], :root => self.base_class.name.demodulize.underscore)
       end
       
-      def to_erb(view)
+      def to_erb
       end
 
       def duplicate(attrs = {}) #here we can have attrs = {placement_counts:1} as a parameter
@@ -63,10 +42,6 @@ module Breeze
       def self.search_for_text(query, options={})
         self.fulltext_search(query, is_placeable: true)
       end
-      
-      # def self._types
-      #   @_type ||= [recurse_subclasses + Breeze::Content::Custom::Type.classes(self).map(&:name)].flatten.uniq.map(&:to_s)
-      # end
       
       def self.recurse_subclasses
         [self].tap do |result|
@@ -101,12 +76,6 @@ module Breeze
       def self.default_template_name
         name.demodulize.underscore
       end
-      
-      def self.view_class
-        @view_class = self.nil? ? View : [self.name, "View"].join.constantize
-      end
-
-      def view_class; self.class.view_class; end
       
       def self.label
         name.demodulize.underscore.humanize

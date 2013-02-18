@@ -29,14 +29,6 @@ module Breeze
       end
 
       alias_method :link_to, :permalink
-      
-      def render(controller, request)
-        if (ssl? ^ request.ssl?) && !Rails.env.development?
-          controller.send :redirect_to, "#{protocol}#{request.host}#{request.request_uri}"
-        else
-          super
-        end
-      end
             
       def duplicate(attrs = {})
         new_record = yield if block_given?

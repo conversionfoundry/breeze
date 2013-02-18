@@ -38,20 +38,6 @@ module Breeze
       end
     end
 
-    def view_context
-      super.tap do |context|
-        class << context
-          def method_missing(sym, *args, &block)
-            variables_for_render[sym] || super
-          end
-          
-          def variables_for_render
-            assigns['variables_for_render'] ||= {}
-          end
-        end
-      end
-    end
-
     def set_domain_from_request(&block)
       Breeze.with_domain "#{request.protocol}#{request.host_with_port}", &block
     end
