@@ -1,7 +1,5 @@
 <% if @page.errors.empty? %>
-  $.tree.reference('#pages').save();
   $('#pages>ul').html('<%= escape_javascript render(:partial => "breeze/admin/pages/page", :collection => pages.select(&:root?)) %>');
-  $.tree.reference('#pages').restore();
+	$.flashMessage('Page saved.');
 <% end %>
 $('#tab_<%= @page.id%>').html('<%= escape_javascript render(:template => "/breeze/admin/pages/edit") %>');
-$.flashMessage('Page saved.');
