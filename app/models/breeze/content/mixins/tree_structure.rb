@@ -14,7 +14,7 @@ module Breeze
           
           base.before_validation :set_position
           base.before_destroy :destroy_children
-          base.after_destroy :set_sibling_positions
+          base.after_destroy :update_sibling_positions
           
           base.class_eval do
             scope :root, where(:parent_id => nil)
