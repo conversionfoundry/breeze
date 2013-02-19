@@ -22,7 +22,7 @@ module Breeze
         end
         respond_to do |format|
           format.js
-          format.html { render :partial => "breeze/admin/assets/#{@asset.class.name.demodulize.underscore}", :object => @asset, :layout => false }
+          # format.html { render :partial => "breeze/admin/assets/#{@asset.class.name.demodulize.underscore}", :object => @asset, :layout => false }
           format.json { render json: { filename: @asset.file_filename, width: nil, height: nil, title: @asset.basename, id: @asset.id.to_s } }
         end
       end

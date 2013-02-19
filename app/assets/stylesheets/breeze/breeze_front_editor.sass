@@ -377,43 +377,43 @@ body.breeze-editing
 .image-editor h3
   font: 13px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif !important
 
-#marquess_link_select
-  margin-left: 25%
-  ul
-    margin: 0px
-  li
-    display: block
-    visibility: visible
-    margin: 0px
-    list-style: none
-    padding: 0px 0px 0px 18px
-    line-height: 18px
-    vertical-align: middle
-    // background: url(image_path("tree_icons.png")) no-repeat 0px 20px
-    &.open
-      background-position: -54px -72px
-    &.closed
-      background-position: -72px -54px
-    &.hidden > a > ins
-      background-position: -36px -19px
-    a
+.marquess-link-dialog
+  ul#marquess_link_select
+    margin-left: 25%
+    border: solid 1px #aaaaaa
+    padding: 0.5em
+    li
       display: block
-      padding-left: 24px
-      position: relative
+      visibility: visible
+      margin: 0px
+      list-style: none
+      padding: 0px 0px 0px 18px
       line-height: 18px
       vertical-align: middle
-    ins
-      position: absolute
-      left: 0px
-      top: 0px
-      width: 18px
-      height: 18px
-      cursor: pointer
-      background: url(image_path("tree_icons.png")) no-repeat -18px 0px
-      overflow: hidden
-    &.closed ul
-      display: none
-
+      // background: url(image_path("tree_icons.png")) no-repeat 0px 20px
+      &.open
+        background-position: -54px -72px
+      &.closed
+        background-position: -72px -54px
+      &.hidden > a > ins
+        background-position: -36px -19px
+      a
+        display: block
+        padding-left: 24px
+        position: relative
+        line-height: 18px
+        vertical-align: middle
+      ins
+        position: absolute
+        left: 0px
+        top: 0px
+        width: 18px
+        height: 18px
+        cursor: pointer
+        background: url(image_path("tree_icons.png")) no-repeat -18px 0px
+        overflow: hidden
+      &.closed ul
+        display: none
 
 .marquess-image-dialog
   .folders-container
