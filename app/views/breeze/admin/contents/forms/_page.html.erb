@@ -16,9 +16,12 @@
 	</ul>
 <% end %>
 
-<%# TODO: Change template here, in case the front end is borked. Provide useful info about views %>
 <% if current_user.can? :manage, Breeze::Content::Item %>
-	<%= form.fieldset :legend => "Developer Info" do %>
+
+
+	<%= form.fieldset legend: "<i class='icon disclosure'></i>Developer Info".html_safe, class: 'collapsible collapsed', data: {toggle: "collapse", target: "#developer_info"} do %>
+		<div id="developer_info" class="collapse out">
+
 		<h4>Template</h4>
 	  <%= form.object.template or "none" %>
 	  <h4>Content</h4>
@@ -34,6 +37,10 @@
 		  	</tr>
 		  <% end %>
 		</table>
+
+		</div>
 	<% end %>
+
+
 
 <% end %>

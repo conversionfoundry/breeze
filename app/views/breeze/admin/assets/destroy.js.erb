@@ -1,4 +1,4 @@
 $('#asset_<%= params[:id] %>').fadeOut(function() {
   $(this).remove();
-  show_or_hide_asset_section_headings();
+  show_asset_folder('<%= @asset.folder %>')
 });

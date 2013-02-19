@@ -25,5 +25,5 @@
 
 <%= fake_right_sidebar do %>
   <%= submit_tag "Save", :class => "large green save button" %>
-  <%= link_to "Delete", admin_user_path(@user), :remote => true, :method => :delete, :class => "large red delete button" if !@user.new_record? && can?(:destroy, @user) %>
+  <%= link_to "Delete", admin_user_path(@user), data: {user_id: @user.id}, :class => "large red delete delete-user button" if !@user.new_record? && can?(:destroy, @user) %>
 <% end %>
