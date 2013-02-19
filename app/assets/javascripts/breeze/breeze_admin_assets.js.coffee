@@ -4,23 +4,27 @@ $(document).ready ->
   $("#fileupload").fileupload
     xhrFields:
       withCredentials: true
+    url: "/admin/assets.js"
+    dataType: "html"
+    type: "post"
     dropZone: $("#dropzone")
     done: (e, data) ->
       eval data.result
       show_or_hide_asset_section_headings()
-    progressall: (e, data) ->
-      progress = parseInt(data.loaded / data.total * 100, 10)
-      $("#progress .bar").css "width", progress + "%"
+    # progressall: (e, data) ->
+    #   progress = parseInt(data.loaded / data.total * 100, 10)
+    #   $("#progress .bar").css "width", progress + "%"
 
   # Drag and drop files
   $(document).bind "dragover", (e) ->
     dropZone = $("#dropzone")
+    dropZoneAndChildren = $("#dropzone, #dropzone *")
     timeout = window.dropZoneTimeout
     unless timeout
       dropZone.addClass "in"
     else
       clearTimeout timeout
-    if e.target is dropZone[0]
+    if dropZoneAndChildren.is(e.target)
       dropZone.addClass "hover"
     else
       dropZone.removeClass "hover"
