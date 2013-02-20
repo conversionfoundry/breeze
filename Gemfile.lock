@@ -19,7 +19,7 @@ PATH
       rdiscount (~> 1.6.8)
       rmagick (~> 2.13.1)
       therubyracer (~> 0.10.2)
-      twitter-bootstrap-rails (~> 2.2.0)
+      twitter-bootstrap-rails (= 2.2.1)
       will_paginate (= 3.0.pre4)
 
 GEM
@@ -146,7 +146,7 @@ GEM
     mime-types (1.21)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
-    mongoid (3.0.21)
+    mongoid (3.0.22)
       activemodel (~> 3.1)
       moped (~> 1.2)
       origin (~> 1.0)
@@ -239,7 +239,7 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.2.3)
+    twitter-bootstrap-rails (2.2.1)
       actionpack (>= 3.1)
       execjs
       railties (>= 3.1)

@@ -56,7 +56,9 @@ module Breeze
           self.class.get(type_name)
         end
         
-        delegate :default_template_name, :to => :to_class
+        def default_template_name
+          name.squish.downcase.gsub(" ", "_")
+        end
       
         def self.get(type_name)
           @classes ||= {}

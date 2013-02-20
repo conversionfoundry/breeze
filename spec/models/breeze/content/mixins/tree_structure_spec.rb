@@ -28,15 +28,15 @@ describe "TreeStructure" do
   	before :each do
   		subject
   		target
-  		subject.position = 2
-  		subject.save
+  		target.position = 2
+  		target.save
  			subject.move!(:before, target.id)
   	end
   	# it "has same parent as target" do
  		# 	subject.parent.should eq target.parent
   	# end
   	it "has position immediately before target's position" do
-			target.reload
+      target.reload
 			subject.position.should eq ( target.position - 1 )
   	end
   	# it "calls update_sibling_position with the correct ref_position"
