@@ -243,8 +243,9 @@ module Breeze
       
     end
     
-    def breadcrumb(divider = "/")
-      Breeze::Breadcrumb.new(for_page: page, divider: divider).generate
+    def breadcrumb(template, page, options = {})
+      divider = options[:divider] || '/'
+      Breeze::Breadcrumb.new(template: template, for_page: page, divider: divider).generate
     end
 
     def breeze_form( name='Unnamed form', options={}, &block)

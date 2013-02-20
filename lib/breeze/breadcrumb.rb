@@ -1,7 +1,7 @@
-class Breeze::Breadcrumb < ActionView::Base
-  include ActionView::Helpers::TagHelper
+class Breeze::Breadcrumb
 
   def initialize(args)
+    @template = args.fetch(:template)
     @page = args.fetch(:for_page)
     @divider = args.fetch(:divider)
   end
@@ -14,8 +14,12 @@ class Breeze::Breadcrumb < ActionView::Base
 
 private
 
+  def h
+    @template
+  end
+
   def ancestor_links(ancestry)
-    content_tag :ul, class: "breadcrumb" do
+    h.content_tag :ul, class: "breadcrumb" do
       all_pages = link_array(ancestry).push(breadcrumb_node_name(@page))
       all_pages.join(breadcrumb_divider(@divider)).html_safe 
     end
@@ -28,19 +32,19 @@ private
   end
 
   def breadcrumb_link(node)
-    content_tag :li do
+    h.content_tag :li do
       link_to(node.title, node.link_to)
     end.html_safe
   end
 
   def breadcrumb_divider(divider)
-    content_tag(:span, class: "divider") do
+    h.content_tag(:span, class: "divider") do
       divider
     end.html_safe
   end
 
   def breadcrumb_node_name(node)
-    content_tag :li do
+    h.content_tag :li do
       node.title
     end.html_safe
   end

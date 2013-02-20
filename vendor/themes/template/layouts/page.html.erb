@@ -5,7 +5,7 @@
   </head>
 
   <body>
-    <% if current_user.admin? %>
+    <% if current_admin.present? %>
       <div class='editor-panel'>
         <div class='editor-help'>
           <h3>Editor Panel</h3>
@@ -13,10 +13,12 @@
         </div>
       </div>
       <div class='website-panel'>
-        <%= render template, page: page %> 
+        <%= render file: "vendor/themes/template/layouts/_#{template}",
+          locals: { page: page } %> 
       </div>
     <% else %>
-      <%= render template, page: page %> 
+      <%= render file: "vendor/themes/template/layouts/_#{template}", 
+        locals: { page: page } %> 
     <% end %>
 
     <%= javascript_include_tag "breeze/breeze" %>

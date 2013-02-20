@@ -84,10 +84,9 @@ Breeze::Engine.routes.draw do
   end
 
   resources :form_results, only: [:create]
-  
-  # match "stylesheets/*path", :to => "stylesheets#show", :format => false
-  root :to => "contents#show"
-  #match "breeze/*path", :to => "static_files#serve"
+
   get "/sitemap" => "sitemap#index"
-  match "*path" => "contents#show", :format => false
+
+  root :to => "contents#show"
+  get "/*permalink" => "contents#show", :format => "html" #false
 end
