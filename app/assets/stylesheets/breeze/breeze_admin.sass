@@ -455,6 +455,7 @@ body.breeze-admin
 
   /* Forms {{{
 
+  button,
   .button
     background: #222222 url(image-path("button-overlay.png")) repeat-x
     display: inline-block
@@ -1155,76 +1156,6 @@ body.breeze-admin
 
   /*}}}
 
-  .file_upload
-    margin: 1em
-    .progress
-      width: 100%
-      border: solid 1px #aaaaaa
-      .bar 
-        height: 18px
-        background: green
-
-  .drop_zone
-    @include border-radius(1em)
-    @include box-sizing(border-box)
-    color: black
-    border: dashed 4px #aaaaaa
-    position: relative
-    padding: 1em
-    width: 100%
-    &.hover
-      background-color: #bbbbbb
-    .drop_zone_icon
-      background: transparent url(image-path("icons/mime/any_ghost.png")) 50% 50% no-repeat
-      min-width: 48px
-      min-height: 48px
-    .drop_zone_text
-      text-align: center
-      font-size: 80%
-
-  .fileinput-button
-    @include box-sizing(border-box)
-    position: relative
-    width: 100%
-    margin-top: 1em
-    height: 4.5em
-    .button_text
-      position: absolute
-      top: 0
-      right: 0
-      bottom: 0
-      left: 0
-      text-align: center    
-      padding: 0.5em 1em
-      color: white
-    input
-      cursor: pointer
-      opacity: 0
-      position: absolute
-      top: 0
-      right: 0
-      bottom: 0
-      left: 0
-      width: 100%
-      clear: both
-
-  .ui-dialog
-    .file_upload
-      clear: both
-      float: left
-      width: 100%
-      margin: 1em 0 1em 0
-      form#fileupload 
-        float: left
-        min-width: 15em
-        width: 100%
-      .drop_zone
-        float: right
-    .folders-container
-      clear: both
-    .fileinput-button
-      height: 2em
-
   // Form Results
   table#form_results
     min-height: 5em
@@ -1305,3 +1236,56 @@ form.editor
       -moz-border-radius: 8px
       -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 4px
 
+.file_upload
+  margin: 1em
+  .progress
+    width: 100%
+    border: solid 1px #aaaaaa
+    .bar 
+      height: 18px
+      background: green
+
+.drop_zone
+  @include border-radius(1em)
+  @include box-sizing(border-box)
+  color: black
+  border: dashed 4px #aaaaaa
+  position: relative
+  padding: 1em
+  width: 100%
+  &.hover
+    background-color: #bbbbbb
+  .drop_zone_icon
+    background: transparent url(image-path("icons/mime/any_ghost.png")) 50% 50% no-repeat
+    min-width: 48px
+    min-height: 48px
+  .drop_zone_text
+    text-align: center
+    font-size: 80%
+
+.fileinput-button
+  @include box-sizing(border-box)
+  position: relative
+  width: 100%
+  margin-top: 1em
+  height: 4.5em
+  .button_text
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    text-align: center    
+    padding: 0.5em 1em
+    color: white
+  input
+    cursor: pointer
+    opacity: 0
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    width: 100%
+    height: auto
+    clear: both
