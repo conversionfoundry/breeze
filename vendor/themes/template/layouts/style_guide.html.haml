@@ -1,0 +1,68 @@
+%html
+  %head
+    = render :partial => "partials/head"
+
+  %body
+    %h1= page.title
+    .navbar
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => "#"} Project name
+          .nav-collapse
+            = bootstrap_nav(:recurse => true)
+
+    = breadcrumb
+    .container-fluid
+      .row-fluid
+        .span6
+          %h1 Heading 1
+          %h2 Heading 2
+          %h3 Heading 3
+          %h4 Heading 4
+          %h5 Heading 5
+          %h6 Heading 6
+
+          %p
+            Body text
+            %br
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut pede. Proin ut augue. Nullam ornare iaculis arcu. Nam ut est sit amet tellus dignissim pretium. Curabitur magna. Morbi tellus risus, varius in, posuere ac, consectetuer ac, dolor. Fusce sed eros. Integer viverra nibh ac nunc. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+          %p
+            Vivamus quis ante. Proin id tortor. Suspendisse massa sem, porta non, interdum vitae, pretium in, ipsum. Nulla facilisi. Integer risus lacus, imperdiet ut, imperdiet a, fermentum a, ligula. Nunc aliquet imperdiet pede. Curabitur lectus eros, fringilla at, facilisis sed, porta ut, ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+
+          %ol
+            %li Ordered list item
+            %li Ordered list item
+            %li Ordered list item
+
+          %ul
+            %li Unordered list item
+            %li Unordered list item
+            %li Unordered list item
+
+          %blockquote
+            Blockquote
+            %br
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut pede. Proin ut augue. Nullam ornare iaculis arcu. Nam ut est sit amet tellus dignissim pretium. Curabitur magna. Morbi tellus risus, varius in, posuere ac, consectetuer ac, dolor. Fusce sed eros. Integer viverra nibh ac nunc. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.         
+        .span6
+          - Breeze::Content::Custom::Type.classes.each do |custom_type|
+            %hr
+            %h2
+              = custom_type.name.split('::').last
+            = content_tag :div, class: "breeze-content breeze-#{custom_type.name.split('::').last.underscore} breeze-content-custom" do
+              - instance = custom_type.new
+              - instance.custom_type.custom_fields.each do |field|
+                - if field.instance_of? Breeze::Content::Custom::StringField
+                  - instance.send( "#{field.name.to_sym}=", field.name )
+                - elsif field.instance_of? Breeze::Content::Custom::TextField
+                  - instance.send( "#{field.name.to_sym}=", field.name + ": Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+                - elsif field.instance_of? Breeze::Content::Custom::ImageField
+                  - instance.send( "#{field.name.to_sym}=", "http://placehold.it/#{field.width || 100}x#{field.height || 100}&text=#{field.name}" )
+                - else
+                  - instance.send( "#{field.name.to_sym}=", "field: " + field.name )
+              = instance.to_erb(view).html_safe
+
+    = javascript_include_tag "breeze/breeze"

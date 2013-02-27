@@ -16,6 +16,7 @@ require "haml"
 require "coffee-script"
 require "jquery-fileupload-rails"
 require "twitter-bootstrap-rails"
+require "font-awesome-rails"
 require "masonry-rails"
 require "codemirror-rails"
 
