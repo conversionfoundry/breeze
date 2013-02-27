@@ -19,8 +19,8 @@ module Breeze
         end
 
         # Create a theme with the same name as the app
-        unless Breeze::Configuration.first && Breeze::Configuration.first.themes.where(name: "install_test").any?
-          theme_name = File.basename(Rails.root)
+        theme_name = File.basename(Rails.root)
+        unless Breeze::Configuration.first && Breeze::Configuration.first.themes.where(name: theme_name).any?
           log "", "Creating directories for " + theme_name + " theme..."
           generate 'breeze:theme', theme_name
           theme = Breeze::Theming::Theme[theme_name]
@@ -47,7 +47,7 @@ module Breeze
         end
 
         # Create root page
-        unless Breeze::Content::Page.where(title: "Home").any?
+        unless Breeze::Content::Page.where(permalink: "/").any?
           log "", "Creating Home page..."
           home = Breeze::Content::Page.create! :title => "Home"
 
@@ -60,11 +60,18 @@ module Breeze
         unless Breeze::Content::Page.where(title: "Contact Us").any?
           log "", "Creating Contact Us page..."
           home = Breeze::Content::Page.first
-          contact_us = Breeze::Content::Page.create! title: "Contact Us", parent: home
+          contact_us = Breeze::Content::Page.create! title: "Contact Us", slug: "contact-us", parent: home
 
           # Create a contact_form
           cf = Breeze::Content::ContactForm.create! title: "Contact Us", body_before_form: "We'd love to hear from you.", body_after_form: "We usually respond within 24 hours.", confirmation_message: "Thanks! We'll be in touch."
           contact_us.placements << Breeze::Content::Placement.new( :region => 'column_middle', :content => cf )
+        end
+
+        # Create Style Guide page
+        unless Breeze::Content::Page.where(title: "Style Guide").any?
+          log "", "Creating Style Guide page..."
+          home = Breeze::Content::Page.first
+          style_guide = Breeze::Content::Page.create! title: "Style Guide", slug: "style-guide", parent: home, template: "style_guide.html.haml"
         end
       
         # Create emergency user
