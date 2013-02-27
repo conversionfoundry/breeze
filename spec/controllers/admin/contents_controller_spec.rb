@@ -6,7 +6,7 @@ end
 
 describe Breeze::Admin::ContentsController do 
 
-  let(:page) { Fabricate :page }
+  let(:pag) { Fabricate :page }
   let(:container) { ContainerTest.create } 
 
   describe "GET #add" do
@@ -36,16 +36,16 @@ describe Breeze::Admin::ContentsController do
 
   describe "#load_container_and_placement" do
     before do
-      controller.stub(:params).and_return({id: page.placements.first.id})
+      controller.stub(:params).and_return({id: pag.placements.first.id})
       controller.send(:load_container_and_placement)
     end
 
     it "assigns @container" do
-      assigns(:container).should eq(page)
+      assigns(:container).should eq(pag)
     end
 
     it "assigns @placement" do
-      assigns(:placement).should eq(page.placements.first)
+      assigns(:placement).should eq(pag.placements.first)
     end
   end
 

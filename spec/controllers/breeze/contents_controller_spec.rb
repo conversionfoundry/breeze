@@ -1,11 +1,8 @@
 require 'spec_helper'
 
 describe Breeze::ContentsController do
-  let!(:page) do 
-    Fabricate :page do |p|
-      p.permalink = '/super_page'
-      p.template = 'home'
-    end
+  let!(:pag) do 
+    Fabricate :page 
   end
 
   describe 'GET #show' do
@@ -14,9 +11,11 @@ describe Breeze::ContentsController do
     end
     
     it "renders a default template" do
-      get :show, permalink: page.permalink
-      response.should render_template(:page)
+      pag.update_attribute(:permalink, '/super-page')
+      get :show, permalink: 'super-page' 
+      response.should render_template(:visitor)
     end
+
   end
   
 end
