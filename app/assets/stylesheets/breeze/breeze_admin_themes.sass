@@ -1,41 +1,55 @@
-#left
-  #themes
-    margin: 0px
-    padding: 0px
-    .theme
-      li
-        display: block
-        list-style: none
-        margin: 0px
-        padding: 0px
-      a
-        display: block
-        margin: 0px 0px 8px
-        padding: 8px
-        background: #ccc
-        color: #999
-        text-decoration: none
-        -webkit-border-radius: 6px
-        -moz-border-radius: 6px
-      strong
-        text-transform: uppercase
-        text-shadow: rgba(255, 255, 255, 0.5) 0px 1px
-    .enabled
-      a
-        background: #8dc63f
-        color: #222
-        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px
-        -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px
-      strong
-        text-shadow: rgba(255, 255, 255, 0.25) 0px 1px
-    .theme a.loading
-      background-image: url(image-path("loading-small-666-ccc.gif"))
-      background-position: 184px 50%
-      background-repeat: no-repeat
-    .enabled a.loading
-      background-image: url(image-path("loading-small-222-8dc63f.gif"))
-  .theme-status
-    margin: 8px 0px
+body.breeze-admin
+  #left
+    #themes
+      margin: 0px
+      padding: 0px
+      .theme
+        li
+          display: block
+          list-style: none
+          margin: 0px
+          padding: 0px
+        a
+          display: block
+          margin: 0px 0px 8px
+          padding: 8px
+          background: #ccc
+          color: #999
+          text-decoration: none
+          -webkit-border-radius: 6px
+          -moz-border-radius: 6px
+        strong
+          text-transform: uppercase
+          text-shadow: rgba(255, 255, 255, 0.5) 0px 1px
+      .enabled
+        a
+          background: #8dc63f
+          color: #222
+          -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px
+          -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px
+        strong
+          text-shadow: rgba(255, 255, 255, 0.25) 0px 1px
+      .theme a.loading
+        background-image: url(image-path("loading-small-666-ccc.gif"))
+        background-position: 184px 50%
+        background-repeat: no-repeat
+      .enabled a.loading
+        background-image: url(image-path("loading-small-222-8dc63f.gif"))
+    .theme-status
+      margin: 8px 0px
+      padding: 7px
+      background: rgba(255, 255, 192, 0.75)
+      text-shadow: #ffc 0px 1px
+      border: 1px solid #ffc
+      -webkit-border-radius: 6px
+      -moz-border-radius: 6px
+      -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
+
+  form.folder
+    padding: 8px
+
+  .folder-description
+    margin: 8px
     padding: 7px
     background: rgba(255, 255, 192, 0.75)
     text-shadow: #ffc 0px 1px
@@ -43,35 +57,22 @@
     -webkit-border-radius: 6px
     -moz-border-radius: 6px
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
+    h1
+      margin: 0px 0px 8px
 
-form.folder
-  padding: 8px
-
-.folder-description
-  margin: 8px
-  padding: 7px
-  background: rgba(255, 255, 192, 0.75)
-  text-shadow: #ffc 0px 1px
-  border: 1px solid #ffc
-  -webkit-border-radius: 6px
-  -moz-border-radius: 6px
-  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px
-  h1
-    margin: 0px 0px 8px
-
-.CodeMirror
-  pre
-    display: block
-    padding: 0
-    margin: 0 0 10px
-    font-size: inherit
-    line-height: inherit
-    word-break: break-all
-    word-wrap: break-word
-    white-space: pre
-    white-space: pre-wrap
-    background-color: transparent
-    border: none
-    -webkit-border-radius: 0
-    -moz-border-radius: 0
-    border-radius: 0
+  .CodeMirror
+    pre
+      display: block
+      padding: 0
+      margin: 0 0 10px
+      font-size: inherit
+      line-height: inherit
+      word-break: break-all
+      word-wrap: break-word
+      white-space: pre
+      white-space: pre-wrap
+      background-color: transparent
+      border: none
+      -webkit-border-radius: 0
+      -moz-border-radius: 0
+      border-radius: 0
