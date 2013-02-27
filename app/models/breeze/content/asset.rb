@@ -2,7 +2,7 @@ require 'carrierwave/mongoid'
 
 module Breeze
   module Content
-    class Asset < Item
+    class Asset #< Item
       include Mongoid::Document
 
       field :title

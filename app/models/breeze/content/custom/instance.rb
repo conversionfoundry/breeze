@@ -1,7 +1,7 @@
 module Breeze
   module Content
     module Custom
-      class Instance < Breeze::Content::Item
+      class Instance # < Breeze::Content::Item
         def to_erb(view)
           begin
             view.controller.render_to_string :partial => "/partials/#{custom_type.default_template_name}", :layout => false, :locals => locals

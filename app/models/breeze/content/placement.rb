@@ -2,9 +2,7 @@ module Breeze
   module Content
     class Placement
       include Mongoid::Document
-      field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :region, :type => String
-      field :view
       field :position, :type => Integer, :default => 0
       
       attr_protected :id

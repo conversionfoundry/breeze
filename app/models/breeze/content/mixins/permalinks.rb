@@ -9,7 +9,8 @@ module Breeze::Content::Mixins::Permalinks
     base.before_validation :regenerate_permalink
     base.after_save :update_child_permalinks
 
-    base.validates_format_of :permalink, :with => /^(\/|(\/[\w\-]+)+)$/,
+    base.validates_format_of :permalink, 
+      :with => /^(\/|(\/[\w\-]+)+)$/,
       :message => "must contain only letters, numbers, underscores or dashes"
     base.validates_uniqueness_of :permalink 
     base.validates :slug, uniqueness: { scope: :parent_id }

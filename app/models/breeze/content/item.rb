@@ -5,15 +5,11 @@ module Breeze
       include Mongoid::Timestamps
       include ActiveModel::Serializers::Xml
       include Mixins::Markdown
-      include Mongoid::FullTextSearch
 
-      field :_id, type: String, default: -> { Moped::BSON::ObjectId.new.to_s }
       field :template
       
       attr_protected :_id
 
-      fulltext_search_in :fts_index, filters: { is_placeable: ->(el) { el.is_a? Breeze::Content::Mixins::Placeable } } 
-      
       index({parent_id: 1, _type: 1})
       
       alias_method :type, :_type
@@ -22,32 +18,8 @@ module Breeze
         { :content => self }
       end
       
-      def to_xml(options = {})
-        super options.reverse_merge(:except => [ :_id, :_type ], :methods => [ :id, :type ], :root => self.base_class.name.demodulize.underscore)
-      end
       
-      def to_erb
-      end
-
-      def duplicate(attrs = {}) #here we can have attrs = {placement_counts:1} as a parameter
-        new_record = yield if block_given?
-        new_record ||= self.dup
-        new_record.tap do |r|
-          r.created_at = nil
-          r.touch # refresh updated_at
-          r.save
-        end
-      end
       
-      def self.search_for_text(query, options={})
-        self.fulltext_search(query, is_placeable: true)
-      end
-      
-      def self.recurse_subclasses
-        [self].tap do |result|
-          ObjectSpace.each_object(Class) { |klass| result << klass if klass < self }
-        end
-      end
 
       # Return a string suitable for use as a class name in HTML markup
       def self.html_class

@@ -9,7 +9,7 @@ module Breeze
     
     def content_for_region(name, &block)
       @_region_contents ||= {}
-      placements = page.placements.for(:region => name, :view => view)
+      placements = page.placements.for(:region => name)
       @_region_contents[name] = if placements.empty?
         block_given? ? capture(&block) : ""
       else

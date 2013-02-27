@@ -36,7 +36,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rdiscount", "~> 1.6.8"
   s.add_dependency "execjs", "~> 1.4.0"
   s.add_dependency "therubyracer", "~> 0.10.2"
-  s.add_dependency "mongoid_fulltext", "~> 0.6.0"
   s.add_dependency "haml", "3.1.7"
   s.add_dependency "coffee-script"
   s.add_dependency "jquery-fileupload-rails", "~> 0.4.0"
