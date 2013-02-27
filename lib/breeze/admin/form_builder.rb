@@ -84,7 +84,7 @@ module Breeze
           end.sort_by(&:first).collect do |group_label, classes|
             str << "<optgroup label=\"#{group_label}\">"
             classes.each do |c|
-              str << "<option value=\"#{c.to_s}\"#{' selected="selected"' if c == @object.class}>#{c.label}</option>"
+              str << "<option value=\"#{c.to_s}\"#{' selected="selected"' if c == @object.class}>#{c.ancestors.include?(Breeze::Content::Custom::Instance) ? c.custom_type.name : c.label}</option>"
             end
             str << "</optgroup>"
           end

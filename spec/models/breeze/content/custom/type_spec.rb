@@ -30,7 +30,7 @@ describe Breeze::Content::Custom::Type do
   it "exposes a default template name" do
     subject.name = 'custom_type_1'
     subject.save
-    subject.default_template_name.should eq('custom_type1')
+    subject.default_template_name.should eq('custom_type_1')
   end
 
 end

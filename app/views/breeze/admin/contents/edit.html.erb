@@ -1,5 +1,5 @@
 <div class="edit-content-tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
-  <h2>Edit <%= @content.class.label %></h2>
+  <h2>Edit <%= @content.class.ancestors.include?(Breeze::Content::Custom::Instance) ? @content.class.custom_type.name : @content.class.label %></h2>
 
   <div id="edit-existing-content">
     <%= breeze_form_for @content, :as => :content, :url => admin_content_path(@placement.id, :format => :js), :remote => true do |form| %>

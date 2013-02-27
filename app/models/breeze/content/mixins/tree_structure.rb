@@ -81,35 +81,33 @@ module Breeze
 
         def set_position
           self.position = scope.count if ( self.position == 0 && ( self.position_changed? || self.parent_id_changed? ) )
-          update_sibling_positions 1, self.position
+          update_sibling_positions
         end
         
         def destroy_children
           children.map(&:destroy)
         end
         
-        # Increment the position number for siblings to make room for a new item
-        def update_sibling_positions(by = 1, ref_position=self.position)
-          base_class.where(:parent_id => parent_id, :position => { '$gte' => ref_position }).inc(:position, by)
+        def update_sibling_positions(ref_position=self.position)
+          siblings.where(:parent_id => parent_id, :position => { '$gte' => ref_position }).inc(:position, 1)
         end
         
-        def move_before!(node)
-          self.parent_id = node.parent_id
-          self.position = node.position 
-          update_sibling_positions(node.position + 1)
+        def move_before!(target)
+          self.parent_id = target.parent_id
+          self.position = target.position 
           save
         end
         
-        def move_after!(node)
-          self.parent_id = node.parent_id
-          self.position = node.position + 1
-          update_sibling_positions node.next.position if node.next
+        def move_after!(target)
+          self.parent_id = target.parent_id
+          self.position = target.position + 1
+          update_sibling_positions target.next.position if target.next
           save
         end
         
-        def move_inside!(node)
-          self.parent_id = node.id
-          self.position = base_class.criteria.where(:parent_id => node.id).count
+        def move_inside!(target)
+          self.parent_id = target.id
+          self.position = base_class.criteria.where(:parent_id => target.id).count
           save
         end
       end
