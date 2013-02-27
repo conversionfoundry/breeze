@@ -33,7 +33,7 @@ private
 
   def breadcrumb_link(node)
     h.content_tag :li do
-      link_to(node.title, node.link_to)
+      h.link_to(node.title, node.link_to)
     end.html_safe
   end
 
@@ -49,5 +49,4 @@ private
     end.html_safe
   end
 
-  
 end

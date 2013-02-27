@@ -1,12 +1,15 @@
 require 'spec_helper'
 
 describe Breeze::Breadcrumb do
+  include RSpec::Rails::RailsExampleGroup
+  include ActionView::TestCase::Behavior
+
   let(:page) { Fabricate :page  }
   let(:child_page) { Fabricate :page, parent: page  }
   let(:divider) { '&gt;' }
   
   context "with no parents"  do
-    subject { Breeze::Breadcrumb.new(template: stub, for_page: page, divider: divider) }
+    subject { Breeze::Breadcrumb.new(template: view, for_page: page, divider: divider) }
     it "displays nothing for the root page" do
       subject.generate.should == nil 
     end
@@ -16,7 +19,7 @@ describe Breeze::Breadcrumb do
   end
 
   context "with parents"  do
-    subject { Breeze::Breadcrumb.new(template: stub, for_page: child_page, divider: divider) }
+    subject { Breeze::Breadcrumb.new(template: view, for_page: child_page, divider: divider) }
     it "displays the name of the current page for a child page" do
       subject.generate.should =~ %r{#{child_page.title}} 
     end
