@@ -2,9 +2,12 @@ module Breeze
   module Content
     class Page
       include Mongoid::Document
-      include Mixins::TreeStructure
-      include Mixins::Permalinks
-      include Mixins::Markdown
+      include Mongoid::Timestamps
+      include Mongoid::Paranoia
+
+      # include Mixins::TreeStructure
+      # include Mixins::Permalinks
+      # include Mixins::Markdown
       
       field :title
       field :subtitle
@@ -20,25 +23,20 @@ module Breeze
 
       index({ parent_id: 1, slug: 1 }, { unique: true })
 
-      embeds_many :contents
-      
-      def to_s
-        title
+      embeds_many :content_items, class_name: "Breeze::Content::CustomTypeInstance"
+
+      def self.[](permalink)
+        where(permalink: permalink).first
       end
-      
-      # This has to move into ActiveSupport::Notifications
-      after_create  { |page| Breeze::Admin::Activity.log :create, page }
-      after_update  { |page| Breeze::Admin::Activity.log :update, page }
-      before_destroy { |page| Breeze::Admin::Activity.log :delete, page }
       
       def page_title
         seo_title.presence || title
       end
-            
-      def self.[](permalink)
-        where(permalink: permalink).first
-      end
 
+      def to_s
+        page_title
+      end
+            
     end
   end
 end

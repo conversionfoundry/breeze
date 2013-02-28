@@ -3,7 +3,7 @@ module Breeze
     class Placement
       include Mongoid::Document
       field :region, :type => String
-      field :position, :type => Integer, :default => 0
+      field :position, :type => Integer, :default => 1
       
       attr_protected :id
 

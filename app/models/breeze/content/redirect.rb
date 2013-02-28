@@ -1,6 +1,7 @@
 module Breeze
   module Content
-    class Redirect < Item
+    class Redirect
+      include Mongoid::Document
       field :permalink
       field :targetlink
       field :kind, :type => Integer, :default => 301
@@ -12,9 +13,16 @@ module Breeze
       
       validates_presence_of :permalink, :targetlink
       validates_uniqueness_of :permalink
-      validates_format_of :permalink, :with => /^\//, :message => "must start with a slash", :if => :permalink?
-      validates_format_of :targetlink, :with => /^\//, :message => "must start with a slash", :if => :targetlink?
+      validates_format_of :permalink, 
+        :with => /^\//, 
+        :message => "must start with a slash"
+      validates_format_of :targetlink, 
+        :with => /^\//, 
+        :message => "must start with a slash"
+
       before_validation :check_leading_slashes
+      # missing validation to prevent redirection loops
+
       validates_inclusion_of :kind, :in => KINDS.keys
       
       def render(controller, request)
@@ -31,7 +39,6 @@ module Breeze
         self.permalink = "/#{permalink.sub(/\/$/, "")}" unless permalink.blank? || permalink.starts_with?("/")
         self.targetlink = "/#{targetlink.sub(/\/$/, "")}" unless targetlink.blank? || targetlink.starts_with?("/")
       end
-        
     end
   end
 end

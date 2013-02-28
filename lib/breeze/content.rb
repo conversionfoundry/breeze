@@ -22,7 +22,7 @@ module Breeze
       # Allow plugins to provide content
       content = Breeze.run_hook(:get_content_by_permalink, permalink)
       # Otherwise, look for page in Breeze Core
-      content = Item.where(permalink: permalink).first if content.blank? || content.is_a?(String)
+      content ||= Page.where(permalink: permalink).first if content.blank? || content.is_a?(String)
       content
     end
     

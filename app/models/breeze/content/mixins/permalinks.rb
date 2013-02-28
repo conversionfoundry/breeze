@@ -3,7 +3,6 @@ module Breeze::Content::Mixins::Permalinks
     base.field :permalink
     base.field :slug
 
-    base.attr_protected :_id
 
     base.before_validation :fill_in_slug
     base.before_validation :regenerate_permalink
@@ -27,7 +26,11 @@ module Breeze::Content::Mixins::Permalinks
     end
   end
   
-  # When a permalink changes, permalinks for child pages also need to be updated
+  # When a permalink changes, permalinks for child pages also need to be
+  # updated Alban Feb 2013: This is transversal to two concerns, tree structure
+  # and permalink Another service object should be responsible of this + Tree
+  # structure has a method like apply_from_top_to_bottom where we pass a block
+  # to do some stuff, in this case refreshing permalinks
   def update_child_permalinks
     if respond_to?(:children) && permalink_changed?
       children.each do |child|
@@ -37,9 +40,9 @@ module Breeze::Content::Mixins::Permalinks
     end
   end
 
-  def redirects
-    Breeze::Content::Redirect.where(:targetlink => permalink)
-  end
+  # def redirects
+  #   Breeze::Content::Redirect.where(:targetlink => permalink)
+  # end
 
 protected
 

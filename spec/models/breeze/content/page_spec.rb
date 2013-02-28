@@ -27,7 +27,6 @@ describe Breeze::Content::Page do
     it "raises a not found error if nothing has been found" do
       Breeze::Content::Page['trythat'].should raise(:not_found)
     end
-
   end
 
 end

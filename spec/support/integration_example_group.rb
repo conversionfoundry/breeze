@@ -11,17 +11,15 @@ module RSpec::Rails
     include ActionDispatch::Integration::Runner
     include RSpec::Rails::TestUnitAssertionAdapter
     include ActionDispatch::Assertions
-    include Capybara
+    include Capybara::DSL
     include RSpec::Matchers
  
-    module InstanceMethods
-      def app
-        ::Rails.application
-      end
- 
-      def last_response
-        page
-      end
+    def app
+      ::Rails.application
+    end
+
+    def last_response
+      page
     end
  
     included do

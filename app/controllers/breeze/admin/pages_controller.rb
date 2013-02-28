@@ -4,7 +4,7 @@ module Breeze
       after_filter :expire_all_pages_fragment, except: [:index, :list]
 
       def index
-        @roots ||= Breeze::Content::NavigationItem.where(parent_id: nil)
+        @roots ||= Breeze::Content::Page.where(parent_id: nil)
       end
       
       def list
@@ -17,6 +17,7 @@ module Breeze
       
       def create
         @page = Breeze::Content::Page.create(params[:page])
+        Breeze::Admin::Activity.log(:create, @page)
       end
       
       def edit
@@ -26,19 +27,20 @@ module Breeze
       def update
         @page = Breeze::Content::Page.find params[:id]
         @page.update_attributes params[:page]
+        Breeze::Admin::Activity.log(:update, @page)
         respond_to do |format|
           format.js
           format.html { redirect_to @page.permalink }
         end
       end
-      
+    
       def sort
-        @page = Breeze::Content::NavigationItem.find params[:id]
+        @page = Breeze::Content::Page.find params[:id]
         @page.update_attributes params[:page]
       end
       
       def move
-        @page = Breeze::Content::NavigationItem.find params[:id]
+        @page = Breeze::Content::Page.find params[:id]
         @page.move! params[:type].to_sym, params[:ref]
       end
       
@@ -49,7 +51,8 @@ module Breeze
       end
       
       def destroy
-        @page = Breeze::Content::NavigationItem.find params[:id]
+        @page = Breeze::Content::Page.find params[:id]
+        Breeze::Admin::Activity.log(:delete, @page)
         @page.destroy
         respond_to do |format|
           format.js
@@ -58,7 +61,7 @@ module Breeze
       
     protected
       def pages
-        @pages ||= Breeze::Content::NavigationItem.all.order_by([[ :position, :asc ]]).to_a
+        @pages ||= Breeze::Content::Page.all.order_by([[ :position, :asc ]]).to_a
       end
       helper_method :pages
 

@@ -13,7 +13,7 @@ module Breeze
       end
 
       def options_for_page_select
-        page_tree_array(Breeze::Content::NavigationItem.root.first, [])
+        page_tree_array(Breeze::Content::Page.root.first, [])
       end
 
       def page_tree_array(page, page_array)
