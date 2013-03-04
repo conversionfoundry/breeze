@@ -2,60 +2,39 @@ module Breeze
   module Content
     module Mixins
       module TreeStructure
-        def self.included(base)
-          base.belongs_to :parent, :class_name => base.name, :index => true
-          base.has_many :children, :class_name => base.name, :foreign_key => :parent_id
+        extend ActiveSupport::Concern
 
-          base.field :position, :type => Integer, default: 0
-          base.validates :position, presence: true, numericality: { greater_or_equal_than: 0 }, uniqueness: { scope: :parent_id }
-          base.index({ parent_id: 1, position: 1}, { unique: true })
-          
-          base.attr_protected :_id
-          
-          base.before_validation :set_position
-          base.before_destroy :destroy_children
-          base.after_destroy :update_sibling_positions
-          
-          base.class_eval do
-            scope :root, where(:parent_id => nil)
-          end
+        included do
+          belongs_to :parent, :class_name => name, :index => true
+          has_many :children, :class_name => name, :foreign_key => :parent_id
 
+          field :position, type: Integer, default: 0
+          validates :position, 
+            presence: true, 
+            numericality: { greater_or_equal_than: 0 }, 
+            uniqueness: { scope: :parent_id }
+          index({ parent_id: 1, position: 1}, { unique: true })
+          
+          before_validation :set_position
+          before_destroy :destroy_children
+          after_destroy :update_sibling_positions
+
+          scope :root, where(:parent_id => nil)
+        end
+
+        module ClassMethods
         end
         
         def root?
           parent_id.nil?
         end
         
-        def scope
-          base_class.criteria.where :parent_id => parent_id
-        end
-        
         def first_children
-          base_class.where(parent_id: id).first
+          children.first
         end
 
         def self_and_siblings
-          scope.order_by([[ :position, :asc ]])
-        end
-        
-        def siblings
-          self_and_siblings.where :id.ne => id
-        end
-
-        
-        def previous
-          scope.where(:position.lt => position).order_by([[ :position, :desc ]]).first
-        end
-        
-        def next
-          scope.where(:position.gt => position).order_by([[ :position, :asc ]]).first
-        end
-        
-        def move!(move_type, ref_id)
-          # node = base_class.criteria.where(:parent_id => ref_id).first
-          node = base_class.criteria.find(ref_id)
-          send :"move_#{move_type}!", node 
-          node.reload
+          self.class.where(parent_id: parent_id).order_by([[ :position, :asc ]])
         end
         
         def self_and_ancestors
@@ -64,23 +43,36 @@ module Breeze
           end
         end
 
+        def siblings
+          self_and_siblings.where :id.ne => id
+        end
+        
+        def previous
+          self.class.where(:parent_id => parent_id, :position.lt => position).order_by([[ :position, :desc ]]).first
+        end
+        
+        def next
+          self.class.where(:parent_id => parent_id, :position.gt => position).order_by([[ :position, :asc ]]).first
+        end
+        
+        def move!(move_type, ref_id)
+          node = find(ref_id)
+          send :"move_#{move_type}!", node 
+          node.reload
+        end
+        
         # Level in the page hierarchy
         # We make a special case for the root (i.e. home page), which is at level one, not zero.
         def level
-          if root?
-            1
-          else
-            self_and_ancestors.count - 1
-          end
+          root? ? 1 : self_and_ancestors.count - 1
         end
         
-        module ClassMethods
-        end
-        
-      protected
+     private 
 
         def set_position
-          self.position = scope.count if ( self.position == 0 && ( self.position_changed? || self.parent_id_changed? ) )
+          if self.position == 0 && ( self.position_changed? || self.parent_id_changed? )
+            self.position = self.class.where(parent_id: parent_id).count
+          end
           update_sibling_positions 1, self.position
         end
         
@@ -88,15 +80,14 @@ module Breeze
           children.map(&:destroy)
         end
         
-        # Increment the position number for siblings to make room for a new item
-        def update_sibling_positions(by = 1, ref_position=self.position)
-          base_class.where(:parent_id => parent_id, :position => { '$gte' => ref_position }).inc(:position, by)
+        def update_sibling_positions(by = 1, ref_position = position)
+          self.class.where(:parent_id => parent_id, :position => { '$gte' => ref_position }).inc(:position, by)
         end
-        
+
         def move_before!(node)
           self.parent_id = node.parent_id
           self.position = node.position 
-          update_sibling_positions(node.position + 1)
+          update_sibling_positions(1, node.position + 1)
           save
         end
         

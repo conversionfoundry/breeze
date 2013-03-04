@@ -4,19 +4,18 @@ module Breeze
       include Mongoid::Document
       include Mongoid::Timestamps
       include Mongoid::Paranoia
-
-      # include Mixins::TreeStructure
-      # include Mixins::Permalinks
+      include Mixins::TreeStructure
+      include Mixins::Permalinks
       # include Mixins::Markdown
       
-      field :title
-      field :subtitle
-      field :template, default: 'default'
-      field :ssl, :type => Boolean, :default => false
-      field :seo_title
-      field :seo_meta_description
-      field :seo_meta_keywords
-      field :show_in_navigation, :type => Boolean, :default => true
+      field :title, type: String
+      field :subtitle, type: String
+      field :template, type: String, default: 'default'
+      field :ssl, type: Boolean, default: false
+      field :seo_title, type: String
+      field :seo_meta_description, type: String
+      field :seo_meta_keywords, type: String
+      field :show_in_navigation, type: Boolean, default: true
 
       validates :title, presence: true
       validates :template, presence: true

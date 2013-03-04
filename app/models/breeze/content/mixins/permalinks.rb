@@ -1,31 +1,29 @@
 module Breeze::Content::Mixins::Permalinks
-  def self.included(base)
-    base.field :permalink
-    base.field :slug
+  extend ActiveSupport::Concern
 
+  included do
+    field :permalink
+    field :slug
 
-    base.before_validation :fill_in_slug
-    base.before_validation :regenerate_permalink
-    base.after_save :update_child_permalinks
+    before_validation :fill_in_slug
+    before_validation :regenerate_permalink
+    after_save :update_child_permalinks
 
-    base.validates_format_of :permalink, 
+    validates_format_of :permalink, 
       :with => /^(\/|(\/[\w\-]+)+)$/,
       :message => "must contain only letters, numbers, underscores or dashes"
-    base.validates_uniqueness_of :permalink 
-    base.validates :slug, uniqueness: { scope: :parent_id }
-    base.index({ permalink: 1 }, { unique: true })
-    
-    base.class_eval do
-      def permalink(include_domain = false)
-        if include_domain
-          "#{Breeze.domain}#{read_attribute(:permalink)}"
-        else
-          read_attribute(:permalink)
-        end
-      end
-    end
+    validates_uniqueness_of :permalink 
+    validates :slug, uniqueness: { scope: :parent_id }
+    index({ permalink: 1 }, { unique: true })
+  end
+
+  module ClassMethods
   end
   
+  def permalink(include_domain = false)
+    include_domain ? [Breeze.domain, permalink].join : permalink
+  end
+
   # When a permalink changes, permalinks for child pages also need to be
   # updated Alban Feb 2013: This is transversal to two concerns, tree structure
   # and permalink Another service object should be responsible of this + Tree
@@ -40,11 +38,7 @@ module Breeze::Content::Mixins::Permalinks
     end
   end
 
-  # def redirects
-  #   Breeze::Content::Redirect.where(:targetlink => permalink)
-  # end
-
-protected
+private
 
   def fill_in_slug
     self.slug = SlugGenerator.new(self).allocate

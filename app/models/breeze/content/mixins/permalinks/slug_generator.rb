@@ -22,7 +22,7 @@ class Breeze::Content::Mixins::Permalinks::SlugGenerator < Struct.new(:tree_node
 private
 
   def taken_slugs
-    Breeze::Content::Item.where(slug: /.*#{default_slug}.*/i, parent_id: tree_node.parent_id).map(&:slug)
+    Breeze::Content::Item.where(slug: default_slug, parent_id: tree_node.parent_id).map(&:slug)
   end
   
   def default_slug

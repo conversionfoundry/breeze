@@ -3,18 +3,22 @@ module Breeze
     class CustomType
       include Mongoid::Document
 
-      field :name
-      field :type_name
+      field :name, type: String
+      field :type_name, type: String
       attr_accessible :name, :fields
 
-      validates :name, uniqueness: true, presence: true,
+      validates :name, 
+        uniqueness: true, 
+        presence: true,
         format: { with: /^[\w\d\s-]*$/, 
           message: "Can contain only digits, letters, space, dashes and underscores." }
-      index({ name: 1 }, { unique: true })
+      index({ name: 1 }, { unique: true }) # Uniqueness index
 
-      validates :type_name, presence: true, uniqueness: true,
+      validates :type_name, 
+        presence: true, 
+        uniqueness: true,
         format: { with: /^[A-Z]\w*$/, message: "must be a CamelCasedName" }
-      index({ type_name: 1 }, { unique: true })
+      index({ type_name: 1 }, { unique: true }) # Uniqueness index
 
 
       embeds_many :fields, 

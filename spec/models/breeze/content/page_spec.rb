@@ -21,7 +21,7 @@ describe Breeze::Content::Page do
 
   describe ".[]" do
     it "retrieves a page from its permalink" do
-      Breeze::Content::Page[page.permalink].should eq(page)
+      Breeze::Content::Page[subject.permalink].should eq(subject)
     end
 
     it "raises a not found error if nothing has been found" do
