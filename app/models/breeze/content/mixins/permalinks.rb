@@ -19,9 +19,9 @@ module Breeze::Content::Mixins::Permalinks
 
   module ClassMethods
   end
-  
-  def permalink(include_domain = false)
-    include_domain ? [Breeze.domain, permalink].join : permalink
+
+  def canonical_url
+    [Breeze.domain, permalink].join
   end
 
   # When a permalink changes, permalinks for child pages also need to be

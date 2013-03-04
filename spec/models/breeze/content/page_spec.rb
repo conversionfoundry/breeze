@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../../../spec_helper")
 
 describe Breeze::Content::Page do
 
-  subject { Fabricate.build :page }
+  subject { Fabricate :page }
 
   describe "Factory" do
     it { should be_valid }
@@ -22,10 +22,6 @@ describe Breeze::Content::Page do
   describe ".[]" do
     it "retrieves a page from its permalink" do
       Breeze::Content::Page[subject.permalink].should eq(subject)
-    end
-
-    it "raises a not found error if nothing has been found" do
-      Breeze::Content::Page['trythat'].should raise(:not_found)
     end
   end
 

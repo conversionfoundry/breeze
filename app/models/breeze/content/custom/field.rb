@@ -15,20 +15,21 @@ module Breeze
 
         before_validation :fill_in_name
 
-        def label
-          name.demodulize.underscore.humanize
-        end
-
         embedded_in :custom_type, 
           class_name: "Breeze::Content::CustomType",
           inverse_of: :fields
 
+        def label
+          name.demodulize.underscore.humanize
+        end
+
       private 
 
         def fill_in_name
-          self.name = self.label.underscore.gsub(/\s+/, "_") if self.name.blank? && !self.label.blank?
+          if name.blank? && label.present?
+            self.name = self.label.underscore.gsub(/\s+/, "_")
+          end
         end
-
       end
     end
   end

@@ -3,7 +3,9 @@ require 'spec_helper'
 
 describe Breeze::Content::Custom::Field do 
 
-  subject { Fabricate.build :custom_field }
+  subject do
+    Breeze::Content::Custom::Field.new
+  end
 
   describe 'validations' do
     it "should not allow symbols for the name" do

@@ -6,7 +6,7 @@ module Breeze
       include Mongoid::Paranoia
       include Mixins::TreeStructure
       include Mixins::Permalinks
-      # include Mixins::Markdown
+      include Mixins::Markdown
       
       field :title, type: String
       field :subtitle, type: String
@@ -22,7 +22,9 @@ module Breeze
 
       index({ parent_id: 1, slug: 1 }, { unique: true })
 
-      embeds_many :content_items, class_name: "Breeze::Content::CustomTypeInstance"
+      embeds_many :content_items, 
+        class_name: "Breeze::Content::CustomTypeInstance",
+        inverse_of: :page
 
       def self.[](permalink)
         where(permalink: permalink).first

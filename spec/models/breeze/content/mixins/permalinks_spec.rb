@@ -1,10 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../../../spec_helper")
 
-class PermalinkTest < Breeze::Content::Item
-  field :title
-  belongs_to :parent, class_name: PermalinkTest
+class PermalinkTest 
+  include Mongoid::Document
   include Breeze::Content::Mixins::Permalinks
   include Breeze::Content::Mixins::TreeStructure
+
+  field :title
+  belongs_to :parent, class_name: PermalinkTest
 end
 
 describe "Permalink" do
@@ -13,10 +15,6 @@ describe "Permalink" do
   subject { PermalinkTest.create(title: 'children', parent: parent) }
 
   let(:taken_slugs) { %w(children children-2 children-3) }
-
-  describe "Factory" do
-    it { should be_valid }
-  end
 
   describe '#fill_in_slug' do
     it "fills the slug" do

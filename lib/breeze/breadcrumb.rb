@@ -33,7 +33,7 @@ private
 
   def breadcrumb_link(node)
     h.content_tag :li do
-      h.link_to(node.title, node.link_to)
+      h.link_to(node.title, node.permalink)
     end.html_safe
   end
 

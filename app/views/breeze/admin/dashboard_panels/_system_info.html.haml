@@ -5,7 +5,7 @@
   %em
     = Mongoid.default_session.options[:database]
   with
-  = at_a_glance Breeze::Content::Item.count, ' item'.pluralize(Breeze::Content::Item.count)
+  = at_a_glance Breeze::Content::Page.count, ' pages'.pluralize(Breeze::Content::Page.count)
 
   %h3 Breeze Components
   %ul.components

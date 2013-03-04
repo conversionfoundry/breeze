@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
+require 'spec_helper'
 
 describe "Analytics" do
   it "is possible to crawl the first page" do
