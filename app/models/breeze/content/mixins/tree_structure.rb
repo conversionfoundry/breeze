@@ -5,8 +5,8 @@ module Breeze
         extend ActiveSupport::Concern
 
         included do
-          belongs_to :parent, :class_name => name, :index => true
-          has_many :children, :class_name => name, :foreign_key => :parent_id
+          belongs_to :parent, :class_name => "Breeze::Content::Page", :index => true
+          has_many :children, :class_name => "Breeze::Content::Page", :foreign_key => :parent_id
 
           field :position, type: Integer, default: 0
           validates :position, 
@@ -56,7 +56,7 @@ module Breeze
         end
         
         def move!(move_type, ref_id)
-          node = find(ref_id)
+          node = self.class.find(ref_id)
           send :"move_#{move_type}!", node 
           node.reload
         end
@@ -71,7 +71,7 @@ module Breeze
 
         def set_position
           if self.position == 0 && ( self.position_changed? || self.parent_id_changed? )
-            self.position = self.class.where(parent_id: parent_id).count
+            self.position = self_and_siblings.count
           end
           update_sibling_positions 1, self.position
         end
@@ -100,7 +100,7 @@ module Breeze
         
         def move_inside!(node)
           self.parent_id = node.id
-          self.position = base_class.criteria.where(:parent_id => node.id).count
+          self.position = self.class.where(:parent_id => node.id).count
           save
         end
       end

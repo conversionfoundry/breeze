@@ -6,7 +6,6 @@ class PermalinkTest
   include Breeze::Content::Mixins::TreeStructure
 
   field :title
-  belongs_to :parent, class_name: PermalinkTest
 end
 
 describe "Permalink" do

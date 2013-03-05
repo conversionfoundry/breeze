@@ -2,10 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + "/../../../../spec_helper")
 
 describe "TreeStructure" do
 
-  let(:parent) { Fabricate :navigation_item}
-  subject { Fabricate :navigation_item, parent: parent }
-  let(:target) { Fabricate :navigation_item, parent: parent, title: 'target', slug: 'target' }
-  let(:target_child) { Fabricate :navigation_item, parent: target, title: 'target_child', slug: 'target_child' }
+  let(:parent) { Fabricate :page}
+  subject { Fabricate :page, parent: parent }
+  let(:target) { Fabricate :page, parent: parent, title: 'target', slug: 'target' }
+  let(:target_child) { Fabricate :page, parent: target, title: 'target_child', slug: 'target_child' }
 
   describe "#set_position" do
     context "children of a parent item" do
@@ -17,7 +17,7 @@ describe "TreeStructure" do
       context "second child" do
         it "has position 1" do
           subject
-          second_child = Fabricate :navigation_item, parent: parent
+          second_child = Fabricate :page, parent: parent
           second_child.position.should eq 1
         end
       end
