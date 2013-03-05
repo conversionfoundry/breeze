@@ -9,6 +9,7 @@ PATH
       coffee-script
       devise (~> 2.0.4)
       execjs (~> 1.4.0)
+      font-awesome-rails (~> 3.0.2)
       haml (= 3.1.7)
       jquery-fileupload-rails (~> 0.4.0)
       jquery-rails (~> 2.1.2)
@@ -81,7 +82,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.4.0)
+    coffee-script-source (1.6.1)
     database_cleaner (0.9.1)
     devise (2.0.5)
       bcrypt-ruby (~> 3.0)
@@ -95,6 +96,8 @@ GEM
     fabrication (2.5.0)
     ffaker (1.15.0)
     ffi (1.4.0)
+    font-awesome-rails (3.0.2.0)
+      railties (>= 3.1)
     fuubar (1.1.0)
       rspec (~> 2.0)
       rspec-instafail (~> 0.2.0)
@@ -146,7 +149,7 @@ GEM
     mime-types (1.21)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
-    mongoid (3.0.22)
+    mongoid (3.0.23)
       activemodel (~> 3.1)
       moped (~> 1.2)
       origin (~> 1.0)
@@ -154,7 +157,7 @@ GEM
     mongoid_fulltext (0.6.0)
       mongoid (~> 3.0.1)
       unicode_utils (~> 1.0.0)
-    moped (1.4.2)
+    moped (1.4.3)
     multi_json (1.6.1)
     nokogiri (1.5.6)
     origin (1.0.11)
@@ -243,7 +246,7 @@ GEM
       actionpack (>= 3.1)
       execjs
       railties (>= 3.1)
-    tzinfo (0.3.35)
+    tzinfo (0.3.36)
     unicode_utils (1.0.0)
     warden (1.1.1)
       rack (>= 1.0)
