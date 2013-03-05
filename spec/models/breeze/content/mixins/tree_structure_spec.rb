@@ -5,7 +5,6 @@ describe "TreeStructure" do
   let(:parent) { Fabricate :page}
   subject { Fabricate :page, parent: parent }
   let(:target) { Fabricate :page, parent: parent, title: 'target', slug: 'target' }
-  let(:target_child) { Fabricate :page, parent: target, title: 'target_child', slug: 'target_child' }
 
   describe "#set_position" do
     context "children of a parent item" do
@@ -26,8 +25,6 @@ describe "TreeStructure" do
 
   describe "#move_before!" do
     before :each do
-      subject
-      target
       subject.position = 2
       subject.save
       subject.move!(:before, target.id)
@@ -41,6 +38,7 @@ describe "TreeStructure" do
     end
     # it "calls update_sibling_position with the correct ref_position"
   end
+
   describe "#move_after!" do
     before :each do
       subject.move!(:after, target.id)
@@ -54,9 +52,10 @@ describe "TreeStructure" do
     end
     # it "calls update_sibling_position with the correct ref_position"
   end
+
   describe "#move_inside!" do
+    let!(:target_child) { Fabricate :page, parent: target, title: 'target_child', slug: 'target_child' }
     before :each do
-      target_child
       subject.move!(:inside, target.id)
     end  	
     it "has target as parent" do
