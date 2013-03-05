@@ -1,121 +1,122 @@
 @import "variables"
 @import "mixins"
 
-.badge
-  font-size: 11.844px
-  font-weight: bold
-  line-height: 1.2em
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
-  white-space: nowrap
-  vertical-align: baseline
-  background: #aaaaaa
-  color: white
-  padding: 1px 9px 2px
-  text-align: center
-  @include border-radius(0.75em)
+body.breeze-admin
+  .badge
+    font-size: 11.844px
+    font-weight: bold
+    line-height: 1.2em
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+    white-space: nowrap
+    vertical-align: baseline
+    background: #aaaaaa
+    color: white
+    padding: 1px 9px 2px
+    text-align: center
+    @include border-radius(0.75em)
 
-table.fancy 
-  thead
-    th
-      background: #eeeeee
-      padding: 0 1em
-      text-align: left  
-  tbody 
-    tr
-      width: 100%
-      .actions .button
-        visibility: hidden
-        opacity: 0
-        -webkit-transition: opacity 0.25s ease-in
-      &:hover
-        td
-          background: $colour-highlight
-        .actions .button, td.published .field
+  table.fancy 
+    thead
+      th
+        background: #eeeeee
+        padding: 0 1em
+        text-align: left  
+    tbody 
+      tr
+        width: 100%
+        .actions .button
+          visibility: hidden
+          opacity: 0
+          -webkit-transition: opacity 0.25s ease-in
+        &:hover
+          td
+            background: $colour-highlight
+          .actions .button, td.published .field
+            visibility: visible
+            opacity: 1.0
+        td.published .text
           visibility: visible
           opacity: 1.0
-      td.published .text
-        visibility: visible
-        opacity: 1.0
-      &.disabled:hover .actions .button
-        visibility: hidden
-        opacity: 0
-      &.active
-        td
-          border-bottom: 0px
+        &.disabled:hover .actions .button
+          visibility: hidden
+          opacity: 0
+        &.active
+          td
+            border-bottom: 0px
+            background-color: #ffffc0
+          &:hover td
+            background-color: #ffffc0
+        &.edit td
           background-color: #ffffc0
-        &:hover td
-          background-color: #ffffc0
-      &.edit td
-        background-color: #ffffc0
-      .actions
-        text-align: right
-      &.active .actions .button
-        visibility: visible
-        opacity: 1.0
-      td
-        border-bottom: 1px solid #eeeeee
-        padding: 1em
-      &.last
-        td
-          border-bottom: none
-  tfoot
-    td
-      background: transparent
-      text-align: right
-      padding: 1em
-
-#dashboard
-  margin: 0px 4px 16px
-  .col1
-    width: 96px
-  .col2
-    width: 224px
-  .col3
-    width: 352px
-  .col4
-    width: 480px
-  .col5
-    width: 608px
-  .col6
-    width: 736px
-  .box
-    h2
-      margin: 0px
-      padding: 0px 0px 4px
-      font-weight: normal
-    .at-a-glance
-      width: 100%
-      margin: 0px
-      padding: 0
-      border-spacing: 0px
-      border-collapse: collapse
-      tr
+        .actions
+          text-align: right
+        &.active .actions .button
+          visibility: visible
+          opacity: 1.0
         td
           border-bottom: 1px solid #eeeeee
-          padding: 0px
-          vertical-align: middle
-          &.item-count
-            padding: 0.5em
-            width: 3em
-
-      .badge
-        font-size: 200%
-    .at-a-glance
-      tr:last-child
-        td
-          border: none
-    table.fancy
-      thead
-        th
-          background: transparent
-    p
-      margin: 1ex 0px 0px
-    p.hint
-      margin-bottom: 1em
-    &#top
-      .name
-        text-align: left
-      .sales
-        text-align: center
-      .total
+          padding: 1em
+        &.last
+          td
+            border-bottom: none
+    tfoot
+      td
+        background: transparent
         text-align: right
+        padding: 1em
+
+  #dashboard
+    margin: 0px 4px 16px
+    .col1
+      width: 96px
+    .col2
+      width: 224px
+    .col3
+      width: 352px
+    .col4
+      width: 480px
+    .col5
+      width: 608px
+    .col6
+      width: 736px
+    .box
+      h2
+        margin: 0px
+        padding: 0px 0px 4px
+        font-weight: normal
+      .at-a-glance
+        width: 100%
+        margin: 0px
+        padding: 0
+        border-spacing: 0px
+        border-collapse: collapse
+        tr
+          td
+            border-bottom: 1px solid #eeeeee
+            padding: 0px
+            vertical-align: middle
+            &.item-count
+              padding: 0.5em
+              width: 3em
+
+        .badge
+          font-size: 200%
+      .at-a-glance
+        tr:last-child
+          td
+            border: none
+      table.fancy
+        thead
+          th
+            background: transparent
+      p
+        margin: 1ex 0px 0px
+      p.hint
+        margin-bottom: 1em
+      &#top
+        .name
+          text-align: left
+        .sales
+          text-align: center
+        .total
+          text-align: right
