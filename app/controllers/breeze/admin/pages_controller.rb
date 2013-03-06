@@ -45,8 +45,8 @@ module Breeze
       end
       
       def duplicate
-        @page = Breeze::Content::Page.find params[:id]
-        @page = @page.duplicate
+        page = Breeze::Content::Page.find params[:id]
+        @page = page.duplicate
         render :action => :create
       end
       

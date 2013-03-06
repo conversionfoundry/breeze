@@ -37,6 +37,12 @@ module Breeze
       def to_s
         page_title
       end
+
+      def duplicate
+        duplicata = clone
+        duplicata.save
+        duplicata
+      end
             
     end
   end

@@ -19,6 +19,23 @@ describe Breeze::Content::Page do
     end
   end
 
+  describe "#duplicate" do
+    let(:duplicata) { subject.duplicate }
+
+    it "returns the created object" do
+      duplicata.id.should_not eq(subject.id)
+      duplicata.page_title.should eq("seo_title")
+    end
+
+    it "duplicates the embedded elements" do
+      subject.content_items.push(
+        Breeze::Content::TypeInstance.new(region: 'region_title')
+      )
+      duplicata.content_items.size.should eq(1)
+      duplicata.content_items.first.region.should eq('region_title')
+    end
+  end
+
   describe ".[]" do
     it "retrieves a page from its permalink" do
       Breeze::Content::Page[subject.permalink].should eq(subject)
