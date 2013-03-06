@@ -4,9 +4,11 @@ require 'spec_helper'
 describe Breeze::Admin::PagesController do
 
   let!(:pag) { Fabricate(:page) }
+  let(:user) { Fabricate(:user) }
 
   before do
     @routes = Breeze::Engine.routes
+    sign_in user
   end
 
   describe "POST #duplicate" do
