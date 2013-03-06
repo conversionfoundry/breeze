@@ -1,6 +1,6 @@
 module Breeze
   module Content
-    class CustomType
+    class Type 
       include Mongoid::Document
 
       field :name, type: String

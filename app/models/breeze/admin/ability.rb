@@ -9,7 +9,7 @@ module Breeze
         case user
         when User
           can :manage,       Breeze::Content::Page
-          can :manage,       Breeze::Content::CustomType if user.admin? || user.designer?
+          can :manage,       Breeze::Content::Type if user.admin? || user.designer?
           can :manage,       Breeze::Theming::Theme if user.admin? || user.designer?
           can :create,       Breeze::Admin::User   do |subject| ; user.admin?                    ; end
           can :update,       Breeze::Admin::User   do |subject| ; user.admin? || user == subject ; end

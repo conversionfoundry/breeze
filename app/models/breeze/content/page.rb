@@ -23,7 +23,7 @@ module Breeze
       index({ parent_id: 1, slug: 1 }, { unique: true })
 
       embeds_many :content_items, 
-        class_name: "Breeze::Content::CustomTypeInstance",
+        class_name: "Breeze::Content::TypeInstance",
         inverse_of: :page
 
       def self.[](permalink)
