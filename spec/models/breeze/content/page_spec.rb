@@ -8,6 +8,9 @@ describe Breeze::Content::Page do
     it { should be_valid }
   end
 
+  describe "Validations" do
+  end
+
   describe "#page_title" do
     it "selects the seo optimized title if possible" do
       subject.page_title.should eq('seo_title')
@@ -27,7 +30,7 @@ describe Breeze::Content::Page do
       duplicata.page_title.should eq("seo_title")
     end
 
-    it "duplicates the embedded elements" do
+    it "deep copy embedded elements" do
       subject.content_items.push(
         Breeze::Content::TypeInstance.new(region: 'region_title')
       )

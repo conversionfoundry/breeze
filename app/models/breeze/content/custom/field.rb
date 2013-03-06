@@ -11,12 +11,13 @@ module Breeze
         validates :name, 
           presence: true, 
           format: { with: /^[\w\d-]*$/, 
-            message: "must consist of lower-case letters, numbers, dashes and underscores." }
+            message: "must consist of lower-case letters, numbers, " +
+            "dashes and underscores." }
 
         before_validation :fill_in_name
 
-        embedded_in :custom_type, 
-          class_name: "Breeze::Content::CustomType",
+        embedded_in :type, 
+          class_name: "Breeze::Content::Type",
           inverse_of: :fields
 
         def label
