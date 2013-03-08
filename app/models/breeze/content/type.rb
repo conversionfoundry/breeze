@@ -6,7 +6,7 @@ module Breeze
       field :name, type: String
       field :type_name, type: String
 
-      attr_accessible :name, :type_name, :fields
+      attr_accessible :name, :fields
 
       validates :name, 
         uniqueness: true, 
@@ -17,15 +17,14 @@ module Breeze
       index({ name: 1 }, { unique: true }) # Uniqueness index
 
       validates :type_name, 
-        presence: true, 
         uniqueness: true,
         format: { with: /^[A-Z]\w*$/, 
           message: "must be a CamelCasedName" }
       index({ type_name: 1 }, { unique: true }) # Uniqueness index
 
-      embeds_many :fields, 
+      embeds_many :fields,
         class_name: "Breeze::Content::Custom::Field",
-        inverse_of: :type
+        inverse_of: :content_type
 
       accepts_nested_attributes_for :fields, 
         :allow_destroy => true

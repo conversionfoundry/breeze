@@ -5,6 +5,7 @@ gemspec
 
 gem 'jquery-rails'
 gem "jquery-fileupload-rails"
+gem 'mongoid-rspec'
 
 group :development do 
   gem 'fuubar'
@@ -21,7 +22,6 @@ group :test do
   gem 'guard-rspec'
   gem 'capybara'
   gem 'rb-fsevent'
-  gem 'shoulda'
   gem 'jasmine'
   gem 'database_cleaner'
   gem 'fuubar'

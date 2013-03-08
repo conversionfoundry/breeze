@@ -4,33 +4,30 @@ module Breeze
       class Field
         include Mongoid::Document
 
-        field :name, type: String
         field :label, type: String
+        field :name, type: String
         field :field_type, type: String
 
+        validates :label,
+          presence: true
+
         validates :name, 
-          presence: true, 
           format: { with: /^[\w\d-]*$/, 
             message: "must consist of lower-case letters, numbers, " +
             "dashes and underscores." }
 
         before_validation :fill_in_name
 
-        embedded_in :type, 
+        embedded_in :content_type, 
           class_name: "Breeze::Content::Type",
           inverse_of: :fields
 
-        def label
-          name.demodulize.underscore.humanize
-        end
-
       private 
-
+      
         def fill_in_name
-          if name.blank? && label.present?
-            self.name = self.label.underscore.gsub(/\s+/, "_")
-          end
+          self.name ||= label.underscore.gsub(/\s+/, "_") if label.present?
         end
+
       end
     end
   end
