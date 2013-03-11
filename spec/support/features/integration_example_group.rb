@@ -13,6 +13,7 @@ module RSpec::Rails
     include ActionDispatch::Assertions
     include Capybara::DSL
     include RSpec::Matchers
+    include Features::SessionHelpers, type: :feature
  
     def app
       ::Rails.application
@@ -29,7 +30,7 @@ module RSpec::Rails
     end
  
     RSpec.configure do |c|
-      c.include self, :example_group => { :file_path => /\bspec\/integration\// }
+      c.include self, :example_group => { :file_path => /\bspec\/features\// }
     end
   end
 end
