@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe Breeze::Content::Custom::Field do 
 
   subject do
@@ -15,7 +14,7 @@ describe Breeze::Content::Custom::Field do
   end
 
   describe "associations" do
-    it { should be_embedded_in(:type).as_inverse_of(:fields) }
+    it { should be_embedded_in(:content_type).as_inverse_of(:content_fields) }
   end
 
   describe "#fill_in_name" do

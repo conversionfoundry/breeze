@@ -7,13 +7,14 @@ describe Breeze::Admin::PagesController do
 
   before do
     @routes = Breeze::Engine.routes
+    sign_in Fabricate(:user)
   end
 
   describe "POST #duplicate" do
     it "returns ok" do
       post :duplicate,
         id: pag.id
-      response.code.should eq('200')
+      response.status.should eq(201)
     end
 
     it "should assigns the new page" do

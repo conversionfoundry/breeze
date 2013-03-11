@@ -47,7 +47,7 @@ module Breeze
       def duplicate
         page = Breeze::Content::Page.find params[:id]
         @page = page.duplicate
-        render :action => :create
+        render nothing: true, status: 201 # created
       end
       
       def destroy

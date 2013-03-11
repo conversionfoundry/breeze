@@ -20,7 +20,7 @@ module Breeze
 
         embedded_in :content_type, 
           class_name: "Breeze::Content::Type",
-          inverse_of: :fields
+          inverse_of: :content_fields
 
       private 
       

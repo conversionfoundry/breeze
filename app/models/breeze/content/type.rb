@@ -4,9 +4,8 @@ module Breeze
       include Mongoid::Document
 
       field :name, type: String
-      field :type_name, type: String
 
-      attr_accessible :name, :fields
+      attr_accessible :name, :content_fields
 
       validates :name, 
         uniqueness: true, 
@@ -16,26 +15,12 @@ module Breeze
           " dashes and underscores." }
       index({ name: 1 }, { unique: true }) # Uniqueness index
 
-      validates :type_name, 
-        uniqueness: true,
-        format: { with: /^[A-Z]\w*$/, 
-          message: "must be a CamelCasedName" }
-      index({ type_name: 1 }, { unique: true }) # Uniqueness index
-
-      embeds_many :fields,
+      embeds_many :content_fields,
         class_name: "Breeze::Content::Custom::Field",
         inverse_of: :content_type
 
-      accepts_nested_attributes_for :fields, 
+      accepts_nested_attributes_for :content_fields, 
         :allow_destroy => true
-
-      before_validation :fill_in_type_name
-
-    private
-
-      def fill_in_type_name
-        self.type_name ||= name.underscore.gsub(/\s+/, "_").camelize if name
-      end
 
     end
   end
