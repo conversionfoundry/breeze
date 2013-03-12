@@ -34,6 +34,7 @@ Spork.prefork do
 
     config.before :each do
       DatabaseCleaner.start
+      @routes = Breeze::Engine.routes
     end
 
     config.after do
@@ -43,10 +44,12 @@ Spork.prefork do
     config.mock_with :rspec
     config.include Devise::TestHelpers, type: :controller
     config.include Mongoid::Matchers
+    config.include Features::SessionHelpers, type: :feature
     config.treat_symbols_as_metadata_keys_with_true_values = true
     config.filter_run :focus => true
     config.run_all_when_everything_filtered = true
     config.fail_fast = true
+    config.include Breeze::Engine.routes.url_helpers, type: :feature
   end
 
 

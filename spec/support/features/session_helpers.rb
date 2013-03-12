@@ -9,10 +9,12 @@ module Features
 
     def sign_in
       user = Fabricate(:user)
-      visit sign_in_path
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
-      click_button 'Sign in'
+      visit '/admin'
+      within "#sign_in" do
+        fill_in 'admin_email', with: user.email
+        fill_in 'admin_password', with: user.password
+        click_button 'Sign in'
+      end
     end
   end
 end
