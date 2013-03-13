@@ -6,9 +6,6 @@ describe Breeze::ContentsController do
   end
 
   describe 'GET #show' do
-    before do
-      @routes = Breeze::Engine.routes
-    end
     
     it "renders a default template" do
       pag.update_attribute(:permalink, '/super-page')

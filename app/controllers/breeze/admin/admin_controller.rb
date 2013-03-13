@@ -1,7 +1,6 @@
 module Breeze
   module Admin
     class AdminController < Breeze::Controller
-      before_filter :kick_out_ie
       before_filter :authenticate_admin!
       around_filter :set_current_user
 
@@ -46,12 +45,6 @@ module Breeze
       
       def set_current_user(&block)
         User.with_user current_user, &block
-      end
-      
-      def kick_out_ie
-        if request.env['HTTP_USER_AGENT'].downcase =~ /msie/
-          render :file => "breeze/errors/ie", :layout => "error" and return false
-        end
       end
 
       def write_file(path, content)

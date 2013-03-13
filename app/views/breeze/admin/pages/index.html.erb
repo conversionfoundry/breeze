@@ -12,7 +12,7 @@
     <% left.inner do %>
       <%= content_tag :div, id: "pages" do %>
         <%= content_tag :ul, :class => "pages" do %>
-          <%= render :partial => "breeze/admin/pages/page", :collection => pages.select(&:root?) %>
+          <%= render :partial => "breeze/admin/pages/page", :collection => @roots %>
         <% end %>
       <% end %>
       

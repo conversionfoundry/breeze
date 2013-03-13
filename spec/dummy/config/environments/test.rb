@@ -7,10 +7,6 @@ Dummy::Application.configure do
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = false
 
-  # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
-  config.static_cache_control = "public, max-age=3600"
-
   # Log error messages when you accidentally call methods on nil
   config.whiny_nils = true
 
@@ -34,4 +30,13 @@ Dummy::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = true
+
+  # Do not compress assets
+  config.assets.compress = false
+
+  # Expands the lines which load the assets
+  config.assets.debug = true
 end
