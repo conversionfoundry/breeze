@@ -25,6 +25,8 @@ Dummy::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  config.active_support.deprecation = :stderr
+
   # Raise exception on mass assignment protection for Active Record models
   # config.active_record.mass_assignment_sanitizer = :strict
 
@@ -34,9 +36,5 @@ Dummy::Application.configure do
   # Fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
 
-  # Do not compress assets
-  config.assets.compress = false
 
-  # Expands the lines which load the assets
-  config.assets.debug = true
 end

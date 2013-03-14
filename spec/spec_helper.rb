@@ -55,7 +55,8 @@ Spork.prefork do
   Capybara.register_driver :selenium_chrome do |app|
     Capybara::Selenium::Driver.new(app, :browser => :chrome)
   end
-
+  Capybara.app_host = "http://dummy.dev"
+  ActionController::Base.asset_host = Capybara.app_host
 
 end
 
