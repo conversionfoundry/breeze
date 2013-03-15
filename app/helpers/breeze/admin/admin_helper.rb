@@ -15,26 +15,6 @@ module Breeze
 
         end
       end
-  
-      def edit_form_for(form, klass = nil, locals = {})
-        klass ||= form.object.class
-
-        possible_templates = klass.self_and_superclasses.map { |c| File.join("breeze", "admin", "contents", "forms", c.to_s.underscore.tr('/', '.').sub(/^breeze.content./, "")) }
-
-        possible_templates.each do |template_path|
-          begin
-            return render(:partial => template_path, :locals => locals.merge(:form => form))
-          rescue ActionView::MissingTemplate
-            next
-          end
-        end
-        
-        if ( form.object.is_a?(Breeze::Content::Custom::Instance) && form.object.custom_type.custom_fields.any? )
-          form.object.edit_form(form)
-        else
-          content_tag :p, "There is no configuration for this content type."
-        end
-      end
       
       def at_a_glance(count, label, link = nil, options = {})
         content_tag :tr do |html|

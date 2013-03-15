@@ -1,0 +1,13 @@
+<%= breeze_form_for @page, :as => :page, :url => admin_page_path(@page), :remote => true do |form| %>
+  <%= scrollable_layout do %>
+    <h1>Edit <%= @page.title %></h1>
+    <%= render "/breeze/admin/shared/error_messages", :target => @page, :object_name => :page %>
+  <% end %>
+
+  <%= content_tag :div, :class => "fake-right-sidebar" do %>
+    <%= submit_tag "Save", :class => "large green save button" %>
+    <%= link_to "View/edit this page", @page.permalink, :target => :_blank, :class => "large edit button"  and @page.class.name != "Breeze::Content::Placeholder" %>
+    <%= link_to "Delete this page", admin_page_path, :class => "large red delete pare button", data: {page_id: @page.id} %>
+  <% end %>
+<% end %>
+

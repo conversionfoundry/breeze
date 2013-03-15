@@ -26,11 +26,14 @@ module Breeze
       
       def update
         @page = Breeze::Content::Page.find params[:id]
-        @page.update_attributes params[:page]
-        Breeze::Admin::Activity.log(:update, @page)
         respond_to do |format|
-          format.js
-          format.html { redirect_to @page.permalink }
+          if @page.update_attributes params[:page]
+            Breeze::Admin::Activity.log(:update, @page)
+            format.js { render partial: 'updated' }
+            format.html { redirect_to @page.permalink }
+          else
+            format.js { render partial: 'not_updated' }
+          end
         end
       end
     

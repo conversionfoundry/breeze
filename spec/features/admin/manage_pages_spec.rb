@@ -8,11 +8,10 @@ feature "Manage pages in Admin panel" do
     sign_in # see session helper
   end
 
-  scenario "create a page",js: true, focus: true do
+  scenario "create a page", focus: true do
     visit admin_pages_path
     click_link "New page"
     fill_in("page_title", with: "Landing page")
-    save_and_open_page
     click_button "OK"
     within "#pages" do
       expect(page).to have_content("Landing page")

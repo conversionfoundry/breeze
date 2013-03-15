@@ -1,0 +1,35 @@
+= form_for @page, url: admin_page_path(@page), remote: true do |f|
+  = scrollable_layout do
+    %h1 
+      Edit
+      = @page.title
+
+    = f.label :title
+    = f.text_field :title
+
+    = f.label :subtitle
+    = f.text_field :subtitle
+
+    = f.label :template
+    = f.text_field :template
+
+    = f.label :slug
+    = f.text_field :slug
+
+    = f.label :ssl
+    = f.check_box :ssl
+
+    = f.label :seo_title
+    = f.text_field :seo_title
+
+    = f.label :seo_meta_description
+    = f.text_field :seo_meta_description
+
+    = f.label :seo_meta_keywords
+    = f.text_field :seo_meta_keywords
+
+    = f.label :show_in_navigation
+    = f.check_box :show_in_navigation
+
+  = content_tag :div, class: "fake-right-sidebar" do
+    = submit_tag "Save", class: "large green save button"
