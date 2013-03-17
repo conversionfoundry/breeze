@@ -2,7 +2,6 @@ module Features
   module SessionHelpers
     def sign_in
       user = Fabricate(:user)
-      require 'pry'; binding.pry
       visit '/admin'
       within "#sign_in" do
         fill_in 'admin_email', with: user.email
