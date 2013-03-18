@@ -20,18 +20,29 @@ feature "Manage pages in Admin panel" do
 
   scenario "list all pages" do
     visit admin_pages_path
-    expect(page).to have_content("Home")
-    # expect(page).to have_content(p2.permalink)
+    within "#left" do
+      expect(page).to have_content("Home")
+    end
   end
 
-  scenario "view a page" do
-    #TODO
+  scenario "show a page" do
+    visit admin_pages_path
+    within "#left" do
+      click_link "Home"
+    end
+    within "#main" do
+      expect(page).to have_content("Edit landing page")
+    end
   end
 
   scenario "edit a page" do
-    #TODO
     visit admin_pages_path
-    click_link "Homepage"
+    within "#left" do
+      click_link "Home"
+    end
+    within "#main" do
+      #TODO
+    end
   end
 
   scenario "duplicate a page", js: :true do
