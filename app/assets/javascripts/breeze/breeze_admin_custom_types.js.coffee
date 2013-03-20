@@ -2,11 +2,11 @@
 renumber_fields = (container) ->
   $(".custom-field", container).each (i) ->
     $("label", this).each ->
-      $(this).attr "for", $(this).attr("for").replace(/^custom_type_custom_fields_attributes_[0-9]+/, "custom_type_custom_fields_attributes_" + i)
+      $(this).attr "for", $(this).attr("for").replace(/^type_content_fields_attributes_[0-9]+/, "type_content_fields_attributes_" + i)
 
     $("input, select, textarea", this).each ->
-      $(this).attr "id", $(this).attr("id").replace(/^custom_type_custom_fields_attributes_[0-9]+/, "custom_type_custom_fields_attributes_" + i)
-      $(this).attr "name", $(this).attr("name").replace(/^custom_type\[custom_fields_attributes\]\[[0-9]+/, "custom_type[custom_fields_attributes][" + i)
+      $(this).attr "id", $(this).attr("id").replace(/^type_content_fields_attributes_[0-9]+/, "type_content_fields_attributes_" + i)
+      $(this).attr "name", $(this).attr("name").replace(/^type\[content_fields_attributes\]\[[0-9]+/, "type[content_fields_attributes][" + i)
 
 
   $(".custom-fields", container).each ->

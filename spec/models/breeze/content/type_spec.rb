@@ -18,4 +18,15 @@ describe Breeze::Content::Type do
     it { should embed_many(:content_fields) }
   end
 
+  describe "#default_template_name" do
+    # [
+    #   "Unique selling point",
+    #   "Point 20%",
+    #   "What?_ever"
+    # ].each do |name|
+    #   subject.stub(:name) { name }
+    #   subject.default_template_name.should eq( name.parameterize )
+    # end
+  end
+
 end

@@ -7,13 +7,14 @@ module Breeze
       
       def new
         @custom_type = Breeze::Content::Type.new
+        @custom_type.content_fields.build(position: 0)
       end
       
       def new_field
         @custom_type = Breeze::Content::Type.new
         render(
           :partial => "breeze/admin/custom_types/field", 
-          :object => @custom_type.custom_fields.build(params[:custom_field])
+          :object => @custom_type.content_fields.build(params[:custom_field])
         )
       end
       
