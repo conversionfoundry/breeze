@@ -4,6 +4,7 @@ require 'spec_helper'
 describe Breeze::Admin::PagesController do
 
   let!(:pag) { Fabricate(:page) }
+  let!(:page_attributes) { Fabricate.attributes_for(:page) }
   let(:user) { Fabricate(:user) }
 
   before do
@@ -23,6 +24,14 @@ describe Breeze::Admin::PagesController do
         id: pag.id
       assigns(:page).should be_a(Breeze::Content::Page)
     end
+  end
+
+  describe "PUT #update" do
+    it "returns ok" do
+      put :update,
+        id: pag.id
+        page: page_attributes.merge(subtitle: "adequate subtitle")
+      response.status.should eq(201)
   end
 
 end
