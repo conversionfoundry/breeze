@@ -12,12 +12,21 @@ module Breeze
       end
       
       def new
-        @page = Breeze::Content::Page.new params[:page] # We pass params here to set the parent_id for the new page
+        @page = Breeze::Content::Page.new params[:page] 
+        # We pass params here to set the parent_id for the new page
       end
       
       def create
-        @page = Breeze::Content::Page.create(params[:page])
-        Breeze::Admin::Activity.log(:create, @page)
+        @page = Breeze::Content::Page.new(params[:page])
+        respond_to do |format|
+          if @page.save 
+            Breeze::Admin::Activity.log(:create, @page)
+            notice = 'Page created successfully.'
+          else
+            alert = 'The page could not be saved.'
+          end
+          format.js
+        end
       end
       
       def edit
@@ -27,13 +36,14 @@ module Breeze
       def update
         @page = Breeze::Content::Page.find params[:id]
         respond_to do |format|
-          if @page.update_attributes params[:page]
-            Breeze::Admin::Activity.log(:update, @page)
-            format.js { render partial: 'updated' }
-            format.html { redirect_to @page.permalink }
+          if @page.update_attributes(params[:page])
+            Thread.new(@page) { |p| Breeze::Admin::Activity.log(:update, p) }
+            notice = "Page updated."
           else
-            format.js { render partial: 'not_updated' }
+            notice = "The page could not be updated."
           end
+          format.js
+          format.html { redirect_to admin_pages_path }
         end
       end
     

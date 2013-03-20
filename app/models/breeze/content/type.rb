@@ -11,8 +11,8 @@ module Breeze
         uniqueness: true, 
         presence: true,
         format: { with: /^[\w\d\s-]*$/, 
-          message: "Can contain only digits, letters, space," +
-          " dashes and underscores." }
+          message: "Can contain only digits, letters, space, dashes and" +
+          " underscores." }
       index({ name: 1 }, { unique: true }) # Uniqueness index
 
       embeds_many :content_fields,
@@ -21,6 +21,10 @@ module Breeze
 
       accepts_nested_attributes_for :content_fields, 
         :allow_destroy => true
+
+      def default_template_name
+        name.parameterize
+      end
 
     end
   end

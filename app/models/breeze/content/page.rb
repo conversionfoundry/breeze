@@ -17,6 +17,9 @@ module Breeze
       field :seo_meta_keywords, type: String
       field :show_in_navigation, type: Boolean, default: true
 
+      attr_accessible :title, :subtitle, :template, :ssl, :seo_title,
+        :seo_meta_keywords, :seo_meta_description, :show_in_navigation
+
       validates :title, presence: true
       validates :template, presence: true
 

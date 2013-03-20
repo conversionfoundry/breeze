@@ -24,37 +24,40 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
 
   RSpec.configure do |config|
-    # config.use_transactional_fixtures = true
     #
     # Clean the database between tests
     config.before :suite do
-      DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.clean_with :truncation
     end
 
     config.before :each do
+      DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.start
       @routes = Breeze::Engine.routes
     end
 
     config.after do
       DatabaseCleaner.clean
+      # Warden.test_reset!
     end
 
     config.mock_with :rspec
-    config.include Devise::TestHelpers, type: :controller
     config.include Mongoid::Matchers
-    config.include Features::SessionHelpers, type: :feature
     config.treat_symbols_as_metadata_keys_with_true_values = true
     config.filter_run :focus => true
     config.run_all_when_everything_filtered = true
     config.fail_fast = true
+
+    config.include Devise::TestHelpers, type: :controller
+    #https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
+    # config.include Warden::Test::Helpers
+    # Warden.test_mode!
+    config.include Features::SessionHelpers, type: :feature
+
     config.include Breeze::Engine.routes.url_helpers, type: :feature
   end
 
-  Capybara.register_driver :selenium_chrome do |app|
-    Capybara::Selenium::Driver.new(app, :browser => :chrome)
-  end
+  Capybara.javascript_driver = :selenium # the default one
   Capybara.app_host = "http://dummy.dev"
   ActionController::Base.asset_host = Capybara.app_host
 
