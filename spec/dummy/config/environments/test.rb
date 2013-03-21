@@ -36,5 +36,7 @@ Dummy::Application.configure do
   # Fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
 
+  config.action_dispatch.show_exceptions = true
+
 
 end
