@@ -1,20 +1,21 @@
 require 'spec_helper'
 
 feature "Manage pages in Admin panel" do
-  let!(:p) { Fabricate :page } # Homepage
+  # let!(:p) { Fabricate :page } # Homepage
   # let!(:p2) { Fabricate :page }
 
   background do
     sign_in # see session helper
   end
 
-  scenario "create a page" do
+  scenario "create a page", js: true, focus: true do
     visit admin_pages_path
     click_link "New page"
-    fill_in("page_title", with: "Landing page")
+    fill_in("page_title", with: "Presentation page")
     click_button "OK"
+    require 'pry'; binding.pry
     within "#pages" do
-      expect(page).to have_content("Landing page")
+      expect(page).to have_content("Presentation page")
     end
   end
 

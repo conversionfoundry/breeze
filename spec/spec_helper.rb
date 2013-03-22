@@ -32,18 +32,13 @@ Spork.prefork do
 
     config.before :each do
       @routes = Breeze::Engine.routes
-
-      if Capybara.current_driver == :rack_test
-        DatabaseCleaner.strategy = :transaction
-      else
-        DatabaseCleaner.strategy = :truncation
-      end
+      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.clean_with :truncation
       DatabaseCleaner.start
     end
 
     config.after do
       DatabaseCleaner.clean
-      # Warden.test_reset!
     end
 
     config.mock_with :rspec
@@ -51,19 +46,15 @@ Spork.prefork do
     config.treat_symbols_as_metadata_keys_with_true_values = true
     config.filter_run :focus => true
     config.run_all_when_everything_filtered = true
-    config.fail_fast = true
+    config.fail_fast = false
 
     config.include Devise::TestHelpers, type: :controller
-    #https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
-    # config.include Warden::Test::Helpers
-    # Warden.test_mode!
     config.include Features::SessionHelpers, type: :feature
 
     config.include Breeze::Engine.routes.url_helpers, type: :feature
   end
 
   Capybara.javascript_driver = :selenium # the default one
-  Capybara.app_host = "http://dummy.dev"
   ActionController::Base.asset_host = Capybara.app_host
 
 end
