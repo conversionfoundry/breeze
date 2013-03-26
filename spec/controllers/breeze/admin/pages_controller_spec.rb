@@ -30,12 +30,12 @@ describe Breeze::Admin::PagesController do
     # end
   end
 
-  #TODO spec also the activity log
   describe "Post #create" do
-    it "returns 202 #created" do
+    it "returns 200" do
       post :create,
-        page: page_attributes
-      response.status.should eq(202)
+        page: page_attributes.merge(parent_id: pag.id),
+        format: :js
+      response.status.should eq(200)
     end
   end
 
@@ -50,6 +50,16 @@ describe Breeze::Admin::PagesController do
       post :duplicate,
         id: pag.id
       assigns(:page).should be_a(Breeze::Content::Page)
+    end
+
+    #This is actually halfway to integration but see manage_page_spec why 
+    #duplicate cant be integration speced
+    it "duplicates the page" do
+      lambda do
+        post :duplicate,
+          id: pag.id,
+          format: :js
+      end.should change(Breeze::Content::Page, :count).by(1)
     end
   end
 

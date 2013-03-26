@@ -15,6 +15,8 @@ module Breeze::Content::Mixins::Permalinks
     validates_uniqueness_of :permalink 
     validates :slug, uniqueness: { scope: :parent_id }
     index({ permalink: 1 }, { unique: true })
+
+    attr_accessible :permalink, :slug
   end
 
   module ClassMethods

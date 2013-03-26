@@ -18,7 +18,8 @@ module Breeze
       field :show_in_navigation, type: Boolean, default: true
 
       attr_accessible :title, :subtitle, :template, :ssl, :seo_title,
-        :seo_meta_keywords, :seo_meta_description, :show_in_navigation
+        :seo_meta_keywords, :seo_meta_description, :show_in_navigation,
+        :parent_id
 
       validates :title, presence: true
       validates :template, presence: true

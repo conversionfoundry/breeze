@@ -8,7 +8,7 @@ feature "Manage pages in Admin panel" do
     sign_in # see session helper
   end
 
-  scenario "create a page", focus: true, js: true do
+  scenario "create a page", js: true do
     visit admin_pages_path
     click_link "New page"
     fill_in("Title", with: "Presentation page")
@@ -25,32 +25,38 @@ feature "Manage pages in Admin panel" do
     end
   end
 
-  scenario "show a page" do
+  scenario "show a page", js: true do
     visit admin_pages_path
     within "#left" do
       click_link "Home"
     end
     within "#main" do
-      expect(page).to have_content("Edit landing page")
+      expect(page).to have_content("Edit #{p.title}")
     end
   end
 
-  scenario "edit a page" do
+  scenario "edit a page", js: true do
     visit admin_pages_path
     within "#left" do
       click_link "Home"
     end
     within "#main" do
-      #TODO
+      fill_in "content_page_title", with: "career"
     end
+    click_button "Save"
+    visit admin_pages_path
+    within "#left" do
+      click_link "Home"
+    end
+    expect(page).to have_content("career")
   end
 
   scenario "duplicate a page", js: :true do
-    #TODO
+    #TODO Capybara does not support right-click, so not anytime soon
   end
 
   scenario "delete a page" do
-    #TODO
+    #TODO Capybara does not support right-click, so not anytime soon
   end
 
 end

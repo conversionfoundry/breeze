@@ -1,17 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../../../spec_helper")
 
-class PermalinkTest 
-  include Mongoid::Document
-  include Breeze::Content::Mixins::Permalinks
-  include Breeze::Content::Mixins::TreeStructure
-
-  field :title
-end
-
 describe "Permalink" do
-  let(:root) { PermalinkTest.create(slug: 'home') }
-  let(:parent) { PermalinkTest.create(slug: 'parent', parent: root) }
-  subject { PermalinkTest.create(title: 'children', parent: parent) }
+  let(:root) { Fabricate(:page, slug: 'home') }
+  let(:parent) { Fabricate(:page, slug: 'parent', parent: root) }
+  subject { Fabricate(:page, title: 'children', parent: parent) }
 
   let(:taken_slugs) { %w(children children-2 children-3) }
 

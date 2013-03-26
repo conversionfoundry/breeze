@@ -36,7 +36,7 @@ module Breeze
       def update
         @page = Breeze::Content::Page.find params[:id]
         respond_to do |format|
-          if @page.update_attributes(params[:page])
+          if @page.update_attributes(params[:content_page])
             Thread.new(@page) { |p| Breeze::Admin::Activity.log(:update, p) }
             notice = "Page updated."
           else
