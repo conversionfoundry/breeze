@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency "execjs", "~> 1.4.0"
   s.add_dependency "therubyracer", "~> 0.10.2"
   s.add_dependency "haml", "3.1.7"
+  s.add_dependency "sass", "~> 3.2.5"
   s.add_dependency "coffee-script"
   s.add_dependency "jquery-fileupload-rails", "~> 0.4.0"
   s.add_dependency "twitter-bootstrap-rails", "= 2.2.1"

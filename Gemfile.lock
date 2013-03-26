@@ -17,6 +17,7 @@ PATH
       rails (~> 3.2.0)
       rdiscount (~> 1.6.8)
       rmagick (~> 2.13.1)
+      sass (~> 3.2.5)
       therubyracer (~> 0.10.2)
       twitter-bootstrap-rails (= 2.2.1)
       will_paginate (= 3.0.pre4)
@@ -78,7 +79,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.5.0)
+    coffee-script-source (1.6.1)
     database_cleaner (0.9.1)
     devise (2.0.5)
       bcrypt-ruby (~> 3.0)
@@ -207,6 +208,7 @@ GEM
       rspec-mocks (~> 2.13.0)
     ruby-progressbar (1.0.2)
     rubyzip (0.9.9)
+    sass (3.2.5)
     selenium-webdriver (2.31.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
