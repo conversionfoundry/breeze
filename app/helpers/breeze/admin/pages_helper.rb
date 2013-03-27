@@ -17,6 +17,7 @@ module Breeze
       end
 
       def page_tree_array(page, page_array)
+        return if page.nil?
         page_array << [("&nbsp;&nbsp;&nbsp;&nbsp;" * (page.self_and_ancestors.count - 1) + page.title).html_safe, page.id ]
         page.children.sort_by{|p| p.position}.each {|p| page_tree_array(p, page_array)}
         page_array
