@@ -54,7 +54,7 @@ describe Breeze::Admin::PagesController do
 
     #This is actually halfway to integration but see manage_page_spec why 
     #duplicate cant be integration speced
-    it "duplicates the page" do
+    it "duplicates the page", focus: true do
       lambda do
         post :duplicate,
           id: pag.id,
