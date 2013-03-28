@@ -33,6 +33,13 @@ module Breeze
       def self.[](permalink)
         where(permalink: permalink).first
       end
+
+      # List existing templates
+      # => ['_default', '_landing_page']
+      PAGE_TEMPLATES_PATH = "vendor/themes/template/partials/*"
+      def self.templates
+        Dir[PAGE_TEMPLATES_PATH].map { |file| File.basename(file, '.html.erb') }
+      end
       
       def page_title
         seo_title.presence || title

@@ -45,4 +45,10 @@ describe Breeze::Content::Page do
     end
   end
 
+  describe ".templates" do
+    it "lists templates present in the allocated directory" do
+      Breeze::Content::Page.templates.should include('_default')
+    end
+  end
+
 end
