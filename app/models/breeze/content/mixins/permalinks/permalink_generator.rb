@@ -1,7 +1,7 @@
 class Breeze::Content::Mixins::Permalinks::PermalinkGenerator < Struct.new(:tree_node)
 
   def allocate
-    if tree_node.root? && !permalink_taken?("/")
+    if tree_node.root? 
       "/"
     else
       generate
@@ -11,7 +11,7 @@ class Breeze::Content::Mixins::Permalinks::PermalinkGenerator < Struct.new(:tree
   def generate
     "".tap do |permalink|
       permalink.prepend("/#{tree_node.slug}")
-      unless parent_is_root?(tree_node)
+      if parent_is_not_root?(tree_node) 
         permalink.prepend(self.class.new(tree_node.parent).generate)    
       end
     end
@@ -23,9 +23,11 @@ private
     Breeze::Content::Page.where(permalink: permalink).exists?
   end
 
-
-  def parent_is_root?(tree_node)
-    tree_node.parent.try(:root?)
+  def parent_is_not_root?(tree_node)
+    tree_node.parent.present? && 
+      !tree_node.parent.root?
   end
+
+
 
 end

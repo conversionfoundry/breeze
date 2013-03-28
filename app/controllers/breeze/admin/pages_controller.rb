@@ -59,8 +59,12 @@ module Breeze
       
       def duplicate
         page = Breeze::Content::Page.find params[:id]
-        @page = page.duplicate
-        render nothing: true, status: 201 # created
+        if page.root?
+          render nothing: true, status: :unprocessable_entity
+        else
+          @page = page.duplicate
+          render nothing: true, status: 201 # created
+        end
       end
       
       def destroy

@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe Breeze::Admin::PagesController do
 
   let(:page_attributes) { Fabricate.attributes_for(:page) }
@@ -40,24 +39,26 @@ describe Breeze::Admin::PagesController do
   end
 
   describe "POST #duplicate" do
+    let!(:pag2) { Fabricate(:page, parent_id: pag.id) }
+
     it "returns ok" do
       post :duplicate,
-        id: pag.id
+        id: pag2.id
       response.status.should eq(201)
     end
 
     it "should assigns the new page" do
       post :duplicate,
-        id: pag.id
+        id: pag2.id
       assigns(:page).should be_a(Breeze::Content::Page)
     end
 
     #This is actually halfway to integration but see manage_page_spec why 
     #duplicate cant be integration speced
-    it "duplicates the page", focus: true do
+    it "duplicates the page" do
       lambda do
         post :duplicate,
-          id: pag.id,
+          id: pag2.id,
           format: :js
       end.should change(Breeze::Content::Page, :count).by(1)
     end
