@@ -20,6 +20,8 @@ module Breeze
         :with => /^\//, 
         :message => "must start with a slash"
 
+      #TODO add an index on the permalink. 
+
       before_validation :check_leading_slashes
       # missing validation to prevent redirection loops
 

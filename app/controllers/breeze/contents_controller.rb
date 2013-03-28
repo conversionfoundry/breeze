@@ -4,6 +4,7 @@ module Breeze
 
     def show
       path = "/" << params[:permalink].to_s
+      # TODO add the redirection code here 
       @page = Breeze::Content[path] or raise Breeze::Errors::NotFound, request
       render file: set_file_to_render(page)
     end
