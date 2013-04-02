@@ -52,11 +52,11 @@ feature "Manage pages in Admin panel" do
   end
 
   scenario "duplicate a page", js: :true do
-    #TODO Capybara does not support right-click, so not anytime soon
+    #TODO Capybara does not support right-click.
   end
 
   scenario "delete a page" do
-    #TODO Capybara does not support right-click, so not anytime soon
+    #TODO Capybara does not support right-click.
   end
 
 end
