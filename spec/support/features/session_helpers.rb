@@ -1,5 +1,7 @@
 module Features
   module SessionHelpers
+    rspec type: :feature
+
     def sign_in
       user = Fabricate(:user)
       visit new_admin_session_path
