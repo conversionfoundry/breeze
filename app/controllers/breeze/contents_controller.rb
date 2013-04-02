@@ -24,7 +24,7 @@ module Breeze
 
     # Yielded into the layout
     def set_file_to_render(page)
-      'vendor/themes/template/partials/_'.tap do |s|
+      '../../vendor/themes/template/partials/_'.tap do |s|
         s << (page.template || 'default')
       end
     end
