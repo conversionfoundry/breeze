@@ -53,9 +53,9 @@ describe Breeze::Admin::PagesController do
       assigns(:page).should be_a(Breeze::Content::Page)
     end
 
-    #This is actually halfway to integration but see manage_page_spec why 
-    #duplicate cant be integration speced
-    it "duplicates the page" do
+    #This is actually integration but see manage_page_spec why 
+    #duplicate cant be integration specified
+    it "creates a new page" do
       lambda do
         post :duplicate,
           id: pag2.id,
