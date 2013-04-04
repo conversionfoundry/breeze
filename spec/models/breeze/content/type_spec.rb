@@ -18,7 +18,7 @@ describe Breeze::Content::Type do
     it { should embed_many(:content_fields) }
   end
 
-  describe "#default_template_name", focus: true do
+  describe "#default_template_name" do
     it "parameterize the name file" do
       subject.name = "Unique selling point 20%"
       subject.default_template_name.should eq("unique-selling-point-20")
