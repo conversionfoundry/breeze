@@ -17,6 +17,7 @@ require "jquery-fileupload-rails"
 require "twitter-bootstrap-rails"
 require "masonry-rails"
 require "codemirror-rails"
+require "jquery-cookie-rails"
 
 require File.expand_path("../../../config/initializers/devise.rb", __FILE__)
 
