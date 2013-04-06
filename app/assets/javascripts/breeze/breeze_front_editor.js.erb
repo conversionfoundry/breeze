@@ -42,7 +42,6 @@ $(document).ready(function(){
       $('body.breeze-editing .breeze-region-label>a.breeze-add-content').live('click', function() {
         var region = $(this).closest('.breeze-editable-region').attr('data-region');
         var container_id = breeze.options.page_id;
-        var view = breeze.options.view;
         var url = '/admin/content_type_instances/new?content[page_id]=' +
           breeze.options.page_id + '&content[region]=' +
           $(this).closest('.breeze-editable-region').attr('data-region');
@@ -206,7 +205,6 @@ $(document).ready(function(){
         forcePlaceholderSize: true,
         update: function(e, ui) {
           var orders = new Array();
-          var view = breeze.toolbar.find('#breeze_view').val();
           $('.breeze-editable-region[id]').each(function() {
             orders.push($(this).sortable('serialize', { key:'page[order][' + this.id.replace(/_region$/, '') + '][]' }));
           });
@@ -218,7 +216,7 @@ $(document).ready(function(){
               url:'/admin/pages/' + breeze.options.page_id + '/sort.js',
               type:'post',
               dataType:'javascript',
-              data: $('meta[name=csrf-param]').attr('content') + "=" + $('meta[name=csrf-token]').attr('content') + '&_method=put&page[view]=' + view + '&' + order_string,
+              data: $('meta[name=csrf-param]').attr('content') + "=" + $('meta[name=csrf-token]').attr('content') + '&_method=put&' + order_string,
               complete: function() { breeze._spinner(false); }
             });
           }
@@ -341,12 +339,11 @@ $(document).ready(function(){
           .find('.insert-content-button').button().click(function() {
             var container_id = $('#content_container_id', panel).val();
             var region = $('#content_region', panel).val();
-            var view = $('#breeze_view').val();
             $.ajax({
               url: $(this).attr('href'),
               type: 'post',
               dataType: 'script',
-              data: 'container_id=' + container_id + '&region=' + region + '&view=' + view
+              data: 'container_id=' + container_id + '&region=' + region 
             });
             return false;
           });
@@ -627,8 +624,6 @@ $(document).ready(function(){
 $(function() {
   $("body").breeze({ 
     page_id: $('#page_id').val(), 
-    view:"default", 
-    views: ['default'], 
     template:"default", 
     templates:['default']
   })
