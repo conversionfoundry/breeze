@@ -8,7 +8,7 @@ module Breeze
       field :field_value_set, type: Hash 
       field :region, type: String 
 
-      belongs_to :custom_type, 
+      belongs_to :type, 
         class_name: "Breeze::Content::Type"
       embedded_in :page, 
         class_name: "Breeze::Content::Page", 

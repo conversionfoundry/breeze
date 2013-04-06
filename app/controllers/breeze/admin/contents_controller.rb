@@ -1,10 +1,10 @@
 module Breeze
   module Admin
     class ContentsController < AdminController
-      before_filter :load_container_and_placement, :only => [ :edit, :update, :duplicate, :destroy, :live ]
+      before_filter :load_container_and_placement, 
+        only: [ :edit, :update, :duplicate, :destroy, :live ]
       
       def new
-        @content = Breeze::Content::Item.factory("Breeze::Content::Snippet", params[:content])
       end
       
       def create

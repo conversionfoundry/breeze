@@ -1,0 +1,34 @@
+<div class="add-content-tabs">
+
+  <h2>Add Content</h2>
+
+  <ul>
+    <li><a href="#add-new-content">New content</a></li>
+  </ul>
+
+  <div id="add-new-content">
+    <%= form_for @instance, 
+      :as => :content, 
+      :url => admin_contents_path, 
+      :remote => true do |form| %>
+      <%= form.hidden_field :region %>
+      
+      HELLO WORLD
+      
+      <%= render "/breeze/admin/shared/error_messages", 
+        :target => @instance, 
+        :object_name => :content %>
+
+      <%= content_tag :div, :class => "content-form" do %>
+        <%# edit_form_for form %>
+      <% end %>
+
+      <div class="buttons-panel">
+        <a class="small green ok button">OK</a>
+        <a class="small black cancel button">Cancel</a>
+      </div>
+
+    <% end %>
+  </div>
+  
+</div>
