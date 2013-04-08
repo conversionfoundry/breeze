@@ -30,12 +30,14 @@ module Breeze
           @folder = File.join "/", (params[:id] || "/")
           if @new_folder = params[:folder] && params[:folder][:name]
             @new_folder = File.join File.dirname(@folder), @new_folder
-            FileUtils.mkdir_p File.join(Breeze::Content::Asset.root, @new_folder)
+            unless @folder == @new_folder
+	    FileUtils.mkdir_p File.join(Breeze::Content::Asset.root, @new_folder)
             Breeze::Content::Asset.where({ :folder => /^#{@folder}(\/.*)?$/ }).each do |file|
               file.folder = @new_folder
               file.save
             end
             FileUtils.rm_r File.join(Breeze::Content::Asset.root, @folder)
+	    end
           end
           render :nothing => true
         end
