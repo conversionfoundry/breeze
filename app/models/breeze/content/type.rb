@@ -17,7 +17,7 @@ module Breeze
 
       embeds_many :content_fields,
         class_name: "Breeze::Content::Custom::Field",
-        inverse_of: :content_type
+        inverse_of: :type
 
       accepts_nested_attributes_for :content_fields, 
         :allow_destroy => true

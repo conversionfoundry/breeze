@@ -2,6 +2,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require jquery.cookie
 //
 // Other third-party gems
 //= require jquery-fileupload/basic
@@ -26,4 +27,7 @@
 //= require ./breeze_admin_themes
 //= require ./breeze_admin_users
 //= require ./breeze_assets
+//= require ./breeze_admin_json
+//= require ./breeze_admin_hover_intent
+//= require ./breeze_admin_scroll_to
 //= require ./breeze_front_editor

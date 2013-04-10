@@ -23,6 +23,7 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
   Dir[Rails.root.join("spec/features/extensions/**/*.rb")].each {|f| require f }
+  Dir[Rails.root.join("spec/features/steps/**/*.rb")].each {|f| require f }
 
   RSpec.configure do |config|
     #

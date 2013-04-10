@@ -2,7 +2,7 @@ module PageSteps
   rspec type: :feature
 
   def toggle_editor
-    find("breeze-toolbar-edit-button").click_link("Toggle editor")
+    click_link("css=a[title='Toggle editor']")
   end
 
   def page_header_region

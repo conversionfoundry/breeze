@@ -42,18 +42,18 @@ $(document).ready(function(){
       $('body.breeze-editing .breeze-region-label>a.breeze-add-content').live('click', function() {
         var region = $(this).closest('.breeze-editable-region').attr('data-region');
         var container_id = breeze.options.page_id;
-        var view = breeze.options.view;
-        var url = '/admin/contents/new?content[container_id]=' + breeze.options.page_id + '&content[region]=' + $(this).closest('.breeze-editable-region').attr('data-region') + '&content[view]=' + breeze.options.view;
+        var url = '/admin/content_type_instances/new?content[page_id]=' +
+          breeze.options.page_id + '&content[region]=' +
+          $(this).closest('.breeze-editable-region').attr('data-region');
         breeze._openEditorPanel(url, {
           title: 'Add content',
           open: function() {
             $.ajax({
               url: '/admin/contents/add.js',
-              data: 'content[region]=' + region + '&content[container_id]=' + container_id + '&content[view]=' + view,
+              data: 'content[region]=' + region + '&content[container_id]=' + container_id,
               success: function(data) {
               }
             });
-
             breeze.new_content_panel_open(this, url);
           }
         });
@@ -176,21 +176,6 @@ $(document).ready(function(){
             .appendTo('body')[0].submit();
         });
         
-      this.view_selector = $('<div class="breeze-view-chooser breeze-toolbar-item"><label for="breeze_view">View:</label><select name="page[view]" id="breeze_view"></select></div>')
-        .appendTo(this.toolbar)
-        .find('select')
-        .each(function() {
-          var select = this;
-          $.each(breeze.options.views || [], function() {
-            var label = this.substring(0, 1).toUpperCase() + this.substring(1).replace(/_/g, ' ');
-            $(select).append('<option value="' + this + '">' + label + '</option>');
-          });
-        })
-        .val(breeze.options.view)
-        .change(function() {
-          window.location.search = '?view=' + $(this).val();
-        });
-
       buttons = $('<span class="breeze-toolbar-item breeze-toolbar-buttons"></span>')
         .appendTo(this.toolbar);
 
@@ -220,7 +205,6 @@ $(document).ready(function(){
         forcePlaceholderSize: true,
         update: function(e, ui) {
           var orders = new Array();
-          var view = breeze.toolbar.find('#breeze_view').val();
           $('.breeze-editable-region[id]').each(function() {
             orders.push($(this).sortable('serialize', { key:'page[order][' + this.id.replace(/_region$/, '') + '][]' }));
           });
@@ -232,7 +216,7 @@ $(document).ready(function(){
               url:'/admin/pages/' + breeze.options.page_id + '/sort.js',
               type:'post',
               dataType:'javascript',
-              data: $('meta[name=csrf-param]').attr('content') + "=" + $('meta[name=csrf-token]').attr('content') + '&_method=put&page[view]=' + view + '&' + order_string,
+              data: $('meta[name=csrf-param]').attr('content') + "=" + $('meta[name=csrf-token]').attr('content') + '&_method=put&' + order_string,
               complete: function() { breeze._spinner(false); }
             });
           }
@@ -355,12 +339,11 @@ $(document).ready(function(){
           .find('.insert-content-button').button().click(function() {
             var container_id = $('#content_container_id', panel).val();
             var region = $('#content_region', panel).val();
-            var view = $('#breeze_view').val();
             $.ajax({
               url: $(this).attr('href'),
               type: 'post',
               dataType: 'script',
-              data: 'container_id=' + container_id + '&region=' + region + '&view=' + view
+              data: 'container_id=' + container_id + '&region=' + region 
             });
             return false;
           });
@@ -640,9 +623,7 @@ $(document).ready(function(){
 
 $(function() {
   $("body").breeze({ 
-    page_id:'', 
-    view:"default", 
-    views: ['default'], 
+    page_id: $('#page_id').val(), 
     template:"default", 
     templates:['default']
   })

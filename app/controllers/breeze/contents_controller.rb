@@ -6,7 +6,7 @@ module Breeze
       path = "/" << params[:permalink].to_s
       # TODO add the redirection code here 
       @page = Breeze::Content[path] or raise Breeze::Errors::NotFound, request
-      render file: set_file_to_render(page)
+      render file: set_file_to_render
     end
 
     def page
@@ -22,10 +22,10 @@ module Breeze
       current_admin.present? ? 'editor' : 'visitor'
     end
 
-    # Yielded into the layout
-    def set_file_to_render(page)
+    # Yield into the layout
+    def set_file_to_render
       '../../vendor/themes/template/partials/_'.tap do |s|
-        s << (page.template || 'default')
+        s << (@page.template || 'default')
       end
     end
 

@@ -15,6 +15,9 @@
       <%= yield %> 
     </div>
 
+    <!-- We store the page id information -->
+    <%= hidden_field_tag :page_id, page.id %>
+
     <%= javascript_include_tag "breeze/breeze" %>
   </body>
 </html>

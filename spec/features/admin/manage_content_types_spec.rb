@@ -14,17 +14,9 @@ feature "Manage content types in Admin panel" do
     expect(page).to have_content(another_content_type.name)
   end
 
-  scenario "create a content type", js: true do
+  scenario "create a content type", js: true, focus: true do
     expect do
-      visit admin_custom_types_path
-      click_link "New custom type"
-      fill_in "custom_type_name", with: 'dialogbox'
-      fill_in "type_content_fields_attributes_0_label", with: 'title'
-      fill_in "type_content_fields_attributes_0_name", with: 'name'
-      click_link "Add another field"
-      fill_in "type_content_fields_attributes_1_label", with: 'title 1'
-      fill_in "type_content_fields_attributes_1_name", with: 'name 1'
-      click_button "Save"
+      create_content_type
     end.to change { Breeze::Content::Type.count }.by(1)
   end
 
