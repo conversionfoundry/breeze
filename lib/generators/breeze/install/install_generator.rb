@@ -8,8 +8,7 @@ module Breeze
       end
 
       def install_breeze
-
-          raise "MODIFY ME"
+        raise "MODIFY ME"
 # 
 #         # Add to config/routes
 #         log "", "Mounting Breeze engine in config/routes"

@@ -5,7 +5,7 @@ module Breeze
 
       field :name, type: String
 
-      attr_accessible :name, :content_fields
+      attr_accessible :name, :content_fields_attributes
 
       validates :name, 
         uniqueness: true, 
@@ -17,7 +17,7 @@ module Breeze
 
       embeds_many :content_fields,
         class_name: "Breeze::Content::Custom::Field",
-        inverse_of: :type
+        inverse_of: :content_type
 
       accepts_nested_attributes_for :content_fields, 
         :allow_destroy => true

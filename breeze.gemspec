@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "breeze"
   s.version     = Breeze::VERSION
   s.authors     = ["Matt Powell", "Blair Neate", "Isaac Freeman", "Alban Diguer"]
-  s.email       = ["isaac@leftclick.com", "alban@leftclick.com"]
+  s.email       = ["developers@leftclick.com"]
   s.homepage    = ""
   s.summary     = "Breeze is a Content Management System."
   s.description = "Breeze is a Content Management System."

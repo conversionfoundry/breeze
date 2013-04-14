@@ -1,6 +1,6 @@
 <%= render "/breeze/admin/shared/error_messages", 
   :target => @custom_type, :object_name => :type %>
-  <%= form.text_field :name %>
+<%= form.text_field :name %>
 <fieldset class="custom-fields">
   <legend>Fields <small>(drag to reorder)</small></legend>
   <% form.object.content_fields.sort_by(&:position).each do |field| %>

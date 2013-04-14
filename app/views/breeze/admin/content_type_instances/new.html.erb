@@ -1,0 +1,30 @@
+<div class="add-content-tabs">
+  <h2>Add Content</h2>
+  <div id="add-new-content">
+    <%= form_for(@instance, 
+                 as: :content, 
+                 url: admin_content_type_instances_path, 
+                 remote: true) do |form| %>
+
+      <%= form.hidden_field :region %>
+        
+      <%= render "/breeze/admin/shared/error_messages", 
+        :target => @instance, 
+        :object_name => :content %>
+
+        <div class="content-form">
+          <%= form.collection_select(:content_type_id, Breeze::Content::Type.all, 
+                                     :id, :name, {}) %>
+          <% Breeze::Content::Type.first.content_fields.each do |field| %>
+            <%= form.text_field field.name.to_sym %>
+          <% end %>
+        </div>
+
+        <div class="buttons-panel">
+          <a class="small green ok button">OK</a>
+          <a class="small black cancel button">Cancel</a>
+        </div>
+
+    <% end %>
+  </div>
+</div>

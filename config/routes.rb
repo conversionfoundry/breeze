@@ -27,7 +27,7 @@ Breeze::Engine.routes.draw do
       end
     end
 
-    resources :content_type_instances, only: [:new]
+    resources :content_type_instances, only: [:new, :create]
     
     resources :custom_types do
       collection do

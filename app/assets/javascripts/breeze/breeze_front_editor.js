@@ -113,7 +113,6 @@ $(document).ready(function(){
         )
       });
     },
-    
     _loadOptions: function() {
       var saved_options = $.secureEvalJSON($.cookie('breeze-editor') || '{}');
       $.extend(this.options.preferences, saved_options);
@@ -237,42 +236,20 @@ $(document).ready(function(){
         return false;
       });
     },
-    <%#_openDialog: function(path, options) {%>
-      <%#var breeze = this;%>
-      <%#breeze._spinner();%>
-      
-      <%#$.get(path, function(data) {%>
-        <%#breeze._spinner(false);%>
-        <%#options = $.extend({%>
-          <%#modal: true,%>
-          <%#resizable: false,%>
-          <%#width: 640,%>
-          <%#buttons: {%>
-            <%#Cancel: function() {%>
-              <%#$(this).dialog('close');%>
-            <%#},%>
-            <%#OK: function() {%>
-              <%#$('form:visible', $(this).closest('.ui-dialog')).trigger('submit');%>
-            <%#}%>
-          <%#},%>
-          <%#close: function() {%>
-            <%#$(this).remove();%>
-          <%#}%>
-        <%#}, options || {});%>
-        <%#$('<div></div>').html(data).appendTo('body').dialog(options);%>
-        <%#// $('button.ui-button:contains("OK"):not(.green)').addClass('green');%>
-      <%#});%>
-    <%#},%>
     _openEditorPanel: function(path, options) {
       var breeze = this;
-      $.get(path, function(data) {
-        $dialog = $('.editor-panel');
-        $dialog.html(data);
-        $('.editor-panel').addClass('active');
-        
-        if (options.open) { 
-          options.open.apply($dialog);
-        }
+      $.ajax({
+        type: "GET",
+        url: path
+        }).done(function(html) {
+          $dialog = $('.editor-panel');
+          $('.editor-panel').html(html);
+          $('.editor-panel').addClass('active');
+          if (options.open) { 
+            options.open.apply($dialog);
+          }
+        }).fail(function(jqXHR, textStatus) {
+          alert( "Request failed: " + textStatus );
       });
     },
     _spinner: function(bool) {
@@ -630,59 +607,3 @@ $(function() {
   $("#breeze-template-chooser").val("default")
 });
 
-// Cookies: http://stilbuero.de/jquery/cookie/
-jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options=options||{};if(value===null){value='';options=$.extend({},options);options.expires=-1}var expires='';if(options.expires&&(typeof options.expires=='number'||options.expires.toUTCString)){var date;if(typeof options.expires=='number'){date=new Date();date.setTime(date.getTime()+(options.expires*24*60*60*1000))}else{date=options.expires}expires='; expires='+date.toUTCString()}var path=options.path?'; path='+(options.path):'';var domain=options.domain?'; domain='+(options.domain):'';var secure=options.secure?'; secure':'';document.cookie=[name,'=',encodeURIComponent(value),expires,path,domain,secure].join('')}else{var cookieValue=null;if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';');for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i]);if(cookie.substring(0,name.length+1)==(name+'=')){cookieValue=decodeURIComponent(cookie.substring(name.length+1));break}}}return cookieValue}};
-
-// JSON
-(function($){$.toJSON=function(o)
-{if(typeof(JSON)=='object'&&JSON.stringify)
-return JSON.stringify(o);var type=typeof(o);if(o===null)
-return"null";if(type=="undefined")
-return undefined;if(type=="number"||type=="boolean")
-return o+"";if(type=="string")
-return $.quoteString(o);if(type=='object')
-{if(typeof o.toJSON=="function")
-return $.toJSON(o.toJSON());if(o.constructor===Date)
-{var month=o.getUTCMonth()+1;if(month<10)month='0'+month;var day=o.getUTCDate();if(day<10)day='0'+day;var year=o.getUTCFullYear();var hours=o.getUTCHours();if(hours<10)hours='0'+hours;var minutes=o.getUTCMinutes();if(minutes<10)minutes='0'+minutes;var seconds=o.getUTCSeconds();if(seconds<10)seconds='0'+seconds;var milli=o.getUTCMilliseconds();if(milli<100)milli='0'+milli;if(milli<10)milli='0'+milli;return'"'+year+'-'+month+'-'+day+'T'+
-hours+':'+minutes+':'+seconds+'.'+milli+'Z"';}
-if(o.constructor===Array)
-{var ret=[];for(var i=0;i<o.length;i++)
-ret.push($.toJSON(o[i])||"null");return"["+ret.join(",")+"]";}
-var pairs=[];for(var k in o){var name;var type=typeof k;if(type=="number")
-name='"'+k+'"';else if(type=="string")
-name=$.quoteString(k);else
-continue;if(typeof o[k]=="function")
-continue;var val=$.toJSON(o[k]);pairs.push(name+":"+val);}
-return"{"+pairs.join(", ")+"}";}};$.evalJSON=function(src)
-{if(typeof(JSON)=='object'&&JSON.parse)
-return JSON.parse(src);return eval("("+src+")");};$.secureEvalJSON=function(src)
-{if(typeof(JSON)=='object'&&JSON.parse)
-return JSON.parse(src);var filtered=src;filtered=filtered.replace(/\\["\\\/bfnrtu]/g,'@');filtered=filtered.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,']');filtered=filtered.replace(/(?:^|:|,)(?:\s*\[)+/g,'');if(/^[\],:{}\s]*$/.test(filtered))
-return eval("("+src+")");else
-throw new SyntaxError("Error parsing JSON, source is not valid.");};$.quoteString=function(string)
-{if(string.match(_escapeable))
-{return'"'+string.replace(_escapeable,function(a)
-{var c=_meta[a];if(typeof c==='string')return c;c=a.charCodeAt();return'\\u00'+Math.floor(c/16).toString(16)+(c%16).toString(16);})+'"';}
-return'"'+string+'"';};var _escapeable=/["\\\x00-\x1f\x7f-\x9f]/g;var _meta={'\b':'\\b','\t':'\\t','\n':'\\n','\f':'\\f','\r':'\\r','"':'\\"','\\':'\\\\'};})(jQuery);
-
-/**
-* hoverIntent r5 // 2007.03.27 // jQuery 1.1.2+
-* <http://cherne.net/brian/resources/jquery.hoverIntent.html>
-* 
-* @param  f  onMouseOver function || An object with configuration options
-* @param  g  onMouseOut function  || Nothing (use configuration options object)
-* @author    Brian Cherne <brian@cherne.net>
-*/
-(function($){$.fn.hoverIntent=function(f,g){var cfg={sensitivity:7,interval:100,timeout:0};cfg=$.extend(cfg,g?{over:f,out:g}:f);var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY;};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if((Math.abs(pX-cX)+Math.abs(pY-cY))<cfg.sensitivity){$(ob).unbind("mousemove",track);ob.hoverIntent_s=1;return cfg.over.apply(ob,[ev]);}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=0;return cfg.out.apply(ob,[ev]);};var handleHover=function(e){var p=(e.type=="mouseover"?e.fromElement:e.toElement)||e.relatedTarget;while(p&&p!=this){try{p=p.parentNode;}catch(e){p=this;}}if(p==this){return false;}var ev=jQuery.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);}if(e.type=="mouseover"){pX=ev.pageX;pY=ev.pageY;$(ob).bind("mousemove",track);if(ob.hoverIntent_s!=1){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}}else{$(ob).unbind("mousemove",track);if(ob.hoverIntent_s==1){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob);},cfg.timeout);}}};return this.mouseover(handleHover).mouseout(handleHover);};})(jQuery);
-
-/**
- * jQuery.ScrollTo - Easy element scrolling using jQuery.
- * Copyright (c) 2007-2009 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
- * Dual licensed under MIT and GPL.
- * Date: 5/25/2009
- * @author Ariel Flesler
- * @version 1.4.2
- *
- * http://flesler.blogspot.com/2007/10/jqueryscrollto.html
- */
-;(function(d){var k=d.scrollTo=function(a,i,e){d(window).scrollTo(a,i,e)};k.defaults={axis:'xy',duration:parseFloat(d.fn.jquery)>=1.3?0:1};k.window=function(a){return d(window)._scrollable()};d.fn._scrollable=function(){return this.map(function(){var a=this,i=!a.nodeName||d.inArray(a.nodeName.toLowerCase(),['iframe','#document','html','body'])!=-1;if(!i)return a;var e=(a.contentWindow||a).document||a.ownerDocument||a;return d.browser.safari||e.compatMode=='BackCompat'?e.body:e.documentElement})};d.fn.scrollTo=function(n,j,b){if(typeof j=='object'){b=j;j=0}if(typeof b=='function')b={onAfter:b};if(n=='max')n=9e9;b=d.extend({},k.defaults,b);j=j||b.speed||b.duration;b.queue=b.queue&&b.axis.length>1;if(b.queue)j/=2;b.offset=p(b.offset);b.over=p(b.over);return this._scrollable().each(function(){var q=this,r=d(q),f=n,s,g={},u=r.is('html,body');switch(typeof f){case'number':case'string':if(/^([+-]=)?\d+(\.\d+)?(px|%)?$/.test(f)){f=p(f);break}f=d(f,this);case'object':if(f.is||f.style)s=(f=d(f)).offset()}d.each(b.axis.split(''),function(a,i){var e=i=='x'?'Left':'Top',h=e.toLowerCase(),c='scroll'+e,l=q[c],m=k.max(q,i);if(s){g[c]=s[h]+(u?0:l-r.offset()[h]);if(b.margin){g[c]-=parseInt(f.css('margin'+e))||0;g[c]-=parseInt(f.css('border'+e+'Width'))||0}g[c]+=b.offset[h]||0;if(b.over[h])g[c]+=f[i=='x'?'width':'height']()*b.over[h]}else{var o=f[h];g[c]=o.slice&&o.slice(-1)=='%'?parseFloat(o)/100*m:o}if(/^\d+$/.test(g[c]))g[c]=g[c]<=0?0:Math.min(g[c],m);if(!a&&b.queue){if(l!=g[c])t(b.onAfterFirst);delete g[c]}});t(b.onAfter);function t(a){r.animate(g,j,b.easing,a&&function(){a.call(this,n,b)})}}).end()};k.max=function(a,i){var e=i=='x'?'Width':'Height',h='scroll'+e;if(!d(a).is('html,body'))return a[h]-d(a)[e.toLowerCase()]();var c='client'+e,l=a.ownerDocument.documentElement,m=a.ownerDocument.body;return Math.max(l[h],m[h])-Math.min(l[c],m[c])};function p(a){return typeof a=='object'?a:{top:a,left:a}}})(jQuery);

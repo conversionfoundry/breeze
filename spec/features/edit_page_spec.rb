@@ -7,7 +7,7 @@ feature 'Edit a page in the front end' do
     sign_in
   end
   
-  scenario "adds some text in the first region and saves", js: :true, focus: true do
+  scenario "adds some text in the first region and saves", js: :true do
     visit root_path
     toggle_editor
     header_region.click_link('+')

@@ -4,11 +4,11 @@ module Breeze
       class Field
         include Mongoid::Document
 
-        FIELD_TYPES = [ :text, :markdown, :url ].freeze
+        TYPES = [ :text, :markdown, :url ].freeze
 
         field :label, type: String
         field :name, type: String
-        field :field_type, type: Symbol # see FIELD_TYPES
+        field :type, type: Symbol, default: :text # see TYPES
         field :position, type: Integer, default: 0
 
         validates :label,
@@ -33,8 +33,8 @@ module Breeze
         attr_accessible :name, :label, :field_type, :position
 
         # Accessor of the constant array
-        def self.field_types
-          FIELD_TYPES
+        def self.types
+          TYPES
         end
 
       private 

@@ -1,20 +1,20 @@
 <fieldset class="custom-field">
-  <%= hidden_field_tag "type[content_fields_attributes][0][id]", field.id unless field.new_record? %>
+  <%= hidden_field_tag "content_type[content_fields_attributes][0][id]", field.id unless field.new_record? %>
   <a href="#" class="delete" rel="delete">Delete</a>
   <ol class="form">
     <li class="text_field">
-      <%= label_tag "type[content_fields_attributes][0][label]", "Label" %>
-      <%= text_field_tag "type[content_fields_attributes][0][label]", field.label %>
+      <%= label_tag "content_type[content_fields_attributes][0][label]", "Label" %>
+      <%= text_field_tag "content_type[content_fields_attributes][0][label]", field.label %>
     </li>
     <li class="text_field">
-      <%= label_tag "type[content_fields_attributes][0][name]", "Name" %>
-      <%= text_field_tag "type[content_fields_attributes][0][name]", field.name, :class => "custom-field-name" %>
+      <%= label_tag "content_type[content_fields_attributes][0][name]", "Name" %>
+      <%= text_field_tag "content_type[content_fields_attributes][0][name]", field.name, :class => "custom-field-name" %>
     </li>
     <li class="select">
-      <%= label_tag "type[content_fields_attributes][0][field_type]", "Field type" %>
-      <%= select_tag "type[content_fields_attributes][0][field_type]", 
+      <%= label_tag "content_type[content_fields_attributes][0][type]", "Type" %>
+      <%= select_tag "content_type[content_fields_attributes][0][type]", 
         options_for_select(
-          Breeze::Content::Custom::Field.field_types.map { |t| [ t.to_s, t ] }
+          Breeze::Content::Custom::Field.types.map { |t| [ t.to_s, t ] }
         ),
         :class => "custom-field-type", :disabled => !field.new_record? %>
     </li>

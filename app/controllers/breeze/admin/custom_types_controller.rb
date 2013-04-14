@@ -19,7 +19,7 @@ module Breeze
       end
       
       def create
-        @custom_type = Breeze::Content::Type.create params[:custom_type]
+        @custom_type = Breeze::Content::Type.create params[:content_type]
       end
       
       def edit
@@ -28,8 +28,7 @@ module Breeze
       
       def update
         @custom_type = Breeze::Content::Type.find params[:id]
-        @custom_type.attributes = params[:custom_type]
-        @custom_type.save
+        @custom_type.update_attributes params[:content_type]
       end
       
       def destroy

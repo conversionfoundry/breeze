@@ -1,4 +1,4 @@
-<%= breeze_form_for @custom_type, :as => :custom_type, :url => admin_custom_types_path(:format => :js), :remote => true do |form| %>
+<%= breeze_form_for @custom_type, :as => :content_type, :url => admin_custom_types_path(:format => :js), :remote => true do |form| %>
   <%= scrollable_layout do %>
     <h1>New custom type</h1>
     <%= render :partial => "breeze/admin/custom_types/form", :object => form %>

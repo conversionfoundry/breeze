@@ -25,6 +25,7 @@ Dir[File.expand_path("./../app/models/breeze/content/mixins/*.rb", File.dirname(
 require File.expand_path("./../app/models/breeze/admin/mixins/login.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/content/asset.rb", File.dirname(__FILE__))
 require File.expand_path("./../app/models/breeze/content/custom/field.rb", File.dirname(__FILE__))
+require File.expand_path("./../app/models/breeze/content/type.rb", File.dirname(__FILE__))
 
 Dir[File.expand_path("./../app/models/breeze/**/*.rb", File.dirname(__FILE__))].each { |f| require f }
 require "breeze/content"
