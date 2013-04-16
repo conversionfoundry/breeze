@@ -277,3 +277,4 @@ DEPENDENCIES
   rb-fsevent
   rspec-rails
   shoulda
+  twitter-bootstrap-rails (= 2.2.1)

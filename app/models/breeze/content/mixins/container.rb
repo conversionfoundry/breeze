@@ -15,11 +15,11 @@ module Breeze
           base.accepts_nested_attributes_for :placements, :reject_if => lambda { |v| v[:delete].present? }
           base.before_destroy :destroy_placements
         end
-        
+
         def to_erb(view)
           ""
         end
-        
+
         def order=(values)
           values.each_pair do |region_name, ids|
             ids.each_with_index do |id, i|
@@ -31,17 +31,25 @@ module Breeze
             end
           end
         end
-        
+
         def duplicate
-          new_record = self.dup
-          super { new_record }.tap do |new_item|
-            placements.each { |p| p.content.add_to_container new_item, p.region, p.view, p.position }
+          if self.root?
+            return false # Duplicating the root page isn't permitted
+          end
+          new_container = self.dup
+          new_container.placements = []
+          super {new_container}.tap do |new_container|
+            placements.each do |placement|
+              new_content = placement.content.duplicate
+              new_content.update_attribute(:placements_count, 0)
+              new_content.add_to_container new_container, placement.region, placement.view, placement.position
+            end
           end
         end
-        
+
         module ClassMethods
         end
-        
+
       protected
         def destroy_placements
           placements.destroy_all
