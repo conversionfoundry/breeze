@@ -1,8 +1,13 @@
-<% if @page.errors.empty? %>
-  $('#new_page').closest('.ui-dialog-content').dialog('close');
-  $('#new_page').closest('.ui-dialog').remove();
-  $('#page_<%= @page.parent_id %>').replaceWith('<%= escape_javascript render(:partial => "breeze/admin/pages/page", :object => @page.parent) %>');
-  $('#page_<%= @page.id%>>a').click();
+<% if @page %>
+  <% if @page.errors.empty? %>
+    $('#new_page').closest('.ui-dialog-content').dialog('close');
+    $('#new_page').closest('.ui-dialog').remove();
+    $('#page_<%= @page.parent_id %>').replaceWith('<%= escape_javascript render(:partial => "breeze/admin/pages/page", :object => @page.parent) %>');
+    $('#page_<%= @page.id%>>a').click();
+  <% else %>
+    $('#new_page').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/pages/new") %>');
+  <% end %>
 <% else %>
-  $('#new_page').replaceWith('<%= escape_javascript render(:template => "/breeze/admin/pages/new") %>');
+  alert("Sorry, duplicating the root page isn't permitted.");
 <% end %>
+

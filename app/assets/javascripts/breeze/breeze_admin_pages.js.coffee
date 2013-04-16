@@ -1,7 +1,38 @@
+contextMenuItems = (node) ->
+  items =
+    ccp: false
+    rename: false
+    create:
+      label: "New Page…"
+      icon: "add_page"
+      visible: (node, tree_obj) ->
+        return 0  unless node.length is 1
+        tree_obj.check "creatable", node
+      action: (node, tree_obj) ->
+        parent_id = $(node).attr("id").substring(5)
+        open_new_page_dialog(parent_id)
+    remove:
+      label: "Delete Page…"
+      action: (node, tree_obj) ->
+        delete_page_dialog( $(node).attr("id").substring("5") )
+    duplicate:
+      label: "Duplicate Page"
+      icon: "duplicate_page"
+      # visible: (node, tree_obj) ->
+      #   return 0
+      #   # console.log $(node).attr("rel")
+      #   # node.length is 1 and $(node).attr("rel") isnt "root"
+      action: (node, tree_obj) ->
+        id = $(node).attr("id").substring(5)
+        duplicate_page_dialog(id)
+  if $(node).attr("rel") == "root"
+    delete items.duplicate
+  return items
+
 $(document).ready ->
   if $('#left #pages').length > 0 # i.e. if we're on admin/pages
     $("#left #pages").jstree
-      core : 
+      core :
         initially_open : [ $('#left #pages ul:first-child li')[0].id ]
       plugins : [ "ui", "dnd", "html_data", "contextmenu" ]
       ui:
@@ -37,29 +68,7 @@ $(document).ready ->
             inside : true
           }
       contextmenu:
-        items:
-          ccp: false
-          rename: false
-          create:
-            label: "New Page…"
-            icon: "add_page"
-            visible: (node, tree_obj) ->
-              return 0  unless node.length is 1
-              tree_obj.check "creatable", node
-            action: (node, tree_obj) ->
-              parent_id = $(node).attr("id").substring(5)
-              open_new_page_dialog(parent_id)
-          remove:
-            label: "Delete Page…"
-            action: (node, tree_obj) ->
-              delete_page_dialog( $(node).attr("id").substring("5") )
-          duplicate:
-            label: "Duplicate Page"
-            icon: "duplicate_page"
-            visible: (node, tree_obj) ->
-              node.length is 1 and $(node).attr("rel") isnt "root"
-            action: (node, tree_obj) ->
-              duplicate_page_dialog()
+        items: contextMenuItems
 
     $("#left #pages").on "move_node.jstree", (e, data) ->
       moved_node = data.rslt.o
@@ -78,7 +87,7 @@ $(document).ready ->
       open_tab id, url,
         close: true
         title: $(a).attr("title")
-        success: (tab, pane) ->  
+        success: (tab, pane) ->
 
 $(".new.page.button").live "click", (e) ->
   if $('#pages li a.jstree-clicked').length > 0
@@ -139,8 +148,7 @@ delete_page_dialog = (id) ->
     close: ->
       $(this).remove()
 
-duplicate_page_dialog = () ->
-  id = $(node).attr("id").substring(5)
+duplicate_page_dialog = (id) ->
   $.ajax
     url: "/admin/pages/" + id + "/duplicate.js"
     type: "post"

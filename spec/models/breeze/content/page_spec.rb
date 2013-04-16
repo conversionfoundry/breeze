@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../../../spec_helper")
 
 describe Breeze::Content::Page do
 
-  subject { Fabricate.build :page }
+  subject { Fabricate :page }
 
   describe "Factory" do
     it { should be_valid }
@@ -14,22 +14,43 @@ describe Breeze::Content::Page do
   describe 'validations' do
   end
 
-  
+  describe '#duplicate' do
+    context "non-home page" do
+      before :each do
+        @old_page = Fabricate :page, parent: subject
+        @new_page = @old_page.duplicate
+      end
+      it "has new ids for new content" do
+        @old_page.placements.first.content.id.should_not eq @new_page.placements.first.content.id
+      end
+      it "has new ids for new placements" do
+        @old_page.placements.first.id.should_not eq @new_page.placements.first.id
+      end
+      it "has new content that's not shared" do
+        @new_page.placements.first.content.shared?.should eq false
+      end
+    end
+    context 'root page' do
+      it "should not allow duplicating the root page" do
+        subject.duplicate.should eq false
+      end
+    end
+  end
 
 
   # before :each do
   #   Breeze::Content::Item.collection.drop
-  #   
+  #
   #   @root = Breeze::Content::Page.create :title => "Home", :slug => "", :permalink => "/"
   #   @page = Breeze::Content::Page.create :title => "Page", :parent => @root
   #   @sibling = Breeze::Content::Page.create :title => "Sibling", :parent => @root
   #   @content = Breeze::Content::Snippet.create :content => "Test"
   #   @content.add_to_container @page, "default", "default"
-  #   
+  #
   #   @page.position.should == 0
   #   @sibling.position.should == 1
   # end
-  # 
+  #
   # it "should generate its permalink correctly" do
   #   @page.permalink.should == "/page"
   # end
@@ -39,11 +60,11 @@ describe Breeze::Content::Page do
   #     @new_page = @page.duplicate
   #     [ @page, @new_page, @sibling ].each &:reload
   #   end
-  #   
+  #
   #   it "should produce a new database record" do
   #     Breeze::Content::Page.count.should == 4
   #   end
-  #   
+  #
   #   it "should have a new slug" do
   #     @new_page.slug.should == "page-2"
   #   end
@@ -51,32 +72,32 @@ describe Breeze::Content::Page do
   #   it "should have a new permalink" do
   #     @new_page.permalink.should == "/page-2"
   #   end
-  #   
+  #
   #   it "should duplicate its placements" do
   #     @new_page.placements.count.should == 1
   #   end
-  #   
+  #
   #   it "should not duplicate its contents" do
   #     Breeze::Content::Snippet.count.should == 1
   #   end
-  #   
+  #
   #   it "should share its contents" do
   #     @new_page.placements.first.should be_shared
   #   end
-  #   
+  #
   #   it "should increment the placements_counts of its contents" do
   #     Breeze::Content::Snippet.first.placements_count.should == 2
   #   end
-  #   
+  #
   #   it "should place the new page directly after it" do
   #     @new_page.position.should == @page.position + 1
   #   end
-  #   
+  #
   #   it "should shove siblings out of the way" do
   #     @sibling.position.should == @new_page.position + 1
   #   end
   # end
-  # 
+  #
   # describe "with children" do
   #   before :each do
   #     @child = Breeze::Content::Page.create :title => "Child", :parent => @page
@@ -87,19 +108,19 @@ describe Breeze::Content::Page do
   #       @new_page = @page.duplicate
   #       @new_child = @new_page.children.first
   #     end
-  #     
+  #
   #     it "should duplicate its children" do
   #       Breeze::Content::Page.count.should == 6
   #     end
-  #     
+  #
   #     it "should set the correct parent_id on the child" do
   #       @new_child.parent_id.should == @new_page.id
   #     end
-  #     
+  #
   #     it "should keep the old slug for the child" do
   #       @new_child.slug.should == "child"
   #     end
-  #     
+  #
   #     it "should generate a new permalink for the child" do
   #       @new_child.permalink.should == "/page-2/child"
   #     end

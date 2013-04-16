@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Breeze is a Content Management System."
   s.description = "Breeze is a Content Management System."
 
-  s.files         = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"] 
+  s.files         = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.rdoc"] 
   s.require_paths = ['lib']
   s.requirements << 'none'
   s.required_ruby_version = '>= 1.9.0'
