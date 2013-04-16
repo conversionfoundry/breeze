@@ -1,36 +1,30 @@
 <h3><%= title %></h3>
 
-<div class="body_before_form"><%= body_before_form %></div>
-
 <%= breeze_form "Contact Us", class: "contact_form form-horizontal", success_function: "form_completed" do %>
 
   <fieldset>
 
-    <div class="control-group">
-      <label class="control-label" for="message">Message</label>
-      <div class="controls">
-        <textarea id="message" name="message" placeholder="Tell us how we can help&hellip;"></textarea>
-      </div>
-    </div>
+  <div class="body_before_form"><%= body_before_form %></div>
 
     <div class="control-group">
       <label class="control-label" for="sender_name">Your Name</label>
+      <span class="help-inline">Required</span>
       <div class="controls">
-        <input id="sender_name" name="sender_name" type="text" placeholder="Name">
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label" for="sender_email">Email</label>
-      <div class="controls">
-        <input id="sender_email" name="sender_email" type="email" placeholder="yourname@example.com">
+          <input id="sender_name" name="sender_name" type="text" placeholder="Your name" class="required">
       </div>
     </div>
 
     <div class="control-group">
       <label class="control-label" for="sender_phone">Phone</label>
       <div class="controls">
-        <input id="sender_phone" name="sender_phone" type="text" placeholder="+61 2 1234 5678">
+        <input id="sender_phone" name="sender_phone" type="text" placeholder="+61 2 1234 5678" class="required">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="sender_email">Email</label>
+      <div class="controls">
+        <input id="sender_email" name="sender_email" type="email" placeholder="yourname@example.com" class="required">
       </div>
     </div>
 
@@ -44,8 +38,17 @@
       </div>
     </div>
 
+    <div class="control-group">
+        <label class="control-label" for="enquiry">Enquiry</label>
+      <div class="controls">
+          <textarea id="enquiry" name="enquiry" placeholder="Tell us how we can help&hellip;"></textarea>
+      </div>
+    </div>
+
+  <div class="body_after_form"><%= body_after_form %></div>
+
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary"><%= submit_button_text %></button>
     </div>
 
   </fieldset>
@@ -60,14 +63,15 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+  $(".contact_form").validate()
+      
   function form_completed() {
     $('.contact_form').slideUp();
     $('.contact_form_confirmation').slideDown();
   }
+        
   $('.btn-another').live('click', function() {
     $('.contact_form_confirmation').slideUp(); 
     $('.contact_form').slideDown();
   });
 </script>
-
-<div class="body_after_form"><%= body_after_form %></div>
