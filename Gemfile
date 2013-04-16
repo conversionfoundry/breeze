@@ -5,6 +5,7 @@ gemspec
 
 gem 'jquery-rails'
 gem "jquery-fileupload-rails"
+gem "twitter-bootstrap-rails", "= 2.2.1"
 
 group :development do 
   gem 'fuubar'
