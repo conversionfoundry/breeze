@@ -13,7 +13,8 @@
         :object_name => :content %>
 
         <div class="content-form">
-          <%= form.collection_select(:content_type_id, Breeze::Content::Type.all, 
+          <%= form.collection_select(:content_type_id, 
+                                     Breeze::Content::Type.all, 
                                      :id, :name, {}) %>
           <% Breeze::Content::Type.first.content_fields.each do |field| %>
             <%= form.text_field field.name.to_sym %>

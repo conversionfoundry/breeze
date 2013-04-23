@@ -13,6 +13,9 @@ feature 'Edit a page in the front end' do
     toggle_editor
     header_region.click_link('+')
     left_menu.should have_content('content type')
+    # test the specific fields are the good ones 
+    # test the flash message
+    # test the page has the content
   end
 
 end

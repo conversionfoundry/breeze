@@ -35,7 +35,6 @@ describe Breeze::Admin::ContentTypeInstancesController do
         },
         format: :js
       response.status.should eq(200)
-      response.body.should have_content('Content created successfully.')
     end
   end
 
