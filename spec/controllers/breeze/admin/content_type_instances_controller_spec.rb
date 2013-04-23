@@ -4,6 +4,7 @@ describe Breeze::Admin::ContentTypeInstancesController do
 
   let(:user) { Fabricate(:user) }
   let(:pag) { Fabricate(:page) }
+  let(:typ) { Fabricate(:content_type) }
   
 
   before do
@@ -24,7 +25,18 @@ describe Breeze::Admin::ContentTypeInstancesController do
   end
 
   describe "#create" do
-    it "returns 201" 
+    it "returns 200" do
+      post :create,
+        page_id: pag.id, 
+        region: :header, 
+        content_type: { 
+          id: typ.id, 
+          content: { title: 'wat' }
+        },
+        format: :js
+      response.status.should eq(200)
+      response.body.should have_content('Content created successfully.')
+    end
   end
 
 end

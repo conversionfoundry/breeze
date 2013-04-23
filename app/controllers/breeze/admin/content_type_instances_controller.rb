@@ -1,5 +1,6 @@
-class Breeze::Admin::ContentTypeInstancesController < Breeze::Admin::AdminController
-  # respond_to :js
+class Breeze::Admin::ContentTypeInstancesController < 
+  Breeze::Admin::AdminController
+  respond_to :js, only: [:create]
 
   def new
     content_for = params.fetch(:content)
@@ -13,12 +14,19 @@ class Breeze::Admin::ContentTypeInstancesController < Breeze::Admin::AdminContro
   def create
     page_id = params.fetch(:page_id)
     region = params.fetch(:region)
-    content_type_id = params.fetch(:type_id)
-
-    Breeze::Content::Page.find(page_id).instances.create(
-      region: region,
-      content_type_id: content_type_id
+    content_type = params.fetch(:content_type)
+    content_type_id = content_type.fetch(:id)
+    content_type_content =  content_type.fetch(:content)
+    if Breeze::Content::Page.find(page_id).content_items.create(
+      { 
+        region: region,
+        content_type_id: content_type_id 
+      }.merge(content_type_content)
     )
+      notice = 'Content created successfully.'
+    else
+      notice = 'Content creation failed.'
+    end
   end
 
 end

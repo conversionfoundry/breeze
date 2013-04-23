@@ -1,5 +1,5 @@
 Fabricator(:content_type, class_name: Breeze::Content::Type) do
-  name 'content_type'
+  name 'content type'
 end
 
 Fabricator(:gallery, class_name: Breeze::Content::Type) do

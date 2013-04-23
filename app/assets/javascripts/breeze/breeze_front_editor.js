@@ -598,6 +598,7 @@ $(document).ready(function(){
 })(jQuery);
 });
 
+// Update the value of the options breeze.page_id
 $(function() {
   $("body").breeze({ 
     page_id: $('#page_id').val(), 

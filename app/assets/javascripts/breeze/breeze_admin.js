@@ -78,7 +78,6 @@ $(function() {
   });
 
 
-  
   $('#left .sliding .pages').each(function() {
     var pages = $(this).find('.page');
     var w = parseInt($(this).parent().css('width'));
