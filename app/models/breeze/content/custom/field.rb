@@ -4,11 +4,27 @@ module Breeze
       class Field
         include Mongoid::Document
 
-        TYPES = [ :text, :markdown, :url ].freeze
+        # Here is a useful subset of the helpers provided into FormHelper
+        # http://apidock.com/rails/ActionView/Helpers/FormHelper
+        # We might monkey patch FormHelper into intializers to add a
+        # markdown_area method 
+        TYPES = [ :text_field,
+          :text_area, 
+          :url_field, 
+          :email_field,
+          :search_field,
+          :range_field,
+          :file_field,
+          :check_box,
+          :phone_field,
+          :number_field,
+          :password_field,
+          :hidden_field
+        ].freeze
 
         field :label, type: String
         field :name, type: String
-        field :type, type: Symbol, default: :text # see TYPES
+        field :type, type: Symbol, default: :text_field # see TYPES
         field :position, type: Integer, default: 0
 
         validates :label,

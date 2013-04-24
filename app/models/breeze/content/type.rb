@@ -22,7 +22,7 @@ module Breeze
       accepts_nested_attributes_for :content_fields, 
         :allow_destroy => true
 
-      def default_template_name
+      def template_name
         name.parameterize
       end
 

@@ -2,11 +2,11 @@
   <h2>Add Content</h2>
   <div id="add-new-content">
     <%= form_for(@instance, 
-                 as: :content, 
                  url: admin_content_type_instances_path, 
                  remote: true) do |form| %>
 
       <%= form.hidden_field :region %>
+      <%= form.hidden_field :page_id, value: @instance.page.id %>
         
       <%= render "/breeze/admin/shared/error_messages", 
         :target => @instance, 
@@ -16,9 +16,10 @@
           <%= form.collection_select(:content_type_id, 
                                      Breeze::Content::Type.all, 
                                      :id, :name, {}) %>
-          <% Breeze::Content::Type.first.content_fields.each do |field| %>
-            <%= form.text_field field.name.to_sym %>
+          <% @instance.content_type.content_fields.each do |field| %>
+            <%= form.send(field.type, field.name.to_sym) %>
           <% end %>
+
         </div>
 
         <div class="buttons-panel">

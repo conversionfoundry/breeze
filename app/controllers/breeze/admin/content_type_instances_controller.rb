@@ -12,16 +12,9 @@ class Breeze::Admin::ContentTypeInstancesController <
   end
 
   def create
-    page_id = params.fetch(:page_id)
-    region = params.fetch(:region)
-    content_type = params.fetch(:content_type)
-    content_type_id = content_type.fetch(:id)
-    content_type_content =  content_type.fetch(:content)
+    page_id = params.fetch(:content_type_instance).delete(:page_id)
     if Breeze::Content::Page.find(page_id).content_items.create(
-      { 
-        region: region,
-        content_type_id: content_type_id 
-      }.merge(content_type_content)
+      params.fetch(:content_type_instance)
     )
       notice = 'Content created successfully.'
     else

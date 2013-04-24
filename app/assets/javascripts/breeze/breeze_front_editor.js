@@ -16,7 +16,6 @@ $(document).ready(function(){
 
       $('.editor-panel .buttons-panel a.ok.button').live('click', function() {
         $('#content_new.breeze-content').remove();
-
         $editor = $(this).closest('.editor-panel');
         $('form:visible', $editor).trigger('submit');
       });
@@ -48,12 +47,6 @@ $(document).ready(function(){
         breeze._openEditorPanel(url, {
           title: 'Add content',
           open: function() {
-            $.ajax({
-              url: '/admin/contents/add.js',
-              data: 'content[region]=' + region + '&content[container_id]=' + container_id,
-              success: function(data) {
-              }
-            });
             breeze.new_content_panel_open(this, url);
           }
         });

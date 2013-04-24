@@ -3,21 +3,28 @@ module Breeze
     def region(name, options = {}, &block)
       content = content_for_region(name, &block)
       options[:id] ||= "#{name.to_s.underscore}_region"
-      options[:class] = ("breeze-editable-region " + (options[:class] || "")).sub(/\s+$/,"")
+      options[:class] = 
+        ("breeze-editable-region " + (options[:class] || "")).sub(/\s+$/,"")
       content_tag :div, (content || "").html_safe, options
     end
     
     def content_for_region(name, &block)
       @_region_contents ||= {}
-      placements = page.content_items.where(region: name)
-      @_region_contents[name] = if placements.empty?
+      content_type_instances = page.content_items.where(region: name)
+      @_region_contents[name] = if content_type_instances.empty?
         block_given? ? capture(&block) : ""
       else
         str = ""
-        placements.each { |placement| str << render(inline: placement.to_erb(view)) if placement.content.present? }
+        content_type_instances.each do |instance| 
+          str << content_for_instance(instance) 
+        end
         str.html_safe
       end
       @_region_contents[name]
+    end
+
+    def content_for_instance(instance)
+      render(instance.type.template_name, object: instance)
     end
     
     def breadcrumb(template, page, options = {})
