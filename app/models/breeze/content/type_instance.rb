@@ -15,10 +15,11 @@ module Breeze
         class_name: "Breeze::Content::Page", 
         inverse_of: :content_items
 
-      attr_accessible :region, :content_type
+      attr_accessible :region, :content_type_id
       attr_accessor :ola
 
       validates :region, presence: true
+      validates :content_type_id, presence: true
 
     end
   end

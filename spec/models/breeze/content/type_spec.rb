@@ -21,7 +21,7 @@ describe Breeze::Content::Type do
   describe "#default_template_name" do
     it "parameterize the name file" do
       subject.name = "Unique selling point 20%"
-      subject.default_template_name.should eq("unique-selling-point-20")
+      subject.template_name.should eq("unique-selling-point-20")
     end
   end
 

@@ -24,12 +24,14 @@ module Breeze
     end
 
     def content_for_instance(instance)
-      render(instance.type.template_name, object: instance)
+      render(instance.content_type.template_name, object: instance)
     end
     
     def breadcrumb(template, page, options = {})
       divider = options[:divider] || '/'
-      Breeze::Breadcrumb.new(template: template, for_page: page, divider: divider).generate
+      Breeze::Breadcrumb.new(template: template, 
+        for_page: page, 
+        divider: divider).generate
     end
 
     def breeze_form( name='Unnamed form', options={}, &block)
