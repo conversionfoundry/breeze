@@ -26,6 +26,10 @@ module Breeze
         name.parameterize
       end
 
+      def content_fields_names
+        content_fields.map(&:name)
+      end
+
     end
   end
 end

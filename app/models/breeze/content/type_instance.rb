@@ -16,10 +16,27 @@ module Breeze
         inverse_of: :content_items
 
       attr_accessible :region, :content_type_id
-      attr_accessor :ola
 
       validates :region, presence: true
       validates :content_type_id, presence: true
+
+      def method_missing(name, *args, &block)
+        if self.respond_to?(name)
+          read_attribute(name)
+        else
+          super
+        end
+      end
+
+      def respond_to?(name, *args, &block)
+        super || allowed_dynamic_accessors.include?(name)
+      end
+
+    private
+
+      def allowed_dynamic_accessors
+        content_type.content_fields_names.map(&:to_sym)
+      end
 
     end
   end
