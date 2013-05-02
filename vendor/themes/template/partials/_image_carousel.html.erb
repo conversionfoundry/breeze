@@ -1,0 +1,22 @@
+<div id="myCarousel" class="carousel slide">
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <% (1..6).each do |n| %>
+      <% image = instance_eval "image#{n}" %>
+      <% image_caption = instance_eval "image#{n}_caption" %>
+      <% unless image.blank? %>
+        <div class="item <%= "active" if n==1 %>">
+          <%= image_tag image, data: {title: '', description: '' } unless image.blank? %>
+          <% if image_caption %>
+            <div class="carousel-caption">
+              <%= image_caption %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
