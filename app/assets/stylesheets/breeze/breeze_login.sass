@@ -1,3 +1,6 @@
+@import "variables"
+@import "mixins"
+
 body.breeze-login
   background: #666
   font: 14px Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif
@@ -13,12 +16,8 @@ body.breeze-login
     background: #eee
     color: #222
     border-top: 8px solid #8dc63f
-    -webkit-border-bottom-left-radius: 16px
-    -webkit-border-bottom-right-radius: 16px
-    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px
-    -moz-border-radius-bottomleft: 16px
-    -moz-border-radius-bottomright: 16px
-    -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px
+    @include border-bottom-radius(1em)
+    @include box-shadow-big
     h1
       position: absolute
       left: -6px
@@ -47,9 +46,8 @@ body.breeze-login
       margin: 0px 16px 8px
       padding: 8px 8px 8px 24px
       background: rgba(255, 255, 204, 0.75) url(image_path("breeze/icons/error.png")) no-repeat 4px 8px
-      -webkit-border-radius: 4px
+      @include border-radius(4px)
       -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px
-      -moz-border-radius: 4px
       -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px
       .flash
         background: none
@@ -61,11 +59,10 @@ body.breeze-login
         margin: 0
         text-shadow: none
         position: relative
-        -webkit-border-radius: 0
+        @include border-radius(0)
         -webkit-box-shadow: none
-        -moz-border-radius: 0
         -moz-box-shadow: none
-        z-index: 0   
+        z-index: 0
     form
       position: relative
       display: block
@@ -89,9 +86,8 @@ body.breeze-login
           border: none
           border-radius: 4px
           box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
-          -webkit-border-radius: 4px
+          @include border-radius(4px)
           -webkit-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
-          -moz-border-radius: 4px
           -moz-box-shadow: inset rgba(0, 0, 0, 0.5) 0px 1px 2px
           height: auto
     .button
@@ -100,8 +96,7 @@ body.breeze-login
       color: #fff
       text-decoration: none
       border: none
-      -moz-border-radius: 5px
-      -webkit-border-radius: 5px
+      @include border-radius(4px)
       -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
       -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
       text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
@@ -118,8 +113,6 @@ body.breeze-login
         color: #fff
         text-decoration: none
         border: none
-        -moz-border-radius: 5px
-        -webkit-border-radius: 5px
         -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
         -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5)
         text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25)
@@ -137,7 +130,7 @@ body.breeze-login
       right: 16px
       bottom: 0px
     #forgot
-      margin: -24px 16px -20px
+      margin: -45px 16px -20px
       position: relative
       z-index: 1
       -webkit-transition: margin-top 0.25s ease-in
@@ -170,7 +163,8 @@ body.breeze-login
       form
         padding: 8px 8px 8px
       li input
-        width: 390px
+        width: 100%
+        @include box-sizing(border-box)
       .button
       form .button
         display: block

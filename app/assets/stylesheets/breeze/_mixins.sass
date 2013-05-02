@@ -1,43 +1,43 @@
 /* Border Radius
-@mixin border-radius ($radii) 
+@mixin border-radius ($radii)
   -webkit-border-radius: $radii
   -khtml-border-radius: $radii
   -moz-border-radius: $radii
   border-radius: $radii
-@mixin border-top-left-radius($radii) 
+@mixin border-top-left-radius($radii)
   -webkit-border-top-left-radius: $radii
   -khtml-border-radius-topleft: $radii
   -moz-border-top-left-radius: $radii
   -moz-border-radius-topleft: $radii
   border-top-left-radius: $radii
-@mixin border-top-right-radius($radii) 
+@mixin border-top-right-radius($radii)
   -webkit-border-top-right-radius: $radii
   -khtml-border-radius-topright: $radii
   -moz-border-top-right-radius: $radii
   -moz-border-radius-topright: $radii
   border-top-right-radius: $radii
-@mixin border-bottom-left-radius($radii) 
+@mixin border-bottom-left-radius($radii)
   -webkit-border-bottom-left-radius: $radii
   -khtml-border-radius-bottomleft: $radii
   -moz-border-bottom-left-radius: $radii
   -moz-border-radius-bottomleft: $radii
   border-bottom-left-radius: $radii
-@mixin border-bottom-right-radius($radii) 
+@mixin border-bottom-right-radius($radii)
   -webkit-border-bottom-right-radius: $radii
   -khtml-border-radius-bottomright: $radii
   -moz-border-bottom-right-radius: $radii
   -moz-border-radius-bottomright: $radii
   border-bottom-right-radius: $radii
-@mixin border-top-radius($radii) 
+@mixin border-top-radius($radii)
   @include border-top-left-radius($radii)
   @include border-top-right-radius($radii)
-@mixin border-right-radius($radii) 
+@mixin border-right-radius($radii)
   @include border-top-right-radius($radii)
   @include border-bottom-right-radius($radii)
-@mixin border-bottom-radius($radii) 
+@mixin border-bottom-radius($radii)
   @include border-bottom-left-radius($radii)
   @include border-bottom-right-radius($radii)
-@mixin border-left-radius($radii) 
+@mixin border-left-radius($radii)
   @include border-top-left-radius($radii)
   @include border-bottom-left-radius($radii)
 
@@ -50,6 +50,10 @@
   -webkit-box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.75)
   -moz-box-shadow:    1px 1px 5px rgba(50, 50, 50, 0.75)
   box-shadow:         1px 1px 5px rgba(50, 50, 50, 0.75)
+@mixin box-shadow-big
+  -webkit-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5)
+  -moz-box-shadow:    0px 2px 8px rgba(0, 0, 0, 0.5)
+  box-shadow:         0px 2px 8px rgba(0, 0, 0, 0.5)
 
 /* Box Sizing
 @mixin box-sizing($value)

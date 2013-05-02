@@ -27,3 +27,4 @@
 //= require ./breeze_admin_themes
 //= require ./breeze_admin_users
 //= require ./breeze_assets
+//= require ./breeze_login
