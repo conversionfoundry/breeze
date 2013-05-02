@@ -67,7 +67,7 @@ open_theme_folder = (theme_link, options) ->
       rename_file url, name
     .bind 'remove.jstree', (node, ref) ->
       url = $(">a", ref.rslt.obj[0]).attr("href")
-      remove_file url 
+      remove_file url
     .bind 'create.jstree', (node, ref) ->
       parent = ref.rslt.parent[0]
       node = ref.rslt.obj[0]
@@ -94,7 +94,10 @@ $("#left #theme_files a").live "click", (e) ->
       success: (tab, pane) =>
         $("textarea", pane).each =>
           textarea = $('#tab_' + name).children('.editor').children('textarea')
-          editor = CodeMirror.fromTextArea( textarea.get(0) )
+          editor = CodeMirror.fromTextArea( textarea.get(0), {
+            lineNumbers: true,
+            readOnly: false
+          })
 
 remove_file = (url) ->
   $.ajax

@@ -43,7 +43,27 @@ module Breeze
           contact_form.custom_fields.build({ name: 'body_before_form', label: 'Body Before Form', position: 1, _type: 'Breeze::Content::Custom::TextField'})
           contact_form.custom_fields.build({ name: 'body_after_form', label: 'Body After Form', position: 2, _type: 'Breeze::Content::Custom::TextField'})
           contact_form.custom_fields.build({ name: 'confirmation_message', label: 'Confirmation message', position: 3, _type: 'Breeze::Content::Custom::TextField'})
+          contact_form.custom_fields.build({ name: 'submit_button_text', label: 'Submit Button Text', position: 0, _type: 'Breeze::Content::Custom::StringField'})
           contact_form.save
+        end
+
+        # Create placeholder custom type
+        unless Breeze::Content::Custom::Type.where(name: 'Image Carousel').any?
+          log "", "Creating image carousel custom type..."
+          image_carousel = Breeze::Content::Custom::Type.create! name: 'Image Carousel'
+          image_carousel.custom_fields.build({ name: 'image1', label: 'Image 1', position: 0, _type: 'Breeze::Content::Custom::ImageField'})
+          image_carousel.custom_fields.build({ name: 'image1_caption', label: 'Image 1 Caption', position: 0, _type: 'Breeze::Content::Custom::StringField'})
+          image_carousel.custom_fields.build({ name: 'image2', label: 'Image 2', position: 0, _type: 'Breeze::Content::Custom::ImageField'})
+          image_carousel.custom_fields.build({ name: 'image2_caption', label: 'Image 2 Caption', position: 0, _type: 'Breeze::Content::Custom::StringField'})
+          image_carousel.custom_fields.build({ name: 'image3', label: 'Image 3', position: 0, _type: 'Breeze::Content::Custom::ImageField'})
+          image_carousel.custom_fields.build({ name: 'image3_caption', label: 'Image 3 Caption', position: 0, _type: 'Breeze::Content::Custom::StringField'})
+          image_carousel.custom_fields.build({ name: 'image4', label: 'Image 4', position: 0, _type: 'Breeze::Content::Custom::ImageField'})
+          image_carousel.custom_fields.build({ name: 'image4_caption', label: 'Image 4 Caption', position: 0, _type: 'Breeze::Content::Custom::StringField'})
+          image_carousel.custom_fields.build({ name: 'image5', label: 'Image 5', position: 0, _type: 'Breeze::Content::Custom::ImageField'})
+          image_carousel.custom_fields.build({ name: 'image5_caption', label: 'Image 5 Caption', position: 0, _type: 'Breeze::Content::Custom::StringField'})
+          image_carousel.custom_fields.build({ name: 'image6', label: 'Image 6', position: 0, _type: 'Breeze::Content::Custom::ImageField'})
+          image_carousel.custom_fields.build({ name: 'image6_caption', label: 'Image 6 Caption', position: 0, _type: 'Breeze::Content::Custom::StringField'})
+          image_carousel.save
         end
 
         # Create root page
@@ -63,7 +83,7 @@ module Breeze
           contact_us = Breeze::Content::Page.create! title: "Contact Us", slug: "contact-us", parent: home
 
           # Create a contact_form
-          cf = Breeze::Content::ContactForm.create! title: "Contact Us", body_before_form: "We'd love to hear from you.", body_after_form: "We usually respond within 24 hours.", confirmation_message: "Thanks! We'll be in touch."
+          cf = Breeze::Content::ContactForm.create! title: "Contact Us", body_before_form: "We'd love to hear from you.", body_after_form: "We usually respond within 24 hours.", confirmation_message: "Thanks! We'll be in touch.", submit_button_text: "Submit"
           contact_us.placements << Breeze::Content::Placement.new( :region => 'column_middle', :content => cf )
         end
 
@@ -73,7 +93,7 @@ module Breeze
           home = Breeze::Content::Page.first
           style_guide = Breeze::Content::Page.create! title: "Style Guide", slug: "style-guide", parent: home, template: "style_guide.html.haml"
         end
-      
+
         # Create emergency user
         if Breeze::Admin::User.where(:email => 'emergency@example.com').count == 0
           log "", "Creating admin user..."
@@ -82,7 +102,7 @@ module Breeze
 
         # Prompt for new password
 
-        # Print instructions for logging in 
+        # Print instructions for logging in
         log "", "Breeze is ready. Log in at [address goes here] with username 'emergency' and password 'logmein'"
 
       end
