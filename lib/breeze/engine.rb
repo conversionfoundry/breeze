@@ -27,7 +27,7 @@ module Breeze
     isolate_namespace Breeze
 
     initializer "breeze.assets.precompile" do |app|
-      app.config.assets.prefix = "/cached"
+      app.config.assets.prefix = Rails.root.join("public/cached")
     end
 
     # config.autoload_paths += ["app/models/breeze/", "app/models/breeze/admin", "app/models/breeze/admin/activity", "/app/models/breeze/admin/mixins",
@@ -40,8 +40,8 @@ module Breeze
       g.test_framework :rspec, fixture: true, view_specs: false
       g.fixture_replacement :fabrication
     end
-    
-    # Load devise layouts for the engine 
+
+    # Load devise layouts for the engine
     config.to_prepare do
       Devise::SessionsController.layout "sessions"
       Devise::PasswordsController.layout false
