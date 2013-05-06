@@ -24,7 +24,7 @@ PATH
       will_paginate (= 3.0.pre4)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.12)
       actionpack (= 3.2.12)
@@ -168,6 +168,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.2.2)
       pry (>= 0.9.10)
+    puma (2.0.1)
+      rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -268,5 +270,6 @@ DEPENDENCIES
   launchy
   mongoid-rspec
   pry-rails
+  puma
   rb-fsevent
   rspec-rails

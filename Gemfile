@@ -1,4 +1,4 @@
-source :rubygems 
+source 'https://rubygems.org'
 ruby "1.9.3"
 
 gemspec
@@ -6,6 +6,7 @@ gemspec
 gem 'jquery-rails'
 gem "jquery-fileupload-rails"
 gem 'mongoid-rspec'
+gem 'puma'
 
 group :development do 
   gem 'fuubar'
