@@ -25,4 +25,10 @@ describe Breeze::Content::Type do
     end
   end
 
+  describe "#after_create" do
+    it "creates a partial with the type name" do
+      FileTest.exists?(subject.partial_path).should be_true
+    end
+  end
+
 end

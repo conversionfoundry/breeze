@@ -12,7 +12,7 @@ class Breeze::Admin::ContentTypeInstancesController <
   end
 
   def create
-    page_id = params.delete(:page_id)
+    page_id = params.fetch(:content_type_instance).delete(:page_id)
     if Breeze::Content::Page.find(page_id).content_items.create(
       params.fetch(:content_type_instance)
     )

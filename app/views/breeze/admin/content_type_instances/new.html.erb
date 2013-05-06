@@ -17,6 +17,7 @@
                                      Breeze::Content::Type.all, 
                                      :id, :name, {}) %>
           <% @instance.content_type.content_fields.each do |field| %>
+            <%= form.label(field.name) %>
             <%= form.send(field.type, field.name.to_sym) %>
           <% end %>
 

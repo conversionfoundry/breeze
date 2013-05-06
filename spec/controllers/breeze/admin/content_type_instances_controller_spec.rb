@@ -27,9 +27,9 @@ describe Breeze::Admin::ContentTypeInstancesController do
   describe "#create" do
     it "returns ok" do
       post :create,
-        page_id: pag.id, 
-        region: :header, 
         content_type_instance: { 
+          region: :header, 
+          page_id: pag.id, 
           content_type_id: typ.id, 
           content: { title: 'wat' }
         },

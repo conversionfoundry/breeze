@@ -22,8 +22,25 @@ module Breeze
       accepts_nested_attributes_for :content_fields, 
         :allow_destroy => true
 
+      def after_create
+        FileUtil.touch partial_path
+      end
+
+      def after_save
+        # TODO assert consistance of the partial file 
+        # if name.changed?
+        #   FileUtil.mv file.was, file.name
+        # end
+      end
+
       def template_name
         name.parameterize
+      end
+
+      def partial_path
+        relative_path = 'vendor/themes/template/partials/content_types'
+        filename = "_#{name}.html.erb"
+        Rails.root.join(relative_path, filename)
       end
 
     end

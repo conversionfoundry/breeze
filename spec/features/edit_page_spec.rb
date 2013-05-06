@@ -1,21 +1,29 @@
 require 'spec_helper'
 
-feature 'Edit a page in the front end' do
+feature 'plays nice with content types' do
   let!(:p) { Fabricate :page } #homepage
   let!(:ct) { Fabricate :content_type }
+  let!(:gallery) { Fabricate :gallery }
 
   background do
     sign_in
-  end
-
-  scenario "adds some text in the first region and saves", js: :true do
     visit root_path
     toggle_editor
     header_region.click_link('+')
+  end
+
+  scenario "displays a list of available content type", js: :true do
     left_menu.should have_content('content type')
-    # test the specific fields are the good ones 
-    # test the flash message
-    # test the page has the content
+    left_menu.should have_content('gallery')
+  end
+
+  scenario "displays fields associated to the selected content type" do
+    
   end
 
 end
+
+
+# test the specific fields are the good ones 
+# test the flash message
+# test the page has the content

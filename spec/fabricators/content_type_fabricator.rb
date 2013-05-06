@@ -2,9 +2,9 @@ Fabricator(:content_type, class_name: Breeze::Content::Type) do
   name 'content type'
 end
 
-Fabricator(:gallery, class_name: Breeze::Content::Type) do
+Fabricator(:gallery, from: :content_type) do
   name 'gallery'
-  content_fields do |content_type| 
+  after_create  do |content_type| 
     content_type.content_fields << 
       [ 
       Fabricate(:content_field, 
