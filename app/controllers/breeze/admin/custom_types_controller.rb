@@ -20,6 +20,7 @@ module Breeze
       
       def create
         @custom_type = Breeze::Content::Type.create params[:content_type]
+        # TODO create associated partial
       end
       
       def edit
