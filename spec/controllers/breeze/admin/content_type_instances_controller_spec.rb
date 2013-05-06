@@ -4,7 +4,7 @@ describe Breeze::Admin::ContentTypeInstancesController do
 
   let(:user) { Fabricate(:user) }
   let(:pag) { Fabricate(:page) }
-  let(:typ) { Fabricate(:content_type) }
+  let!(:typ) { Fabricate(:content_type) }
   
 
   before do
@@ -25,12 +25,12 @@ describe Breeze::Admin::ContentTypeInstancesController do
   end
 
   describe "#create" do
-    it "returns 200" do
+    it "returns ok" do
       post :create,
         page_id: pag.id, 
         region: :header, 
-        content_type: { 
-          id: typ.id, 
+        content_type_instance: { 
+          content_type_id: typ.id, 
           content: { title: 'wat' }
         },
         format: :js

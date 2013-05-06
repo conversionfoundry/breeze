@@ -7,12 +7,12 @@ class Breeze::Admin::ContentTypeInstancesController <
     page = Breeze::Content::Page.find(content_for.fetch(:page_id))
     @instance = page.content_items.build(
       region: content_for.fetch(:region),
-      content_type: Breeze::Content::Type.first # default
+      content_type_id: Breeze::Content::Type.first.id # default
     )
   end
 
   def create
-    page_id = params.fetch(:content_type_instance).delete(:page_id)
+    page_id = params.delete(:page_id)
     if Breeze::Content::Page.find(page_id).content_items.create(
       params.fetch(:content_type_instance)
     )
