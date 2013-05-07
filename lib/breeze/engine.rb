@@ -26,8 +26,16 @@ module Breeze
   class Engine < Rails::Engine
     isolate_namespace Breeze
 
+    # The term "assets" is used by Breeze, so we store precompiled Rails assets in public/cached
     initializer "breeze.assets.precompile" do |app|
-      app.config.assets.prefix = Rails.root.join("public/cached")
+      if Rails.env.production?
+        app.config.assets.prefix = "/cached"
+      else
+        # Sometimes we want to run a development instance on the same server as a production instance
+        # We don't want to use precompiled production assets in development, so we point to a different directory
+        # Typically, /cached_dev will be non-existent, so we don't get any precompiled assets in development
+        app.config.assets.prefix = "/cached_dev"
+      end
     end
 
     # config.autoload_paths += ["app/models/breeze/", "app/models/breeze/admin", "app/models/breeze/admin/activity", "/app/models/breeze/admin/mixins",
