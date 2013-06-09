@@ -5,7 +5,7 @@ module Breeze
     class Placeholder < NavigationItem
 
       def link_to
-        first_children.try(:link_to) || 'javascript:void(0)'
+        children.sort_by{|child| child.position}.first.try(:link_to) || 'javascript:void(0)'
       end
 
       def editable?
