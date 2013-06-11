@@ -5,11 +5,11 @@ module Breeze
         @robots_txt = File.read(Rails.root.to_s + '/public/robots.txt')
         render :action => "edit"
       end
-      
+
       def edit
         @robots_txt = File.read(Rails.root.to_s + '/public/robots.txt')
       end
-      
+
       def update
         Breeze.config.update_attributes params[:settings]
 
@@ -17,8 +17,9 @@ module Breeze
         if write_file(Rails.root.to_s + '/public/robots.txt', @robots_txt)
           flash[:notice] = "Settings updated"
         end
+        render :action => "edit"
       end
-      
+
       def current_time
         Time.zone = params[:zone] if params[:zone].present?
         render :partial => "current_time"

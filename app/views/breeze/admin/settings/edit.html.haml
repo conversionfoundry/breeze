@@ -7,9 +7,9 @@
         = form.fieldset :legend => "Time zone" do
           = form.time_zone_select :time_zone, nil, :label => "Zone", :hint => render("breeze/admin/settings/current_time")
         = form.fieldset :legend => "Notification Email from address" do
-          = form.text_field :notification_from_email, :label => "Email", :hint => render("breeze/admin/settings/notification_from_email")
+          = form.text_field :notification_from_email, :label => "Email", :hint => "This will appear as the from address for system emails e.g. notifications of new user accounts"
         = form.fieldset :legend => "Form Email to address" do
-          = form.text_field :form_result_to_email, :label => "Email", :hint => render("breeze/admin/settings/form_result_to_email")
+          = form.text_field :form_result_to_email, :label => "Email", :hint => "Form results will be emailed to this address."
       = fake_right_sidebar do
         = form.submit "Save settings", :class => "large green save button"
 
@@ -41,7 +41,7 @@
           = text_area_tag "robots_txt[contents]", @robots_txt
       = fake_right_sidebar do
         = submit_tag "Save", :class => "large green save button"
-      
+
 
 - content_for :right do
   = pane_layout do |right|
