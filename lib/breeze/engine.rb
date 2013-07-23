@@ -28,13 +28,13 @@ module Breeze
 
     # The term "assets" is used by Breeze, so we store precompiled Rails assets in public/cached
     initializer "breeze.assets.precompile" do |app|
-      if Rails.env.production?
-        app.config.assets.prefix = "/cached"
-      else
+      if Rails.env.development?
         # Sometimes we want to run a development instance on the same server as a production instance
         # We don't want to use precompiled production assets in development, so we point to a different directory
         # Typically, /cached_dev will be non-existent, so we don't get any precompiled assets in development
         app.config.assets.prefix = "/cached_dev"
+      else
+        app.config.assets.prefix = "/cached"
       end
     end
 
