@@ -13,7 +13,7 @@ module Breeze
             %{<div class="rendering-error"><h3>#{e.to_s}</h3><p>#{e.message}</p></div>}
           end
         end
-        
+
         def edit_form(form)
           # form.fieldset :legend => custom_type.name do
           form.fieldset do
@@ -22,7 +22,7 @@ module Breeze
             end.join("\n").html_safe
           end
         end
-        
+
         def locals
           ({}).tap do |hash|
             custom_type.custom_fields.each do |field|
@@ -35,12 +35,12 @@ module Breeze
             end
           end
         end
-        
+
         def self.custom_type
           @custom_type ||= Breeze::Content::Custom::Type.where(:type_name => name.demodulize).first
         end
         def custom_type; self.class.custom_type; end
-        
+
         def is_a?(k)
           case k.to_s
           when "Breeze::Content::Custom::Instance" then true

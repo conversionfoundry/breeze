@@ -6,7 +6,7 @@ module Breeze
       options[:class] = ("breeze-editable-region " + (options[:class] || "")).sub(/\s+$/,"")
       content_tag :div, (content || "").html_safe, options
     end
-    
+
     def content_for_region(name, &block)
       @_region_contents ||= {}
       placements = page.placements.for(:region => name, :view => view)
@@ -19,7 +19,7 @@ module Breeze
       end
       @_region_contents[name]
     end
-    
+
     # Navigation Tag
     # Generates a simple ul structure of pages on the site
     # Usage:
@@ -38,7 +38,7 @@ module Breeze
     # Splitting navigation into separate containers
     # <%= navigation :level => 2 %>
     # <%= navigation :level => 2, :home => "Overview" %>
-    # <%= navigation :level => 3 %> 
+    # <%= navigation :level => 3 %>
     #    3rd level if need an so on…….
     def navigation(*args, &block)
       levels = { :primary => 1, :secondary => 2, :tertiary => 3 }
@@ -46,18 +46,18 @@ module Breeze
       level = levels[options[:level]] || (options[:level] || 1).to_i
 
       args.unshift page if args.empty? && !page.nil?
-      
+
       current_page = page
 
       contents = "".tap do |str|
 
         page = current_page # TODO: Can't call page within tap, so we've passed it as a variable. Can we do this better?
 
-        
+
         pages = args.map do |arg|
           if arg.root?
             arg.children.first
-          else 
+          else
             case arg
             when Breeze::Content::NavigationItem then arg
             else Breeze::Content::NavigationItem.where(:permalink => arg.to_s).first
@@ -90,7 +90,7 @@ module Breeze
               p.title
             end
             page_title = p.title if page_title.blank?
-            
+
             link_options = ({}).tap do |o|
               o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
                 # classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
@@ -106,14 +106,14 @@ module Breeze
               permalink = p.class.name == "Breeze::Content::Placeholder" ? 'javascript:void(0)' : p.permalink
               link_to content_tag(:span, "#{page_title}#{" <small>#{p.subtitle}</small>" if p.subtitle?}".html_safe), permalink, link_options
             end
-            
+
             recurse = case options[:recurse]
               when true             then 1
               when :active          then ancestry.include?(p) ? 1 : 0
               when Numeric, /^\d+$/ then options[:recurse].to_i
               else 0
             end
-            
+
             if recurse > 0 && p.level == level && !p.root?
               unless (child = p.children.first).nil?
                 link << navigation(child, options.merge(:level => level + 1, :recurse => recurse - 1), &block)
@@ -125,8 +125,8 @@ module Breeze
       end
       content_tag :ul, contents.html_safe, options.except(:level, :recurse).reverse_merge(:class => "#{levels.invert[level] || "level-#{level}"} navigation")
     end
-    
-        
+
+
     # First stab at a Twitter Bootstrap compatible navigation menu
     # Arguments:
     # :level => [1,2,3] (level one appears on all pages, 2 only on level 1 pages, 3 on level 2 pages, etc.)
@@ -140,9 +140,8 @@ module Breeze
 
       # If there are no arguments, use the current page
       args.unshift page if args.empty? && !page.nil?
- 
       current_page = (defined? page) ? page : nil
-      
+
       contents = "".tap do |str|
 
         page = current_page # TODO: Can't call page within tap, so we've passed it as a variable. Can we do this better?
@@ -152,34 +151,36 @@ module Breeze
         else
           str << '<ul class="dropdown-menu">'
         end
-            
+
         pages = args.map do |arg|
           if arg.root?
             arg.children.first
-          else 
+          else
             case arg
             when Breeze::Content::NavigationItem then arg
             else Breeze::Content::NavigationItem.where(:permalink => arg.to_s).first
             end
           end
         end.flatten.compact
-                                                
+
         ancestry = pages.first ? pages.first.self_and_ancestors.to_a : [ page ]
 
         # If page is undefined, there's no active page
         # This is used for example on the Breeze Commerce Cart and Checkout pages
         # In the longer term, this should be removed, in favour of making the cart a proper page, with checkout as a view
         page ||= nil
-              
+
         active = page ? (page.root? ? [page] : ancestry.dup) : []
         ancestry << ancestry.last.children.first if ancestry.last
         ancestry.compact!
-                        
+
         if level <= ancestry.length && ancestry[level].present?
-          siblings = ancestry[level].self_and_siblings.to_a.select(&:show_in_navigation?)          
-          # siblings = page.self_and_siblings.to_a.select(&:show_in_navigation?)          
+          siblings = ancestry[level].self_and_siblings.to_a.select(&:show_in_navigation?)
+          # siblings = page.self_and_siblings.to_a.select(&:show_in_navigation?)
           siblings.unshift ancestry[level - 1] if options[:home] || (level == 1 && options[:home] != false)
           siblings.each_with_index do |p, i|
+            page_has_children = p.children.select(&:show_in_navigation?).any?
+
             page_title = if (options[:home] && options[:home] != true) && (p.level < level || p.root?)
               options[:home]
               case options[:home]
@@ -192,7 +193,7 @@ module Breeze
               p.title
             end
             page_title = p.title if page_title.blank?
-            
+
             link_options = ({}).tap do |o|
               o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
@@ -200,49 +201,52 @@ module Breeze
                 classes << "last"   if i == siblings.length - 1
               end.join(" ")
             end
-            
+            link_options[:data] = {toggle: "dropdown"} if page_has_children && options[:recurse]
             link = if block_given?
               capture p, link_options, &block
             else
               permalink = p.class.name == "Breeze::Content::Placeholder" ? 'javascript:void(0)' : p.permalink
-              link_to content_tag(:span, "#{page_title}".html_safe), permalink, link_options
+              content = content_tag(:span, "#{page_title}".html_safe)
+              content += '<span class="caret"></span>'.html_safe if page_has_children
+              link_to content, permalink, link_options
             end
-            
+
             recurse = case options[:recurse]
              when true             then 3
              when :active          then ancestry.include?(p) ? 1 : 0
              when Numeric, /^\d+$/ then options[:recurse].to_i
              else 0
              end
-             
+
              if recurse > 0 && p.level == level && !p.root?
                unless (child = p.children.select(&:show_in_navigation?).first).nil?
                  link << bootstrap_nav(child, options.merge(:level => level + 1, :recurse => recurse - 1), &block)
                end
              end
-             
+
             li_options = ({}).tap do |o|
               o[:class] = [ p.root? ? "home" : p.slug ].tap do |classes|
                 classes << "active" if p == page || (active.index(p).to_i > 0 && p.level == level)
                 classes << "first"  if i == 0
                 classes << "last"   if i == siblings.length - 1
-                classes << "dropdown" if p.children.select(&:show_in_navigation?).length > 0
+                classes << "dropdown-toggle" if page_has_children
                 classes << 'level-' + level.to_s
               end.join(" ")
             end
-            
+
+
             str << content_tag(:li, link.html_safe, li_options)
           end
         end
-        
+
         # Opening HTML for Twitter Bootstrap Navigation
         str << '</ul>'
-        
+
       end
       contents.html_safe
-      
+
     end
-    
+
     def breadcrumb(divider = "/")
       Breeze::Breadcrumb.new(for_page: page, divider: divider).generate
     end
@@ -259,5 +263,5 @@ module Breeze
     end
 
   end
-    
+
 end
