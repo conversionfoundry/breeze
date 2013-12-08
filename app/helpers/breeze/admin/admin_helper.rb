@@ -1,12 +1,12 @@
 module Breeze
   module Admin
     module AdminHelper
-      
+
       # Send flash messages to the JavaScript function $.flashMessage(), defined in admin.js
       # TODO: depending on flash message type, leave some messages ons creen to be dismissed, let others disappear afer a few seconds
       def flash_messages
         if flash.any?
-          
+
           message_content = flash.to_a.map { |key, message|
             message.html_safe
           }.join.html_safe
@@ -15,7 +15,7 @@ module Breeze
 
         end
       end
-  
+
       def edit_form_for(form, klass = nil, locals = {})
         klass ||= form.object.class
 
@@ -28,14 +28,14 @@ module Breeze
             next
           end
         end
-        
+
         if ( form.object.is_a?(Breeze::Content::Custom::Instance) && form.object.custom_type.custom_fields.any? )
           form.object.edit_form(form)
         else
           content_tag :p, "There is no configuration for this content type."
         end
       end
-      
+
       def at_a_glance(count, label, link = nil, options = {})
         content_tag :tr do |html|
           html = content_tag :td, class: 'item-count' do
@@ -50,6 +50,10 @@ module Breeze
 
       end
 
+      def badge text
+        content_tag :span, text, class: "badge item-count"
+      end
+
       def admin_menu
         menu = []
         menu << { :name => "Dashboard",     :path => admin_root_path, :regexp => /^\/admin\/?$/ }
@@ -60,16 +64,16 @@ module Breeze
         menu << { :name => "Themes",        :path => admin_themes_path } if can? :manage, Breeze::Theming::Theme
         menu << { :name => "Custom types",  :path => admin_custom_types_path } if can? :manage, Breeze::Content::Custom::Type
         menu << { :name => "Settings",      :path => admin_settings_path } if current_user.admin?
-        
+
         menu = Breeze.run_hook :admin_menu, menu, current_user
-                        
+
         ordering = current_user.menu_order || []
         menu = menu.sort_by { |item| ordering.index(item[:name]) || 999999 }
-        
+
         items = menu.collect do |item|
           content_tag :li, link_to(item[:name], item[:path]), :class => "#{:active if (item[:regexp] || /^#{item[:path]}/) === request.path.reverse.chomp('/').reverse}"
         end.join.html_safe
-        
+
         content_tag :ul, items, :class => "menu"
       end
 
@@ -79,7 +83,7 @@ module Breeze
         component_info = Breeze.run_hook :component_info, component_info
         component_info.sort { |a, b| a[:name] <=> b[:name] }
       end
-    
+
       # This produces two methods: breeze_form_for and breeze_field_for
       [:form_for, :fields_for].each do |meth|
         src = <<-END_SRC
@@ -87,12 +91,12 @@ module Breeze
             options = args.extract_options!
             options[:builder] ||= Breeze::Admin::FormBuilder
             options[:html] ||= {}
-        
+
             class_names = options[:html][:class] ? options[:html][:class].split(" ") : []
             class_names << "breeze-form"
             if options[:as]
               class_names << options[:as]
-            else 
+            else
               class_names << case record_or_name_or_array
                 when String, Symbol then record_or_name_or_array.to_s               # :post => "post"
                 when Array then record_or_name_or_array.last.class.to_s.underscore  # [@post, @comment] # => "comment"
@@ -100,7 +104,7 @@ module Breeze
               end
             end
             options[:html][:class] = class_names.join(" ")
-        
+
             #{meth}(record_or_name_or_array, *(args << options), &proc)
           end
         END_SRC

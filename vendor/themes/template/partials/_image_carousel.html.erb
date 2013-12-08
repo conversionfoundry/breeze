@@ -7,7 +7,7 @@
       <% unless image.blank? %>
         <div class="item <%= "active" if n==1 %>">
           <%= image_tag image, data: {title: '', description: '' } unless image.blank? %>
-          <% if image_caption %>
+          <% unless image_caption.blank? %>
             <div class="carousel-caption">
               <%= image_caption %>
             </div>
