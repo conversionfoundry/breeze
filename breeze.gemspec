@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Breeze is a Content Management System."
   s.description = "Breeze is a Content Management System."
 
-  s.files         = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.rdoc"] 
+  s.files         = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.rdoc"]
   s.require_paths = ['lib']
   s.requirements << 'none'
   s.required_ruby_version = '>= 1.9.0'
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-rails"
   s.add_development_dependency "awesome_print"
   s.add_development_dependency "fabrication"
-  
+
   s.add_dependency "rails", "~> 3.2.0"
   s.add_dependency "mongoid", "~> 3.0.5"
   s.add_dependency "carrierwave", "~> 0.6.2"
@@ -44,4 +44,5 @@ Gem::Specification.new do |s|
   s.add_dependency "font-awesome-rails", "~> 3.0.2"
   s.add_dependency "masonry-rails", "~> 0.1.8"
   s.add_dependency "codemirror-rails", "~> 3.0.0"
+  s.add_dependency "builder", "~> 3.0.0"
 end
