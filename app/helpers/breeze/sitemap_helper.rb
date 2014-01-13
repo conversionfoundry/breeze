@@ -12,7 +12,7 @@ module Breeze
     def prefix(level)
       s = '<br/>| '
       level.times { s += '- ' }
-      s    
+      s
     end
 
   end

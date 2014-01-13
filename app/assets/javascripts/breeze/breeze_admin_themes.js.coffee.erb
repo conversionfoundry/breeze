@@ -1,3 +1,33 @@
+themesContextMenu = (node) ->
+  items =
+    ccp: false
+    createItem:
+      label: "Create file…"
+      action: (node) ->
+        $("#left #theme_files").jstree("create",node)
+    renameItem:
+      label: "Rename…"
+      action: (node) ->
+        $("#left #theme_files").jstree("rename",node)
+    removeItem:
+      label: "Remove"
+      action: (node) ->
+        message = $(this).attr("data-confirm") or "Are you sure you want to delete this?"
+        $("<p>" + message + "</p>").dialog
+          modal: true
+          resizable: false
+          buttons:
+            Delete: ->
+              $(this).dialog "close"
+              $.each node, ->
+                $("#left #theme_files").jstree("remove", node)
+            Cancel: ->
+              $(this).dialog "close"
+          title: "Confirm delete"
+  if $(node).hasClass("file")
+    delete items.createItem
+  items
+
 open_theme_folder = (theme_link, options) ->
   options = options or {}
   $this = $(theme_link)
@@ -20,29 +50,7 @@ open_theme_folder = (theme_link, options) ->
         select_limit: 1
         dots: false
       contextmenu:
-        items:
-          ccp: false
-          create: false
-          create:
-            action: (node) ->
-              $("#left #theme_files").jstree("create",node)
-          rename:
-            action: (node) ->
-              $("#left #theme_files").jstree("rename",node)
-          remove:
-            action: (node) ->
-              message = $(this).attr("data-confirm") or "Are you sure you want to delete this?"
-              $("<p>" + message + "</p>").dialog
-                modal: true
-                resizable: false
-                buttons:
-                  Delete: ->
-                    $(this).dialog "close"
-                    $.each node, ->
-                      $("#left #theme_files").jstree("remove", node)
-                  Cancel: ->
-                    $(this).dialog "close"
-                title: "Confirm delete"
+        items: themesContextMenu
       types:
         default:
           deletable: true
@@ -64,10 +72,16 @@ open_theme_folder = (theme_link, options) ->
     .bind 'rename.jstree', (node, ref) ->
       url = $(">a", ref.rslt.obj[0]).attr("href")
       name = ref.rslt.new_name
-      rename_file url, name
+      rename_file url, name, node
     .bind 'remove.jstree', (node, ref) ->
       url = $(">a", ref.rslt.obj[0]).attr("href")
       remove_file url
+    # .bind 'create_folder.jstree', (node, ref) ->
+    #   alert("baz")
+    #   parent = ref.rslt.parent[0]
+    #   node = ref.rslt.obj[0]
+    #   name = ref.rslt.name
+    #   create_folder parent, node, name
     .bind 'create.jstree', (node, ref) ->
       parent = ref.rslt.parent[0]
       node = ref.rslt.obj[0]
@@ -105,7 +119,7 @@ remove_file = (url) ->
     type: "post"
     data: "_method=delete"
 
-rename_file = (url, name) ->
+rename_file = (url, name, node) ->
   unless url is ""
     $.ajax
       url: url
@@ -114,26 +128,27 @@ rename_file = (url, name) ->
 
 create_file = (parent, node, name) ->
   parent_href = $(">a", parent).attr("href")
-  if /\.\w+$/.test(name)
-    # create a file
-    parent_href = parent_href.replace(/^\/admin\/themes\/([^\/]+)\/folders/, "/admin/themes/$1/files")
-    path = parent_href + "/" + file_name
-    $.ajax
-      url: path
-      type: "post"
-      data: "_method=put"
-      success: ->
-        $(">a", node).attr("href", path).click().parent().addClass name.replace(/^.*\.([^\.]+)$/, "$1")
-  else
-    # create a folder
-    $(node).addClass "folder"
-    folder_name = name
-    $.ajax
-      url: parent_href
-      type: "post"
-      data: "folder[name]=" + folder_name
-      success: ->
-        $(">a", node).attr("href", parent_href + "/" + folder_name).click()
+  parent_href = parent_href.replace(/^\/admin\/themes\/([^\/]+)\/folders/, "/admin/themes/$1/files")
+  path = parent_href + "/" + name
+  $.ajax
+    url: path
+    type: "post"
+    data: "_method=put"
+    success: ->
+      $(">a", node).attr("href", path).click().parent().addClass name.replace(/^.*\.([^\.]+)$/, "$1")
+
+
+# create_folder = (parent, node, name) ->
+#   alert("bar")
+#   parent_href = $(">a", parent).attr("href")
+#   $(node).addClass "folder"
+#   folder_name = name
+#   $.ajax
+#     url: parent_href
+#     type: "post"
+#     data: "folder[name]=" + folder_name
+#     success: ->
+#       $(">a", node).attr("href", parent_href + "/" + folder_name).click()
 
 # get_open_theme_folders = ->
 #   $.map $("#left .jstree-open>a"), (a, i) ->
